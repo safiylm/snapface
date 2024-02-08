@@ -1,6 +1,10 @@
 # Compiled class file
 *.class
 
+.angular
+
+node_modules 
+
 # Log file
 *.log
 

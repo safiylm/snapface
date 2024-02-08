@@ -8,6 +8,10 @@ import * as fr from '@angular/common/locales/fr';
 import { registerLocaleData } from '@angular/common';
 import { FaceSnapListComponent } from './face-snap-list/face-snap-list.component';
 import { HeaderComponent } from './header/header.component';
+import { HeaderSnapComponent } from './header-snap/header-snap.component';
+import { TextSnapComponent } from './text-snap/text-snap.component';
+import { TextSnapListComponent } from './text-snap-list/text-snap-list.component';
+import { HomeComponent } from './home/home.component';
 
 
 
@@ -17,7 +21,11 @@ import { HeaderComponent } from './header/header.component';
     AppComponent,
     FaceSnapComponent,
     FaceSnapListComponent,
-    HeaderComponent
+    HeaderComponent,
+    HeaderSnapComponent,
+    TextSnapComponent,
+    TextSnapListComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
