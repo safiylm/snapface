@@ -1,0 +1,18 @@
+#photo-background {
+    width: 100% !important;
+    height: 400px;
+    object-fit: cover;
+}
+
+#div-photo-profil {
+    text-align: center;
+
+    #photo-profil {
+        margin: -125px;
+        margin-bottom: 50px;
+        width: 250px;
+        height: 250px;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+}
