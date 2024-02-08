@@ -1,1 +1,8 @@
-<p>text-snap works!</p>
+<div class="face-snap-card">
+    <h2>{{ textSnap.title | uppercase}}</h2>
+    <p>Mis en ligne le {{ textSnap.createdDate | date: 'à HH:mm, le d MMMM yyyy' }}</p>
+    <p>{{ textSnap.description | titlecase }}</p>
+    <button (click)="onSnap()">{{ buttonText }}</button>
+    <p>🤌 {{ textSnap.snaps }}</p>
+
+  </div>
