@@ -10,6 +10,8 @@ import { Component, Input } from '@angular/core';
 export class HeaderSnapComponent {
   //Passing Data into this Component
   @Input() id !: number;
+  @Input() photo_profil !: string;
+  @Input() photo_background !: string;
 }
 
 
