@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { user_array } from '../json-database/users-array';
 
 @Component({
   selector: 'app-header-snap',
@@ -7,11 +8,24 @@ import { Component, Input } from '@angular/core';
 })
 
 
-export class HeaderSnapComponent {
+export class HeaderSnapComponent implements OnInit {
+ 
   //Passing Data into this Component
   @Input() id !: number;
-  @Input() photo_profil !: string;
-  @Input() photo_background !: string;
+  photo_profil !: string;
+  photo_background !: string;
+  name !: string ;
+
+  ngOnInit(): void {
+    user_array.forEach((item) => {
+      if( item.id == this.id){
+        this.photo_profil= item['photos-profil'];
+        this.photo_background= item['photos-background'];
+        this.name= item['name']
+      }
+    })
+  }
+  
 }
 
 

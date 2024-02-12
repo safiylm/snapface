@@ -12,6 +12,6 @@ export class UsersListComponent implements OnInit {
   data = user_array ;
 
   ngOnInit() {
-    console.log('Data', this.data);
+   
   }
 }
