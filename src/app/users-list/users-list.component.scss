@@ -18,15 +18,27 @@
         align-items: center;
         justify-content: center;
         padding: 10px;
-        margin:0 10px ;
+        margin: 0 10px;
         border: 0.2px solid whitesmoke;
         box-shadow: lightgray 3px 3px 7px;
 
-        img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
+        a {
+            color: #252525;
+            text-decoration: none;
+            font-size: 18px;
+
+            img {
+                width: 150px;
+                height: 150px;
+                border-radius: 50%;
+                object-fit: cover;
+                margin: 5px 0;
+            }
+
+            p {
+                text-align: center;
+            }
+
         }
 
     }
