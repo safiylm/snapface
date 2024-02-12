@@ -8,8 +8,8 @@ import { AuthInscriptionUserComponent } from './auth-inscription-user/auth-inscr
 
 
 const routes: Routes = [
-  { path: 'snaps/face', component: FaceSnapListComponent },
-  { path: 'snaps/text', component: TextSnapListComponent  },
+  { path: 'snaps/face/:id', component: FaceSnapListComponent },
+  { path: 'snaps/text/:id', component: TextSnapListComponent  },
   { path: '', component:  HomeComponent },
   { path: 'connexion', component:  AuthConnexionUserComponent },
   { path: 'inscription', component:  AuthInscriptionUserComponent }

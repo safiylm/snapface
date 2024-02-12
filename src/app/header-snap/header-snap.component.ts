@@ -1,10 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-header-snap',
   templateUrl: './header-snap.component.html',
   styleUrls: ['./header-snap.component.scss']
 })
-export class HeaderSnapComponent {
 
+
+export class HeaderSnapComponent {
+  //Passing Data into this Component
+  @Input() id !: number;
 }
+
+

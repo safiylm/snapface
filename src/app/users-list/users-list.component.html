@@ -2,7 +2,7 @@
 <div class="div-list-users">
 
     <div class="div-user" *ngFor="let item of data;">
-        <a href="snaps/face?id={{item['id']}}">
+        <a [routerLink]="['/snaps/face', item['id'] ]" >
             <img src='{{item["photos-profil"]}}' />
           <p>{{ item['name'] }} </p>  
         </a>
