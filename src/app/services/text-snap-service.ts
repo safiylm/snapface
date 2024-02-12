@@ -6,9 +6,12 @@ import { TextSnap } from '../models/text-snap.model'
 })
 export class TextSnapsService {
   TextSnaps: TextSnap[] = [
-        new TextSnap( 1 ,'cafe', 'J\'adore le café', new Date, 5),
+        new TextSnap( 1 ,'cafe', 'J\'adore le café', new Date, 5, 1),
        new TextSnap( 2 ,"Nature", "J'adore la nature ",
-          new Date, 16445)
+          new Date, 16445, 2),
+          new TextSnap( 3 ,"Architecture", "Une architecture incroyable ",
+         
+          new Date, 16445, 3),
     
   ];
 
@@ -25,6 +28,16 @@ getTextSnapById(TextSnapId: number): TextSnap {
   }
 } 
 
+
+getTextSnapByAuteur( userId: number ): TextSnap[] {
+
+  let TextSnap = this.TextSnaps.filter(TextSnap => TextSnap.userId == userId);
+
+  if (!TextSnap) {
+      throw new Error('FaceSnap not found!');
+  } 
+  return TextSnap;
+}
 
 snapTextSnapById(TextSnapId: number, snapType: 'snap' | 'unsnap'): void {
   const TextSnap = this.getTextSnapById(TextSnapId);
