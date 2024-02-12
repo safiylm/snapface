@@ -6,6 +6,7 @@
 
 #div-photo-profil {
     text-align: center;
+
     #photo-profil {
         margin: -125px;
         margin-bottom: 10px;
@@ -16,24 +17,25 @@
     }
 }
 
-.name{
+.name {
     text-align: center;
 }
-.div-btn-snaps-faceORtext{
+
+.div-btn-snaps-faceORtext {
     margin: 0px auto;
     margin-bottom: 45px;
     display: block;
     text-align: center;
-    a{
+
+    a {
         margin: 0 15px;
         font-size: 20px;
         color: #252525;
         font-weight: 400;
         padding: 15px;
         text-decoration: none;
-   
-  display: inline-block;
-  box-shadow: lightgray 3px 3px 7px;
+        display: inline-block;
+        box-shadow: lightgray 3px 3px 7px;
 
     }
 }
