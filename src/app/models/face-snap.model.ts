@@ -7,6 +7,9 @@ export class FaceSnap {
         public description: string,
         public imageUrl: string,
         public createdDate: Date,
-        public snaps: number) {
+        public snaps: number,
+        public userId: number
+        
+        ) {
     }
 }
