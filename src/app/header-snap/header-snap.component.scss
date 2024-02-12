@@ -1,12 +1,11 @@
 #photo-background {
     width: 100% !important;
-    height: 400px;
+    height: 200px;
     object-fit: cover;
 }
 
 #div-photo-profil {
     text-align: center;
-
     #photo-profil {
         margin: -125px;
         margin-bottom: 50px;
@@ -14,5 +13,19 @@
         height: 250px;
         object-fit: cover;
         border-radius: 50%;
+    }
+}
+
+.div-btn-snaps-faceORtext{
+    margin: 0px auto;
+    margin-bottom: 25px;
+    display: block;
+    text-align: center;
+    a{
+        margin: 0 15px;
+        font-size: 20px;
+        color: #252525;
+        font-weight: 400;
+        padding: 5px;
     }
 }
