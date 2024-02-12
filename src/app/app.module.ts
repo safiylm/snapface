@@ -1,6 +1,6 @@
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FaceSnapComponent } from './face-snap/face-snap.component';
@@ -12,6 +12,7 @@ import { HeaderSnapComponent } from './header-snap/header-snap.component';
 import { TextSnapComponent } from './text-snap/text-snap.component';
 import { TextSnapListComponent } from './text-snap-list/text-snap-list.component';
 import { HomeComponent } from './home/home.component';
+import { UsersListComponent } from './users-list/users-list.component';
 
 
 
@@ -25,11 +26,13 @@ import { HomeComponent } from './home/home.component';
     HeaderSnapComponent,
     TextSnapComponent,
     TextSnapListComponent,
-    HomeComponent
+    HomeComponent,
+    UsersListComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'fr-FR'}

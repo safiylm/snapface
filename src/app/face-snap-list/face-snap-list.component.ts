@@ -10,6 +10,7 @@ import { FaceSnapsService } from '../services/face-snap-service'
 
 //...
 export class FaceSnapListComponent implements OnInit {
+  
 constructor(private faceSnapsService: FaceSnapsService) { }
 
   faceSnaps!: FaceSnap[];
