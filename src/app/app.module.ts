@@ -13,6 +13,8 @@ import { TextSnapComponent } from './text-snap/text-snap.component';
 import { TextSnapListComponent } from './text-snap-list/text-snap-list.component';
 import { HomeComponent } from './home/home.component';
 import { UsersListComponent } from './users-list/users-list.component';
+import { AuthConnexionUserComponent } from './auth-connexion-user/auth-connexion-user.component';
+import { AuthInscriptionUserComponent } from './auth-inscription-user/auth-inscription-user.component';
 
 
 
@@ -27,7 +29,9 @@ import { UsersListComponent } from './users-list/users-list.component';
     TextSnapComponent,
     TextSnapListComponent,
     HomeComponent,
-    UsersListComponent
+    UsersListComponent,
+    AuthConnexionUserComponent,
+    AuthInscriptionUserComponent
   ],
   imports: [
     BrowserModule,

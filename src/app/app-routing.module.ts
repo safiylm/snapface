@@ -3,12 +3,16 @@ import { RouterModule, Routes } from '@angular/router';
 import { FaceSnapListComponent } from './face-snap-list/face-snap-list.component'
 import { TextSnapListComponent } from './text-snap-list/text-snap-list.component'
 import { HomeComponent } from './home/home.component'
+import {  AuthConnexionUserComponent } from './auth-connexion-user/auth-connexion-user.component'
+import { AuthInscriptionUserComponent } from './auth-inscription-user/auth-inscription-user.component'
 
 
 const routes: Routes = [
   { path: 'snaps/face', component: FaceSnapListComponent },
   { path: 'snaps/text', component: TextSnapListComponent  },
-  { path: '', component:  HomeComponent }
+  { path: '', component:  HomeComponent },
+  { path: 'connexion', component:  AuthConnexionUserComponent },
+  { path: 'inscription', component:  AuthInscriptionUserComponent }
 ];
 
 @NgModule({
