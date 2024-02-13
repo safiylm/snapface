@@ -6,15 +6,17 @@ import { AppComponent } from './app.component';
 import { FaceSnapComponent } from './face-snap/face-snap.component';
 import * as fr from '@angular/common/locales/fr';
 import { registerLocaleData } from '@angular/common';
-import { FaceSnapListComponent } from './face-snap-list/face-snap-list.component';
+import { FaceSnapAllListComponent } from './face-snap-all-list/face-snap-all-list.component';
 import { HeaderComponent } from './header/header.component';
 import { HeaderSnapComponent } from './header-snap/header-snap.component';
 import { TextSnapComponent } from './text-snap/text-snap.component';
-import { TextSnapListComponent } from './text-snap-list/text-snap-list.component';
 import { HomeComponent } from './home/home.component';
 import { UsersListComponent } from './users-list/users-list.component';
 import { AuthConnexionUserComponent } from './auth-connexion-user/auth-connexion-user.component';
 import { AuthInscriptionUserComponent } from './auth-inscription-user/auth-inscription-user.component';
+import { FaceSnapListOneUserComponent } from './face-snap-list-one-user/face-snap-list-one-user.component';
+import { TextSnapAllListComponent } from './text-snap-all-list/text-snap-all-list.component';
+import { TextSnapListOneUserComponent } from './text-snap-list-one-user/text-snap-list-one-user.component';
 
 
 
@@ -23,15 +25,18 @@ import { AuthInscriptionUserComponent } from './auth-inscription-user/auth-inscr
   declarations: [
     AppComponent,
     FaceSnapComponent,
-    FaceSnapListComponent,
+    FaceSnapAllListComponent,
     HeaderComponent,
     HeaderSnapComponent,
     TextSnapComponent,
-    TextSnapListComponent,
     HomeComponent,
     UsersListComponent,
     AuthConnexionUserComponent,
-    AuthInscriptionUserComponent
+    AuthInscriptionUserComponent,
+    FaceSnapListOneUserComponent,
+    TextSnapAllListComponent,
+    FaceSnapAllListComponent,
+    TextSnapListOneUserComponent
   ],
   imports: [
     BrowserModule,
