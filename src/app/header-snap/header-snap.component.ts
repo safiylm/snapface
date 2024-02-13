@@ -19,8 +19,8 @@ export class HeaderSnapComponent implements OnInit {
   ngOnInit(): void {
     user_array.forEach((item) => {
       if( item.id == this.id){
-        this.photo_profil= item['photos-profil'];
-        this.photo_background= item['photos-background'];
+        this.photo_profil= item['photos_profil'];
+        this.photo_background= item['photos_background'];
         this.name= item['name']
       }
     })

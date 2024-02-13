@@ -3,7 +3,7 @@
 
     <div class="div-user" *ngFor="let item of data;">
         <a [routerLink]="['/snaps/face', item['id'] ]" >
-            <img src='{{item["photos-profil"]}}' />
+            <img src='{{item["photos_profil"]}}' />
           <p>{{ item['name'] }} </p>  
         </a>
         
