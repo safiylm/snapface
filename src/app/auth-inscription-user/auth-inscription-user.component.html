@@ -1,30 +1,35 @@
-<form>
+<form [formGroup]="inscriptionUserForm" (ngSubmit)="onSubmit()">
     <h1>
         S'inscrire
     </h1>
     
     <div class="div-input">
         <label>Saisissez votre nom:</label>
-        <input type="text" name="nom" placeholder="nom" />
+        <input type="text" name="nom" placeholder="nom" formControlName="name" />
     </div>
 
     <div class="div-input">
         <label>Saisissez votre email:</label>
-        <input type="email" name="email" placeholder="email" />
+        <input type="email" name="email" placeholder="email" formControlName="email" />
     </div>
 
     <div class="div-input">
         <label>Saisissez votre mot de passe: </label>
-        <input type="password" name="password" placeholder="password"  autocomplete="new-password" >
+        <input type="password" name="password" placeholder="password" formControlName="password"  autocomplete="new-password" >
     </div>
     <div class="div-input">
         <label> Confirmez votre mot de passe: </label>
-        <input type="password" name="password2" placeholder="password" autocomplete="new-password" >
+        <input type="password" name="password2" placeholder="password" formControlName="password2"  autocomplete="new-password" >
     </div>
    
     <div class="div-input">
-        <label>Saisissez le lien de votre photo:</label>
-        <input type="text" name="photo" placeholder="photo" />
+        <label>Saisissez le lien de votre photo de profil:</label>
+        <input type="text" name="photo" placeholder="photo" formControlName="photos_profil"/>
+    </div>
+
+    <div class="div-input">
+        <label>Saisissez le lien de votre photo de background:</label>
+        <input type="text" name="photo" placeholder="photo" formControlName="photos_background"/>
     </div>
 
 

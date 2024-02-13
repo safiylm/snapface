@@ -18,9 +18,8 @@ import { FaceSnapListOneUserComponent } from './face-snap-list-one-user/face-sna
 import { TextSnapAllListComponent } from './text-snap-all-list/text-snap-all-list.component';
 import { TextSnapListOneUserComponent } from './text-snap-list-one-user/text-snap-list-one-user.component';
 
-
-
-
+import { FormsModule } from "@angular/forms";
+import { ReactiveFormsModule } from "@angular/forms";
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +40,8 @@ import { TextSnapListOneUserComponent } from './text-snap-list-one-user/text-sna
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,ReactiveFormsModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'fr-FR'}

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {user_array} from '../json-database/users-array';
+import { UsersService } from '../services/users-service'
+import { User } from '../models/user.model'
 
 
 @Component({
@@ -7,11 +8,13 @@ import {user_array} from '../json-database/users-array';
   templateUrl: './users-list.component.html',
   styleUrls: ['./users-list.component.scss']
 })
+ 
 export class UsersListComponent implements OnInit {
   title = 'json-read-example';
-  data = user_array ;
+  constructor(private UsersService: UsersService) { }
 
+  data!: User[];
   ngOnInit() {
-   
+    this.data = this.UsersService.getAllUsers();
   }
 }
