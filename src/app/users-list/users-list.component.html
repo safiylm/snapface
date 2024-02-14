@@ -2,12 +2,10 @@
 <div class="div-list-users">
 
     <div class="div-user" *ngFor="let item of data;">
-        <a [routerLink]="['/snaps/face', item['id'] ]" >
+        <a [routerLink]="['/snaps/face', item['_id'] ]" >
             <img src='{{item["photos_profil"]}}' />
           <p>{{ item['firstName'] }} </p>  
         </a>
-        
-
     </div>
 
 </div>

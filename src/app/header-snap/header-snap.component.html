@@ -1,9 +1,9 @@
-<img id="photo-background" src={{photo_background}}  />
+<img id="photo-background" src={{user.photos_background}}  />
 <div id="div-photo-profil">
-    <img id="photo-profil" src={{photo_profil}} />
+    <img id="photo-profil" src={{user.photos_profil}} />
 </div>
 
-<h3 class="name"> {{ name }}</h3>
+<h3 class="name"> {{ user.firstName }} {{ user.lastName }}</h3>
 <div class="div-btn-snaps-faceORtext">
 
         <a [routerLink]="['/snaps/face', id ]" >Photos</a>

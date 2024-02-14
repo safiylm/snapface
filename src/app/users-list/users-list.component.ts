@@ -17,7 +17,7 @@ export class UsersListComponent implements OnInit {
 
 
   retrieveUsers(): void {
-    this.UserService.getAllUser()
+    this.UserService.getAllUsers()
       .subscribe({
         next: (data) => {
           this.data = data;

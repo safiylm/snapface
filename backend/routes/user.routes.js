@@ -7,6 +7,6 @@ router.post("/api/user", user.create);
 
 router.get("/api/user", user.findAll);
 
-router.get("/api//user/:id", user.findOne);
-
+router.get("/api/userid", user.findOneById);
+// /:id
 module.exports = router;

@@ -1,6 +1,6 @@
 const User = require("../models/user");
 const collection_user = require('../config/db.config.js')
-
+const ObjectId = require('mongodb').ObjectId;
 exports.create = (req, res) => {
   // Validate request
   if (!req.body.firstName) {
@@ -13,7 +13,7 @@ exports.create = (req, res) => {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     photos_profil: req.body.photos_profil,
-    photos_background : req.body.photos_background,
+    photos_background: req.body.photos_background,
     email: req.body.email,
     phoneNo: req.body.phoneNo,
   });
@@ -36,25 +36,14 @@ exports.create = (req, res) => {
 exports.findAll = async (req, res) => {
 
   const findResult = await collection_user.find({}).toArray();
-  // const findResult = [{"name": "safinaz "}]
   res.send(findResult);
 
 }
 
-exports.findOne = async (req, res) => {
-  const id = req.q.id;
-
-  await collection_user.findOne({ '_id': id })
-    .then(data => {
-      if (!data)
-        res.status(404).send({ message: "Not found Tutorial with id " + id });
-      else res.send(data);
-    })
-    .catch(err => {
-      res
-        .status(500)
-        .send({ message: "Error retrieving Tutorial with id=" + id });
-    });
+exports.findOneById = async (req, res) => {
+  const id = req.query.id;
+  console.log(id)
+  res.send(await collection_user.findOne({"_id" : new ObjectId(id)}))  
 };
 
 

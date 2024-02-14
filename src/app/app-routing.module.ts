@@ -12,7 +12,8 @@ const routes: Routes = [
   { path: 'snaps/text/:id', component: TextSnapListOneUserComponent  },
   { path: '', component:  HomeComponent },
   { path: 'connexion', component:  AuthConnexionUserComponent },
-  { path: 'inscription', component:  AuthInscriptionUserComponent }
+  { path: 'inscription', component:  AuthInscriptionUserComponent },
+
 ];
 
 @NgModule({

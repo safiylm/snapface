@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { user_array } from '../json-database/users-array';
+import { UserService } from '../services/user-service'
+import { User } from '../models/user.model'
 
 @Component({
   selector: 'app-header-snap',
@@ -11,19 +13,26 @@ import { user_array } from '../json-database/users-array';
 export class HeaderSnapComponent implements OnInit {
  
   //Passing Data into this Component
-  @Input() id !: number;
-  photo_profil !: string;
-  photo_background !: string;
-  name !: string ;
+  @Input() id !: string ;
+ 
+  user !: User;
+
+  constructor(private UserService: UserService) { }
+
+
+  retrieveUser(): void {
+    this.UserService.getUser( this.id) 
+      .subscribe({
+        next: (data) => {
+          this.user = data;
+          console.log(data);
+        },
+        error: (e) => console.error(e)
+      });
+  }
 
   ngOnInit(): void {
-    user_array.forEach((item) => {
-      if( item.id == this.id){
-        this.photo_profil= item['photos_profil'];
-        this.photo_background= item['photos_background']
-        this.name= item['firstName']
-      }
-    })
+    this.retrieveUser()
   }
   
 }
