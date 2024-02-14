@@ -20,8 +20,8 @@ export class HeaderSnapComponent implements OnInit {
     user_array.forEach((item) => {
       if( item.id == this.id){
         this.photo_profil= item['photos_profil'];
-        this.photo_background= item['photos_background'];
-        this.name= item['name']
+        this.photo_background= item['photos_background']
+        this.name= item['firstName']
       }
     })
   }

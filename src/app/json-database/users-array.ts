@@ -8,7 +8,7 @@ export let user_array = [
         "https://images.pexels.com/photos/4767578/pexels-photo-4767578.jpeg",
         "Luca",
         "luca@gmail.com",
-        "male"
+        "male",""
     ),
 
     new User(2,
@@ -16,14 +16,14 @@ export let user_array = [
         "https://images.pexels.com/photos/4767578/pexels-photo-4767578.jpeg",
         "Lilly",
         "lilly@gmail.com",
-        "female"
+        "female", ""
     ), 
      new User(3,
         "https://images.pexels.com/photos/20225732/pexels-photo-20225732.jpeg",
         "https://images.pexels.com/photos/4767578/pexels-photo-4767578.jpeg",
         "Anna",
         "anna@gmail.com",
-        "female"
+        "female", ""
     ),
 
 ]
