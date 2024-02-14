@@ -1,21 +1,22 @@
-const express = require('express');
-const app = express();
-const port = 4200;
-const path = require('path');
+var express = require('express');
+var path = require("path");
+var bodyParser = require('body-parser');
+var app = express();
+app.use(bodyParser());
+app.use(bodyParser.json({ limit: '5mb' }));
+app.use(bodyParser.urlencoded({ extended: true }));
 
- const mongoose = require('mongoose');
+const router = require("./routes/user.routes")
+app.use(router )
 
-
- mongoose.connect('mongodb://localhost/facesnap', { useNewUrlParser: true, useUnifiedTopology: true })
-   .then(() => console.log('Connected to MongoDB'))
-   .catch(err => console.error('Could not connect to MongoDB', err));
 
 app.use(express.static(path.join(__dirname, '../dist/snapface')));
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../dist/snapface/index.html'));
+    res.sendFile(path.join(__dirname, '../dist/snapface/index.html'));
 });
 
-app.listen(port, () => {
-  console.log(`Server listening at http://localhost:${port}`);
-});
+
+app.listen(4200, function () {
+  console.log('Example app listening on port 4200!')
+})
