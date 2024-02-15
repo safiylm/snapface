@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-const User = require("../models/user");
+const User = require("./user");
 
 
 const Publication = new mongoose.Schema({
