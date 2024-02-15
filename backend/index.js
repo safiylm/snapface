@@ -6,8 +6,10 @@ app.use(bodyParser());
 app.use(bodyParser.json({ limit: '5mb' }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const router = require("./routes/user.routes")
-app.use(router )
+const router_user = require("./routes/user.routes")
+const router_publication = require("./routes/publication.routes")
+app.use(router_user )
+app.use(router_publication )
 
 
 app.use(express.static(path.join(__dirname, '../dist/snapface')));

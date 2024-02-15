@@ -1,5 +1,6 @@
 const User = require("../models/user");
-const collection_user = require('../config/db.config.js')
+const db = require('../config/db.config.js')
+const collection_user = db.collection('users');
 const ObjectId = require('mongodb').ObjectId;
 exports.create = (req, res) => {
   // Validate request
