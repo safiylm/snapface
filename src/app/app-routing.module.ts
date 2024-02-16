@@ -6,7 +6,7 @@ import { AuthInscriptionUserComponent } from './auth-inscription-user/auth-inscr
 import { UserAccountComponent } from './user-account/user-account.component'
 
 const routes: Routes = [
-  { path: 'user', component: UserAccountComponent  },
+  { path: 'user/:id', component: UserAccountComponent  },
   { path: '', component:  HomeComponent },
   { path: 'connexion', component:  AuthConnexionUserComponent },
   { path: 'inscription', component:  AuthInscriptionUserComponent },

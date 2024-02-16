@@ -21,6 +21,10 @@ export class PublicationsService {
     return this.http.get<Publication[]>("http://localhost:4200/api/publication");
   }
 
+  getAllPublicationsByUserId( id :string): Observable<Publication[]> {
+    return this.http.get<Publication[]>("http://localhost:4200/api/publicationByUserId?id="+id);
+  }
+
 
   pushNewPublication(fs: Publication): void {
     this.publications.push(fs);

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , Input} from '@angular/core';
 import { Publication } from '../models/publication.model';
 import { PublicationsService } from '../services/publication-service'
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-publication-list',
@@ -9,13 +10,14 @@ import { PublicationsService } from '../services/publication-service'
 })
 export class PublicationListComponent implements OnInit {
 
-  constructor( private publicationsService: PublicationsService) { }
+  constructor( private publicationsService: PublicationsService, private route: ActivatedRoute) { }
+  @Input() id !: string ;
  
   publications!: Publication[];
 
   
   retrievePublications(): void {
-    this.publicationsService.getAllPublications()
+    this.publicationsService.getAllPublicationsByUserId( this.id)
       .subscribe({
         next: (data) => {
           this.publications = data;
