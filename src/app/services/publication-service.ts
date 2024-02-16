@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Publication } from '../models/publication.model'
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 
 @Injectable({
@@ -7,35 +9,18 @@ import { Publication } from '../models/publication.model'
 })
 export class PublicationsService {
   publications: Publication[] = [
-    new Publication(1,
-      'cafe',
-      'J\'adore le café',
-      'J\'adore le café',
-      ['https://live.staticflickr.com/47/150654741_ae02588670_b.jpg',],
 
-      new Date, 5, 5,
-      "",
-      ["", ""],
-      ["", ""]
-    ),
-
-    new Publication(2,
-      "Nature",
-      "J'adore la nature ",
-      "J'adore la nature ",
-      ["https://img.freepik.com/photos-gratuite/champ-lavande-au-coucher-du-soleil-pres-valensole_268835-3910.jpg?size=626&ext=jpg&ga=GA1.2.337367146.1690124945&semt=sph",],
-      new Date, 5,
-      16445, "", ["", ""],
-      ["", ""]
-    ),
 
 
   ];
 
+  constructor(private http: HttpClient) { }
 
-  getAllPublications(): Publication[] {
-    return this.publications;
+
+  getAllPublications(): Observable<Publication[]> {
+    return this.http.get<Publication[]>("http://localhost:4200/api/publication");
   }
+
 
   pushNewPublication(fs: Publication): void {
     this.publications.push(fs);

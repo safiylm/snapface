@@ -2,7 +2,7 @@
     <h2>{{ publication.title | uppercase}}</h2>
     <p>Mis en ligne le {{ publication.date | date: 'à HH:mm, le d MMMM yyyy' }}</p>
     <img [src]="publication.images" [alt]="publication.title">
-    <p>{{ publication.description | titlecase }}</p>
+    <p>{{ publication.body | titlecase }}</p>
     <button (click)="onSnap()">{{ buttonText }}</button>
     <p>🤌 {{ publication.snaps }}</p>
 

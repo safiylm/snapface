@@ -4,7 +4,7 @@ import { TextSnap } from '../models/text-snap.model'
 @Injectable({
   providedIn: 'root'
 })
-export class TextSnapsService {
+export class TextSnaps9Service {
   TextSnaps: TextSnap[] = [
         new TextSnap( 1 ,'cafe', 'J\'adore le café', new Date, 5, 1),
        new TextSnap( 2 ,"Nature", "J'adore la nature ",

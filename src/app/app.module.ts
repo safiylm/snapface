@@ -17,6 +17,7 @@ import { FormsModule } from "@angular/forms";
 import { ReactiveFormsModule } from "@angular/forms";
 import { PublicationComponent } from './publication/publication.component';
 import { PublicationListComponent } from './publication-list/publication-list.component';
+import { UserAccountComponent } from './user-account/user-account.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +30,8 @@ import { PublicationListComponent } from './publication-list/publication-list.co
     AuthInscriptionUserComponent,
     PublicationComponent,
     PublicationAllListComponent,
-    PublicationListComponent
+    PublicationListComponent,
+    UserAccountComponent
   ],
   imports: [
     BrowserModule,

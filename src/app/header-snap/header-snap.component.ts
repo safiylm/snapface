@@ -1,5 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { user_array } from '../json-database/users-array';
 import { UserService } from '../services/user-service'
 import { User } from '../models/user.model'
 
@@ -31,8 +30,8 @@ export class HeaderSnapComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void {
-    this.retrieveUser()
+  ngOnInit() {
+   this.retrieveUser()
   }
   
 }

@@ -13,10 +13,21 @@ export class PublicationAllListComponent  implements OnInit {
  
   publications!: Publication[];
 
-  ngOnInit(): void {
-
-    this.publications = this.publicationsService.publications ;
-
+  
+  retrievePublications(): void {
+    this.publicationsService.getAllPublications()
+      .subscribe({
+        next: (data) => {
+          this.publications = data;
+          console.log(data);
+        },
+        error: (e) => console.error(e)
+      });
   }
 
+
+  ngOnInit() {
+   this.retrievePublications()
+
+  }
 }
