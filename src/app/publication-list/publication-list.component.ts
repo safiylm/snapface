@@ -1,6 +1,6 @@
 import { Component, OnInit , Input} from '@angular/core';
-import { Publication } from '../models/publication.model';
-import { PublicationsService } from '../services/publication-service'
+import { Publication } from '../../models/publication.model';
+import { PublicationsService } from '../../services/publication-service'
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

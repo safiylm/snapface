@@ -11,7 +11,6 @@ import { HomeComponent } from './home/home.component';
 import { UsersListComponent } from './users-list/users-list.component';
 import { AuthConnexionUserComponent } from './auth-connexion-user/auth-connexion-user.component';
 import { AuthInscriptionUserComponent } from './auth-inscription-user/auth-inscription-user.component';
-import { Publication } from './models/publication.model';
 import { PublicationAllListComponent  } from './publication-all-list/publication-all-list.component';
 import { FormsModule } from "@angular/forms";
 import { ReactiveFormsModule } from "@angular/forms";

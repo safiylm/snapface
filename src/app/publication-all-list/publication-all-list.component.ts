@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Publication } from '../models/publication.model';
-import { PublicationsService } from '../services/publication-service'
+import { Publication } from '../../models/publication.model';
+import { PublicationsService } from '../../services/publication-service'
 
 @Component({
   selector: 'app-publication-all-list',

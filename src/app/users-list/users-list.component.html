@@ -4,7 +4,7 @@
     <div class="div-user" *ngFor="let item of data;">
         <a href="user/{{item['_id'] }}" >
             <img src='{{item["photos_profil"]}}' />
-          <p>{{ item['firstName'] }} </p>  
+          <p>{{ item['firstName'] }} {{ item['lastName'] }} </p>  
         </a>
     </div>
 

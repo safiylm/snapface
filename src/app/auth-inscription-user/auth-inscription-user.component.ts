@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../services/user-service'
-import { User } from '../models/user.model'
+import { UserService } from '../../services/user-service'
+import { User } from '../../models/user.model'
 import { FormGroup, FormControl } from "@angular/forms";
-import { user_array } from '../json-database/users-array';
 
 @Component({
   selector: 'app-auth-inscription-user',
