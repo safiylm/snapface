@@ -8,6 +8,7 @@ const User = new mongoose.Schema({
   photos_profil: { type: String },
   photos_background: { type: String },
   email: { type: String },
+  password: { type: String },
   phoneNo: { type: String },
 }, { versionKey: false });
 mongoose.model('User', User);

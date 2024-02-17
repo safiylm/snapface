@@ -23,10 +23,10 @@ export class PublicationComponent implements OnInit {
 
   onSnap() {
     if (this.buttonText === 'Oh Snap!') {
-        this.publicationService.snapPublicationById(this.publication.id, 'snap');
+        this.publicationService.snapPublicationById(this.publication._id, 'snap');
         this.buttonText = 'Oops, unSnap!';
     } else {
-        this.publicationService.snapPublicationById(this.publication.id, 'unsnap');
+        this.publicationService.snapPublicationById(this.publication._id, 'unsnap');
         this.buttonText = 'Oh Snap!';
     }
 }

@@ -28,16 +28,6 @@ export class AuthInscriptionUserComponent implements OnInit {
 
   onSubmit() {
     console.log(this.inscriptionUserForm.value['name']);
-
-    this.UserService.pushNewUser(
-      new User(4,
-        this.inscriptionUserForm.value['photos_profil']!,
-        this.inscriptionUserForm.value['photos_background']!,
-        this.inscriptionUserForm.value['name']!,
-        this.inscriptionUserForm.value['email']!,
-        "female", ""
-      ));
-
   }
 
 }

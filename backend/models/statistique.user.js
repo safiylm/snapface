@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 const StatistiqueUser = new mongoose.Schema({
 
-    user: { type: String },
+    userId: { type: String },
     followers: { type: Number },
     totalPosts: { type: Number },
     totalPoints: { type: Number },

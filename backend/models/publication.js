@@ -7,7 +7,7 @@ const Publication = new mongoose.Schema({
     title: { type: String },
     date: { type: Date },
     body: { type: String },
-    createdBy: { type: String }, //User
+    userId: { type: String }, //User
     images: [ String ],
     videos:[ {url : String , title : String } ],
     audios: [ {url : String , title : String } ],
