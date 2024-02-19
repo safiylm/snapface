@@ -30,7 +30,7 @@ export class PublicationsService {
     this.publications.push(fs);
   }
 
-  getAllPublicationsByAuteur(userId: number): Publication[] {
+  getAllPublicationsByAuteur(userId: string): Publication[] {
 
     let Publication = this.publications.filter(Publication => Publication.userId == userId);
 
@@ -41,7 +41,7 @@ export class PublicationsService {
   }
 
   getPublicationById(PublicationId: number): Publication {
-    const Publication = this.publications.find(Publication => Publication.id === PublicationId);
+    const Publication = this.publications.find(Publication => Publication._id === PublicationId);
     if (!Publication) {
       throw new Error('Publication not found!');
     } else {
@@ -52,13 +52,13 @@ export class PublicationsService {
 
   snapPublicationById(PublicationId: number, snapType: 'snap' | 'unsnap'): void {
     const Publication = this.getPublicationById(PublicationId);
-    snapType === 'snap' ? Publication.snaps++ : Publication.snaps--;
+   // snapType === 'snap' ? Publication.snaps++ : Publication.snaps--;
   }
 
   unsnapPublicationById(PublicationId: number): void {
-    const Publication = this.publications.find(Publication => Publication.id === PublicationId);
+    const Publication = this.publications.find(Publication => Publication._id === PublicationId);
     if (Publication) {
-      Publication.snaps--;
+    //  Publication.snaps--;
     } else {
       throw new Error('Publication not found!');
     }
