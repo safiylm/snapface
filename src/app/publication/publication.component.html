@@ -4,7 +4,7 @@
     <img [src]="publication.images" [alt]="publication.title">
     <p>{{ publication.body | titlecase }}</p>
     <button (click)="onSnap()">{{ buttonText }}</button>
-    <p>🤌 </p>
+    <p> </p>
 
      <app-interaction-social [id]="publication._id.toString()"></app-interaction-social>
   </div>
