@@ -4,24 +4,25 @@ const collection_user = db.collection('users');
 const ObjectId = require('mongodb').ObjectId;
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.firstName) {
-    res.status(400).send({ message: "Content can not be empty!" });
-    return;
-  }
+   if (!req.body.email) {
+     res.status(400).send({ message: "Content can not be empty!" });
+     return;
+   }
+
 
   // Create a Tutorial
-  const user = new User({
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    photos_profil: req.body.photos_profil,
-    photos_background: req.body.photos_background,
-    email: req.body.email,
-    phoneNo: req.body.phoneNo,
-  });
+  const user ={
+     firstName: req.body.firstName,
+     lastName: req.body.lastName,
+     photos_profil: req.body.photos_profil,
+     photos_background: req.body.photos_background,
+     email: req.body.email,
+     phoneNo: req.body.phoneNo,
+   }
 
   // Save Tutorial in the database
-  user
-    .save(user)
+  collection_user
+    .insertOne(user)
     .then(data => {
       res.send(data);
     })
