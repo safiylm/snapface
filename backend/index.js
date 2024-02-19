@@ -6,10 +6,14 @@ app.use(bodyParser());
 app.use(bodyParser.json({ limit: '5mb' }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const router_user = require("./routes/user.routes")
-const router_publication = require("./routes/publication.routes")
+const router_user = require("./routes/user.route")
+const router_publication = require("./routes/publication.route")
+const router_statistique_user = require("./routes/statistique.user.route")
+const router_interacation_sociale = require("./routes/interaction.sociale.route")
 app.use(router_user )
 app.use(router_publication )
+app.use(router_statistique_user )
+app.use(router_interacation_sociale )
 
 
 app.use(express.static(path.join(__dirname, '../dist/snapface')));

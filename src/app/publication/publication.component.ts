@@ -9,7 +9,7 @@ import {  PublicationsService } from '../../services/publication-service'
 })
 export class PublicationComponent implements OnInit {
 
-  @Input() publication!: Publication;
+  @Input() publication!: Publication ;
 
   constructor(private publicationService: PublicationsService) { }
 
