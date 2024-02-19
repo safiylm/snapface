@@ -4,7 +4,7 @@ const User = require("../models/user");
 
 const Abonee = new mongoose.Schema({
 
-    followersOf: { type: String },
+    usedId: { type: String },
     followers: [ String ],
    
 }, { versionKey: false });

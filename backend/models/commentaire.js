@@ -4,8 +4,8 @@ const Commentaire = new mongoose.Schema({
 
     title: { type: String },
     date: { type: Date },
-    createdBy: { type: string }, //User!!!
-    parent: { type: String },
+    userId: { type: String }, 
+    postId: { type: String },
    
 }, { versionKey: false });
 
