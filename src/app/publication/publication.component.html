@@ -1,4 +1,6 @@
 <div class="face-snap-card">
+  <app-auteur-in-post-or-commentaire [id]="publication.userId.toString()"></app-auteur-in-post-or-commentaire> 
+
     <h2>{{ publication.title | uppercase}}</h2>
     <p>Mis en ligne le {{ publication.date | date: 'à HH:mm, le d MMMM yyyy' }}</p>
     <img [src]="publication.images" [alt]="publication.title">
@@ -7,4 +9,5 @@
     <p> </p>
 
      <app-interaction-social [id]="publication._id.toString()"></app-interaction-social>
+    <app-commentaires [id]="publication._id.toString()"></app-commentaires>
   </div>

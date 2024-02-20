@@ -1,0 +1,5 @@
+<div *ngFor="let com of commentaires" class="div-un-commentaire">
+   <app-auteur-in-post-or-commentaire [id]="com.userId.toString()"></app-auteur-in-post-or-commentaire> 
+    <p id="p-commentaire">{{ com.title}}</p>
+
+</div>

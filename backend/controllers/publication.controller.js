@@ -69,7 +69,7 @@ exports.findAll = async (req, res) => {
 
 exports.findAllPublicationByUserId = async (req, res) => {
 
-    const findResult = await collection_publications.find({"createdBy" : req.query.id }).toArray();
+    const findResult = await collection_publications.find({"userId" : req.query.id }).toArray();
     res.send(findResult);
 
 }
