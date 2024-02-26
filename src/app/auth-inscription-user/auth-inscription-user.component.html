@@ -4,8 +4,13 @@
     </h1>
     
     <div class="div-input">
-        <label>Saisissez votre nom:</label>
-        <input type="text" name="nom" placeholder="nom" formControlName="name" />
+        <label>Saisissez votre prénom:</label>
+        <input type="text" name="nom" placeholder="nom" formControlName="firstName" />
+    </div>
+
+    <div class="div-input">
+        <label>Saisissez votre nom de famille:</label>
+        <input type="text" name="nom" placeholder="nom" formControlName="lastName" />
     </div>
 
     <div class="div-input">
@@ -36,3 +41,5 @@
     <button type="submit">S'inscrire </button>
     <button type="button" onclick="document.location.href='connexion'">Se connecter</button>
 </form>
+
+<button type="button" (click)="addstUser()">add statistique user  </button>

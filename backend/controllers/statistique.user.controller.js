@@ -3,39 +3,24 @@ const collection_statistiqueusers = db.collection('statistiqueusers');
 
 exports.create = (req, res) => {
     // Validate request
-    //   if (!req.body.firstName) {
-    //     res.status(400).send({ message: "Content can not be empty!" });
-    //     return;
-    //   }
+    if (!req.body.id) {
+        res.status(400).send({ message: "Content can not be empty!" });
+        return;
+    }
 
     // Create a Tutorial
-    const us1 = {
-        userId: "65cf2792020e30090d5b1313",
-        followers: 7095,
-        totalPosts: 145, 
-        totalPoints: 139,
-    };
 
 
-    const us2 = {
-        userId: "65cf2792020e30090d5b1313",
-        followers: 365,
-        totalPosts: 145, 
-        totalPoints: 919,
-    };
-  
-    const us3 = {
-        userId: "65cf2792020e30090d5b1313",
-        followers: 485,
-        totalPosts: 145, 
-        totalPoints: 125,
-    };
-
-
+    const stuser = {
+        userId: req.body.id,
+        followers: 0,
+        totalPosts: 0,
+        totalPoints: 0,
+    }
 
     // Save Tutorial in the database
     collection_statistiqueusers
-        .insertMany( [us1, us2, us3 ] )
+        .insertOne(stuser)
         .then(data => {
             res.send(data);
         })

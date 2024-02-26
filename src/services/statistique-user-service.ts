@@ -20,5 +20,8 @@ export class StatistiqueUserService {
     return this.http.get<StatistiqueUser>("http://localhost:4200/api/statistiqueUserByUserId?id="+id);
   }
 
+
+
+
 }
 

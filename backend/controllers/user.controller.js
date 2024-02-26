@@ -2,23 +2,26 @@ const User = require("../models/user");
 const db = require('../config/db.config.js')
 const collection_user = db.collection('users');
 const ObjectId = require('mongodb').ObjectId;
+
+
 exports.create = (req, res) => {
   // Validate request
-   if (!req.body.email) {
-     res.status(400).send({ message: "Content can not be empty!" });
-     return;
-   }
-
+  if (!req.body.email) {
+    res.status(400).send({ message: "Content can not be empty!" });
+    return;
+  }
 
   // Create a Tutorial
-  const user ={
-     firstName: req.body.firstName,
-     lastName: req.body.lastName,
-     photos_profil: req.body.photos_profil,
-     photos_background: req.body.photos_background,
-     email: req.body.email,
-     phoneNo: req.body.phoneNo,
-   }
+  const user = {
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    photos_profil: req.body.photos_profil,
+    photos_background: req.body.photos_background,
+    email: req.body.email,
+    phoneNo: req.body.phoneNo,
+  }
+  console.log("back controller :" + user)
+
 
   // Save Tutorial in the database
   collection_user
@@ -34,6 +37,20 @@ exports.create = (req, res) => {
     });
 };
 
+
+exports.connexion = async function (req, res) {
+
+  const findResult = await collection_user.find({ "email": req.body.email, "password": req.body.password }).toArray();
+  if (findResult.length == 1)
+    res.send("connexion ok!")
+  else
+    res.send("email or password wrong!")
+};
+
+
+
+
+
 // Retrieve all Users from the database.
 exports.findAll = async (req, res) => {
 
@@ -44,8 +61,8 @@ exports.findAll = async (req, res) => {
 
 exports.findOneById = async (req, res) => {
   const id = req.query.id;
-  console.log(id)
-  res.send(await collection_user.findOne({"_id" : new ObjectId(id)}))  
+
+  res.send(await collection_user.findOne({ "_id": new ObjectId(id) }))
 };
 
 

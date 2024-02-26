@@ -11,23 +11,43 @@ import { FormGroup, FormControl } from "@angular/forms";
 
 
 export class AuthInscriptionUserComponent implements OnInit {
-  constructor(private UserService: UserService) { }
+  constructor(private userService: UserService) { }
 
   inscriptionUserForm = new FormGroup({
-    name: new FormControl(""),
+    lastName: new FormControl(""),
+    firstName: new FormControl(""),
     email: new FormControl(""),
     password: new FormControl(""),
     password2: new FormControl(""),
     photos_background: new FormControl(""),
     photos_profil: new FormControl("")
   });
-
+  user = new User(8, "","","","", "", "",  "");
+  
 
   ngOnInit() { }
 
 
+  
   onSubmit() {
-    console.log(this.inscriptionUserForm.value['name']);
+
+    this.user.lastName= this.inscriptionUserForm.value['lastName']?.toString() as string;
+    this.user.firstName= this.inscriptionUserForm.value['firstName']?.toString() as string;
+    this.user.email= this.inscriptionUserForm.value['email']?.toString() as string;
+    this.user.password= this.inscriptionUserForm.value['password']?.toString() as string;
+    this.user.photos_background= this.inscriptionUserForm.value['photos_background']?.toString() as string;
+    this.user.photos_profil= this.inscriptionUserForm.value['photos_profil']?.toString() as string;
+
+
+    console.log(this.user);
+    this.userService.pushNewUser(this.user)
+
+   // window.location.href = '/'
+  }
+
+
+  addstUser(){
+    this.userService.addNewStatistiqueUser();
   }
 
 }
