@@ -6,6 +6,6 @@ var router_abonnees = require("express").Router();
 //router_publication.post("/api/publication", interactionsociales.create);
 router_abonnees.get("/api/abonnees/create", abonnees.create);
 
-router_abonnees.get("/api/abonnees", abonnees.findByUserId);
+router_abonnees.get("/api/abonneesbyUserId", abonnees.findByUserId);
 
 module.exports = router_abonnees;
