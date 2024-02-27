@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Publication } from '../models/publication.model'
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { InteractionSociale } from '../models/interaction.sociale.model';
 
 
 @Injectable({
@@ -9,9 +10,6 @@ import { HttpClient } from '@angular/common/http';
 })
 export class PublicationsService {
   publications: Publication[] = [
-
-
-
   ];
 
   constructor(private http: HttpClient) { }
@@ -25,10 +23,31 @@ export class PublicationsService {
     return this.http.get<Publication[]>("http://localhost:4200/api/publicationByUserId?id="+id);
   }
 
+  public  pushNewPublication(formData: Publication): void {
+ 
+    this.http
+      .post<Publication>(
+        `http://localhost:4200/api/publication/create`,
+        formData,
+      ).subscribe(data => {
+        console.log("Add new post " )
+      })
 
-  pushNewPublication(fs: Publication): void {
-    this.publications.push(fs);
+
   }
+  
+  addNewInteractionSociale(formData: InteractionSociale ){
+    
+    this.http
+      .post<InteractionSociale>(
+        `http://localhost:4200/api/interaction/social/create`,
+        formData,
+      ).subscribe(data => {
+        console.log(" interactionSocial post req body content :" )
+
+      })
+  }
+
 
   getAllPublicationsByAuteur(userId: string): Publication[] {
 

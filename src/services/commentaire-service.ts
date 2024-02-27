@@ -25,4 +25,19 @@ export class CommentaireService {
     return this.http.get<User>("http://localhost:4200/api/userid?id="+id);
   }
 
+  addNewCommentaire(formData: Commentaire ){
+    
+    this.http
+      .post<Commentaire>(
+        `http://localhost:4200/api/commentaire/create`,
+        formData,
+      ).subscribe(data => {
+        console.log(" inscription post req body content :" )
+        console.log( data)
+
+      })
+  }
+
+
+
 }

@@ -5,6 +5,7 @@ import {
 } from '@angular/common/http';
 import { Observable, async, throwError } from 'rxjs';
 import { User } from '../models/user.model';
+import { Abonnee } from '../models/abonnee.model';
 
 //http://localhost:4200/api/user
 
@@ -51,6 +52,19 @@ export class UserService {
   }
 
 
+
+  addNewAbonnee(formData: Abonnee ){
+    
+    this.http
+      .post<Abonnee>(
+        `http://localhost:4200/api/abonnees/create`,
+        formData,
+      ).subscribe(data => {
+        console.log(" abonnees post req body content :" )
+        console.log( data)
+
+      })
+  }
 
 
   public connexion(email: string, password: string): void {

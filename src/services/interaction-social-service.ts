@@ -20,5 +20,8 @@ export class InteractionSocialeService {
     return this.http.get<InteractionSociale>("http://localhost:4200/api/interactionSocialByPostId?id="+id);
   }
 
+
+
+
 }
 
