@@ -4,38 +4,16 @@ const collection_commentaires = db.collection('commentaires');
 exports.create = (req, res) => {
 
     const c1 = {
-      title: 55,
+      title: req.body.title,
       date: Date.now(),
-      userId: "65cf2792020e30090d5b1313",
-      postId: "65ce41203fe7c8143274a693",
+      userId: req.body.userId,
+      postId: req.body.postId,
 
     };
-
-    const c2 = {
-      title: 55,
-      date: Date.now(),
-      userId: "65cf2792020e30090d5b1313",
-      postId: "65cf2792020e30090d5b1311",
-    };
-  
-    const c3 = {
-      title: 55,
-      date: Date.now(),
-      userId: "65cf2792020e30090d5b1313",
-      postId: "65cf2792020e30090d5b1312",
-    };
-
-    const c4 = {
-      title: 55,
-      date: Date.now(),
-      userId: "65cf2792020e30090d5b1313",
-      postId: "65ce41203fe7c8143274a693",
-    };
-
 
     // Save Tutorial in the database
     collection_commentaires
-        .insertMany( [c1, c2, c3, c4 ] )
+        .insertOne( c1 )
         .then(data => {
             res.send(data);
         })
@@ -47,7 +25,7 @@ exports.create = (req, res) => {
         });
 };
 
-
+//res.body.insertedId
 
 exports.findByPublicationId = async (req, res) => {
     const id = req.query.id;

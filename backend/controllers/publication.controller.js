@@ -10,36 +10,13 @@ exports.create = (req, res) => {
     //     res.status(400).send({ message: "Content can not be empty!" });
     //     return;
     //   }
-
-    // Create a Tutorial
-    const p1 = {
-        // firstName: req.body.firstName,
-        title: " My first publication ",
+    
+    const post = {
+        title: req.body.title,
         date: DateTime,
-        body: " My body ",
-        createdBy:"Lillyy",
-        images: ["",],
-        videos: [{ url: "", title: "", }],
-        audios: [{ url: "", title: "", }],
-    };
-
-    const p2 = {
-        title:'cafe',
-        date: DateTime,
-        body:'J\'adore le café',
-        createdBy:"Lillyy",
-     
-        images: ['https://live.staticflickr.com/47/150654741_ae02588670_b.jpg',],
-        videos: [{ url: "", title: "", }],
-        audios: [{ url: "", title: "", }],
-    };
-  
-    const p3 = {
-        title: "Nature",
-        date: DateTime,
-        body: "J'adore la nature ",
-        createdBy:"Lillyy",
-        images:  ["https://img.freepik.com/photos-gratuite/champ-lavande-au-coucher-du-soleil-pres-valensole_268835-3910.jpg?size=626&ext=jpg&ga=GA1.2.337367146.1690124945&semt=sph",],
+        body: req.body.body,
+        userId: req.body.userId,
+        images:  [ req.body.images],
         videos: [{ url: "", title: "", }],
         audios: [{ url: "", title: "", }],
     };
@@ -47,7 +24,7 @@ exports.create = (req, res) => {
 
     // Save Tutorial in the database
     collection_publications
-        .insertMany( [p1, p2, p3 ] )
+        .insertOne(  post )
         .then(data => {
             res.send(data);
         })

@@ -5,27 +5,13 @@ exports.create = (req, res) => {
 
   const c1 = {
 
-    userId: "65cd023efb273094193ac038",
-    followers: ["65cd023efb273094193ac039",]
+    userId: req.body.userId,
+    followers: []
   };
-
-  const c2 = {
-
-    userId: "65cd023efb273094193ac039",
-    followers: ["65cd023efb273094193ac038",]
-  };
-
-  const c3 = {
-
-    userId: "65d08254cddc535b98d9833e",
-    followers: ["65cd023efb273094193ac038",]
-  };
-
-
 
   // Save Tutorial in the database
   collection_abonnees
-    .insertMany([c1, c2, c3])
+    .insertOne(c1)
     .then(data => {
       res.send(data);
     })
