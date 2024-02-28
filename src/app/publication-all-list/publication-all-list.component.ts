@@ -14,7 +14,7 @@ export class PublicationAllListComponent implements OnInit {
 
   publications!: Publication[];
   publication = new Publication(8, "essai add new post", "", [""], Date.now(), "", ["", ""], ["", ""]);
-  interactionsocial = new InteractionSociale(8, "rdtfygubjnk", 484, 47, 45);
+  interactionsocial = new InteractionSociale("8", "rdtfygubjnk", 484, 47, 45);
 
 
   retrievePublications(): void {

@@ -1,6 +1,6 @@
 export class InteractionSociale {
     constructor(
-        public _id:number,
+        public _id:string ,
         public postId: string,
         public comments: number,
         public likes: number,

@@ -20,7 +20,38 @@ export class InteractionSocialeService {
     return this.http.get<InteractionSociale>("http://localhost:4200/api/interactionSocialByPostId?id="+id);
   }
 
+  addLike(_id:string , likes: number){
+    this.http
+    .post<any>(
+      `http://localhost:4200/api/interaction/social/likes/update`,
+      {'_id': _id, 'likes': likes},
+    ).subscribe(data => {
+      console.log(" interactionSocial post req body content :" )
 
+    })
+  }
+
+  addPoints(_id:string , points: number){
+    this.http
+    .post<any>(
+      `http://localhost:4200/api/interaction/social/points/update`,
+      {'_id': _id, 'points': points},
+    ).subscribe(data => {
+      console.log(" interactionSocial post req body content :" )
+
+    })
+  }
+
+  addComments(_id:string , comments: number){
+    this.http
+    .post<any>(
+      `http://localhost:4200/api/interaction/social/comments/update`,
+      {'_id': _id, 'comments': comments},
+    ).subscribe(data => {
+      console.log(" interactionSocial post req body content :" )
+
+    })
+  }
 
 
 }

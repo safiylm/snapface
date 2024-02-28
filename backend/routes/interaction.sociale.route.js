@@ -8,6 +8,9 @@ router_interactionsociales.post("/api/interaction/social/create", interactionsoc
 
 router_interactionsociales.get("/api/interactionSocialByPostId", interactionsociales.findByPublicationId);
 
+router_interactionsociales.post( "/api/interaction/social/points/update", interactionsociales.pointsUpdate )
+router_interactionsociales.post( "/api/interaction/social/likes/update", interactionsociales.likesUpdate )
+
 module.exports = router_interactionsociales;
 
 // interaction.sociale.route

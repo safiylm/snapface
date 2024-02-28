@@ -17,6 +17,13 @@ export class InteractionSocialComponent implements OnInit {
 
   constructor(private interactionSocialeService: InteractionSocialeService) { }
 
+  addLike(_id:string , likes: number){
+    this.interactionSocialeService.addLike(_id, likes);
+  }
+
+  addPoints(_id:string , points: number){
+    this.interactionSocialeService.addPoints(_id, points);
+  }
 
   ngOnInit() {
     this.interactionSocialeService.getInteractionSocialeById( this.id) 

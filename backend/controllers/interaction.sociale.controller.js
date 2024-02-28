@@ -1,12 +1,13 @@
 const db = require('../config/db.config.js');
 const collection_interactionsociales = db.collection('interactionsociales');
+const ObjectId = require('mongodb').ObjectId;
 
 exports.create = (req, res) => {
   // Validate request
-  if (!req.body.postId) {
-    res.status(400).send({ message: "Content can not be empty!" });
-    return;
-  }
+  // if (!req.body.postId) {
+  //   res.status(400).send({ message: "Content can not be empty!" });
+  //   return;
+  // }
 
   // Create a Tutorial
   const is1 = {
@@ -31,7 +32,21 @@ exports.create = (req, res) => {
     });
 };
 
+exports.pointsUpdate = async (req, res)=>
+{
+  const updateResult = await collection_interactionsociales.updateOne({ "_id": new ObjectId(req.body._id) },
+    { $set: { "points": req.body.points } });
+  res.send(updateResult);
 
+};
+
+exports.likesUpdate = async (req, res)=>
+{
+  const updateResult = await collection_interactionsociales.updateOne({ "_id": new ObjectId(req.body._id) },
+    { $set: { "likes": req.body.likes } });
+  res.send(updateResult);
+
+};
 
 exports.findByPublicationId = async (req, res) => {
   const id = req.query.id;
