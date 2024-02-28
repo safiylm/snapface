@@ -1,6 +1,6 @@
 export class Commentaire {
     constructor(
-        public _id:number,
+        public _id:string ,
         public title: string,
         public date: number,
         public userId: string,

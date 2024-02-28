@@ -38,6 +38,30 @@ export class CommentaireService {
       })
   }
 
+  deleteCommentaire( commentId: string ){
+    this.http
+    .post<any>(
+      `http://localhost:4200/api/commentaire/delete`,
+      {"id" : commentId },
+    ).subscribe(data => {
+      console.log(" delete comment post req body content :" )
+      console.log( data)
+
+    })
+  }
+
+  updateCommentaire( form: Commentaire ){
+    this.http
+    .post<Commentaire>(
+      `http://localhost:4200/api/commentaire/update`,
+      form,
+    ).subscribe(data => {
+      console.log(" delete comment post req body content :" )
+      console.log( data)
+
+    })
+  }
+
 
 
 }

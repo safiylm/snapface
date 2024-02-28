@@ -1,0 +1,11 @@
+<app-auteur-in-post-or-commentaire [id]="commentaire.userId.toString()"></app-auteur-in-post-or-commentaire> 
+<p *ngIf="!edited" id="p-commentaire">{{ commentaire.title}}</p>
+<button *ngIf="!edited" (click)="showFormEditComment()" >Modifer </button>
+
+<form *ngIf="edited" [formGroup]="commentForm" (ngSubmit)="editComment(commentaire._id.toString())">
+    <input type="text"  formControlName="comment" />
+    <button type="submit" >Envoyer</button>
+    <button type="button"  (click)="hideFormEditComment()">Annuler</button>
+</form>
+
+<button *ngIf="!edited" (click)="deleteComment(commentaire._id.toString())">Supprimer </button>

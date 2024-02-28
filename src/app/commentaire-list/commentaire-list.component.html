@@ -1,0 +1,10 @@
+<div *ngFor="let com of commentaires" class="div-un-commentaire">
+    <app-commentaire [commentaire]="com"></app-commentaire> 
+
+ </div>
+ 
+ <form [formGroup]="commentForm" (ngSubmit)="createNewComment()">
+     <input type="text" name="nom" formControlName="comment" />
+     <button type="submit" >Envoyer</button>
+ </form>
+ 

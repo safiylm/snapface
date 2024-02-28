@@ -2,12 +2,14 @@
   <app-auteur-in-post-or-commentaire [id]="publication.userId.toString()"></app-auteur-in-post-or-commentaire> 
 
     <h2>{{ publication.title | uppercase}}</h2>
-    <p>Mis en ligne le {{ publication.date | date: 'à HH:mm, le d MMMM yyyy' }}</p>
-    <img [src]="publication.images" [alt]="publication.title">
-    <p>{{ publication.body | titlecase }}</p>
-    <button (click)="onSnap()">{{ buttonText }}</button>
+    <!-- <p>Mis en ligne le {{ publication.date | date: 'à HH:mm, le d MMMM yyyy' }}</p> -->
+     <p>{{ publication.body | titlecase }}</p>
+     
+     <img [src]="publication.images" [alt]="publication.title">
+  
+    <!-- <button (click)="onSnap()">{{ buttonText }}</button> -->
     <p> </p>
 
      <app-interaction-social [id]="publication._id.toString()"></app-interaction-social>
-    <app-commentaires [id]="publication._id.toString()"></app-commentaires>
+    <app-commentaire-list [id]="publication._id.toString()"></app-commentaire-list>
   </div>
