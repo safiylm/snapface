@@ -40,11 +40,16 @@ exports.create = (req, res) => {
 
 exports.connexion = async function (req, res) {
 
-  const findResult = await collection_user.find({ "email": req.body.email, "password": req.body.password }).toArray();
-  if (findResult.length == 1)
-    res.send("connexion ok!")
-  else
-    res.send("email or password wrong!")
+  const findResult = await collection_user.findOne({ "email": req.body.email, "password": req.body.password }).then(
+    data => {
+      res.send(data)
+    }
+  ).catch(err => {
+    res.status(500).send({
+      message:
+        err.message || "Some error occurred while connexion the User."
+    });
+  });
 };
 
 

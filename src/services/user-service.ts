@@ -28,53 +28,48 @@ export class UserService {
 
   public addNewStatistiqueUser(): void {
     this.http
-    .post<any>(
-      `http://localhost:4200/api/statistique/user/create`,
-      {"id" : "798464697846"},
-    ).subscribe(data => {
-      console.log(" Post request subscribe data content:" + data)
-    })
+      .post<any>(
+        `http://localhost:4200/api/statistique/user/create`,
+        { "id": "798464697846" },
+      ).subscribe(data => {
+        console.log(" Post request subscribe data content:" + data)
+      })
   }
 
-  public  pushNewUser(formData: User): void {
- 
+  public pushNewUser(formData: User): void {
+
     this.http
       .post<User>(
         `http://localhost:4200/api/user/create`,
         formData,
       ).subscribe(data => {
-        console.log(" inscription post req body content :" )
-        console.log( data)
-
+        console.log(" inscription post req body content :")
+        console.log(data)
       })
-
 
   }
 
-
-
-  addNewAbonnee(formData: Abonnee ){
-    
+  addNewAbonnee(formData: Abonnee) {
     this.http
       .post<Abonnee>(
         `http://localhost:4200/api/abonnees/create`,
         formData,
       ).subscribe(data => {
-        console.log(" abonnees post req body content :" )
-        console.log( data)
-
+        console.log(" abonnees post req body content :")
+        console.log(data)
       })
   }
 
-
   public connexion(email: string, password: string): void {
+    console.log("email : " + email + " password : " + password)
     this.http
-      .post<string>(
+      .post<any>(
         `http://localhost:4200/api/user/connexion`,
-        { "email": email.toString() , "password": password.toString() },
+        { "email": email, "password": password },
       ).subscribe(data => {
-        console.log(" Post request subscribe data content:" + data)
+        console.log(" Post request subscribe data content:" + data.toString())
       })
+
   }
 
 }

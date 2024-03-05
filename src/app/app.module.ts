@@ -19,6 +19,10 @@ import { PublicationListComponent } from './publication-list/publication-list.co
 import { UserAccountComponent } from './user-account/user-account.component';
 import { InteractionSocialComponent } from './interaction-social/interaction-social.component';
 import { StatistiqueUserComponent } from './statistique-user/statistique-user.component';
+import { AuteurInPostOrCommentaireComponent } from './auteur-in-post-or-commentaire/auteur-in-post-or-commentaire.component';
+import { ListFollowersComponent } from './list-followers/list-followers.component';
+import { CommentaireListComponent } from './commentaire-list/commentaire-list.component';
+import { CommentaireComponent } from './commentaire/commentaire.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -34,7 +38,11 @@ import { StatistiqueUserComponent } from './statistique-user/statistique-user.co
     PublicationListComponent,
     UserAccountComponent,
     InteractionSocialComponent,
-    StatistiqueUserComponent
+    StatistiqueUserComponent,
+    AuteurInPostOrCommentaireComponent,
+    ListFollowersComponent,
+    CommentaireListComponent,
+    CommentaireComponent
   ],
   imports: [
     BrowserModule,
