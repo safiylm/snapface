@@ -17,6 +17,7 @@ exports.create = (req, res) => {
     lastName: req.body.lastName,
     photos_profil: req.body.photos_profil,
     photos_background: req.body.photos_background,
+    password: req.body.password,
     email: req.body.email,
     phoneNo: req.body.phoneNo,
   }
@@ -53,7 +54,25 @@ exports.connexion = async function (req, res) {
 };
 
 
+exports.update = async (req, res) => {
 
+
+  const updateResult = await collection_user.updateOne({ "_id": new ObjectId(req.body._id) },
+    {
+      $set: {
+        "firstName": req.body.firstName,
+        "lastName": req.body.lastName,
+        "photos_profil": req.body.photos_profil,
+        "password": req.body.password,
+        "photos_background": req.body.photos_background,
+        "email": req.body.email,
+        "phoneNo": req.body.phoneNo,
+      }
+    });
+  res.send(updateResult);
+
+
+}
 
 
 // Retrieve all Users from the database.

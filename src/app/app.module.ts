@@ -23,6 +23,7 @@ import { AuteurInPostOrCommentaireComponent } from './auteur-in-post-or-commenta
 import { ListFollowersComponent } from './list-followers/list-followers.component';
 import { CommentaireListComponent } from './commentaire-list/commentaire-list.component';
 import { CommentaireComponent } from './commentaire/commentaire.component';
+import { UserDataUpdateComponent } from './user-data-update/user-data-update.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -42,7 +43,8 @@ import { CommentaireComponent } from './commentaire/commentaire.component';
     AuteurInPostOrCommentaireComponent,
     ListFollowersComponent,
     CommentaireListComponent,
-    CommentaireComponent
+    CommentaireComponent,
+    UserDataUpdateComponent
   ],
   imports: [
     BrowserModule,

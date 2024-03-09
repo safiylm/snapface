@@ -49,6 +49,19 @@ export class UserService {
 
   }
 
+  updateUser(formData: User): void {
+
+    this.http
+      .post<User>(
+        `http://localhost:4200/api/user/update`,
+        formData,
+      ).subscribe(data => {
+        console.log(" user update post req body content :")
+        console.log(data)
+      })
+
+  }
+
   addNewAbonnee(formData: Abonnee) {
     this.http
       .post<Abonnee>(

@@ -1,0 +1,23 @@
+form {
+    width: 600px;
+    margin: 50px auto;
+
+.div-input {
+    margin: 16px 0;
+
+    label,
+    input {
+        display: block;
+        width: 100%;
+        font-size: medium;
+
+    }
+
+    input {
+        border: none;
+        border-bottom: 1px solid gray;
+        padding: 15px 0;
+        margin: 5px 0;
+    }
+}
+}

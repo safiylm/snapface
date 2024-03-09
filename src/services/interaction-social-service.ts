@@ -27,7 +27,6 @@ export class InteractionSocialeService {
       {'_id': _id, 'likes': likes},
     ).subscribe(data => {
       console.log(" interactionSocial post req body content :" )
-
     })
   }
 

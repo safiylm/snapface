@@ -1,0 +1,40 @@
+<form [formGroup]="updateUserForm" (ngSubmit)="onSubmit()">
+    <div class="div-input">
+        <label>Modifiez votre prénom:</label>
+        <input type="text" name="firstName" value={{user?.firstName}}  formControlName="firstName">
+    </div>
+
+    <div class="div-input">
+        <label>Modifiez votre nom de famille:</label>
+        <input type="text" name="lastName" value={{user?.lastName}}  formControlName="lastName">
+    </div>
+    
+    <div class="div-input">
+        <label>Modifiez votre email:</label>
+        <input type="email" name="email" value={{user?.email}}  formControlName="email">
+    </div>
+
+    <div class="div-input">
+        <label>Modifiez votre mot de passe: </label>
+        <input type="password" name="password" value={{user?.password}}  formControlName="password">
+    </div>
+
+    <div class="div-input">
+        <label>Modifiez le lien de votre numéro de téléphone :</label>
+        <input type="number" name="phoneNo" value={{user?.phoneNo}}  formControlName="phoneNo">
+    </div>
+
+    <div class="div-input">
+        <label>Modifiez le lien de votre photo de profil:</label>
+        <input type="text" name="photos_profil" value={{user?.photos_profil}}  formControlName="photos_profil">
+    </div>
+
+    <div class="div-input">
+        <label>Modifiez le lien de votre photo de background:</label>
+        <input type="text" name="photos_background" value={{user?.photos_background}}  formControlName="photos_background">
+    </div>
+
+
+    <button type="submit">Modifier </button>
+
+</form>
