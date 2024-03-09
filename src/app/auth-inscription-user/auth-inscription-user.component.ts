@@ -20,10 +20,11 @@ export class AuthInscriptionUserComponent implements OnInit {
     email: new FormControl(""),
     password: new FormControl(""),
     password2: new FormControl(""),
+    phoneNo : new FormControl(""),
     photos_background: new FormControl(""),
     photos_profil: new FormControl("")
   });
-  user = new User(8, "","","","", "", "",  "");
+  user = new User( "", "","","","", "", "",  0);
   abonnee = new Abonnee( 8, "65dc5c384fa4e88846a7a941", [""]);
   
 
@@ -37,6 +38,7 @@ export class AuthInscriptionUserComponent implements OnInit {
     this.user.firstName= this.inscriptionUserForm.value['firstName']?.toString() as string;
     this.user.email= this.inscriptionUserForm.value['email']?.toString() as string;
     this.user.password= this.inscriptionUserForm.value['password']?.toString() as string;
+    this.user.phoneNo= Number(this.inscriptionUserForm.value['phoneNo']?.toString() );
     this.user.photos_background= this.inscriptionUserForm.value['photos_background']?.toString() as string;
     this.user.photos_profil= this.inscriptionUserForm.value['photos_profil']?.toString() as string;
 
