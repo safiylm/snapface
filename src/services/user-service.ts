@@ -61,6 +61,22 @@ export class UserService {
       })
 
   }
+ 
+
+  deleteUser(userId: string): void {
+
+    this.http
+      .post<User>(
+        `http://localhost:4200/api/user/delete`,
+        {"id" : userId },
+        ).subscribe(data => {
+        console.log(" user delete post req body content :")
+        console.log(data)
+      })
+
+  }
+
+
 
   addNewAbonnee(formData: Abonnee) {
     this.http

@@ -55,8 +55,6 @@ exports.connexion = async function (req, res) {
 
 
 exports.update = async (req, res) => {
-
-
   const updateResult = await collection_user.updateOne({ "_id": new ObjectId(req.body._id) },
     {
       $set: {
@@ -70,9 +68,15 @@ exports.update = async (req, res) => {
       }
     });
   res.send(updateResult);
+}
 
+
+exports.delete = async (req, res) => {
+  const deleteResult = await collection_user.deleteOne({ "_id": new ObjectId(req.body.id) });
+  res.send(deleteResult);
 
 }
+
 
 
 // Retrieve all Users from the database.
