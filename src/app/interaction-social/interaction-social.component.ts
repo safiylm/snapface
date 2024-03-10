@@ -10,29 +10,73 @@ import { InteractionSocialeService } from '../../services/interaction-social-ser
 
 
 export class InteractionSocialComponent implements OnInit {
-  
-  interactionSociale !: InteractionSociale ;
-  @Input() id !: string ;
+
+  interactionSociale !: InteractionSociale;
+  @Input() id !: string;
+  isLiked_: boolean = false;
+  isPointAdded_: boolean = false;
 
 
   constructor(private interactionSocialeService: InteractionSocialeService) { }
 
-  addLike(_id:string , likes: number){
-    this.interactionSocialeService.addLike(_id, likes);
+  addLike() {
+    this.interactionSocialeService.addLike(this.interactionSociale._id, this.interactionSociale.likes + 1);
+    this.isLiked_ = true;
+    this.display();
+
   }
 
-  addPoints(_id:string , points: number){
-    this.interactionSocialeService.addPoints(_id, points);
+  removeLike() {
+    this.interactionSocialeService.removeLike(this.interactionSociale._id, this.interactionSociale.likes - 1);
+    this.isLiked_ = false;
+    this.display();
+
   }
 
-  ngOnInit() {
-    this.interactionSocialeService.getInteractionSocialeById( this.id) 
+
+  addPoints() {
+    this.interactionSocialeService.addPoints(this.interactionSociale._id, this.interactionSociale.points + 1);
+    this.isPointAdded_ = true;
+    this.display();
+
+  }
+
+  removePoints() {
+    this.interactionSocialeService.removePoints(this.interactionSociale._id, this.interactionSociale.points - 1);
+    this.isPointAdded_ = false;
+    this.display();
+
+  }
+
+  display(){
+    this.interactionSocialeService.getInteractionSocialeById(this.id)
     .subscribe({
       next: (data) => {
         this.interactionSociale = data;
         console.log(data);
+        data.likedBy_.forEach(element => {
+          if (element == "65cd023efb273094193ac038") {
+            console.log(element + " ------  65cd023efb273094193ac038")
+            this.isLiked_ = true;
+          }
+          console.log(element);
+    
+        });
+
+        data.pointedBy_.forEach(element => {
+          if (element == "65cd023efb273094193ac038") {
+            console.log(element + " ------  65cd023efb273094193ac038")
+            this.isPointAdded_ = true;
+          }
+          console.log(element);
+    
+        })
       },
       error: (e) => console.error(e)
     });
+  }
+
+  ngOnInit() {
+    this.display();
   }
 }

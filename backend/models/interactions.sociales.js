@@ -6,6 +6,9 @@ const InteractionSociale = new mongoose.Schema({
     comments: { type: Number },
     likes: { type: Number }, 
     points: { type: Number },
+    likedBy_: [ String ],
+    pointedBy_: [ String ],
+
    
 }, { versionKey: false });
 

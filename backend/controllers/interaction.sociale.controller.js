@@ -32,18 +32,33 @@ exports.create = (req, res) => {
     });
 };
 
-exports.pointsUpdate = async (req, res)=>
-{
+exports.pointsRemove = async (req, res) => {
   const updateResult = await collection_interactionsociales.updateOne({ "_id": new ObjectId(req.body._id) },
-    { $set: { "points": req.body.points } });
+    { $set: { "points": req.body.points , "pointedBy_": [ ""] } });
   res.send(updateResult);
 
 };
 
-exports.likesUpdate = async (req, res)=>
-{
+exports.pointsAdd = async (req, res) => {
   const updateResult = await collection_interactionsociales.updateOne({ "_id": new ObjectId(req.body._id) },
-    { $set: { "likes": req.body.likes } });
+    { $set: { "points": req.body.points, "pointedBy_": [ "65cd023efb273094193ac038"]  } });
+  res.send(updateResult);
+
+};
+
+exports.likesAdd = async (req, res) => {
+
+  const updateResult = await collection_interactionsociales.updateOne({ "_id": new ObjectId(req.body._id) },
+    { $set: { "likes": req.body.likes, "likedBy_": [ "65cd023efb273094193ac038"] } });
+  res.send(updateResult);
+
+};
+
+
+exports.likesRemove = async (req, res) => {
+
+  const updateResult = await collection_interactionsociales.updateOne({ "_id": new ObjectId(req.body._id) },
+    { $set: { "likes": req.body.likes, "likedBy_": [ ""] } });
   res.send(updateResult);
 
 };
@@ -53,4 +68,9 @@ exports.findByPublicationId = async (req, res) => {
   res.send(await collection_interactionsociales.findOne({ "postId": id }))
 };
 
+exports.isLiked  = async (req, res) => {
+  const find = await collection_interactionsociales.findOne({ "_id": new ObjectId(req.query.id) , 
+  "likedBy_":  { "$in" : [req.query.userId]}   });
+  res.send(find);
 
+}

@@ -23,8 +23,18 @@ export class InteractionSocialeService {
   addLike(_id:string , likes: number){
     this.http
     .post<any>(
-      `http://localhost:4200/api/interaction/social/likes/update`,
-      {'_id': _id, 'likes': likes},
+      `http://localhost:4200/api/interaction/social/likes/add`,
+      {'_id': _id, 'likes': likes, 'userId' : "65cd023efb273094193ac038"},
+    ).subscribe(data => {
+      console.log(" interactionSocial post req body content :" )
+    })
+  }
+
+  removeLike(_id:string , likes: number){
+    this.http
+    .post<any>(
+      `http://localhost:4200/api/interaction/social/likes/remove`,
+      {'_id': _id, 'likes': likes, 'userId' : "65cd023efb273094193ac038"},
     ).subscribe(data => {
       console.log(" interactionSocial post req body content :" )
     })
@@ -33,24 +43,40 @@ export class InteractionSocialeService {
   addPoints(_id:string , points: number){
     this.http
     .post<any>(
-      `http://localhost:4200/api/interaction/social/points/update`,
-      {'_id': _id, 'points': points},
+      `http://localhost:4200/api/interaction/social/points/add`,
+      {'_id': _id, 'points': points, 'userId' : "65cd023efb273094193ac038"},
     ).subscribe(data => {
       console.log(" interactionSocial post req body content :" )
 
     })
   }
+
+  removePoints(_id:string , points: number){
+    this.http
+    .post<any>(
+      `http://localhost:4200/api/interaction/social/points/remove`,
+      {'_id': _id, 'points': points, 'userId' : "65cd023efb273094193ac038"}
+    ).subscribe(data => {
+      console.log(" interactionSocial post req body content :" )
+
+    })
+  }
+
+
 
   addComments(_id:string , comments: number){
     this.http
     .post<any>(
       `http://localhost:4200/api/interaction/social/comments/update`,
-      {'_id': _id, 'comments': comments},
+      {'_id': _id, 'comments': comments , 'userId' : "65cd023efb273094193ac038"}
     ).subscribe(data => {
       console.log(" interactionSocial post req body content :" )
 
     })
   }
+
+
+
 
 
 }

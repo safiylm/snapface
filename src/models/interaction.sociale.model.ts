@@ -4,7 +4,8 @@ export class InteractionSociale {
         public postId: string,
         public comments: number,
         public likes: number,
-        public points: number
-       
+        public points: number,
+        public likedBy_: [ string ],
+        public pointedBy_: [ string ],
     ){}
 }
