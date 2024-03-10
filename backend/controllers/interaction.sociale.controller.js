@@ -68,9 +68,3 @@ exports.findByPublicationId = async (req, res) => {
   res.send(await collection_interactionsociales.findOne({ "postId": id }))
 };
 
-exports.isLiked  = async (req, res) => {
-  const find = await collection_interactionsociales.findOne({ "_id": new ObjectId(req.query.id) , 
-  "likedBy_":  { "$in" : [req.query.userId]}   });
-  res.send(find);
-
-}

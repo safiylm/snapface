@@ -28,18 +28,22 @@ export class CommentaireListComponent implements OnInit {
     this.commentaire.postId = this.id ;
     this.commentaire.userId= "65cd023efb273094193ac038";
     this.commentaireService.addNewCommentaire(this.commentaire);
-    console.log('add commentaire ')
+    this.display();
+
   }
 
 
+  display(){
+    this.commentaireService.getCommentaireByPostId(this.id)
+    .subscribe({
+      next: (data) => {
+        this.commentaires = data; 
+      },
+      error: (e) => console.error(e)
+    });
+  }
 
   ngOnInit() {
-    this.commentaireService.getCommentaireByPostId(this.id)
-      .subscribe({
-        next: (data) => {
-          this.commentaires = data; 
-        },
-        error: (e) => console.error(e)
-      });
+    this.display();
   }
 }

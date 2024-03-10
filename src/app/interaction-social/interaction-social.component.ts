@@ -56,7 +56,6 @@ export class InteractionSocialComponent implements OnInit {
         console.log(data);
         data.likedBy_.forEach(element => {
           if (element == "65cd023efb273094193ac038") {
-            console.log(element + " ------  65cd023efb273094193ac038")
             this.isLiked_ = true;
           }
           console.log(element);
@@ -65,7 +64,6 @@ export class InteractionSocialComponent implements OnInit {
 
         data.pointedBy_.forEach(element => {
           if (element == "65cd023efb273094193ac038") {
-            console.log(element + " ------  65cd023efb273094193ac038")
             this.isPointAdded_ = true;
           }
           console.log(element);

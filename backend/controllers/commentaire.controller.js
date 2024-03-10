@@ -1,5 +1,7 @@
 const db = require('../config/db.config.js');
 const collection_commentaires = db.collection('commentaires');
+const collection_interactionsociales = db.collection('interactionsociales');
+
 const ObjectId = require('mongodb').ObjectId;
 
 exports.create = (req, res) => {
@@ -12,25 +14,45 @@ exports.create = (req, res) => {
 
   };
 
-  // Save Tutorial in the database
-  collection_commentaires
-    .insertOne(c1)
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating the User."
+  collection_interactionsociales.findOne({ "postId": req.body.postId }).then(i => {
+
+    collection_commentaires
+      .insertOne(c1)
+      .then(data => {
+        const updateResult = collection_interactionsociales.updateOne({ "postId": req.body.postId },
+          { $set: { "comments": i.comments + 1 } }).then(x => {
+            res.send(updateResult);
+          })
+      })
+      .catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while creating the User."
+        });
       });
-    });
+
+  })
+
 };
 
-exports.delete = async (req, res) => {
-  console.log(req.body.id);
-  const deleteResult = await collection_commentaires.deleteOne({ "_id": new ObjectId(req.body.id) });
-  res.send(deleteResult);
 
+
+exports.delete = async (req, res) => {
+
+  collection_commentaires.
+    findOne({  "_id": new ObjectId(req.body.id) }).then(c => {
+      collection_interactionsociales.
+        findOne({ "postId": c.postId }).then(i => {
+          collection_commentaires.
+            deleteOne({ "_id": new ObjectId(req.body.id) }).then(k => {
+              const updateResult = collection_interactionsociales.
+              updateOne({ "postId": c.postId },
+                { $set: { "comments": i.comments - 1 } }).then(x => {
+                  res.send(updateResult);
+                })
+            })
+        })
+    })
 }
 
 
