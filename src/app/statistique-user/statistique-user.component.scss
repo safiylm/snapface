@@ -12,3 +12,18 @@
         line-height: 30px;
     }
 }
+
+#btn-followers{
+    border: none;
+    background-color: transparent;
+}
+
+#btn-hide-followers{
+    border: none;
+    border-radius: 15px;
+    padding: 6px 15px;
+    background-color: darkslategray;
+    color: white;
+    margin: 10px auto;
+    display: block;
+}

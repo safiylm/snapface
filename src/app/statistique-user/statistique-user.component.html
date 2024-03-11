@@ -1,6 +1,8 @@
 <div class="div-statistiqueUser">
     <div>
-        Followrs <br /> <strong>{{ statistiqueUser.followers}}</strong>
+        <button id="btn-followers" (click)="displayFollowers()">
+            Followers <br /> <strong>{{ statistiqueUser.followers}}</strong>
+        </button>
     </div>
 
     <div>
@@ -11,3 +13,8 @@
         Post totales<br /><strong> {{ statistiqueUser.totalPosts}}</strong>
     </div>
 </div>
+
+<app-list-followers  *ngIf="isVisibleListFollowers" [id]='id' ></app-list-followers>
+<button *ngIf="isVisibleListFollowers"  id="btn-hide-followers" (click)="hideListFollowers()">
+   Ne plus afficher 
+</button>
