@@ -10,17 +10,15 @@ exports.create = (req, res) => {
 
     // Create a Tutorial
 
-
-    const stuser = {
-        userId: req.body.id,
-        followers: 0,
-        totalPosts: 0,
-        totalPoints: 0,
-    }
-
     // Save Tutorial in the database
     collection_statistiqueusers
-        .insertOne(stuser)
+        .insertOne({
+            userId: req.body.id,
+            followers: 0,
+            totalPosts: 0,
+            totalPoints: 0,
+        }
+    )
         .then(data => {
             res.send(data);
         })

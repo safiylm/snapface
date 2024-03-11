@@ -26,15 +26,6 @@ export class UserService {
     return this.http.get<User>("http://localhost:4200/api/userid?id=" + id);
   }
 
-  public addNewStatistiqueUser(): void {
-    this.http
-      .post<any>(
-        `http://localhost:4200/api/statistique/user/create`,
-        { "id": "798464697846" },
-      ).subscribe(data => {
-        console.log(" Post request subscribe data content:" + data)
-      })
-  }
 
   public pushNewUser(formData: User): void {
 
@@ -78,16 +69,6 @@ export class UserService {
 
 
 
-  addNewAbonnee(formData: Abonnee) {
-    this.http
-      .post<Abonnee>(
-        `http://localhost:4200/api/abonnees/create`,
-        formData,
-      ).subscribe(data => {
-        console.log(" abonnees post req body content :")
-        console.log(data)
-      })
-  }
 
   public connexion(email: string, password: string): void {
     console.log("email : " + email + " password : " + password)

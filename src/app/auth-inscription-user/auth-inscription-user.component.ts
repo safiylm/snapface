@@ -25,7 +25,7 @@ export class AuthInscriptionUserComponent implements OnInit {
     photos_profil: new FormControl("")
   });
   user = new User( "", "","","","", "", "",  0);
-  abonnee = new Abonnee( 8, "65dc5c384fa4e88846a7a941", [""]);
+ // abonnee = new Abonnee( 8, "65dc5c384fa4e88846a7a941", [""]);
   
 
   ngOnInit() { }
@@ -46,7 +46,7 @@ export class AuthInscriptionUserComponent implements OnInit {
     console.log(this.user);
     this.userService.pushNewUser(this.user)
 
-    window.location.href = '/'
+    //window.location.href = '/'
   }
 
 

@@ -1,6 +1,9 @@
 const User = require("../models/user");
 const db = require('../config/db.config.js')
 const collection_user = db.collection('users');
+const collection_statistiqueusers = db.collection('statistiqueusers');
+const collection_abonnees = db.collection('abonnees');
+
 const ObjectId = require('mongodb').ObjectId;
 
 
@@ -28,7 +31,24 @@ exports.create = (req, res) => {
   collection_user
     .insertOne(user)
     .then(data => {
-      res.send(data);
+      collection_statistiqueusers
+        .insertOne({
+          userId: data.insertedId.toString() , 
+          followers: 0,
+          totalPosts: 0,
+          totalPoints: 0,
+        })
+        .then(data1 => {
+          collection_abonnees
+            .insertOne({
+
+              userId: data.insertedId.toString() ,
+              followers: []
+            })
+            .then(data3 => {
+              res.send(data3);
+            })
+        })
     })
     .catch(err => {
       res.status(500).send({

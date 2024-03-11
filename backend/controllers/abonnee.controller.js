@@ -3,15 +3,14 @@ const collection_abonnees = db.collection('abonnees');
 
 exports.create = (req, res) => {
 
-  const c1 = {
-
-    userId: req.body.userId,
-    followers: []
-  };
 
   // Save Tutorial in the database
   collection_abonnees
-    .insertOne(c1)
+    .insertOne( {
+
+      userId: req.body.userId,
+      followers: []
+    })
     .then(data => {
       res.send(data);
     })
