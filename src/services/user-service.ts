@@ -26,6 +26,24 @@ export class UserService {
     return this.http.get<User>("http://localhost:4200/api/userid?id=" + id);
   }
 
+  addAbonnee(userId_: string) {
+    this.http.post<any>(`http://localhost:4200/api/abonnees/abonneeAdd`,
+      { 'userId_': userId_ }).subscribe(data => {
+        console.log(" add abonne post req body content :")
+        console.log(data)
+      })
+  }
+
+  removeAbonnee(userId_: string) {
+    this.http.post<any>(`http://localhost:4200/api/abonnees/abonneeRemove`,
+
+      { 'userId_': userId_ }).subscribe(data => {
+        console.log(" remove abonnee  post req body content :")
+        console.log(data)
+      })
+
+  }
+
 
   public pushNewUser(formData: User): void {
 
@@ -52,15 +70,15 @@ export class UserService {
       })
 
   }
- 
+
 
   deleteUser(userId: string): void {
 
     this.http
       .post<User>(
         `http://localhost:4200/api/user/delete`,
-        {"id" : userId },
-        ).subscribe(data => {
+        { "id": userId },
+      ).subscribe(data => {
         console.log(" user delete post req body content :")
         console.log(data)
       })

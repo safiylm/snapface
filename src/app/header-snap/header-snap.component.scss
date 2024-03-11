@@ -20,4 +20,20 @@
 .name {
     text-align: center;
     font-size: large;
+
+    #sedesabonner,
+    #sabonner {
+        border: none;
+        border-radius: 15px;
+        padding: 9px 15px;
+        background-color:#f2f2f2; 
+        color: black;
+        margin-left: 15px;
+    }
+
+    #sabonner {
+        background-color: dodgerblue;
+        color: #fff;
+
+    }
 }

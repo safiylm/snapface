@@ -3,6 +3,9 @@
     <img id="photo-profil" src={{user.photos_profil}} />
 </div>
 
-<h3 class="name"> {{ user.firstName }} {{ user.lastName }}</h3>
+<h3 class="name"> {{ user.firstName }} {{ user.lastName }} 
+<button *ngIf="!isAbonnee" (click)="sabonner()" id="sabonner"> S'abonner </button>
+<button *ngIf="isAbonnee" (click)="sedesabonner()" id="sedesabonner"> Se désabonner </button>
+</h3>
 
 <app-statistique-user [id]="id"></app-statistique-user>

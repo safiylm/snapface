@@ -13,14 +13,23 @@ export class HeaderSnapComponent implements OnInit {
  
   //Passing Data into this Component
   @Input() id !: string ;
- 
+  isAbonnee : boolean = false;
   user !: User;
 
-  constructor(private UserService: UserService) { }
+  constructor(private userService: UserService) { }
 
+  sabonner(){
+    this.userService.addAbonnee( this.id );
+    this.isAbonnee =true;
+  }
 
-  retrieveUser(): void {
-    this.UserService.getUser( this.id) 
+  sedesabonner(){
+    this.userService.removeAbonnee( this.id );
+    this.isAbonnee =false;
+  }
+
+  displayUser(): void {
+    this.userService.getUser( this.id) 
       .subscribe({
         next: (data) => {
           this.user = data;
@@ -31,8 +40,10 @@ export class HeaderSnapComponent implements OnInit {
   }
 
   ngOnInit() {
-   this.retrieveUser()
+   this.displayUser()
   }
+
+
   
 }
 
