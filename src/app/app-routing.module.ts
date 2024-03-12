@@ -5,6 +5,7 @@ import {  AuthConnexionUserComponent } from './auth-connexion-user/auth-connexio
 import { AuthInscriptionUserComponent } from './auth-inscription-user/auth-inscription-user.component'
 import { UserAccountComponent } from './user-account/user-account.component'
 import { UserDataUpdateComponent } from './user-data-update/user-data-update.component'
+import { PublicationCreateComponent } from './publication-create/publication-create.component';
 
 const routes: Routes = [
   { path: 'user/:id', component: UserAccountComponent  },
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'connexion', component:  AuthConnexionUserComponent },
   { path: 'inscription', component:  AuthInscriptionUserComponent },
   { path: 'user/data/update', component:  UserDataUpdateComponent },
+  { path: 'publication/creation', component:  PublicationCreateComponent },
 
 ];
 

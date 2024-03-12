@@ -13,7 +13,7 @@ export class PublicationAllListComponent implements OnInit {
   constructor(private publicationsService: PublicationsService) { }
 
   publications!: Publication[];
-  publication = new Publication(8, "essai add new post", "", [""], Date.now(), "", ["", ""], ["", ""]);
+  publication = new Publication("8", "essai add new post", "", [""], Date.now(), "", ["", ""], ["", ""]);
   interactionsocial = new InteractionSociale("8", "rdtfygubjnk", 484, 47, 45, ["65cd023efb273094193ac038"], ["65cd023efb273094193ac038"]);
   userConnectedId = "65cd023efb273094193ac038"; 
 

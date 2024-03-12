@@ -23,7 +23,7 @@ export class PublicationsService {
     return this.http.get<Publication[]>("http://localhost:4200/api/publicationByUserId?id="+id);
   }
 
-  public  pushNewPublication(formData: Publication): void {
+  public  createNewPublication(formData: Publication): void {
  
     this.http
       .post<Publication>(
@@ -59,7 +59,7 @@ export class PublicationsService {
     return Publication;
   }
 
-  getPublicationById(PublicationId: number): Publication {
+  getPublicationById(PublicationId: string): Publication {
     const Publication = this.publications.find(Publication => Publication._id === PublicationId);
     if (!Publication) {
       throw new Error('Publication not found!');
@@ -69,12 +69,12 @@ export class PublicationsService {
   }
 
 
-  snapPublicationById(PublicationId: number, snapType: 'snap' | 'unsnap'): void {
+  snapPublicationById(PublicationId: string, snapType: 'snap' | 'unsnap'): void {
     const Publication = this.getPublicationById(PublicationId);
    // snapType === 'snap' ? Publication.snaps++ : Publication.snaps--;
   }
 
-  unsnapPublicationById(PublicationId: number): void {
+  unsnapPublicationById(PublicationId: string): void {
     const Publication = this.publications.find(Publication => Publication._id === PublicationId);
     if (Publication) {
     //  Publication.snaps--;

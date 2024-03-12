@@ -24,6 +24,7 @@ import { ListFollowersComponent } from './list-followers/list-followers.componen
 import { CommentaireListComponent } from './commentaire-list/commentaire-list.component';
 import { CommentaireComponent } from './commentaire/commentaire.component';
 import { UserDataUpdateComponent } from './user-data-update/user-data-update.component';
+import { PublicationCreateComponent } from './publication-create/publication-create.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -44,7 +45,8 @@ import { UserDataUpdateComponent } from './user-data-update/user-data-update.com
     ListFollowersComponent,
     CommentaireListComponent,
     CommentaireComponent,
-    UserDataUpdateComponent
+    UserDataUpdateComponent,
+    PublicationCreateComponent
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,6 @@
 const db = require('../config/db.config.js');
 const collection_publications = db.collection('publications');
+const collection_interactionsociales = db.collection('interactionsociales');
 
 const { DateTime } = require("mssql");
 const ObjectId = require('mongodb').ObjectId;
@@ -17,8 +18,8 @@ exports.create = (req, res) => {
         body: req.body.body,
         userId: req.body.userId,
         images:  [ req.body.images],
-        videos: [{ url: "", title: "", }],
-        audios: [{ url: "", title: "", }],
+        videos: [{ url: req.body.videos, title: "", }],
+        audios: [{ url: req.body.audios , title: "", }],
     };
 
 
@@ -26,7 +27,14 @@ exports.create = (req, res) => {
     collection_publications
         .insertOne(  post )
         .then(data => {
-            res.send(data);
+            collection_interactionsociales
+            .insertOne( {
+                postId: data.insertedId.toString() ,
+                comments: 0,
+                likes: 0,
+                points: 0
+              })
+            .then(data1 => {})
         })
         .catch(err => {
             res.status(500).send({

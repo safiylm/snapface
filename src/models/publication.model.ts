@@ -1,7 +1,7 @@
 //raccourci typscript
 export class Publication {
     constructor(
-        public _id:number,
+        public _id:string,
     
         public title: string,
         public body: string,

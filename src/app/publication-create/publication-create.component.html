@@ -1,0 +1,32 @@
+<form [formGroup]="postCreateForm" (ngSubmit)="onSubmit()">
+
+    
+    <div class="div-input">
+        <label>Saisissez votre titre:</label>
+        <input type="text" name="title" placeholder="title" formControlName="title" />
+    </div>
+
+    <div class="div-input">
+        <label>Saisissez le corps:</label>
+        <input type="text" name="body" placeholder="body" formControlName="body" />
+    </div>
+
+    <div class="div-input">
+        <label>Saisissez le lien d'une image:</label>
+        <input type="text" name="image" placeholder="image" formControlName="image" />
+    </div>
+
+    <div class="div-input">
+        <label>Saisissez le lien d'une video:</label>
+        <input type="text" name="video" placeholder="video" formControlName="video" />
+    </div>
+
+    <div class="div-input">
+        <label>Saisissez le lien d'un audio:</label>
+        <input type="text" name="audio" placeholder="audio" formControlName="audio" />
+    </div>
+
+    <button type="submit">S'inscrire </button>
+
+</form>
+
