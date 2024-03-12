@@ -14,6 +14,7 @@ export class PublicationListComponent implements OnInit {
   @Input() id !: string ;
  
   publications!: Publication[];
+  userConnectedId = "65cd023efb273094193ac038"; 
 
   
   retrievePublications(): void {

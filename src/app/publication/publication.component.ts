@@ -7,6 +7,7 @@ import { PublicationsService } from '../../services/publication-service'
   templateUrl: './publication.component.html',
   styleUrls: ['./publication.component.scss']
 })
+
 export class PublicationComponent implements OnInit {
 
   @Input() publication!: Publication;
@@ -15,7 +16,7 @@ export class PublicationComponent implements OnInit {
 
   index: number = 0;
   buttonText!: string;
-  // ...
+
 
   ngOnInit() {
     this.buttonText = 'Oh Snap!';
@@ -41,4 +42,3 @@ export class PublicationComponent implements OnInit {
       this.index -= 1;
   }
 }
-// ...

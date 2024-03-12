@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user-service'
 import { User } from '../../models/user.model'
-import { Abonnee } from '../../models/abonnee.model'
 import { FormGroup, FormControl } from "@angular/forms";
 
 @Component({
@@ -25,7 +24,6 @@ export class AuthInscriptionUserComponent implements OnInit {
     photos_profil: new FormControl("")
   });
   user = new User( "", "","","","", "", "",  0);
- // abonnee = new Abonnee( 8, "65dc5c384fa4e88846a7a941", [""]);
   
 
   ngOnInit() { }
