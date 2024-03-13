@@ -6,7 +6,7 @@ import { AuthInscriptionUserComponent } from './auth-inscription-user/auth-inscr
 import { UserAccountComponent } from './user-account/user-account.component'
 import { UserDataUpdateComponent } from './user-data-update/user-data-update.component'
 import { PublicationCreateComponent } from './publication-create/publication-create.component';
-
+import { PublicationEditComponent } from './publication-edit/publication-edit.component';
 const routes: Routes = [
   { path: 'user/:id', component: UserAccountComponent  },
   { path: '', component:  HomeComponent },
@@ -14,6 +14,7 @@ const routes: Routes = [
   { path: 'inscription', component:  AuthInscriptionUserComponent },
   { path: 'user/data/update', component:  UserDataUpdateComponent },
   { path: 'publication/creation', component:  PublicationCreateComponent },
+  { path: 'publication/edit/:id', component:  PublicationEditComponent },
 
 ];
 

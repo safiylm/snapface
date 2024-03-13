@@ -36,18 +36,25 @@ export class PublicationsService {
 
   }
   
-  addNewInteractionSociale(formData: InteractionSociale ){
-    
+
+
+  editPost(formData: Publication): void {
+
     this.http
-      .post<InteractionSociale>(
-        `http://localhost:4200/api/interaction/social/create`,
+      .post<Publication>(
+        `http://localhost:4200/api/publication/edit`,
         formData,
       ).subscribe(data => {
-        console.log(" interactionSocial post req body content :" )
-
+        console.log(" user update post req body content :")
+        console.log(data)
       })
+
   }
 
+  getPublicationById(PublicationId: string): Observable<Publication> {
+    return this.http.get<Publication>("http://localhost:4200/api/publicationByPostId?postId="+PublicationId);
+
+  }
 
   getAllPublicationsByAuteur(userId: string): Publication[] {
 
@@ -59,14 +66,7 @@ export class PublicationsService {
     return Publication;
   }
 
-  getPublicationById(PublicationId: string): Publication {
-    const Publication = this.publications.find(Publication => Publication._id === PublicationId);
-    if (!Publication) {
-      throw new Error('Publication not found!');
-    } else {
-      return Publication;
-    }
-  }
+
 
 
   snapPublicationById(PublicationId: string, snapType: 'snap' | 'unsnap'): void {

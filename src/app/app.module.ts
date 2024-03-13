@@ -25,6 +25,7 @@ import { CommentaireListComponent } from './commentaire-list/commentaire-list.co
 import { CommentaireComponent } from './commentaire/commentaire.component';
 import { UserDataUpdateComponent } from './user-data-update/user-data-update.component';
 import { PublicationCreateComponent } from './publication-create/publication-create.component';
+import { PublicationEditComponent } from './publication-edit/publication-edit.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +47,8 @@ import { PublicationCreateComponent } from './publication-create/publication-cre
     CommentaireListComponent,
     CommentaireComponent,
     UserDataUpdateComponent,
-    PublicationCreateComponent
+    PublicationCreateComponent,
+    PublicationEditComponent
   ],
   imports: [
     BrowserModule,

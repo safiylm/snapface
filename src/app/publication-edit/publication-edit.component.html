@@ -1,0 +1,34 @@
+<p>publication-edit works!</p>
+{{ id }}
+
+<form [formGroup]="postEditForm" (ngSubmit)="onSubmit()">
+
+    
+    <div class="div-input">
+        <label>Saisissez votre titre:</label>
+        <input type="text" name="title" placeholder="title" formControlName="title" value={{data?.title}}  />
+    </div>
+
+    <div class="div-input">
+        <label>Saisissez le corps:</label>
+        <input type="text" name="body" placeholder="body" formControlName="body" value={{data?.body}} />
+    </div>
+
+    <div class="div-input">
+        <label>Saisissez le lien d'une image:</label>
+        <input type="text" name="image" placeholder="image" formControlName="image"  value={{data?.images}} />
+    </div>
+
+    <div class="div-input">
+        <label>Saisissez le lien d'une video:</label>
+        <input type="text" name="video" placeholder="video" formControlName="video"  value={{data?.videos}} />
+    </div>
+
+    <div class="div-input">
+        <label>Saisissez le lien d'un audio:</label>
+        <input type="text" name="audio" placeholder="audio" formControlName="audio"  value={{data?.audios}} />
+    </div>
+
+    <button type="submit">Modifier </button>
+
+</form>

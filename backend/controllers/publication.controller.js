@@ -59,9 +59,30 @@ exports.findAllPublicationByUserId = async (req, res) => {
 
 }
 
+exports.findAllPublicationByPostId= async (req, res) => {
+
+    const findResult = await collection_publications.findOne({"_id" : new ObjectId(req.query.postId ) });
+    res.send(findResult);
+
+}
+
 exports.findOneById = async (req, res) => {
     const id = req.query.id;
     res.send(await collection_publications.findOne({ "_id": new ObjectId(id) }))
 };
 
 
+exports.edit = async (req, res) => {
+    const updateResult = await collection_publications.updateOne({ "_id": new ObjectId(req.body._id) },
+      {
+        $set: {
+          "title": req.body.title,
+          "body": req.body.body,
+          "images": req.body.images,
+          "videos": req.body.videos,
+          "audios": req.body.audios,
+         
+        }
+      });
+    res.send(updateResult);
+  }
