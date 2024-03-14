@@ -32,8 +32,6 @@ export class PublicationsService {
       ).subscribe(data => {
         console.log("Add new post " )
       })
-
-
   }
   
 

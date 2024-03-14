@@ -8,8 +8,8 @@ export class Publication {
         public images: [ string ],
         public date: number,
         public userId: string,
-        public videos:[ url : string , title : string  ],
-        public audios: [ url : string , title : string  ],
+        // public videos:[ url : string , title : string  ],
+        // public audios: [ url : string , title : string  ],
         
         ) {
     }

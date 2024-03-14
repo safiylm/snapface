@@ -9,8 +9,8 @@ const Publication = new mongoose.Schema({
     body: { type: String },
     userId: { type: String }, //User
     images: [ String ],
-    videos:[ {url : String , title : String } ],
-    audios: [ {url : String , title : String } ],
+    // videos:[ {url : String , title : String } ],
+    // audios: [ {url : String , title : String } ],
 
 }, { versionKey: false });
 

@@ -18,8 +18,8 @@ exports.create = (req, res) => {
         body: req.body.body,
         userId: req.body.userId,
         images:  [ req.body.images],
-        videos: [{ url: req.body.videos, title: "", }],
-        audios: [{ url: req.body.audios , title: "", }],
+        // videos: [{ url: req.body.videos, title: "", }],
+        // audios: [{ url: req.body.audios , title: "", }],
     };
 
 
@@ -79,8 +79,8 @@ exports.edit = async (req, res) => {
           "title": req.body.title,
           "body": req.body.body,
           "images": req.body.images,
-          "videos": req.body.videos,
-          "audios": req.body.audios,
+        //   "videos": req.body.videos,
+        //   "audios": req.body.audios,
          
         }
       });

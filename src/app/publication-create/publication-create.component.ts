@@ -11,7 +11,7 @@ import { PublicationsService } from '../../services/publication-service';
 export class PublicationCreateComponent implements OnInit {
 
   userId = "65cd023efb273094193ac038";
-  post = new Publication( "", "","",[''], 0,this.userId, ["", ""],[ "", '']);
+  post = new Publication( "", "","",[''], 0,this.userId,);
   
   postCreateForm = new FormGroup({
     title: new FormControl(""),
@@ -23,13 +23,17 @@ export class PublicationCreateComponent implements OnInit {
   });
   constructor(private publicationsService: PublicationsService) { }
 
+  addnewImages(){
+
+
+  }
+  
   onSubmit() {
 
     this.post.title= this.postCreateForm.value['title']?.toString() as string;
     this.post.body= this.postCreateForm.value['body']?.toString() as string;
     this.post.images[0]= this.postCreateForm.value['image']?.toString() as string;
-    this.post.videos[0]= this.postCreateForm.value['video']?.toString() as string;
-    this.post.audios[0]= this.postCreateForm.value['audio']?.toString() as string ;
+   
    
     console.log(this.post);
 

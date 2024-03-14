@@ -13,7 +13,7 @@ export class PublicationEditComponent {
 
   id : string = "65cd023efb273094193ac038";
   data?: Publication ;
-  post = new Publication( "", "","",[""], 0, "", ["", "" ], ["", "" ]);
+  post = new Publication( "", "","",[""], 0, "", );
 
   constructor(private publicationService: PublicationsService, private route: ActivatedRoute) { }
 
@@ -63,15 +63,6 @@ export class PublicationEditComponent {
       this.post.images[0]=this.data?.images.toString() as string;
     }
 
-    this.post.videos[0]= this.postEditForm.value['video']?.toString() as string;
-    if( this.post.videos[0]==undefined){
-      this.post.videos[0]=this.data?.videos.toString() as string;
-    }
-
-    this.post.audios[0]= this.postEditForm.value['audio']?.toString() as string;
-    if( this.post.audios[0]==undefined){
-      this.post.audios[0]=this.data?.audios.toString() as string;
-    }
     console.log(this.post);
     this.publicationService.editPost(this.post);
   }
