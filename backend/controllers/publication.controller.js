@@ -1,6 +1,7 @@
 const db = require('../config/db.config.js');
 const collection_publications = db.collection('publications');
 const collection_interactionsociales = db.collection('interactionsociales');
+const collection_commentaires = db.collection('commentaires');
 
 const { DateTime } = require("mssql");
 const ObjectId = require('mongodb').ObjectId;
@@ -85,4 +86,16 @@ exports.edit = async (req, res) => {
         }
       });
     res.send(updateResult);
+  }
+
+  
+exports.delete =  (req, res) => {
+    collection_publications.deleteOne({ "_id": new ObjectId(req.body.id) }).then(data => {
+        collection_interactionsociales.deleteOne({ "postId": req.body.id }).then(data1 => {
+            collection_commentaires.
+            deleteMany({ "postId": req.body.id }).then(k => {
+            res.send(k );
+            })
+        })
+    });
   }

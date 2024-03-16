@@ -49,6 +49,19 @@ export class PublicationsService {
 
   }
 
+  deletePost(id: string): void {
+
+    this.http
+      .post<any>(
+        `http://localhost:4200/api/publication/delete`,
+        {"id" : id },
+      ).subscribe(data => {
+        console.log(" publication delete post req body content :")
+        console.log(data)
+      })
+
+  }
+
   getPublicationById(PublicationId: string): Observable<Publication> {
     return this.http.get<Publication>("http://localhost:4200/api/publicationByPostId?postId="+PublicationId);
 

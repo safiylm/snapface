@@ -38,6 +38,12 @@ export class PublicationEditComponent {
       });
   }
 
+  deletePost(){
+    if(confirm("Êtes-vous sur de vouloir supprimer la publication?")){
+      this.publicationService.deletePost(this.id)
+    }
+  }
+
   ngOnInit() {
     
     this.id = this.route.snapshot.paramMap.get('id')! ;
