@@ -1,8 +1,8 @@
 
     <nav>
         <a routerLink="">Home</a>
-      <a routerLink="connexion">Connexion</a>  
-      <a routerLink="user/data/update">User</a>  
-      <a routerLink="publication/creation">creation de publication </a>  
+      <a *ngIf="!isLoggedIn" routerLink="connexion">Connexion</a>  
+      <a *ngIf="isLoggedIn" routerLink="user/data/update">User</a>  
+      <a *ngIf="isLoggedIn" routerLink="publication/creation">creation de publication </a>  
     </nav>
   

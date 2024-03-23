@@ -33,7 +33,7 @@ exports.create = (req, res) => {
     .then(data => {
       collection_statistiqueusers
         .insertOne({
-          userId: data.insertedId.toString() , 
+          userId: data.insertedId.toString(),
           followers: 0,
           totalPosts: 0,
           totalPoints: 0,
@@ -42,7 +42,7 @@ exports.create = (req, res) => {
           collection_abonnees
             .insertOne({
 
-              userId: data.insertedId.toString() ,
+              userId: data.insertedId.toString(),
               followers: []
             })
             .then(data3 => {
@@ -63,7 +63,17 @@ exports.connexion = async function (req, res) {
 
   const findResult = await collection_user.findOne({ "email": req.body.email, "password": req.body.password }).then(
     data => {
-      res.send(data)
+      if (data == undefined || data == null) {
+        res.send( { resultat : "error connexion"})
+      }
+      else {
+        if (data._id != null && data.email == req.body.email) {
+          res.send(data)
+          
+        }
+      }
+
+
     }
   ).catch(err => {
     res.status(500).send({

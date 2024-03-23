@@ -5,7 +5,6 @@ import {
 } from '@angular/common/http';
 import { Observable, async, throwError } from 'rxjs';
 import { User } from '../models/user.model';
-import { Abonnee } from '../models/abonnee.model';
 
 //http://localhost:4200/api/user
 
@@ -15,7 +14,13 @@ import { Abonnee } from '../models/abonnee.model';
 
 export class UserService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
+
+  logout(): void {
+    localStorage.setItem('isLoggedIn', 'false');
+    localStorage.removeItem('token');
+  }
   //users ?: User[];
 
   getAllUsers(): Observable<User[]> {
@@ -87,17 +92,24 @@ export class UserService {
 
 
 
+  public connexion(email: string, password: string): any {
 
-  public connexion(email: string, password: string): void {
-    console.log("email : " + email + " password : " + password)
+
     this.http
-      .post<any>(
+      .post(
         `http://localhost:4200/api/user/connexion`,
-        { "email": email, "password": password },
-      ).subscribe(data => {
-        console.log(" Post request subscribe data content:" + data.toString())
+        { "email": email, "password": password }, 
+         { observe: 'response', responseType: 'text' }
+      ).subscribe((data) => {
+      
+        if (data.body != undefined) {
+          localStorage.setItem('isLoggedIn', "true");
+         localStorage.setItem('userdata', data.body );  
+        }
       })
-
+    
   }
+
+
 
 }
