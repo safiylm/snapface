@@ -1,0 +1,20 @@
+.my-account-div-liste-buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 0.6px solid #252525;
+    width: 600px;
+    margin: auto;
+
+    button{
+    border:none;
+    background-color: transparent;
+    padding: 10px 20px;
+    font-size: inherit;
+  
+}
+
+}
+

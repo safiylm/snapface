@@ -26,6 +26,8 @@ import { CommentaireComponent } from './commentaire/commentaire.component';
 import { UserDataUpdateComponent } from './user-data-update/user-data-update.component';
 import { PublicationCreateComponent } from './publication-create/publication-create.component';
 import { PublicationEditComponent } from './publication-edit/publication-edit.component';
+import { AuthGuard } from './guards/auth.guard';
+import { MyAccountComponent } from './my-account/my-account.component'; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,7 +50,8 @@ import { PublicationEditComponent } from './publication-edit/publication-edit.co
     CommentaireComponent,
     UserDataUpdateComponent,
     PublicationCreateComponent,
-    PublicationEditComponent
+    PublicationEditComponent,
+    MyAccountComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +59,7 @@ import { PublicationEditComponent } from './publication-edit/publication-edit.co
     HttpClientModule,
     FormsModule,ReactiveFormsModule
   ],
-  providers: [
+  providers: [AuthGuard,
     { provide: LOCALE_ID, useValue: 'fr-FR'}
   ],
   bootstrap: [AppComponent]

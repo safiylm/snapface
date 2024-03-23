@@ -1,0 +1,12 @@
+<app-header-snap [id]='id' ></app-header-snap>
+
+<div class="my-account-div-liste-buttons">
+    <button (click)="displayPosts()">Publication</button>
+    <button (click)="displayCreateNewPost()">Créer une nouvelle publication</button>
+    <button (click)="displayUserEditForm()">Modifier ses données</button>
+    <button (click)="logout()">Deconnexion</button>
+</div>
+
+<app-publication-list *ngIf="isDisplayPosts" [id]='id' ></app-publication-list>
+<app-publication-create *ngIf="isDisplayCreateNewPost" [userId]='id'></app-publication-create>
+<app-user-data-update *ngIf="isDisplayUserEditForm" [userId]='id'></app-user-data-update>
