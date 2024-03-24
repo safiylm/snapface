@@ -1,6 +1,6 @@
 <form [formGroup]="postCreateForm" (ngSubmit)="onSubmit()">
 
-    
+
     <div class="div-input">
         <label>Saisissez votre titre:</label>
         <input type="text" name="title" placeholder="title" formControlName="title" />
@@ -10,14 +10,20 @@
         <label>Saisissez le corps:</label>
         <input type="text" name="body" placeholder="body" formControlName="body" />
     </div>
-
     <div class="div-input">
         <label>Saisissez le lien d'une image:</label>
-        <input type="text" name="image" placeholder="image" formControlName="image" />
+        <input type="text" name="image" placeholder="images" formControlName="image" />
     </div>
+<!-- 
+    <div *ngFor="let item of array_image">
 
-    <button type="button" (click)="addnewImages()">Ajouter une nouvelle image </button>
+        <div class="div-input">
+            <label>Saisissez le lien d'une image:</label>
+            <input type="text" name="image{{item}}" placeholder={{item}}  />
+        </div>
+    </div> 
+
+    <button type="button" (click)="addnewImages()">Ajouter une nouvelle image </button>-->
     <button type="submit">S'inscrire </button>
 
 </form>
-

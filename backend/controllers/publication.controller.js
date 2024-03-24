@@ -2,7 +2,6 @@ const db = require('../config/db.config.js');
 const collection_publications = db.collection('publications');
 const collection_interactionsociales = db.collection('interactionsociales');
 const collection_commentaires = db.collection('commentaires');
-
 const { DateTime } = require("mssql");
 const ObjectId = require('mongodb').ObjectId;
 
@@ -15,10 +14,10 @@ exports.create = (req, res) => {
     
     const post = {
         title: req.body.title,
-        date: DateTime,
         body: req.body.body,
         userId: req.body.userId,
-        images:  [ req.body.images],
+        images:  req.body.images,
+         date: DateTime,
         // videos: [{ url: req.body.videos, title: "", }],
         // audios: [{ url: req.body.audios , title: "", }],
     };
