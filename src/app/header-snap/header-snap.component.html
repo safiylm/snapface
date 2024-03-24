@@ -4,8 +4,8 @@
 </div>
 
 <h3 class="name"> {{ user.firstName }} {{ user.lastName }} 
-<button *ngIf="!isAbonnee" (click)="sabonner()" id="sabonner"> S'abonner </button>
-<button *ngIf="isAbonnee" (click)="sedesabonner()" id="sedesabonner"> Se désabonner </button>
+<button *ngIf="!isAbonnee && !istMe" (click)="sabonner()" id="sabonner"> S'abonner </button>
+<button *ngIf="isAbonnee && !istMe" (click)="sedesabonner()" id="sedesabonner"> Se désabonner </button>
 </h3>
 
 <app-statistique-user [id]="id"></app-statistique-user>

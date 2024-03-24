@@ -14,6 +14,7 @@ export class HeaderSnapComponent implements OnInit {
   //Passing Data into this Component
   @Input() id !: string ;
   isAbonnee : boolean = false;
+  istMe : boolean = false;
   user !: User;
 
   constructor(private userService: UserService) { }
@@ -41,6 +42,9 @@ export class HeaderSnapComponent implements OnInit {
 
   ngOnInit() {
    this.displayUser()
+   if(localStorage.getItem('userId') == this.id){
+    this.istMe =true;
+   }
   }
 
 
