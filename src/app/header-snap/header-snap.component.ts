@@ -10,27 +10,18 @@ import { User } from '../../models/user.model'
 
 
 export class HeaderSnapComponent implements OnInit {
- 
+
   //Passing Data into this Component
-  @Input() id !: string ;
-  isAbonnee : boolean = false;
-  istMe : boolean = false;
+  @Input() id !: string;
+  isAbonnee: boolean = false;
+  istMe: boolean = false;
   user !: User;
 
   constructor(private userService: UserService) { }
 
-  sabonner(){
-    this.userService.addAbonnee( this.id );
-    this.isAbonnee =true;
-  }
-
-  sedesabonner(){
-    this.userService.removeAbonnee( this.id );
-    this.isAbonnee =false;
-  }
 
   displayUser(): void {
-    this.userService.getUser( this.id) 
+    this.userService.getUser(this.id)
       .subscribe({
         next: (data) => {
           this.user = data;
@@ -40,15 +31,25 @@ export class HeaderSnapComponent implements OnInit {
       });
   }
 
+
   ngOnInit() {
-   this.displayUser()
-   if(localStorage.getItem('userId') == this.id){
-    this.istMe =true;
-   }
+    this.displayUser()
+    if (localStorage.getItem('userId') == this.id) {
+      this.istMe = true;
+    }
+
   }
 
+  sabonner() {
+    this.userService.addAbonnee(this.id);
+    this.isAbonnee = true;
+  }
 
-  
+  sedesabonner() {
+    this.userService.removeAbonnee(this.id);
+    this.isAbonnee = false;
+  }
+
 }
 
 

@@ -31,21 +31,26 @@ export class UserService {
     return this.http.get<User>("http://localhost:4200/api/userid?id=" + id);
   }
 
-  addAbonnee(userId_: string) {
-    this.http.post<any>(`http://localhost:4200/api/abonnees/abonneeAdd`,
-      { 'userId_': userId_ }).subscribe(data => {
-        console.log(" add abonne post req body content :")
-        console.log(data)
-      })
+  addAbonnee( userSuiviId: string) {
+    if ( userSuiviId != null) {
+      this.http.post<any>(`http://localhost:4200/api/abonnees/abonneeAdd`,
+        { 'userSuiviId': userSuiviId , 'userConnectedId': localStorage.getItem('userId')?.toString() as string, }).subscribe(data => {
+          console.log(" add abonne post req body content :")
+          console.log(data)
+        })
+    }
   }
 
-  removeAbonnee(userId_: string) {
-    this.http.post<any>(`http://localhost:4200/api/abonnees/abonneeRemove`,
+  removeAbonnee(userSuiviId: string) {
 
-      { 'userId_': userId_ }).subscribe(data => {
+    if ( userSuiviId != null) {
+      this.http.post<any>(`http://localhost:4200/api/abonnees/abonneeRemove`,
+        { 'userConnectedId':localStorage.getItem('userId')?.toString() as string, 'userSuiviId': userSuiviId }
+      ).subscribe(data => {
         console.log(" remove abonnee  post req body content :")
         console.log(data)
       })
+    }
 
   }
 
@@ -98,16 +103,16 @@ export class UserService {
     this.http
       .post(
         `http://localhost:4200/api/user/connexion`,
-        { "email": email, "password": password }, 
-         { observe: 'response', responseType: 'text' }
+        { "email": email, "password": password },
+        { observe: 'response', responseType: 'text' }
       ).subscribe((data) => {
-      
+
         if (data.body != undefined) {
           localStorage.setItem('isLoggedIn', "true");
-         localStorage.setItem('userdata', data.body );  
+          localStorage.setItem('userdata', data.body);
         }
       })
-    
+
   }
 
 
