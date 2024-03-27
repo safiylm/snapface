@@ -1,8 +1,8 @@
 const db = require('../config/db.config.js');
 const collection_abonnees = db.collection('abonnees');
+const collection_statistiqueusers = db.collection('statistiqueusers');
 
-exports.create = (req, res) => {
-
+exports.create = async (req, res) => {
   // Save Tutorial in the database
   collection_abonnees
     .insertOne({
@@ -21,27 +21,32 @@ exports.create = (req, res) => {
 };
 
 
-exports.abonneeAdd = (req, res) => {
-
-  if (req.body.userConnectedId != null && req.body.userConnectedId != undefined
-    && req.body.userId != null && req.body.userId != undefined) {
-    const updateResult = collection_abonnees.updateOne({ "userId": req.body.userSuiviId },
-      { $push: { "followers": req.body.userConnectedId } });
-    res.send(updateResult);
-  }
-
-
+exports.abonneeAdd = async (req, res) => {
+  await collection_statistiqueusers.findOne({ "userId": req.body.userSuiviId }).then(stuer => {
+    collection_abonnees.updateOne({ "userId": req.body.userSuiviId },
+      { $push: { "followers": req.body.userConnectedId } }).then(d => {
+        let followerss = stuer.followers + 1;
+        collection_statistiqueusers.updateOne({ "userId": req.body.userSuiviId }, {  $set: {"followers":  followerss } })
+        res.send(d);
+      })
+  })
 };
 
-exports.abonneeRemove = (req, res) => {
-  if (req.body.userConnectedId != null && req.body.userConnectedId != undefined
-    && req.body.userId != null && req.body.userId != undefined) {
-    const updateResult = collection_abonnees.updateOne({ "userId": req.body.userSuiviId },
-      { $pull: { "followers": req.body.userConnectedId } });
-    res.send(updateResult);
-  }
 
+exports.abonneeRemove = async (req, res) => {
+  await collection_statistiqueusers.findOne({ "userId": req.body.userSuiviId }).then(stuer => {
+    collection_abonnees.updateOne({ "userId": req.body.userSuiviId },
+      { $pull: { "followers": req.body.userConnectedId } }).then(d => {
+        let followerss = stuer.followers - 1;
+        collection_statistiqueusers.updateOne({ "userId": req.body.userSuiviId }, {  $set: {"followers": followerss }})
+        res.send(d);
+
+      })
+  })
 };
+
+
+
 
 exports.findByUserId = async (req, res) => {
   const id = req.query.id;
