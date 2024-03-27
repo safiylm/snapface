@@ -2,22 +2,32 @@
     margin: 10px 0;
     padding: 7px 0;
     border-top: 0.5px solid rgb(212, 211, 211);
-  
+
 }
-  
-    input,
-    button {
-        padding: 4px 15px;
-        margin: 0 5px 0 0 ;
 
-    }
+input,
+button {
+    padding: 4px 15px;
+    margin: 0 5px 0 0;
 
-    button {
-        padding: 10px 15px;
-        background-color: whitesmoke;
-        border: none;
-        border-radius: 5px;
-    }
+}
+
+input {
+
+    border: none;
+    border-bottom-width: medium;
+    border-bottom-style: none;
+    border-bottom-color: currentcolor;
+    border-bottom: 0.2px solid black;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: whitesmoke;
+    border: none;
+    border-radius: 5px;
+}
+
 #p-commentaire {
     margin: 2px 60px;
     padding: 5px 0;

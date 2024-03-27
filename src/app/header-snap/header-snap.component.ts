@@ -63,7 +63,7 @@ export class HeaderSnapComponent implements OnInit {
    
     setTimeout(() => {
       this.checkIfDejaAbonnee();
-    }, 600);
+    }, 100);
   }
 
 

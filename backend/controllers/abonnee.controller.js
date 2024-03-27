@@ -47,7 +47,6 @@ exports.abonneeRemove = async (req, res) => {
 
 
 
-
 exports.findByUserId = async (req, res) => {
   const id = req.query.id;
   const findResult = await collection_abonnees.find({ "userId": id }).toArray();

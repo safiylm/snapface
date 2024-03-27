@@ -20,7 +20,7 @@ retrievePublications(): void {
     .subscribe({
       next: (data) => {
         this.abonnee = data;
-        console.log(data);
+      //  console.log(data);
       },
       error: (e) => console.error(e)
     });

@@ -30,7 +30,6 @@ export class StatistiqueUserComponent implements OnInit {
       .subscribe({
         next: (data) => {
           this.statistiqueUser = data;
-          console.log(data);
         },
         error: (e) => console.error(e)
       });

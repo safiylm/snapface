@@ -41,11 +41,13 @@ export class AuthConnexionUserComponent implements OnInit {
       //supprimer local storage variale 
       //  localStorage.setItem('userdata', "");  
         localStorage.setItem('userId', res._id );  
+        console.log("localStorage.getItem('userId')");
+        console.log(localStorage.getItem('userId'));
 
 
       if (res.resultat != "error connexion") {
         //(document.getElementById("connexion-info") as HTMLFormElement).innerText = "Connexion successfull";
-        window.location.href = '/'
+        window.location.href = '/mon-compte'
       } else {
         (document.getElementById("connexion-info") as HTMLFormElement).innerHTML = "Connexion error";
       }
