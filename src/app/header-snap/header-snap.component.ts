@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { UserService } from '../../services/user-service'
 import { User } from '../../models/user.model'
+import { Abonnee } from 'src/models/abonnee.model';
 
 @Component({
   selector: 'app-header-snap',
@@ -16,6 +17,7 @@ export class HeaderSnapComponent implements OnInit {
   isAbonnee: boolean = false;
   istMe: boolean = false;
   user !: User;
+  abonnee!: Abonnee[];
 
   constructor(private userService: UserService) { }
 
@@ -25,20 +27,46 @@ export class HeaderSnapComponent implements OnInit {
       .subscribe({
         next: (data) => {
           this.user = data;
-          console.log(data);
         },
         error: (e) => console.error(e)
       });
   }
 
+  getAbonneeByUserId(): void {
+    this.userService.getAbonneeByUserId(this.id)
+    .subscribe({
+      next: (data) => {
+        this.abonnee = data;
+      },
+      error: (e) => console.error(e)
+    });
+  }
+
+
+  checkIfDejaAbonnee() {
+    this.getAbonneeByUserId();
+    this.abonnee.forEach(element => {
+      element.followers.forEach(element1 => {
+        if (element1 === localStorage.getItem('userId')) {
+          this.isAbonnee = true;
+        }
+      })
+    });
+  }
+
 
   ngOnInit() {
-    this.displayUser()
+    this.displayUser();
     if (localStorage.getItem('userId') == this.id) {
       this.istMe = true;
     }
-
+   
+    setTimeout(() => {
+      this.checkIfDejaAbonnee();
+    }, 600);
   }
+
+
 
   sabonner() {
     this.userService.addAbonnee(this.id);
