@@ -16,10 +16,14 @@ export class PublicationComponent implements OnInit {
 
   index: number = 0;
   buttonText!: string;
+  isMyPost: boolean = false ;
 
 
   ngOnInit() {
     this.buttonText = 'Oh Snap!';
+    if(this.publication.userId == localStorage.getItem('userId')){
+      this.isMyPost = true;
+    }
   }
 
   onSnap() {
