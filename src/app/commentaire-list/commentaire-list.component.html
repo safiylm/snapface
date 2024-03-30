@@ -3,7 +3,7 @@
 
  </div>
  
- <form [formGroup]="commentForm" (ngSubmit)="createNewComment()">
+ <form [formGroup]="commentForm" (ngSubmit)="createNewComment()" id="addNewComment" autocomplete="off">
      <input type="text" name="nom" formControlName="comment" />
      <button type="submit" >Envoyer</button>
  </form>

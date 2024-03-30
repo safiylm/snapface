@@ -32,3 +32,20 @@ button {
     margin: 2px 60px;
     padding: 5px 0;
 }
+
+#addNewComment {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+
+    input {
+        padding: 10px 0px;
+        flex: 80%;
+        outline: 0;
+    }
+
+    button {
+        flex: 20%;
+        min-width: 76px;
+    }
+}

@@ -2,7 +2,7 @@
 <p *ngIf="!edited" id="p-commentaire">{{ commentaire.title}}</p>
 <button *ngIf="!edited" (click)="showFormEditComment()" >Modifer </button>
 
-<form *ngIf="edited" [formGroup]="commentForm" (ngSubmit)="editComment(commentaire._id.toString())">
+<form *ngIf="edited" [formGroup]="commentForm" (ngSubmit)="editComment(commentaire._id.toString())" >
     <input type="text"  formControlName="comment" />
     <button type="submit" >Envoyer</button>
     <button type="button"  (click)="hideFormEditComment()">Annuler</button>
