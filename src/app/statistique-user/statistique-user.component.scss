@@ -1,24 +1,25 @@
-.div-statistiqueUser{
+.div-statistiqueUser {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: center; 
-     border-bottom: 0.6px solid #252525;
+    align-items: center;
+    border-bottom: 0.6px solid #252525;
     width: 600px;
     margin: auto;
-    div{
+
+    div {
         text-align: center;
         margin: 10px auto;
         line-height: 30px;
     }
 }
 
-#btn-followers{
+#btn-followers {
     border: none;
     background-color: transparent;
 }
 
-#btn-hide-followers{
+#btn-hide-followers {
     border: none;
     border-radius: 15px;
     padding: 6px 15px;
@@ -26,4 +27,13 @@
     color: white;
     margin: 10px auto;
     display: block;
+}
+
+@media(max-width:850px) {
+
+    .div-statistiqueUser {
+
+        width: 100vw;
+    }
+
 }

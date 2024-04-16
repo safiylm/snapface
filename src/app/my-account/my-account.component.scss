@@ -1,4 +1,4 @@
-.my-account-div-liste-buttons{
+.my-account-div-liste-buttons {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -8,13 +8,33 @@
     width: 600px;
     margin: auto;
 
-    button{
-    border:none;
-    background-color: transparent;
-    padding: 10px 20px;
-    font-size: inherit;
-  
-}
+    button {
+        border: none;
+        background-color: transparent;
+        padding: 10px 20px;
+        font-size: inherit;
+
+    }
 
 }
 
+@media(max-width:650px) {
+
+    .my-account-div-liste-buttons {
+        width: 100vw;
+
+        button {
+            padding: 25px;
+
+            div {
+                display: none;
+            }
+
+            svg{
+                width: 20px !important;
+                height: 20px !important;
+            }
+        }
+
+    }
+}

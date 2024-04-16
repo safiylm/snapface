@@ -41,3 +41,14 @@
     }
 
 }
+
+@media(max-width:500px) {
+
+    h3{
+    margin: 10px auto;
+   
+    }
+    .div-list-users {
+        flex-direction: row;
+    }
+}

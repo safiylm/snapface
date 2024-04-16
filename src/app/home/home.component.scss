@@ -1,6 +1,14 @@
-.container-flex{
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    justify-content: center;
+
+
+@media(max-width:850px) {
+
+    .d-flex{
+        flex-wrap: wrap;
+        width: 100vw;
+    }
+
+    #div-list-users{
+        width:100vw; overflow-x: scroll;
+    }
+
 }
