@@ -40,3 +40,14 @@ form {
         color: red;
     }
 }
+
+@media(max-width:650px) {
+
+    form {
+        
+        width: 100vw;
+        padding: 30px;
+        box-sizing: border-box;
+        margin: 20px 0;
+    }
+}
