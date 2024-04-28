@@ -2,7 +2,7 @@
   "name": "backend",
   "version": "1.0.0",
   "engines": {
-    "node": ">=18 <19"
+    "node": ">=20 <21"
   },
   "description": "",
   "main": "index.js",
