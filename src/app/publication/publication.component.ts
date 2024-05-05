@@ -25,6 +25,10 @@ export class PublicationComponent implements OnInit {
       this.isMyPost = true;
     }
   }
+  goToEditPost(){
+    document.location.href='publication/edit/'+this.publication._id 
+  }
+
 
   onSnap() {
     if (this.buttonText === 'Oh Snap!') {
