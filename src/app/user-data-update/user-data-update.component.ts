@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { UserService } from '../../services/user-service'
 import { ActivatedRoute } from '@angular/router';
 import { User } from '../../models/user.model'
@@ -12,13 +12,12 @@ import { FormGroup, FormControl } from "@angular/forms";
 })
 export class UserDataUpdateComponent implements OnInit {
 
-
-  id : string = "65cd023efb273094193ac038";
-
+  @Input() userId !: any ;
+  
   constructor(private userService: UserService, private route: ActivatedRoute) { }
 
   user?: User;
-  user2 = new User(this.id, "","","","", "", "",  0);
+  user2 = new User(this.userId, "","","","", "", "",  0);
 
   updateUserForm = new FormGroup({
     lastName: new FormControl( this.user?.lastName.toString() ),
@@ -32,7 +31,7 @@ export class UserDataUpdateComponent implements OnInit {
 
 
   retrieveUser(): void {
-    this.userService.getUser( this.id) 
+    this.userService.getUser( this.userId) 
       .subscribe({
         next: (data) => {
           this.user = data;
@@ -44,9 +43,13 @@ export class UserDataUpdateComponent implements OnInit {
 
   ngOnInit() {
    this.retrieveUser()
-  }
+
+  } 
   
   onSubmit(){
+
+    this.user2._id = this.userId;
+    
     this.user2.lastName= this.updateUserForm.value['lastName']?.toString() as string;
     if( this.user2.lastName==undefined){
       this.user2.lastName=this.user?.lastName.toString() as string;
@@ -80,4 +83,6 @@ export class UserDataUpdateComponent implements OnInit {
     //console.log(this.user2)
     this.userService.updateUser(this.user2)
   }
+
+  
 }
