@@ -26,6 +26,6 @@
           <div>Deconnexion</div></button>
 </div>
 
-<app-publication-list *ngIf="isDisplayPosts" [id]='id' ></app-publication-list>
-<app-publication-create *ngIf="isDisplayCreateNewPost" [userId]='id'></app-publication-create>
-<app-user-data-update *ngIf="isDisplayUserEditForm" [userId]='id'></app-user-data-update>
+<app-publication-list [id]='id'  *ngIf="isDisplayPosts" ></app-publication-list>
+<app-publication-create [userId]='id' *ngIf="isDisplayCreateNewPost" ></app-publication-create>
+<app-user-data-update [userId]='id' *ngIf="isDisplayUserEditForm"></app-user-data-update>
