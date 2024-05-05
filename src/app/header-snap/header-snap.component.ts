@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { UserService } from '../../services/user-service'
 import { User } from '../../models/user.model'
 import { Abonnee } from 'src/models/abonnee.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header-snap',
@@ -19,7 +20,7 @@ export class HeaderSnapComponent implements OnInit {
   user !: User;
   abonnee!: Abonnee[];
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router: Router) { }
 
 
   displayUser(): void {
@@ -34,17 +35,16 @@ export class HeaderSnapComponent implements OnInit {
 
   getAbonneeByUserId(): void {
     this.userService.getAbonneeByUserId(this.id)
-    .subscribe({
-      next: (data) => {
-        this.abonnee = data;
-      },
-      error: (e) => console.error(e)
-    });
+      .subscribe({
+        next: (data) => {
+          this.abonnee = data;
+        },
+        error: (e) => console.error(e)
+      });
   }
 
 
   checkIfDejaAbonnee() {
-    this.getAbonneeByUserId();
     this.abonnee.forEach(element => {
       element.followers.forEach(element1 => {
         if (element1 === localStorage.getItem('userId')) {
@@ -60,22 +60,25 @@ export class HeaderSnapComponent implements OnInit {
     if (localStorage.getItem('userId') == this.id) {
       this.istMe = true;
     }
-   
+    this.getAbonneeByUserId();
+
     setTimeout(() => {
       this.checkIfDejaAbonnee();
-    }, 100);
+    }, 50);
   }
-
 
 
   sabonner() {
     this.userService.addAbonnee(this.id);
     this.isAbonnee = true;
+    window.location.reload();
   }
 
+  
   sedesabonner() {
     this.userService.removeAbonnee(this.id);
     this.isAbonnee = false;
+    window.location.reload();
   }
 
 }
