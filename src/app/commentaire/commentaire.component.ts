@@ -8,9 +8,11 @@ import { FormControl, FormGroup } from '@angular/forms';
   templateUrl: './commentaire.component.html',
   styleUrls: ['./commentaire.component.scss']
 })
-export class CommentaireComponent implements OnInit  {
+export class CommentaireComponent implements OnInit {
 
   public edited = false;
+
+  isMyComment: boolean = false;
 
   @Input() id !: string;
   @Input() commentaire !: Commentaire;
@@ -20,36 +22,59 @@ export class CommentaireComponent implements OnInit  {
   });
 
   constructor(private commentaireService: CommentaireService) { }
-  
-  showFormEditComment(){
-    this.edited =true;
-    this.commentForm.value['comment'] =  this.commentaire.title;
+
+  showFormEditComment() {
+    this.edited = true;
+    this.commentForm.value['comment'] = this.commentaire.title;
   }
 
-  hideFormEditComment(){
-    this.edited =false;
+  hideFormEditComment() {
+    this.edited = false;
   }
 
-  
-  editComment(commentId: string ){
-    this.commentaire._id = commentId;
-    this.commentaire.title =  this.commentForm.value['comment']?.toString() as string;
-    this.commentaire.postId = this.id ;
-    this.commentaire.userId= "65cd023efb273094193ac038";
 
-    this.commentaireService.updateCommentaire(this.commentaire);
-    this.edited =false;
+  editComment(commentId: string) {
+    if (localStorage.getItem('userId') != null &&
+      localStorage.getItem('isLoggedIn') != "false") {
+
+      this.commentaire._id = commentId;
+      this.commentaire.title = this.commentForm.value['comment']?.toString() as string;
+      this.commentaire.postId = this.id;
+      this.commentaire.userId = localStorage.getItem('userId')?.toString() as string;
+
+      this.commentaireService.updateCommentaire(this.commentaire);
+      this.edited = false;
+      window.location.reload();
+
+    } else {
+      (document.getElementById("info-editComment" + this.commentaire._id) as HTMLFormElement).innerHTML = "Il faut se connecter!";
+    }
+
 
   }
 
-  deleteComment(commentId: string ){
-    this.commentaireService.deleteCommentaire( commentId);
-
+  deleteComment(commentId: string) {
+    if (localStorage.getItem('userId') != null &&
+      localStorage.getItem('isLoggedIn') != "false"
+    ) {
+        let text = "Êtes-vous sûre de supprimer votre commentaire!\n OK or Cancel.";
+        if (confirm(text) == true) {
+          this.commentaireService.deleteCommentaire(commentId);
+          window.location.reload();
+        } else {
+          text = "You canceled!";
+        }
+    
+    } else {
+      (document.getElementById("info-deleteComment" + this.commentaire._id) as HTMLFormElement).innerHTML = "Il faut se connecter!";
+    }
   }
 
 
   ngOnInit() {
-
+    if (this.commentaire.userId == localStorage.getItem('userId')?.toString()) {
+      this.isMyComment = true;
+    }
   }
 
 }

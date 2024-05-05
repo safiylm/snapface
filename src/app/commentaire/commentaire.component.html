@@ -1,8 +1,8 @@
 <app-auteur-in-post-or-commentaire [id]="commentaire.userId.toString()"></app-auteur-in-post-or-commentaire>
 <div class="d-flex flex-row align-items-center justify-content-between">
     <p *ngIf="!edited" id="p-commentaire">{{ commentaire.title}}</p>
-
-    <div>
+    
+    <div *ngIf="isMyComment" >
         <button *ngIf="!edited" (click)="showFormEditComment()"><svg xmlns="http://www.w3.org/2000/svg" width="16"
                 height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
                 <path
@@ -20,7 +20,7 @@
 
 
 <form *ngIf="edited" [formGroup]="commentForm" (ngSubmit)="editComment(commentaire._id.toString())">
-    <input type="text" formControlName="comment" />
+    <input type="text" formControlName="comment" name="title" value={{commentaire.title.toString()}} autocomplete="off"/>
     <button type="submit">Envoyer</button>
     <button type="button" (click)="hideFormEditComment()">Annuler</button>
 </form>
