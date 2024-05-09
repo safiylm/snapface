@@ -1,7 +1,6 @@
+<nav class="d-flex flex-column align-items-start justify-content-center">
 
-    <nav>
-        <a routerLink="">Home</a>
-      <a *ngIf="!isLoggedIn" routerLink="connexion">Connexion</a>  
-      <a *ngIf="isLoggedIn" routerLink="mon-compte">Mon compte </a>  
-    </nav>
-  
+  <a routerLink="">Snapface</a>
+  <a *ngIf="!isLoggedIn" routerLink="connexion">Connexion</a>
+  <a *ngIf="isLoggedIn" routerLink="mon-compte">Mon compte </a>
+</nav>

@@ -7,7 +7,7 @@
     </svg> Modifier</button>
   </div>
 
-  <h2>{{ publication.title | uppercase}}</h2>
+  <h2>{{ publication.title | titlecase }}</h2>
   <!-- <p>Mis en ligne le {{ publication.date | date: 'à HH:mm, le d MMMM yyyy' }}</p> -->
   
   <div class="div-images" *ngIf="publication.images.length > 0">
@@ -26,7 +26,7 @@
 
 
 
-  <p>{{ publication.body | titlecase }}</p>
+  <p id="body">{{ publication.body | titlecase }}</p>
 
 
   <app-interaction-social [id]="publication._id.toString()"></app-interaction-social>

@@ -1,14 +1,14 @@
+@media(max-width:910px) {
 
-
-@media(max-width:850px) {
-
-    .d-flex{
-        flex-wrap: wrap;
+    .d-flex {
+        flex-direction: column;
         width: 100vw;
+        justify-content: center !important;
     }
 
-    #div-list-users{
-        width:100vw; overflow-x: scroll;
+    #div-list-users {
+        width: 100vw;
+        overflow-x: scroll;
     }
 
 }
