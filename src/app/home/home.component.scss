@@ -1,7 +1,7 @@
 @media(max-width:910px) {
 
-    .d-flex {
-        flex-direction: column;
+    .home {
+        flex-direction: column !important;
         width: 100vw;
         justify-content: center !important;
     }
@@ -10,5 +10,10 @@
         width: 100vw;
         overflow-x: scroll;
     }
+}
 
+@media(max-width:899px) {
+    .home {
+        align-items: center !important;
+    }
 }
