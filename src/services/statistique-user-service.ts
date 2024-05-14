@@ -17,7 +17,7 @@ export class StatistiqueUserService {
   constructor(private http: HttpClient) { }
  
   getStatistiqueUserById(id : string ): Observable<StatistiqueUser> {
-    return this.http.get<StatistiqueUser>("http://localhost:4200/api/statistiqueUserByUserId?id="+id);
+    return this.http.get<StatistiqueUser>("https://snapface.onrender.com/api/statistiqueUserByUserId?id="+id);
   }
 
 

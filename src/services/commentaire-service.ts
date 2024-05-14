@@ -18,18 +18,18 @@ export class CommentaireService {
   constructor(private http: HttpClient) { }
  
   getCommentaireByPostId(id : string ): Observable<Commentaire[]> {
-    return this.http.get<Commentaire[]>("http://localhost:4200/api/commentairesByPostId?id="+id);
+    return this.http.get<Commentaire[]>("https://snapface.onrender.com/api/commentairesByPostId?id="+id);
   }
 
   getUserByUserId(id : string ): Observable<User> {
-    return this.http.get<User>("http://localhost:4200/api/userid?id="+id);
+    return this.http.get<User>("https://snapface.onrender.com/api/userid?id="+id);
   }
 
   addNewCommentaire(formData: Commentaire ){
     
     this.http
       .post<Commentaire>(
-        `http://localhost:4200/api/commentaire/create`,
+        `https://snapface.onrender.com/api/commentaire/create`,
         formData,
       ).subscribe(data => {
         console.log(" inscription post req body content :" )
@@ -41,7 +41,7 @@ export class CommentaireService {
   deleteCommentaire( commentId: string ){
     this.http
     .post<any>(
-      `http://localhost:4200/api/commentaire/delete`,
+      `https://snapface.onrender.com/api/commentaire/delete`,
       {"id" : commentId },
     ).subscribe(data => {
       console.log(" delete comment post req body content :" )
@@ -53,7 +53,7 @@ export class CommentaireService {
   updateCommentaire( form: Commentaire ){
     this.http
     .post<Commentaire>(
-      `http://localhost:4200/api/commentaire/update`,
+      `https://snapface.onrender.com/api/commentaire/update`,
       form,
     ).subscribe(data => {
       console.log(" delete comment post req body content :" )

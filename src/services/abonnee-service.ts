@@ -17,7 +17,7 @@ export class AbonneeService {
   constructor(private http: HttpClient) { }
  
   getAbonneeByUserId(id : string ): Observable<Abonnee[]> {
-    return this.http.get<Abonnee[]>("http://localhost:4200/api/abonneesbyUserId?id="+id);
+    return this.http.get<Abonnee[]>("https://snapface.onrender.com/api/abonneesbyUserId?id="+id);
   }
 
   

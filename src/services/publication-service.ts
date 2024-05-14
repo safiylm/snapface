@@ -16,18 +16,18 @@ export class PublicationsService {
 
 
   getAllPublications(): Observable<Publication[]> {
-    return this.http.get<Publication[]>("http://localhost:4200/api/publication");
+    return this.http.get<Publication[]>("https://snapface.onrender.com/api/publication");
   }
 
   getAllPublicationsByUserId( id :string): Observable<Publication[]> {
-    return this.http.get<Publication[]>("http://localhost:4200/api/publicationByUserId?id="+id);
+    return this.http.get<Publication[]>("https://snapface.onrender.com/api/publicationByUserId?id="+id);
   }
 
   public  createNewPublication(formData: Publication): void {
  
     this.http
       .post<Publication>(
-        `http://localhost:4200/api/publication/create`,
+        `https://snapface.onrender.com/api/publication/create`,
         formData,
       ).subscribe(data => {
         console.log("Add new post " )
@@ -40,7 +40,7 @@ export class PublicationsService {
 
     this.http
       .post<Publication>(
-        `http://localhost:4200/api/publication/edit`,
+        `https://snapface.onrender.com/api/publication/edit`,
         formData,
       ).subscribe(data => {
         console.log(" user update post req body content :")
@@ -53,7 +53,7 @@ export class PublicationsService {
 
     this.http
       .post<any>(
-        `http://localhost:4200/api/publication/delete`,
+        `https://snapface.onrender.com/api/publication/delete`,
         {"id" : id },
       ).subscribe(data => {
         console.log(" publication delete post req body content :")
@@ -63,7 +63,7 @@ export class PublicationsService {
   }
 
   getPublicationById(PublicationId: string): Observable<Publication> {
-    return this.http.get<Publication>("http://localhost:4200/api/publicationByPostId?postId="+PublicationId);
+    return this.http.get<Publication>("https://snapface.onrender.com/api/publicationByPostId?postId="+PublicationId);
 
   }
 

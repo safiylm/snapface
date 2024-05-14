@@ -28,16 +28,16 @@ export class UserService {
   //users ?: User[];
 
   getAllUsers(): Observable<User[]> {
-    return this.http.get<User[]>("http://localhost:4200/api/user");
+    return this.http.get<User[]>("https://snapface.onrender.com/api/user");
   }
 
   getUser(id: string): Observable<User> {
-    return this.http.get<User>("http://localhost:4200/api/userid?id=" + id);
+    return this.http.get<User>("https://snapface.onrender.com/api/userid?id=" + id);
   }
 
   addAbonnee(userSuiviId: string) {
     if (userSuiviId != null) {
-      this.http.post<any>(`http://localhost:4200/api/abonnees/abonneeAdd`,
+      this.http.post<any>(`https://snapface.onrender.com/api/abonnees/abonneeAdd`,
         { 'userSuiviId': userSuiviId, 'userConnectedId': localStorage.getItem('userId')?.toString() as string, }).subscribe(data => {
           console.log(" add abonne post req body content :")
           console.log(data)
@@ -51,7 +51,7 @@ export class UserService {
   removeAbonnee(userSuiviId: string) {
 
     if (userSuiviId != null) {
-      this.http.post<any>(`http://localhost:4200/api/abonnees/abonneeRemove`,
+      this.http.post<any>(`https://snapface.onrender.com/api/abonnees/abonneeRemove`,
         { 'userConnectedId': localStorage.getItem('userId')?.toString() as string, 'userSuiviId': userSuiviId }
       ).subscribe(data => {
         console.log(" remove abonnee  post req body content :")
@@ -64,7 +64,7 @@ export class UserService {
 
 
   getAbonneeByUserId(id: string): Observable<Abonnee[]> {
-    return this.http.get<Abonnee[]>("http://localhost:4200/api/abonneesbyUserId?id=" + id);
+    return this.http.get<Abonnee[]>("https://snapface.onrender.com/api/abonneesbyUserId?id=" + id);
   }
 
 
@@ -72,7 +72,7 @@ export class UserService {
 
     this.http
       .post<User>(
-        `http://localhost:4200/api/user/create`,
+        `https://snapface.onrender.com/api/user/create`,
         formData,
       ).subscribe(data => {
         console.log(" inscription post req body content :")
@@ -85,7 +85,7 @@ export class UserService {
 
     this.http
       .post<User>(
-        `http://localhost:4200/api/user/update`,
+        `https://snapface.onrender.com/api/user/update`,
         formData,
       ).subscribe(data => {
         console.log(" user update post req body content :")
@@ -99,7 +99,7 @@ export class UserService {
 
     this.http
       .post<User>(
-        `http://localhost:4200/api/user/delete`,
+        `https://snapface.onrender.com/api/user/delete`,
         { "id": userId },
       ).subscribe(data => {
         console.log(" user delete post req body content :")
@@ -115,7 +115,7 @@ export class UserService {
 
     this.http
       .post(
-        `http://localhost:4200/api/user/connexion`,
+        `https://snapface.onrender.com/api/user/connexion`,
         { "email": email, "password": password },
         { observe: 'response', responseType: 'text' }
       ).subscribe((data) => {
