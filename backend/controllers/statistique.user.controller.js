@@ -34,5 +34,6 @@ exports.create = (req, res) => {
 
 exports.findByUserId = async (req, res) => {
     const id = req.query.id;
+    res.set('Access-Control-Allow-Origin', '*');
     res.send(await collection_statistiqueusers.findOne({ "userId": id }))
 };
