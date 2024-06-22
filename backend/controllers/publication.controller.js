@@ -45,10 +45,6 @@ exports.create = (req, res) => {
 
 // Retrieve all Users from the database.
 exports.findAll = async (req, res) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With, Origin, Accept');        
-    res.header('Access-Control-Allow-Credentials', true);
-    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
  
     const findResult = await collection_publications.find({}).toArray();
     res.send(findResult);
