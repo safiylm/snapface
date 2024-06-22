@@ -112,17 +112,17 @@ exports.delete = async (req, res) => {
 // Retrieve all Users from the database.
 exports.findAll = async (req, res) => {
 
-  res.setHeader('Access-Control-Allow-Origin', 'https://snapface.onrender.com');
+  res.header('Access-Control-Allow-Origin', 'https://snapface.onrender.com');
 
   // Request methods you wish to allow
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
 
   // Request headers you wish to allow
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+  res.header('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
 
   // Set to true if you need the website to include cookies in the requests sent
   // to the API (e.g. in case you use sessions)
-  res.setHeader('Access-Control-Allow-Credentials', true);
+  res.header('Access-Control-Allow-Credentials', true);
 
   const findResult = await collection_user.find({}).toArray();
   res.send(findResult);
