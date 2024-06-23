@@ -45,6 +45,7 @@ exports.create = (req, res) => {
 
 // Retrieve all Users from the database.
 exports.findAll = async (req, res) => {
+    res.set('Access-Control-Allow-Origin', '*');
  
     const findResult = await collection_publications.find({}).toArray();
     res.send(findResult);
@@ -53,6 +54,7 @@ exports.findAll = async (req, res) => {
 
 exports.findAllPublicationByUserId = async (req, res) => {
 
+    res.set('Access-Control-Allow-Origin', '*');
   
     const findResult = await collection_publications.find({"userId" : req.query.id }).toArray();
     res.send(findResult);
@@ -60,6 +62,7 @@ exports.findAllPublicationByUserId = async (req, res) => {
 }
 
 exports.findAllPublicationByPostId= async (req, res) => {
+    res.set('Access-Control-Allow-Origin', '*');
  
     const findResult = await collection_publications.findOne({"_id" : new ObjectId(req.query.postId ) });
     res.send(findResult);
@@ -67,6 +70,7 @@ exports.findAllPublicationByPostId= async (req, res) => {
 }
 
 exports.findOneById = async (req, res) => {
+    res.set('Access-Control-Allow-Origin', '*');
 
     const id = req.query.id;
     res.send(await collection_publications.findOne({ "_id": new ObjectId(id) }))

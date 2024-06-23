@@ -67,6 +67,8 @@ exports.update = async (req, res) => {
 //res.body.insertedId
 
 exports.findByPublicationId = async (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
+
   const id = req.query.id;
   const findResult = await collection_commentaires.find({ "postId": id }).toArray();
   res.send(findResult);
