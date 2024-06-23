@@ -28,7 +28,8 @@ export class UserService {
   //users ?: User[];
 
   getAllUsers(): Observable<User[]> {
-    return this.http.get<User[]>("https://snapface.onrender.com/api/user");
+    return this.http.get<User[]>("https://snapface.onrender.com/api/user"
+    );
   }
 
   getUser(id: string): Observable<User> {

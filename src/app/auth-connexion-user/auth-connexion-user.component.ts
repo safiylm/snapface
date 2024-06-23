@@ -2,7 +2,6 @@ import { Component, OnInit, Input } from '@angular/core';
 import { UserService } from '../../services/user-service'
 import { User } from '../../models/user.model'
 import { FormGroup, FormControl } from "@angular/forms";
-import { AuthGuard } from '../guards/auth.guard';
 
 @Component({
   selector: 'app-auth-connexion-user',

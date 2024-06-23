@@ -19,9 +19,5 @@ export class StatistiqueUserService {
   getStatistiqueUserById(id : string ): Observable<StatistiqueUser> {
     return this.http.get<StatistiqueUser>("https://snapface.onrender.com/api/statistiqueUserByUserId?id="+id);
   }
-
-
-
-
 }
 

@@ -30,6 +30,5 @@ export class UsersListComponent implements OnInit {
 
   ngOnInit() {
    this.retrieveUsers()
-
   }
 }
