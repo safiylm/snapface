@@ -8,6 +8,8 @@ const ObjectId = require('mongodb').ObjectId;
 
 
 exports.create = (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
+
   // Validate request
   if (!req.body.email) {
     res.status(400).send({ message: "Content can not be empty!" });
@@ -60,6 +62,7 @@ exports.create = (req, res) => {
 
 
 exports.connexion = async function (req, res) {
+  res.set('Access-Control-Allow-Origin', '*');
 
   const findResult = await collection_user.findOne({ "email": req.body.email, "password": req.body.password }).then(
     data => {
@@ -85,6 +88,8 @@ exports.connexion = async function (req, res) {
 
 
 exports.update = async (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
+
   const updateResult = await collection_user.updateOne({ "_id": new ObjectId(req.body._id) },
     {
       $set: {
@@ -102,6 +107,8 @@ exports.update = async (req, res) => {
 
 
 exports.delete = async (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
+
   const deleteResult = await collection_user.deleteOne({ "_id": new ObjectId(req.body.id) });
   res.send(deleteResult);
 

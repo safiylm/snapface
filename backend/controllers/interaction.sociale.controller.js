@@ -3,6 +3,8 @@ const collection_interactionsociales = db.collection('interactionsociales');
 const ObjectId = require('mongodb').ObjectId;
 
 exports.create = (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
+
   // Validate request
   // if (!req.body.postId) {
   //   res.status(400).send({ message: "Content can not be empty!" });
@@ -33,6 +35,8 @@ exports.create = (req, res) => {
 };
 
 exports.pointsRemove = async (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
+
   const updateResult = await collection_interactionsociales.updateOne({ "_id": new ObjectId(req.body._id) },
     { $set: { "points": req.body.points , "pointedBy_": [ ""] } });
   res.send(updateResult);
@@ -40,6 +44,8 @@ exports.pointsRemove = async (req, res) => {
 };
 
 exports.pointsAdd = async (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
+
   const updateResult = await collection_interactionsociales.updateOne({ "_id": new ObjectId(req.body._id) },
     { $set: { "points": req.body.points, "pointedBy_": [ "65cd023efb273094193ac038"]  } });
   res.send(updateResult);
@@ -47,6 +53,7 @@ exports.pointsAdd = async (req, res) => {
 };
 
 exports.likesAdd = async (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
 
   const updateResult = await collection_interactionsociales.updateOne({ "_id": new ObjectId(req.body._id) },
     { $set: { "likes": req.body.likes, "likedBy_": [ "65cd023efb273094193ac038"] } });
@@ -56,6 +63,7 @@ exports.likesAdd = async (req, res) => {
 
 
 exports.likesRemove = async (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
 
   const updateResult = await collection_interactionsociales.updateOne({ "_id": new ObjectId(req.body._id) },
     { $set: { "likes": req.body.likes, "likedBy_": [ ""] } });
@@ -64,6 +72,8 @@ exports.likesRemove = async (req, res) => {
 };
 
 exports.findByPublicationId = async (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
+
   const id = req.query.id;
   res.send(await collection_interactionsociales.findOne({ "postId": id }))
 };

@@ -10,6 +10,7 @@ exports.create = (req, res) => {
     //     res.status(400).send({ message: "Content can not be empty!" });
     //     return;
     //   }
+  res.set('Access-Control-Allow-Origin', '*');
     
     const post = {
         title: req.body.title,
@@ -78,6 +79,8 @@ exports.findOneById = async (req, res) => {
 
 
 exports.edit = async (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
+
     const updateResult = await collection_publications.updateOne({ "_id": new ObjectId(req.body._id) },
       {
         $set: {
@@ -94,6 +97,8 @@ exports.edit = async (req, res) => {
 
   
 exports.delete =  (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
+
     collection_publications.deleteOne({ "_id": new ObjectId(req.body.id) }).then(data => {
         collection_interactionsociales.deleteOne({ "postId": req.body.id }).then(data1 => {
             collection_commentaires.

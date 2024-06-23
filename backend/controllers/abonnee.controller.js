@@ -3,6 +3,8 @@ const collection_abonnees = db.collection('abonnees');
 const collection_statistiqueusers = db.collection('statistiqueusers');
 
 exports.create = async (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
+
   // Save Tutorial in the database
   collection_abonnees
     .insertOne({
@@ -22,6 +24,8 @@ exports.create = async (req, res) => {
 
 
 exports.abonneeAdd = async (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
+
   await collection_statistiqueusers.findOne({ "userId": req.body.userSuiviId }).then(stuer => {
     collection_abonnees.updateOne({ "userId": req.body.userSuiviId },
       { $push: { "followers": req.body.userConnectedId } }).then(d => {
@@ -34,6 +38,8 @@ exports.abonneeAdd = async (req, res) => {
 
 
 exports.abonneeRemove = async (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
+
   await collection_statistiqueusers.findOne({ "userId": req.body.userSuiviId }).then(stuer => {
     collection_abonnees.updateOne({ "userId": req.body.userSuiviId },
       { $pull: { "followers": req.body.userConnectedId } }).then(d => {

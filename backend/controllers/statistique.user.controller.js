@@ -2,6 +2,8 @@ const db = require('../config/db.config.js');
 const collection_statistiqueusers = db.collection('statistiqueusers');
 
 exports.create = (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
+
     // Validate request
     if (!req.body.id) {
         res.status(400).send({ message: "Content can not be empty!" });

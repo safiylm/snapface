@@ -5,6 +5,7 @@ const collection_interactionsociales = db.collection('interactionsociales');
 const ObjectId = require('mongodb').ObjectId;
 
 exports.create = (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
 
   const c1 = {
     title: req.body.title,
@@ -38,6 +39,7 @@ exports.create = (req, res) => {
 
 
 exports.delete = async (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
 
   collection_commentaires.
     findOne({  "_id": new ObjectId(req.body.id) }).then(c => {
@@ -57,6 +59,8 @@ exports.delete = async (req, res) => {
 
 
 exports.update = async (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
+
   console.log(req.body._id);
   const updateResult = await collection_commentaires.updateOne({ "_id": new ObjectId(req.body._id) },
     { $set: { "title": req.body.title } });
