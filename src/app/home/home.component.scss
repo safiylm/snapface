@@ -1,9 +1,24 @@
+.home {
+
+ position: relative;
+    top: 50px;
+}
+
+#div-list-post{
+    width:70%;
+}
 @media(max-width:910px) {
 
     .home {
+
         flex-direction: column !important;
         width: 100vw;
         justify-content: center !important;
+      
+    }
+
+    #div-list-post{
+        width:100%;
     }
 
     #div-list-users {

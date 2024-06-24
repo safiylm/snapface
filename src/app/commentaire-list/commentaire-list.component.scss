@@ -47,7 +47,8 @@ button {
         border: 0.2px solid black;
         border-radius: 5px 0 0 5px;
         margin-right: 0;
-        height: 35px;
+        height: 38px;
+        padding: 7px 15px;
 
     }
 
@@ -55,10 +56,10 @@ button {
 
         border-radius: 0 5px 5px 0;
         margin-left: 0;
-        border: 0.2px solid black;
-        background-color: #587579;
+        background-color: blueviolet;
         color: white;
-        height: 35px;
-        padding: 4px 15px;
+        height: 38px;
+        padding: 7px 15px;
+        font-size: math;
     }
 }

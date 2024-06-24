@@ -1,13 +1,16 @@
 form {
-    width: 600px;
-    margin: 50px auto;
-
+    margin-top: 100px;
+    padding: 80px 50px;
+    box-shadow: rgb(229, 213, 245) 4px 4px 20px;
     h1 {
         text-align: center;
+        color: blueviolet;
+
     }
 
     .div-input {
         margin: 16px 0;
+        width: 500px;
 
         label,
         input {
@@ -19,8 +22,8 @@ form {
 
         input {
             border: none;
-            border-bottom: 1px solid gray;
-            padding: 15px 0;
+            border-bottom: 1px solid rgb(229, 213, 245);
+            padding: 6px 12px;
             margin: 5px 0;
         }
     }
@@ -28,14 +31,17 @@ form {
     button[type="submit"],
     button {
         border: none;
-        background-color: aliceblue;
-        padding: 12px 22px;
+   
         font-size: medium;
         margin: 15px auto;
         display: block;
+        color: aliceblue;
+        background-color: blueviolet;
+        padding: 10px 20px;
+        border-radius: 12px;
     }
 
-    #connexion-info{
+    #connexion-info {
         text-align: center;
         color: red;
     }
@@ -44,7 +50,7 @@ form {
 @media(max-width:650px) {
 
     form {
-        
+
         width: 100vw;
         padding: 30px;
         box-sizing: border-box;

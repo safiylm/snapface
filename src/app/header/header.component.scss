@@ -1,16 +1,22 @@
 nav {
     padding: 10px;
+    border-bottom: 0.31px solid #f4f3f3;
+    background-color: blueviolet;
+    position: fixed;
+    width: 100%;
+    margin-bottom: 30px;
+    height: 50px;
+    z-index: 2;
 
     a {
         font-size: 17px;
-        margin: 10px ;
-        color: #3d3d3d;
+        margin: 10px;
+        color: aliceblue;
         text-decoration: none;
-        border-bottom: 1px solid #3d3d3d
     }
 }
 
-@media(max-width:800px){
+@media(max-width:800px) {
     nav {
         flex-direction: row !important;
     }
