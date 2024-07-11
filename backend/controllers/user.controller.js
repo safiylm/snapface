@@ -62,10 +62,11 @@ exports.create = (req, res) => {
 
 
 exports.connexion = async function (req, res) {
-  res.set('Access-Control-Allow-Origin', '*');
 
-  const findResult = await collection_user.findOne({ "email": req.body.email, "password": req.body.password }).then(
+  await collection_user.findOne({ "email": req.body.email, "password": req.body.password }).then(
     data => {
+      res.set('Access-Control-Allow-Origin', '*');
+
       if (data == undefined || data == null) {
         res.send( { resultat : "error connexion"})
       }
