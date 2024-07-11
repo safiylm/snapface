@@ -61,31 +61,7 @@ exports.create = (req, res) => {
 };
 
 
-exports.connexion = async function (req, res) {
 
-  await collection_user.findOne({ "email": req.body.email, "password": req.body.password }).then(
-    data => {
-      res.set('Access-Control-Allow-Origin', '*');
-
-      if (data == undefined || data == null) {
-        res.send( { resultat : "error connexion"})
-      }
-      else {
-        if (data._id != null && data.email == req.body.email) {
-          res.send(data)
-          
-        }
-      }
-
-
-    }
-  ).catch(err => {
-    res.status(500).send({
-      message:
-        err.message || "Some error occurred while connexion the User."
-    });
-  });
-};
 
 
 exports.update = async (req, res) => {
@@ -121,7 +97,7 @@ exports.delete = async (req, res) => {
 exports.findAll = async (req, res) => {
 
   res.set('Access-Control-Allow-Origin', '*');
-  
+
   const findResult = await collection_user.find({}).toArray();
   res.send(findResult);
 
@@ -135,3 +111,19 @@ exports.findOneById = async (req, res) => {
 };
 
 
+exports.connexion = async function (req, res) {
+
+  res.set('Access-Control-Allow-Origin', '*');
+  res.send( await collection_user.findOne({ "email": req.body.email, "password": req.body.password }));
+  
+  //.then(   data => {
+  //     if (data == undefined || data == null) {
+  //       res.send( { resultat : "error connexion"})
+  //     }
+  //     else {
+  //       if (data._id != null && data.email == req.body.email) {
+  //         res.send(data)
+  //       }}}
+ 
+
+};
