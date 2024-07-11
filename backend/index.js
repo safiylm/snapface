@@ -13,6 +13,17 @@ const router_interacation_sociale = require("./routes/interaction.sociale.route"
 const router_commentaires = require("./routes/commentaire.route")
 const router_abonnees = require("./routes/abonnee.route")
 
+app.use(function(req, res, next) {
+
+  res.setHeader('Access-Control-Allow-Origin', '*');
+
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
+
+  next();
+
+});
 
 app.use(router_user )
 app.use(router_publication )
