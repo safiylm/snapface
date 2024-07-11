@@ -22,7 +22,6 @@ export class AuteurInPostOrCommentaireComponent  implements OnInit {
       .subscribe({
         next: (data) => {
           this.user = data;
-          console.log(data);
         },
         error: (e) => console.error(e)
       });

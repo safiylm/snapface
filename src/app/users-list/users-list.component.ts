@@ -21,7 +21,6 @@ export class UsersListComponent implements OnInit {
       .subscribe({
         next: (data) => {
           this.data = data;
-          console.log(data);
         },
         error: (e) => console.error(e)
       });
