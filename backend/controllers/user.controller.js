@@ -114,8 +114,12 @@ exports.findOneById = async (req, res) => {
 exports.connexion = async function (req, res) {
 
   res.set('Access-Control-Allow-Origin', '*');
-  res.send( await collection_user.findOne({ "email": req.body.email, "password": req.body.password }));
-  
+  res.set('Access-Control-Allow-Credentials', 'true');
+  res.set('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.set('Access-Control-Allow-Headers', 'Content-Type')
+
+  res.send(await collection_user.findOne({ "email": req.body.email, "password": req.body.password }));
+
   //.then(   data => {
   //     if (data == undefined || data == null) {
   //       res.send( { resultat : "error connexion"})
@@ -124,6 +128,6 @@ exports.connexion = async function (req, res) {
   //       if (data._id != null && data.email == req.body.email) {
   //         res.send(data)
   //       }}}
- 
+
 
 };
