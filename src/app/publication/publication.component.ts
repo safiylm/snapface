@@ -49,4 +49,17 @@ export class PublicationComponent implements OnInit {
     if (this.index > 0)
       this.index -= 1;
   }
+
+  get Title(){
+    return (this.publication && this.publication.title )? this.publication.title : null
+  }
+
+  get Body(){
+    return (this.publication && this.publication.body )? this.publication.body : null
+  }
+
+  get Publicationn(){
+    return (this.publication  )? this.publication : null
+
+  }
 }

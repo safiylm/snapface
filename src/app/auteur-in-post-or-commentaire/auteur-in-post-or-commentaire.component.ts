@@ -31,5 +31,13 @@ export class AuteurInPostOrCommentaireComponent  implements OnInit {
   ngOnInit() {
    this.retrieveUser()
   }
+
+  get PhotoProfil(){
+    return (this.user  && this.user.photos_profil )? this.user.photos_profil : null
+  }
+  
+  get UserName(){
+    return (this.user && this.user.firstName && this.user.lastName )? this.user.firstName+" "+ this.user.lastName : null
+  }
   
 }

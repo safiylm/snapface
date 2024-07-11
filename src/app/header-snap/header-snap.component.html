@@ -1,11 +1,13 @@
-<img id="photo-background" src={{user.photos_background}}  />
+<img id="photo-background" src={{UserPhotoBackground}}  />
 <div id="div-photo-profil">
-    <img id="photo-profil" src={{user.photos_profil}} />
+    <img id="photo-profil" src={{UserPhotoProfil}} />
 </div>
 
-<h3 class="name"> {{ user.firstName }} {{ user.lastName }} 
+<h3 class="name"> 
+    {{ UserName }} 
 <button *ngIf="!isAbonnee && !istMe" (click)="sabonner()" id="sabonner"> S'abonner </button>
 <button *ngIf="isAbonnee && !istMe" (click)="sedesabonner()" id="sedesabonner"> Se désabonner </button>
+
 </h3>
 
 <app-statistique-user [id]="id"></app-statistique-user>

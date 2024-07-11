@@ -1,16 +1,16 @@
-<div class="div-statistiqueUser">
+<div class="div-statistiqueUser" *ngIf="statistiqueUser">
     <div>
         <button id="btn-followers" (click)="displayFollowers()">
-            Followers <br /> <strong>{{ statistiqueUser.followers}}</strong>
+            Followers <br /> <strong>{{ Followers }}</strong>
         </button>
     </div>
 
     <div>
-        Points totales<br /> <strong>{{ statistiqueUser.totalPoints}}</strong>
+        Points totales<br /> <strong>{{ TotalPoints}}</strong>
     </div>
 
     <div>
-        Post totales<br /><strong> {{ statistiqueUser.totalPosts}}</strong>
+        Post totales<br /><strong> {{ TotalPosts}}</strong>
     </div>
 </div>
 

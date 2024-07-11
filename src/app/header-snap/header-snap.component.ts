@@ -22,6 +22,19 @@ export class HeaderSnapComponent implements OnInit {
 
   constructor(private userService: UserService, private router: Router) { }
 
+  get UserName(){
+    return (this.user && this.user.firstName && this.user.lastName)? this.user.firstName + " "+ this.user.lastName : null
+  }
+  get UserPhotoProfil(){
+    return (this.user && this.user.photos_profil)? this.user.photos_profil : null
+  }
+
+  get UserPhotoBackground(){
+    return (this.user && this.user.photos_background )? this.user.photos_background : null
+  }
+
+  get Sabonner() { return (this.abonnee && !this.isAbonnee && !this.istMe) ? "" : null }
+  get Sedesabonner() { return (this.abonnee && this.isAbonnee && !this.istMe) ? "" : null }
 
   displayUser(): void {
     this.userService.getUser(this.id)

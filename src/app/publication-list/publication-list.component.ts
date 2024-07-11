@@ -22,7 +22,6 @@ export class PublicationListComponent implements OnInit {
       .subscribe({
         next: (data) => {
           this.publications = data;
-          console.log(data);
         },
         error: (e) => console.error(e)
       });

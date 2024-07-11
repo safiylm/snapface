@@ -15,6 +15,7 @@ constructor( private abonneeService: AbonneeService) { }
 abonnee!: Abonnee[];
 
 
+
 retrievePublications(): void {
   this.abonneeService.getAbonneeByUserId( this.id)
     .subscribe({
@@ -29,6 +30,5 @@ retrievePublications(): void {
 
 ngOnInit() {
  this.retrievePublications()
-
 }
 }

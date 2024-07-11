@@ -74,6 +74,15 @@ export class InteractionSocialComponent implements OnInit {
     });
   }
 
+  get Likes(){
+    return (this.interactionSociale && this.interactionSociale.likes )? this.interactionSociale.likes : null
+  }
+  get Points(){
+    return (this.interactionSociale && this.interactionSociale.points )? this.interactionSociale.points : null
+  }
+  get Comments(){
+    return (this.interactionSociale && this.interactionSociale.comments )? this.interactionSociale.comments : null
+  }
   ngOnInit() {
     this.display();
   }
