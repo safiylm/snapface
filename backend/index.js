@@ -17,11 +17,8 @@ const router_abonnees = require("./routes/abonnee.route")
 app.use(function(req, res, next) {
 
   res.setHeader('Access-Control-Allow-Origin', '*');
-
-  res.set('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-
-  res.set('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
-
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, Authorization');
   next();
 
 });
