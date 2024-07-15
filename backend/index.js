@@ -2,6 +2,7 @@ var express = require('express');
 var path = require("path");
 var bodyParser = require('body-parser');
 var app = express();
+const cors = require("cors");
 // app.use(bodyParser());
 // app.use(bodyParser.json({ limit: '5mb' }));
 // app.use(bodyParser.urlencoded({ extended: true }));
@@ -24,6 +25,12 @@ app.use(function(req, res, next) {
   next();
 
 });
+
+var corsOptions = {
+  origin: "https://snapface.onrender.com/"
+};
+
+app.use(cors(corsOptions));
 
 app.use(router_user )
 app.use(router_publication )
