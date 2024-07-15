@@ -5,7 +5,7 @@ const collection_interactionsociales = db.collection('interactionsociales');
 const ObjectId = require('mongodb').ObjectId;
 
 exports.create = (req, res) => {
-  res.set('Access-Control-Allow-Origin', '*');
+ // res.set('Access-Control-Allow-Origin', '*');
 
   const c1 = {
     title: req.body.title,
