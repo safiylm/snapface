@@ -5,25 +5,25 @@ const collection_interactionsociales = db.collection('interactionsociales');
 const ObjectId = require('mongodb').ObjectId;
 
 exports.create = (req, res) => {
- // res.set('Access-Control-Allow-Origin', '*');
-
-  const c1 = {
-    title: req.body.title,
-    date: Date.now(),
-    userId: req.body.userId,
-    postId: req.body.postId,
-
-  };
 
   collection_interactionsociales.findOne({ "postId": req.body.postId }).then(i => {
+    //res.set('Access-Control-Allow-Origin', '*');
 
     collection_commentaires
-      .insertOne(c1)
+      .insertOne({
+        title: req.body.title,
+        date: Date.now(),
+        userId: req.body.userId,
+        postId: req.body.postId
+    
+      })
       .then(data => {
         const updateResult = collection_interactionsociales.updateOne({ "postId": req.body.postId },
           { $set: { "comments": i.comments + 1 } }).then(x => {
+            res.set('Access-Control-Allow-Origin', '*');
             res.send(updateResult);
           })
+
       })
       .catch(err => {
         res.status(500).send({
