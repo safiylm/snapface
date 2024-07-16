@@ -7,7 +7,6 @@ const ObjectId = require('mongodb').ObjectId;
 exports.create = (req, res) => {
 
   collection_interactionsociales.findOne({ "postId": req.body.postId }).then(i => {
-    //res.set('Access-Control-Allow-Origin', '*');
 
     collection_commentaires
       .insertOne({
@@ -39,7 +38,6 @@ exports.create = (req, res) => {
 
 
 exports.delete = async (req, res) => {
-  res.set('Access-Control-Allow-Origin', '*');
 
   collection_commentaires.
     findOne({  "_id": new ObjectId(req.body.id) }).then(c => {
@@ -50,6 +48,7 @@ exports.delete = async (req, res) => {
               const updateResult = collection_interactionsociales.
               updateOne({ "postId": c.postId },
                 { $set: { "comments": i.comments - 1 } }).then(x => {
+                  res.set('Access-Control-Allow-Origin', '*');
                   res.send(updateResult);
                 })
             })
@@ -59,11 +58,11 @@ exports.delete = async (req, res) => {
 
 
 exports.update = async (req, res) => {
-  res.set('Access-Control-Allow-Origin', '*');
 
   console.log(req.body._id);
   const updateResult = await collection_commentaires.updateOne({ "_id": new ObjectId(req.body._id) },
     { $set: { "title": req.body.title } });
+    res.set('Access-Control-Allow-Origin', '*');
   res.send(updateResult);
 
 }
@@ -71,10 +70,10 @@ exports.update = async (req, res) => {
 //res.body.insertedId
 
 exports.findByPublicationId = async (req, res) => {
-  res.set('Access-Control-Allow-Origin', '*');
 
   const id = req.query.id;
   const findResult = await collection_commentaires.find({ "postId": id }).toArray();
+  res.set('Access-Control-Allow-Origin', '*');
   res.send(findResult);
 };
 
