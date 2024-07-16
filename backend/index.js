@@ -19,10 +19,14 @@ const router_interacation_sociale = require("./routes/interaction.sociale.route"
 const router_commentaires = require("./routes/commentaire.route")
 const router_abonnees = require("./routes/abonnee.route")
 
-
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "https://snapface.onrender.com");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 var corsOptions = {
-  origin: "https://snapface.onrender.com/"
+  origin: "https://snapface.onrender.com"
  // origin: "https://localhost:4200/"
 };
 
