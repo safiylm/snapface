@@ -1,54 +1,64 @@
 <app-header></app-header>
 <div class="d-flex flex-column align-items-center justify-content-center">
-    
-    
 
-<form [formGroup]="inscriptionUserForm" (ngSubmit)="onSubmit()">
-    <h1>
-        S'inscrire
-    </h1>
-    
-    <div class="div-input">
-        <label>Saisissez votre prénom:</label>
-        <input type="text" name="nom" placeholder="nom" formControlName="firstName" />
+    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" *ngIf="!!displayToasts">
+        <div class="toast-header">
+            <img src="..." class="rounded me-2" alt="...">
+            <strong class="me-auto">Inscription success</strong>
+            <small class="text-body-secondary">11 mins ago</small>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Inscription success. Il faut confirmer votre email. Redirection dans 
+         {{ timeForRedirection$ | async }}  secondes pour vous connectez.
+        </div>
     </div>
 
-    <div class="div-input">
-        <label>Saisissez votre nom de famille:</label>
-        <input type="text" name="nom" placeholder="nom" formControlName="lastName" />
-    </div>
+    <form [formGroup]="inscriptionUserForm" (ngSubmit)="onSubmit()">
+        <h1>
+            S'inscrire {{ timeForRedirection$ | async }}
+        </h1>
 
-    <div class="div-input">
-        <label>Saisissez votre email:</label>
-        <input type="email" name="email" placeholder="email" formControlName="email" />
-    </div>
+        <div class="div-input">
+            <label>Saisissez votre prénom:</label>
+            <input type="text" name="nom" formControlName="firstName" />
+        </div>
 
-    <div class="div-input">
-        <label>Saisissez votre mot de passe: </label>
-        <input type="password" name="password" placeholder="password" formControlName="password"  autocomplete="new-password" >
-    </div>
-    <div class="div-input">
-        <label> Confirmez votre mot de passe: </label>
-        <input type="password" name="password2" placeholder="password" formControlName="password2"  autocomplete="new-password" >
-    </div>
-   
-    <div class="div-input">
-        <label>Saisissez le lien de votre numéro de téléphone :</label>
-        <input type="number" name="phoneNo" formControlName="phoneNo"/>
-    </div>
+        <div class="div-input">
+            <label>Saisissez votre nom de famille:</label>
+            <input type="text" name="nom" formControlName="lastName" />
+        </div>
 
-    <div class="div-input">
-        <label>Saisissez le lien de votre photo de profil:</label>
-        <input type="text" name="photo" placeholder="photo" formControlName="photos_profil"/>
-    </div>
+        <div class="div-input">
+            <label>Saisissez votre email:</label>
+            <input type="email" name="email" formControlName="email" />
+        </div>
 
-    <div class="div-input">
-        <label>Saisissez le lien de votre photo de background:</label>
-        <input type="text" name="photo" placeholder="photo" formControlName="photos_background"/>
-    </div>
+        <div class="div-input">
+            <label>Saisissez votre mot de passe: </label>
+            <input type="password" name="password" formControlName="password" autocomplete="new-password">
+        </div>
+        <div class="div-input">
+            <label> Confirmez votre mot de passe: </label>
+            <input type="password" name="password2" formControlName="password2" autocomplete="new-password">
+        </div>
+
+        <div class="div-input">
+            <label>Saisissez le lien de votre numéro de téléphone :</label>
+            <input type="number" name="phoneNo" formControlName="phoneNo" />
+        </div>
+
+        <div class="div-input">
+            <label>Saisissez le lien de votre photo de profil:</label>
+            <input type="text" name="photo" formControlName="photos_profil" />
+        </div>
+
+        <div class="div-input">
+            <label>Saisissez le lien de votre photo de background:</label>
+            <input type="text" name="photo" formControlName="photos_background" />
+        </div>
 
 
-    <button type="submit">S'inscrire </button>
-    <button type="button" onclick="document.location.href='connexion'">Se connecter</button>
-</form>
-
+        <button type="submit">S'inscrire </button>
+        <button type="button" onclick="document.location.href='connexion'">Se connecter</button>
+    </form>

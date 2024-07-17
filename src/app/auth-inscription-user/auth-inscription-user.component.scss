@@ -42,7 +42,14 @@ form {
     }
 }
 
+.toast{
+    // display: none;
+    display: block;
+  margin-top: 70px;
+  background-color: #81e473;
+  font-weight: bold;
 
+}
 @media(max-width:650px) {
 
     form {
