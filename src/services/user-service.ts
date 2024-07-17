@@ -32,6 +32,23 @@ export class UserService {
     );
   }
 
+  
+  public connexion(email: string, password: string): any {
+    const httpOptions = {
+      headers: new HttpHeaders({ 
+        'Access-Control-Allow-Origin':'*',
+      })
+    };
+
+    return this.http
+      .post(
+        `https://snapface.onrender.com/api/user/connexion`,
+        { "email": email, "password": password },
+          httpOptions, 
+       )
+  }
+
+
   getUser(id: string): Observable<User> {
     return this.http.get<User>("https://snapface.onrender.com/api/userid?id=" + id);
   }
@@ -76,8 +93,7 @@ export class UserService {
         `https://snapface.onrender.com/api/user/create`,
         formData,
       ).subscribe(data => {
-        console.log(" inscription post req body content :")
-        console.log(data)
+        console.log("Inscription success")
       })
 
   }
@@ -111,23 +127,6 @@ export class UserService {
 
 
 
-  public connexion(email: string, password: string): any {
-
-
-    this.http
-      .post(
-        `https://snapface.onrender.com/api/user/connexion`,
-        { "email": email, "password": password },
-        { observe: 'response', responseType: 'text' }
-      ).subscribe((data) => {
-
-        if (data.body != undefined) {
-          localStorage.setItem('isLoggedIn', "true");
-          localStorage.setItem('userdata', data.body);
-        }
-      })
-
-  }
 
 
 

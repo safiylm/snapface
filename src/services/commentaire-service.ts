@@ -26,35 +26,55 @@ export class CommentaireService {
   }
 
   addNewCommentaire(formData: Commentaire ){
-    
+
+    const httpOptions = {
+      headers: new HttpHeaders({ 
+        'Access-Control-Allow-Origin':'*',
+      })
+    };
+
     this.http
       .post<Commentaire>(
         `https://snapface.onrender.com/api/commentaire/create`,
         formData,
+        httpOptions
+        
       ).subscribe(data => {
         console.log(" inscription post req body content :" )
-        console.log( data)
 
       })
+    
   }
 
   deleteCommentaire( commentId: string ){
+    const httpOptions = {
+      headers: new HttpHeaders({ 
+        'Access-Control-Allow-Origin':'*',
+      })
+    };
+
     this.http
     .post<any>(
       `https://snapface.onrender.com/api/commentaire/delete`,
       {"id" : commentId },
+      httpOptions
     ).subscribe(data => {
       console.log(" delete comment post req body content :" )
-      console.log( data)
-
     })
   }
 
   updateCommentaire( form: Commentaire ){
+    const httpOptions = {
+      headers: new HttpHeaders({ 
+        'Access-Control-Allow-Origin':'*',
+      })
+    };
+
     this.http
     .post<Commentaire>(
       `https://snapface.onrender.com/api/commentaire/update`,
       form,
+      httpOptions
     ).subscribe(data => {
       console.log(" delete comment post req body content :" )
       console.log( data)
