@@ -58,9 +58,11 @@ export class HeaderSnapComponent implements OnInit {
 
 
   checkIfDejaAbonnee() {
+    if(this.abonnee)
     this.abonnee.forEach(element => {
       element.followers.forEach(element1 => {
-        if (element1 === localStorage.getItem('userId')) {
+        if (element1 === localStorage.getItem('userId') ) {
+          
           this.isAbonnee = true;
         }
       })
@@ -74,12 +76,14 @@ export class HeaderSnapComponent implements OnInit {
       this.istMe = true;
     }
     this.getAbonneeByUserId();
-
-    setTimeout(() => {
-      this.checkIfDejaAbonnee();
-    }, 50);
   }
 
+  ngAfterViewInit(){
+   // setTimeout(() => {
+      this.checkIfDejaAbonnee();
+  //  }, 50);
+
+  }
 
   sabonner() {
     this.userService.addAbonnee(this.id);
