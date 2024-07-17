@@ -31,7 +31,6 @@ import { MyAccountComponent } from './my-account/my-account.component';
 @NgModule({
   declarations: [
     AppComponent,
-    
     HeaderComponent,
     HeaderSnapComponent,
     HomeComponent,
@@ -57,7 +56,8 @@ import { MyAccountComponent } from './my-account/my-account.component';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule,ReactiveFormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [AuthGuard,
     { provide: LOCALE_ID, useValue: 'fr-FR'}

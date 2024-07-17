@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component'
-import {  AuthConnexionUserComponent } from './auth-connexion-user/auth-connexion-user.component'
+import { AuthConnexionUserComponent } from './auth-connexion-user/auth-connexion-user.component'
 import { AuthInscriptionUserComponent } from './auth-inscription-user/auth-inscription-user.component'
 import { UserAccountComponent } from './user-account/user-account.component'
 import { PublicationEditComponent } from './publication-edit/publication-edit.component';
@@ -22,4 +22,5 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
+
 export class AppRoutingModule { }

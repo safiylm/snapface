@@ -32,7 +32,7 @@ export class CommentaireListComponent implements OnInit {
          this.commentaire.userId = localStorage.getItem('userId')?.toString() as string;
          this.commentaireService.addNewCommentaire(this.commentaire);
          this.display();
-         window.location.reload();
+        // window.location.reload();
 
     }else {
     (document.getElementById("info-createNewComment"+this.id) as HTMLFormElement).innerHTML = "Il faut se connecter!" ;

@@ -5,6 +5,7 @@
 
 <h3 class="name"> 
     {{ UserName }} 
+    
 <button *ngIf="!isAbonnee && !istMe" (click)="sabonner()" id="sabonner"> S'abonner </button>
 <button *ngIf="isAbonnee && !istMe" (click)="sedesabonner()" id="sedesabonner"> Se désabonner </button>
 
