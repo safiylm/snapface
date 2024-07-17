@@ -1,7 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user-service'
-import { User } from '../../models/user.model'
-import { FormGroup, FormControl } from "@angular/forms";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
 
 @Component({
   selector: 'app-auth-connexion-user',
@@ -13,14 +12,14 @@ export class AuthConnexionUserComponent implements OnInit {
 
   constructor(private userService: UserService) { }
 
-  connexionUserForm = new FormGroup({
-    email: new FormControl(""),
-    password: new FormControl(""),
-  });
-
-
   password !: string;
   email !: string;
+
+  connexionUserForm = new FormGroup({
+    email: new FormControl("", [Validators.required, Validators.email]),
+    password: new FormControl("", Validators.required),
+  });
+
 
   ngOnInit() { }
 
@@ -28,36 +27,18 @@ export class AuthConnexionUserComponent implements OnInit {
   onSubmit() {
     this.email = this.connexionUserForm.value['email']?.toString() as string;
     this.password = this.connexionUserForm.value['password']?.toString() as string;
+    let res = this.userService.connexion(this.email, this.password)
 
-    this.userService.connexion(this.email, this.password);
-
-    setTimeout(() => {
-
-      let retrievedUsername = localStorage.getItem('userdata');
-     let res = JSON.parse(retrievedUsername as string)
-      console.log(res);
-    
-      //supprimer local storage variale 
-      //  localStorage.setItem('userdata', "");  
-        localStorage.setItem('userId', res._id );  
-        console.log("localStorage.getItem('userId')");
-        console.log(localStorage.getItem('userId'));
-
-
-      if (res.resultat != "error connexion") {
-        //(document.getElementById("connexion-info") as HTMLFormElement).innerText = "Connexion successfull";
+    res.subscribe((data: any) => {
+      console.log(data)
+      if (data != null) {
+        localStorage.setItem('isLoggedIn', "true");
+        localStorage.setItem('userId', data._id);
         window.location.href = '/mon-compte'
       } else {
-        (document.getElementById("connexion-info") as HTMLFormElement).innerHTML = "Connexion error";
+        (document.getElementById("connexion-info") as HTMLFormElement).innerHTML = "Votre email et/ou votre mot de passe est incorrecte.";
       }
-
-
-    }, 1000)
-
-
+    }
+    )
   }
-
-
-
-
 }
