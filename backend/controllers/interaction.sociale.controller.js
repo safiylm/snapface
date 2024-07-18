@@ -3,7 +3,6 @@ const collection_interactionsociales = db.collection('interactionsociales');
 const ObjectId = require('mongodb').ObjectId;
 
 exports.create = (req, res) => {
-  res.set('Access-Control-Allow-Origin', '*');
 
   // Validate request
   // if (!req.body.postId) {
@@ -19,11 +18,11 @@ exports.create = (req, res) => {
     points: req.body.points,
   };
 
-
   // Save Tutorial in the database
   collection_interactionsociales
     .insertOne(is1)
     .then(data => {
+      res.set('Access-Control-Allow-Origin', '*');
       res.send(data);
     })
     .catch(err => {
@@ -35,46 +34,71 @@ exports.create = (req, res) => {
 };
 
 exports.pointsRemove = async (req, res) => {
-  res.set('Access-Control-Allow-Origin', '*');
 
   const updateResult = await collection_interactionsociales.updateOne({ "_id": new ObjectId(req.body._id) },
-    { $set: { "points": req.body.points , "pointedBy_": [ ""] } });
+    { $set: { "points": req.body.points, "pointedBy_": [""] } })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while remove point."
+      })
+    });
+
+  res.set('Access-Control-Allow-Origin', '*');
   res.send(updateResult);
 
 };
 
 exports.pointsAdd = async (req, res) => {
-  res.set('Access-Control-Allow-Origin', '*');
 
   const updateResult = await collection_interactionsociales.updateOne({ "_id": new ObjectId(req.body._id) },
-    { $set: { "points": req.body.points, "pointedBy_": [ "65cd023efb273094193ac038"]  } });
+    { $set: { "points": req.body.points, "pointedBy_": ["65cd023efb273094193ac038"] } })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while add point."
+      })
+    });
+  
+  res.set('Access-Control-Allow-Origin', '*');
   res.send(updateResult);
 
 };
 
 exports.likesAdd = async (req, res) => {
-  res.set('Access-Control-Allow-Origin', '*');
 
   const updateResult = await collection_interactionsociales.updateOne({ "_id": new ObjectId(req.body._id) },
-    { $set: { "likes": req.body.likes, "likedBy_": [ "65cd023efb273094193ac038"] } });
+    { $set: { "likes": req.body.likes, "likedBy_": ["65cd023efb273094193ac038"] } }) 
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while add like."
+      })
+    });
+  res.set('Access-Control-Allow-Origin', '*');
   res.send(updateResult);
 
 };
 
-
 exports.likesRemove = async (req, res) => {
-  res.set('Access-Control-Allow-Origin', '*');
 
   const updateResult = await collection_interactionsociales.updateOne({ "_id": new ObjectId(req.body._id) },
-    { $set: { "likes": req.body.likes, "likedBy_": [ ""] } });
+    { $set: { "likes": req.body.likes, "likedBy_": [""] } })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while remove likes."
+      })
+    });
+  res.set('Access-Control-Allow-Origin', '*');
   res.send(updateResult);
 
 };
 
 exports.findByPublicationId = async (req, res) => {
-  res.set('Access-Control-Allow-Origin', '*');
 
   const id = req.query.id;
+  res.set('Access-Control-Allow-Origin', '*');
   res.send(await collection_interactionsociales.findOne({ "postId": id }))
 };
 

@@ -21,20 +21,26 @@ export class InteractionSocialeService {
   }
 
   addLike(_id:string , likes: number){
-    this.http
-    .post<any>(
+
+    const httpOptions = {
+      headers: new HttpHeaders({ 
+        'Access-Control-Allow-Origin':'*',
+      })
+    };
+
+    return this.http
+    .put(
       `https://snapface.onrender.com/api/interaction/social/likes/add`,
-      {'_id': _id, 'likes': likes, 'userId' : "65cd023efb273094193ac038"},
-    ).subscribe(data => {
-      console.log(" interactionSocial post req body content :" )
-    })
+      {'_id': _id, 'likes': likes, 'userId' : localStorage.getItem('userId')?.toString() as string },
+      httpOptions
+    )
   }
 
   removeLike(_id:string , likes: number){
     this.http
-    .post<any>(
+    .put(
       `https://snapface.onrender.com/api/interaction/social/likes/remove`,
-      {'_id': _id, 'likes': likes, 'userId' : "65cd023efb273094193ac038"},
+      {'_id': _id, 'likes': likes, 'userId' : localStorage.getItem('userId')?.toString() as string},
     ).subscribe(data => {
       console.log(" interactionSocial post req body content :" )
     })
@@ -42,7 +48,7 @@ export class InteractionSocialeService {
 
   addPoints(_id:string , points: number){
     this.http
-    .post<any>(
+    .put(
       `https://snapface.onrender.com/api/interaction/social/points/add`,
       {'_id': _id, 'points': points, 'userId' : "65cd023efb273094193ac038"},
     ).subscribe(data => {
@@ -53,7 +59,7 @@ export class InteractionSocialeService {
 
   removePoints(_id:string , points: number){
     this.http
-    .post<any>(
+    .put(
       `https://snapface.onrender.com/api/interaction/social/points/remove`,
       {'_id': _id, 'points': points, 'userId' : "65cd023efb273094193ac038"}
     ).subscribe(data => {
