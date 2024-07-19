@@ -3,9 +3,6 @@ var path = require("path");
 var bodyParser = require('body-parser');
 var app = express();
 const cors = require("cors");
-// app.use(bodyParser());
-// app.use(bodyParser.json({ limit: '5mb' }));
-// app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ 
@@ -27,7 +24,6 @@ app.use((req, res, next) => {
 
 var corsOptions = {
   origin: "*"
- // origin: "https://localhost:4200/"
 };
 
 app.use(cors(corsOptions));
