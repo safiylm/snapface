@@ -20,7 +20,7 @@
 
 
 <form *ngIf="edited" [formGroup]="commentForm" (ngSubmit)="editComment(commentaire._id.toString())">
-    <input type="text" formControlName="comment" name="title" value={{commentaire.title.toString()}} autocomplete="off"/>
+    <input type="text" formControlName="comment" name="title" value={{commentaire.title.toString()}} />
     <button type="submit">Envoyer</button>
     <button type="button" (click)="hideFormEditComment()">Annuler</button>
 </form>

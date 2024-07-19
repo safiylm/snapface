@@ -40,7 +40,8 @@ export class CommentaireService {
         httpOptions
         
       ).subscribe(data => {
-        console.log(" inscription post req body content :" )
+        if(data)
+        console.log("Commentaire created" )
 
       })
     
@@ -53,35 +54,26 @@ export class CommentaireService {
       })
     };
 
-    this.http
+   return this.http
     .post<any>(
       `https://snapface.onrender.com/api/commentaire/delete`,
-      {"id" : commentId },
-      httpOptions
+      {"id" : commentId }
     ).subscribe(data => {
-      console.log(" delete comment post req body content :" )
+      if(data)
+        console.log("Commentaire deleted" )
     })
   }
 
-  updateCommentaire( form: Commentaire ){
-    const httpOptions = {
-      headers: new HttpHeaders({ 
-        'Access-Control-Allow-Origin':'*',
-      })
-    };
+  updateCommentaire( form: Commentaire) {
 
-    this.http
+    return this.http
     .post<Commentaire>(
       `https://snapface.onrender.com/api/commentaire/update`,
-      form,
-      httpOptions
+      form
     ).subscribe(data => {
-      console.log(" delete comment post req body content :" )
-      console.log( data)
-
+      if(data)
+        console.log("Commentaire edited" )
     })
   }
-
-
 
 }

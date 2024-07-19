@@ -11,11 +11,9 @@ import { InteractionSocialComponent } from '../interaction-social/interaction-so
 })
 export class CommentaireListComponent implements OnInit {
 
-
-
   commentaires !: Commentaire[];
   @Input() id !: string;
-  commentaire = new Commentaire("8", "Essai k+888888", Date.now(), "userid978463152", "postuibjn894651");
+  commentaire = new Commentaire("", "", Date.now(), "", "");
 
   commentForm = new FormGroup({
     comment: new FormControl(""),
@@ -25,34 +23,35 @@ export class CommentaireListComponent implements OnInit {
 
 
   createNewComment() {
-    if (localStorage.getItem('userId') != null && 
-    localStorage.getItem('isLoggedIn') != "false" ){
-         this.commentaire.title = this.commentForm.value['comment']?.toString() as string;
-         this.commentaire.postId = this.id;
-         this.commentaire.userId = localStorage.getItem('userId')?.toString() as string;
-         this.commentaireService.addNewCommentaire(this.commentaire);
-         this.display();
-        // window.location.reload();
+    if (localStorage.getItem('userId') != null &&
+      localStorage.getItem('isLoggedIn') != "false") {
+      this.commentaire.title = this.commentForm.value['comment']?.toString() as string;
+      this.commentaire.postId = this.id;
+      this.commentaire.userId = localStorage.getItem('userId')?.toString() as string;
+      this.commentaireService.addNewCommentaire(this.commentaire);
+      setTimeout(() => {
+        this.display();
+        this.commentForm.reset();
+      }, 500)
+    } else {
+      (document.getElementById("info-createNewComment" + this.id) as HTMLFormElement).innerHTML = "Il faut se connecter!";
+    }
 
-    }else {
-    (document.getElementById("info-createNewComment"+this.id) as HTMLFormElement).innerHTML = "Il faut se connecter!" ;
+
   }
 
 
-}
+  display() {
+    this.commentaireService.getCommentaireByPostId(this.id)
+      .subscribe({
+        next: (data) => {
+          this.commentaires = data;
+        },
+        error: (e) => console.error(e)
+      });
+  }
 
-
-display() {
-  this.commentaireService.getCommentaireByPostId(this.id)
-    .subscribe({
-      next: (data) => {
-        this.commentaires = data;
-      },
-      error: (e) => console.error(e)
-    });
-}
-
-ngOnInit() {
-  this.display();
-}
+  ngOnInit() {
+    this.display();
+  }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Commentaire } from '../../models/commentaire.model';
 import { CommentaireService } from '../../services/commentaire-service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-commentaire',
@@ -18,14 +18,14 @@ export class CommentaireComponent implements OnInit {
   @Input() commentaire !: Commentaire;
   //commentaire = new Commentaire("8", "Essai k+888888", Date.now(),"userid978463152","postuibjn894651") ;
   commentForm = new FormGroup({
-    comment: new FormControl(""),
+    comment: new FormControl( "" )
   });
 
   constructor(private commentaireService: CommentaireService) { }
 
   showFormEditComment() {
     this.edited = true;
-    this.commentForm.value['comment'] = this.commentaire.title;
+    this.commentForm.controls['comment'].setValue(this.commentaire.title.toString())
   }
 
   hideFormEditComment() {
@@ -43,8 +43,9 @@ export class CommentaireComponent implements OnInit {
       this.commentaire.userId = localStorage.getItem('userId')?.toString() as string;
 
       this.commentaireService.updateCommentaire(this.commentaire);
+      console.log("edit comment ")
       this.edited = false;
-      window.location.reload();
+     // window.location.reload();
 
     } else {
       (document.getElementById("info-editComment" + this.commentaire._id) as HTMLFormElement).innerHTML = "Il faut se connecter!";
@@ -57,14 +58,14 @@ export class CommentaireComponent implements OnInit {
     if (localStorage.getItem('userId') != null &&
       localStorage.getItem('isLoggedIn') != "false"
     ) {
-        let text = "Êtes-vous sûre de supprimer votre commentaire!\n OK or Cancel.";
-        if (confirm(text) == true) {
-          this.commentaireService.deleteCommentaire(commentId);
-          window.location.reload();
-        } else {
-          text = "You canceled!";
-        }
-    
+      let text = "Êtes-vous sûre de supprimer votre commentaire!\n OK or Cancel.";
+      if (confirm(text) == true) {
+        this.commentaireService.deleteCommentaire(commentId);
+        window.location.reload();
+      } else {
+        text = "You canceled!";
+      }
+
     } else {
       (document.getElementById("info-deleteComment" + this.commentaire._id) as HTMLFormElement).innerHTML = "Il faut se connecter!";
     }
