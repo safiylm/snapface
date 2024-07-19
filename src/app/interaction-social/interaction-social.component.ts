@@ -19,39 +19,46 @@ export class InteractionSocialComponent implements OnInit {
 
   constructor(private interactionSocialeService: InteractionSocialeService) { }
 
-  addLike() {
-    this.interactionSocialeService.addLike(this.interactionSociale._id, this.interactionSociale.likes + 1);
-   // this.isLiked_ = true;
-    this.display();
-
+  addLike(): void {
+    this.interactionSocialeService.addLike(this.interactionSociale._id, this.interactionSociale.likes + 1 );
+    setTimeout(()=>{
+      this.display();
+    },250)
   }
+
 
   removeLike() {
     this.interactionSocialeService.removeLike(this.interactionSociale._id, this.interactionSociale.likes - 1);
-    this.isLiked_ = false;
-    this.display();
-
+    setTimeout(()=>{
+      this.display();
+    },250)
   }
 
 
   addPoints() {
     this.interactionSocialeService.addPoints(this.interactionSociale._id, this.interactionSociale.points + 1);
-   // this.isPointAdded_ = true;
-    this.display();
-
+    setTimeout(()=>{
+      this.display();
+    },250)
   }
+
 
   removePoints() {
+   // if(this.interactionSociale.points>0)
     this.interactionSocialeService.removePoints(this.interactionSociale._id, this.interactionSociale.points - 1);
-    this.isPointAdded_ = false;
-    this.display();
-
+ 
+    setTimeout(()=>{
+      this.display();
+    },250)
   }
+
 
   display(){
     this.interactionSocialeService.getInteractionSocialeById(this.id)
     .subscribe( (data) => {
         this.interactionSociale = data;
+        this.isLiked_ = false;
+        this.isPointAdded_ = false;
         
         if(data.likedBy_)
         data.likedBy_.forEach(element => {
@@ -72,17 +79,23 @@ export class InteractionSocialComponent implements OnInit {
       }
     );
   }
+ 
+
+  ngOnInit() {
+    this.display();
+  }
+
 
   get Likes(){
     return (this.interactionSociale && this.interactionSociale.likes )? this.interactionSociale.likes : null
   }
+  
   get Points(){
     return (this.interactionSociale && this.interactionSociale.points )? this.interactionSociale.points : null
   }
+  
   get Comments(){
     return (this.interactionSociale && this.interactionSociale.comments )? this.interactionSociale.comments : null
   }
-  ngOnInit() {
-    this.display();
-  }
+  
 }
