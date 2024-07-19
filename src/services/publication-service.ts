@@ -43,8 +43,8 @@ export class PublicationsService {
         `https://snapface.onrender.com/api/publication/edit`,
         formData,
       ).subscribe(data => {
-        console.log(" user update post req body content :")
-        console.log(data)
+        if(data)
+          console.log("Post edited" )
       })
 
   }

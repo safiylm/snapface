@@ -32,7 +32,6 @@ export class PublicationEditComponent {
       .subscribe({
         next: (data) => {
           this.data = data;
-          console.log(data);
         },
         error: (e) => console.error(e)
       });
@@ -45,11 +44,8 @@ export class PublicationEditComponent {
   }
 
   ngOnInit() {
-    
     this.id = this.route.snapshot.paramMap.get('id')! ;
     this.getDataPost();
-
-    
   }
 
   onSubmit(){
