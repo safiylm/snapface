@@ -52,7 +52,7 @@ exports.pointsRemove = async (req, res) => {
 exports.pointsAdd = async (req, res) => {
 
   const updateResult = await collection_interactionsociales.updateOne({ "_id": new ObjectId(req.body._id) },
-    { $set: { "points": req.body.points, "pointedBy_": ["65cd023efb273094193ac038"] } })
+    { $set: { "points": req.body.points, "pointedBy_": [ req.body.userId ] } })
     .catch(err => {
       res.status(500).send({
         message:
@@ -68,7 +68,7 @@ exports.pointsAdd = async (req, res) => {
 exports.likesAdd = async (req, res) => {
 
   const updateResult = await collection_interactionsociales.updateOne({ "_id": new ObjectId(req.body._id) },
-    { $set: { "likes": req.body.likes, "likedBy_": ["65cd023efb273094193ac038"] } }) 
+    { $set: { "likes": req.body.likes, "likedBy_": [req.body.userId] } }) 
     .catch(err => {
       res.status(500).send({
         message:

@@ -8,11 +8,11 @@ router_interactionsociales.post("/api/interaction/social/create", interactionsoc
 
 router_interactionsociales.get("/api/interactionSocialByPostId", interactionsociales.findByPublicationId);
 
-router_interactionsociales.put( "/api/interaction/social/points/add", interactionsociales.pointsAdd )
-router_interactionsociales.put( "/api/interaction/social/points/remove", interactionsociales.pointsRemove )
+router_interactionsociales.post( "/api/interaction/social/points/add", interactionsociales.pointsAdd )
+router_interactionsociales.post( "/api/interaction/social/points/remove", interactionsociales.pointsRemove )
 
-router_interactionsociales.put( "/api/interaction/social/likes/add", interactionsociales.likesAdd )
-router_interactionsociales.put( "/api/interaction/social/likes/remove", interactionsociales.likesRemove )
+router_interactionsociales.post( "/api/interaction/social/likes/add", interactionsociales.likesAdd )
+router_interactionsociales.post( "/api/interaction/social/likes/remove", interactionsociales.likesRemove )
 
 module.exports = router_interactionsociales;
 

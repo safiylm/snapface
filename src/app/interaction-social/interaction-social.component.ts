@@ -21,7 +21,7 @@ export class InteractionSocialComponent implements OnInit {
 
   addLike() {
     this.interactionSocialeService.addLike(this.interactionSociale._id, this.interactionSociale.likes + 1);
-    this.isLiked_ = true;
+   // this.isLiked_ = true;
     this.display();
 
   }
@@ -36,7 +36,7 @@ export class InteractionSocialComponent implements OnInit {
 
   addPoints() {
     this.interactionSocialeService.addPoints(this.interactionSociale._id, this.interactionSociale.points + 1);
-    this.isPointAdded_ = true;
+   // this.isPointAdded_ = true;
     this.display();
 
   }
@@ -50,25 +50,27 @@ export class InteractionSocialComponent implements OnInit {
 
   display(){
     this.interactionSocialeService.getInteractionSocialeById(this.id)
-    .subscribe({
-      next: (data) => {
+    .subscribe( (data) => {
         this.interactionSociale = data;
+        
+        if(data.likedBy_)
         data.likedBy_.forEach(element => {
-          if (element == "65cd023efb273094193ac038") {
+          if (element == localStorage.getItem('userId')) {
             this.isLiked_ = true;
           }
     
         });
 
+        if(data.pointedBy_)
+
         data.pointedBy_.forEach(element => {
-          if (element == "65cd023efb273094193ac038") {
+          if (element ==  localStorage.getItem('userId')) {
             this.isPointAdded_ = true;
           }
     
         })
-      },
-      error: (e) => console.error(e)
-    });
+      }
+    );
   }
 
   get Likes(){
