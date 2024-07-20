@@ -3,7 +3,7 @@ const collection_publications = db.collection('publications');
 const collection_interactionsociales = db.collection('interactionsociales');
 const collection_commentaires = db.collection('commentaires');
 const ObjectId = require('mongodb').ObjectId;
-
+const collection_statistiqueusers = db.collection('statistiqueusers')
 exports.create = (req, res) => {
     // Validate request
     //   if (!req.body.firstName) {
@@ -22,7 +22,7 @@ exports.create = (req, res) => {
         // audios: [{ url: req.body.audios , title: "", }],
     };
 
-
+  const nbposts = collection_publications.find({ "userId": req.body.userId }).count();
     // Save Tutorial in the database
     collection_publications
         .insertOne(  post )
@@ -34,7 +34,19 @@ exports.create = (req, res) => {
                 likes: 0,
                 points: 0
               })
-            .then(data1 => {})
+            .then(data1 => {
+
+              collection_statistiqueusers.updateOne({ "userId": req.body.userId },
+              { $set: { "totalPosts": nbposts+1 } }) 
+              .catch(err => {
+                res.status(500).send({
+                  message:
+                    err.message || "Some error occurred while add like."
+                })
+              });
+
+            })
+
         })
         .catch(err => {
             res.status(500).send({
