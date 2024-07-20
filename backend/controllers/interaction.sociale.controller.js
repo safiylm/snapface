@@ -40,19 +40,22 @@ exports.pointsRemove = async (req, res) => {
     {
       $set: { "pointedBy_": [""] },
       $inc: { "points": -1 }
-    },true
+    }, true
   ).then(data => {
     console.log(data)
     collection_statistiqueusers.updateOne({ "userId": req.body.userId },
-      { $inc: { "totalPosts": -1 } }) 
+      { $inc: { "totalPosts": -1 } })
+      .then(data1 => {
+        res.set('Access-Control-Allow-Origin', '*');
+        res.send(data1);
+      })
       .catch(err => {
         res.status(500).send({
           message:
             err.message || "Some error occurred while add like."
         })
       });
-      res.set('Access-Control-Allow-Origin', '*');
-      res.send(data);
+
   })
     .catch(err => {
       res.status(500).send({
@@ -61,30 +64,32 @@ exports.pointsRemove = async (req, res) => {
       })
     });
 
- 
+
 
 };
 
 exports.pointsAdd = async (req, res) => {
 
-  const updateResult = await collection_interactionsociales.updateOne({ "_id": new ObjectId(req.body._id) },
+  await collection_interactionsociales.updateOne({ "_id": new ObjectId(req.body._id) },
     {
       $set: { "pointedBy_": [req.body.userId] },
       $inc: { "points": 1 }
     }, true
   ).then(data => {
-    console.log(data)
 
     collection_statistiqueusers.updateOne({ "userId": req.body.userId },
-      { $inc: { "totalPosts": 1 } }) 
+      { $inc: { "totalPosts": 1 } })
+      .then(data1 => {
+        res.set('Access-Control-Allow-Origin', '*');
+        res.send(data1);
+      })
       .catch(err => {
         res.status(500).send({
           message:
             err.message || "Some error occurred while add like."
         })
       });
-      res.set('Access-Control-Allow-Origin', '*');
-      res.send(data);
+
   })
     .catch(err => {
       res.status(500).send({
@@ -93,27 +98,27 @@ exports.pointsAdd = async (req, res) => {
       })
     });
 
-  
+
 
 };
 
 exports.likesAdd = async (req, res) => {
 
-  const updateResult = await collection_interactionsociales.update({ "_id": new ObjectId(req.body._id) },
+  await collection_interactionsociales.update({ "_id": new ObjectId(req.body._id) },
     {
       $set: { "likedBy_": [req.body.userId] },
       $inc: { "likes": 1 }
-    },true
-  )
+    }, true
+  ).then(data => {
+    res.set('Access-Control-Allow-Origin', '*');
+    res.send(data);
+  })
     .catch(err => {
       res.status(500).send({
         message:
           err.message || "Some error occurred while add like."
       })
     });
-
-  res.set('Access-Control-Allow-Origin', '*');
-  res.send(updateResult);
 
 };
 
@@ -123,7 +128,7 @@ exports.likesRemove = async (req, res) => {
     {
       $set: { "likedBy_": [""] },
       $inc: { "likes": 1 }
-    },true
+    }, true
   )
     .catch(err => {
       res.status(500).send({
