@@ -72,6 +72,9 @@ exports.pointsAdd = async (req, res) => {
       $inc: { "points": 1 }
     }, true
   ).then(data => {
+    console.log(data)
+    console.log(data.userId)
+
     collection_statistiqueusers.updateOne({ "userId": data.userId },
       { $inc: { "totalPosts": 1 } }) 
       .catch(err => {
@@ -98,8 +101,8 @@ exports.likesAdd = async (req, res) => {
 
   const updateResult = await collection_interactionsociales.update({ "_id": new ObjectId(req.body._id) },
     {
-      $inc: { "likes": 1 },
-      $set: { "likedBy_": [req.body.userId] }
+      $set: { "likedBy_": [req.body.userId] },
+      $inc: { "likes": 1 }
     },true
   )
     .catch(err => {
