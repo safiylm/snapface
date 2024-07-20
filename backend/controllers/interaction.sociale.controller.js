@@ -40,7 +40,7 @@ exports.pointsRemove = async (req, res) => {
     {
       $set: { "pointedBy_": [""] },
       $inc: { "points": -1 }
-    }
+    },true
   ).then(data => {
     collection_statistiqueusers.updateOne({ "userId": data.userId },
       { $inc: { "totalPosts": -1 } }) 
@@ -70,7 +70,7 @@ exports.pointsAdd = async (req, res) => {
     {
       $set: { "pointedBy_": [req.body.userId] },
       $inc: { "points": 1 }
-    }
+    }, true
   ).then(data => {
     collection_statistiqueusers.updateOne({ "userId": data.userId },
       { $inc: { "totalPosts": 1 } }) 
@@ -98,9 +98,9 @@ exports.likesAdd = async (req, res) => {
 
   const updateResult = await collection_interactionsociales.update({ "_id": new ObjectId(req.body._id) },
     {
-      $set: { "likedBy_": [req.body.userId] },
-      $inc: { "likes": 1 }
-    }
+      $inc: { "likes": 1 },
+      $set: { "likedBy_": [req.body.userId] }
+    },true
   )
     .catch(err => {
       res.status(500).send({
@@ -119,7 +119,7 @@ exports.likesRemove = async (req, res) => {
     {
       $set: { "likedBy_": [""] },
       $inc: { "likes": -1 }
-    }
+    },true
   )
     .catch(err => {
       res.status(500).send({
