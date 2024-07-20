@@ -42,7 +42,8 @@ exports.pointsRemove = async (req, res) => {
       $inc: { "points": -1 }
     },true
   ).then(data => {
-    collection_statistiqueusers.updateOne({ "userId": data.userId },
+    console.log(data)
+    collection_statistiqueusers.updateOne({ "userId": req.body.userId },
       { $inc: { "totalPosts": -1 } }) 
       .catch(err => {
         res.status(500).send({
@@ -50,7 +51,8 @@ exports.pointsRemove = async (req, res) => {
             err.message || "Some error occurred while add like."
         })
       });
-
+      res.set('Access-Control-Allow-Origin', '*');
+      res.send(data);
   })
     .catch(err => {
       res.status(500).send({
@@ -59,8 +61,7 @@ exports.pointsRemove = async (req, res) => {
       })
     });
 
-  res.set('Access-Control-Allow-Origin', '*');
-  res.send(updateResult);
+ 
 
 };
 
@@ -73,9 +74,8 @@ exports.pointsAdd = async (req, res) => {
     }, true
   ).then(data => {
     console.log(data)
-    console.log(data.userId)
 
-    collection_statistiqueusers.updateOne({ "userId": data.userId },
+    collection_statistiqueusers.updateOne({ "userId": req.body.userId },
       { $inc: { "totalPosts": 1 } }) 
       .catch(err => {
         res.status(500).send({
@@ -83,7 +83,8 @@ exports.pointsAdd = async (req, res) => {
             err.message || "Some error occurred while add like."
         })
       });
-
+      res.set('Access-Control-Allow-Origin', '*');
+      res.send(data);
   })
     .catch(err => {
       res.status(500).send({
@@ -92,8 +93,7 @@ exports.pointsAdd = async (req, res) => {
       })
     });
 
-  res.set('Access-Control-Allow-Origin', '*');
-  res.send(updateResult);
+  
 
 };
 
@@ -111,6 +111,7 @@ exports.likesAdd = async (req, res) => {
           err.message || "Some error occurred while add like."
       })
     });
+
   res.set('Access-Control-Allow-Origin', '*');
   res.send(updateResult);
 
@@ -121,7 +122,7 @@ exports.likesRemove = async (req, res) => {
   const updateResult = await collection_interactionsociales.updateOne({ "_id": new ObjectId(req.body._id) },
     {
       $set: { "likedBy_": [""] },
-      $inc: { "likes": -1 }
+      $inc: { "likes": 1 }
     },true
   )
     .catch(err => {
