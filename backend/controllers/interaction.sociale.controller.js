@@ -44,7 +44,7 @@ exports.pointsRemove = async (req, res) => {
   ).then(data => {
     console.log(data)
     collection_statistiqueusers.updateOne({ "userId": req.body.userId },
-      { $inc: { "totalPosts": -1 } })
+      { $inc: { "totalPosts": -1 } }, true)
       .then(data1 => {
         res.set('Access-Control-Allow-Origin', '*');
         res.send(data1);
@@ -78,7 +78,7 @@ exports.pointsAdd = async (req, res) => {
   ).then(() => {
 
     collection_statistiqueusers.updateOne({ "userId": req.body.userId },
-      { $inc: { "totalPosts": 1 } })
+      { $inc: { "totalPosts": 1 } }, true )
       .then(data1 => {
         res.set('Access-Control-Allow-Origin', '*');
         res.send(data1);
@@ -106,7 +106,7 @@ exports.likesAdd = async (req, res) => {
 
   if(req.body.userId!=null)
 
-  await collection_interactionsociales.update({ "_id": new ObjectId(req.body._id) },
+  await collection_interactionsociales.updateOne({ "_id": new ObjectId(req.body._id) },
     {
       $set: { "likedBy_": [ req.body.userId ] },
       $inc: { "likes": 1 }
