@@ -29,7 +29,7 @@ exports.abonneeAdd = async (req, res) => {
   collection_abonnees.updateOne({ "userId": req.body.userSuiviId },
     { $push: { "followers": req.body.userConnectedId } }).then(() => {
       collection_statistiqueusers.updateOne({ "userId": req.body.userSuiviId },
-        { $inc: { "followers": -1 } }, true)
+        { $inc: { "followers": 1 } }, true)
         .catch(err => {
           res.status(500).send({
             message:

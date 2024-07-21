@@ -55,13 +55,10 @@ export class UserService {
 
   addAbonnee(userSuiviId: string) {
     if (userSuiviId != null) {
-      this.http.post<any>(`https://snapface.onrender.com/api/abonnees/abonneeAdd`,
-        { 'userSuiviId': userSuiviId, 'userConnectedId': localStorage.getItem('userId')?.toString() as string, }).subscribe(data => {
-          console.log(" add abonne post req body content :")
-          console.log(data)
-          //   this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
-          //     this.router.navigate(['Your actualComponent']);
-          // });
+      this.http.post(`https://snapface.onrender.com/api/abonnees/abonneeAdd`,
+        { 'userSuiviId': userSuiviId, 'userConnectedId': localStorage.getItem('userId')?.toString() as string, })
+        .subscribe(data => {
+          console.log("S'ABONNER")          
         })
     }
   }
@@ -69,11 +66,10 @@ export class UserService {
   removeAbonnee(userSuiviId: string) {
 
     if (userSuiviId != null) {
-      this.http.post<any>(`https://snapface.onrender.com/api/abonnees/abonneeRemove`,
+      this.http.post(`https://snapface.onrender.com/api/abonnees/abonneeRemove`,
         { 'userConnectedId': localStorage.getItem('userId')?.toString() as string, 'userSuiviId': userSuiviId }
       ).subscribe(data => {
-        console.log(" remove abonnee  post req body content :")
-        console.log(data)
+        console.log("SE DESABONNER")
       })
     }
 

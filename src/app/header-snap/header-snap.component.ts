@@ -22,15 +22,15 @@ export class HeaderSnapComponent implements OnInit {
 
   constructor(private userService: UserService, private router: Router) { }
 
-  get UserName(){
-    return (this.user && this.user.firstName && this.user.lastName)? this.user.firstName + " "+ this.user.lastName : null
+  get UserName() {
+    return (this.user && this.user.firstName && this.user.lastName) ? this.user.firstName + " " + this.user.lastName : null
   }
-  get UserPhotoProfil(){
-    return (this.user && this.user.photos_profil)? this.user.photos_profil : null
+  get UserPhotoProfil() {
+    return (this.user && this.user.photos_profil) ? this.user.photos_profil : null
   }
 
-  get UserPhotoBackground(){
-    return (this.user && this.user.photos_background )? this.user.photos_background : null
+  get UserPhotoBackground() {
+    return (this.user && this.user.photos_background) ? this.user.photos_background : null
   }
 
   get Sabonner() { return (this.abonnee && !this.isAbonnee && !this.istMe) ? "" : null }
@@ -58,15 +58,17 @@ export class HeaderSnapComponent implements OnInit {
 
 
   checkIfDejaAbonnee() {
-    if(this.abonnee)
-    this.abonnee.forEach(element => {
-      element.followers.forEach(element1 => {
-        if (element1 === localStorage.getItem('userId') ) {
-          
-          this.isAbonnee = true;
+    this.isAbonnee = false;
+    if (this.abonnee)
+      this.abonnee.forEach(element => {
+        if (element.userId == this.id) {
+          element.followers.forEach(element1 => {
+            if (element1 === localStorage.getItem('userId')) {
+              this.isAbonnee = true;
+            }
+          })
         }
-      })
-    });
+      });
   }
 
 
@@ -76,26 +78,29 @@ export class HeaderSnapComponent implements OnInit {
       this.istMe = true;
     }
     this.getAbonneeByUserId();
+    setTimeout(() => {
+      this.checkIfDejaAbonnee();
+    }, 400)
   }
 
-  ngAfterViewInit(){
-   // setTimeout(() => {
-      this.checkIfDejaAbonnee();
-  //  }, 50);
-
+  ngAfterViewInit() {
+   
   }
 
   sabonner() {
     this.userService.addAbonnee(this.id);
-    this.isAbonnee = true;
-    window.location.reload();
+    setTimeout(() => {
+      this.checkIfDejaAbonnee();
+    }, 400)
+
   }
 
-  
+
   sedesabonner() {
     this.userService.removeAbonnee(this.id);
-    this.isAbonnee = false;
-    window.location.reload();
+    setTimeout(() => {
+      this.checkIfDejaAbonnee();
+    }, 400)
   }
 
 }
