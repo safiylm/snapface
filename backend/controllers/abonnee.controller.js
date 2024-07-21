@@ -26,30 +26,49 @@ exports.create = async (req, res) => {
 exports.abonneeAdd = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
 
-  await collection_statistiqueusers.findOne({ "userId": req.body.userSuiviId }).then(stuer => {
-    collection_abonnees.updateOne({ "userId": req.body.userSuiviId },
-      { $push: { "followers": req.body.userConnectedId } }).then(d => {
-        let followerss = stuer.followers + 1;
-        collection_statistiqueusers.updateOne({ "userId": req.body.userSuiviId }, {  $set: {"followers":  followerss } })
-       
+  collection_abonnees.updateOne({ "userId": req.body.userSuiviId },
+    { $push: { "followers": req.body.userConnectedId } }).then(() => {
+      collection_statistiqueusers.updateOne({ "userId": req.body.userSuiviId },
+        { $inc: { "followers": -1 } }, true)
+        .catch(err => {
+          res.status(500).send({
+            message:
+              err.message || "Some error occurred while incremente nb abonne."
+          })
+        });
       //  res.send(d);
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while add abonne."
       })
-  })
+    });
 };
 
 
 exports.abonneeRemove = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
 
-  await collection_statistiqueusers.findOne({ "userId": req.body.userSuiviId }).then(stuer => {
-    collection_abonnees.updateOne({ "userId": req.body.userSuiviId },
-      { $pull: { "followers": req.body.userConnectedId } }).then(d => {
-        let followerss = stuer.followers - 1;
-        collection_statistiqueusers.updateOne({ "userId": req.body.userSuiviId }, {  $set: {"followers": followerss }})
-      //  res.send(d);
-
+  collection_abonnees.updateOne({ "userId": req.body.userSuiviId },
+    { $pull: { "followers": req.body.userConnectedId } })
+    .then(() => {
+      collection_statistiqueusers.updateOne({ "userId": req.body.userSuiviId },
+        { $inc: { "followers": -1 } }, true)
+        //  res.send(d);
+        .catch(err => {
+          res.status(500).send({
+            message:
+              err.message || "Some error occurred while decremente nbfollowers."
+          })
+        });
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while remove abonne."
       })
-  })
+    });
 };
 
 
