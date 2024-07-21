@@ -41,9 +41,9 @@ exports.pointsRemove = async (req, res) => {
       $set: { "pointedBy_": [""] },
       $inc: { "points": -1 }
     }, true
-  ).then(data => {
+  ).then(async data => {
     console.log(data)
-    collection_statistiqueusers.updateOne({ "userId": req.body.userId },
+    await collection_statistiqueusers.updateOne({ "userId": req.body.userId },
       { $inc: { "totalPosts": -1 } }, true)
       .then(data1 => {
         res.set('Access-Control-Allow-Origin', '*');
@@ -75,9 +75,9 @@ exports.pointsAdd = async (req, res) => {
       $set: { "pointedBy_": [req.body.userId] },
       $inc: { "points": 1 }
     }, true
-  ).then(() => {
+  ).then(async () => {
 
-    collection_statistiqueusers.updateOne({ "userId": req.body.userId },
+    await collection_statistiqueusers.updateOne({ "userId": req.body.userId },
       { $inc: { "totalPosts": 1 } }, true )
       .then(data1 => {
         res.set('Access-Control-Allow-Origin', '*');
@@ -129,7 +129,7 @@ exports.likesRemove = async (req, res) => {
   const updateResult = await collection_interactionsociales.updateOne({ "_id": new ObjectId(req.body._id) },
     {
       $set: { "likedBy_": [""] },
-      $inc: { "likes": 1 }
+      $inc: { "likes": -1 }
     }, true
   )
     .catch(err => {
