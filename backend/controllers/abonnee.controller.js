@@ -31,7 +31,8 @@ exports.abonneeAdd = async (req, res) => {
       { $push: { "followers": req.body.userConnectedId } }).then(d => {
         let followerss = stuer.followers + 1;
         collection_statistiqueusers.updateOne({ "userId": req.body.userSuiviId }, {  $set: {"followers":  followerss } })
-        res.send(d);
+       
+      //  res.send(d);
       })
   })
 };
@@ -45,7 +46,7 @@ exports.abonneeRemove = async (req, res) => {
       { $pull: { "followers": req.body.userConnectedId } }).then(d => {
         let followerss = stuer.followers - 1;
         collection_statistiqueusers.updateOne({ "userId": req.body.userSuiviId }, {  $set: {"followers": followerss }})
-        res.send(d);
+      //  res.send(d);
 
       })
   })
