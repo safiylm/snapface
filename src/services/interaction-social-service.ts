@@ -20,45 +20,45 @@ export class InteractionSocialeService {
   }
 
 
-  addLike(_id:string , likes: number) {
+  addLike(_id:string ) {
 
      this.http
      .post(
        `https://snapface.onrender.com/api/interaction/social/likes/add`,
-       {'_id': _id, 'likes': likes, 'userId' : localStorage.getItem('userId') }, 
+       {'_id': _id, 'userId' : localStorage.getItem('userId') }, 
      ).subscribe(data => {
       if(data)
         console.log("ADD LIKE" )
     })
   }
 
-  removeLike(_id:string , likes: number) {
+  removeLike(_id:string ) {
    this.http
     .post(
       `https://snapface.onrender.com/api/interaction/social/likes/remove`,
-      {'_id': _id, 'likes': likes, 'userId' : localStorage.getItem('userId')},
+      {'_id': _id, 'userId' : localStorage.getItem('userId')},
     ).subscribe(data => {
       if(data)
         console.log("REMOVE LIKE" )
     })
   }
 
-  addPoints(_id:string , points: number) {
+  addPoints(_id:string , auteurId: string ) {
     this.http
     .post(
       `https://snapface.onrender.com/api/interaction/social/points/add`,
-      {'_id': _id, 'points': points, 'userId' : localStorage.getItem('userId')},
+      {'_id': _id, 'userId' : localStorage.getItem('userId'), 'auteurId' : auteurId},
     ).subscribe(data => {
       if(data)
         console.log("ADD POINT" )
     })
   }
 
-  removePoints(_id:string , points: number){
+  removePoints(_id:string,  auteurId: string  ){
     this.http
     .post(
       `https://snapface.onrender.com/api/interaction/social/points/remove`,
-      {'_id': _id, 'points': points, 'userId' : localStorage.getItem('userId')}
+      {'_id': _id, 'userId' : localStorage.getItem('userId'), 'auteurId' : auteurId}
     ).subscribe(data => {
       if(data)
         console.log("REMOVE POINT" )

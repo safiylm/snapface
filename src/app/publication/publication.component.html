@@ -29,6 +29,6 @@
   <p id="body">{{ Body | titlecase }}</p>
 
 
-  <app-interaction-social [id]="publication._id.toString()"></app-interaction-social>
+  <app-interaction-social [id]="publication._id.toString()" [auteurId]="publication.userId.toString()"></app-interaction-social>
   <app-commentaire-list [id]="publication._id.toString()"></app-commentaire-list>
 </div>

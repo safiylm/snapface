@@ -44,8 +44,8 @@ exports.pointsRemove = (req, res) => {
     }, true
   ).then(data => {
     console.log(data)
-    collection_statistiqueusers.updateOne({ "userId": req.body.userId },
-      { $inc: { "totalPosts": -1 } }, true)
+    collection_statistiqueusers.updateOne({ "userId": req.body.auteurId },
+      { $inc: { "totalPoints": -1 } }, true)
      // .then(data1 => {res.send(data1); })
       .catch(err => {
         res.status(500).send({
@@ -76,8 +76,8 @@ exports.pointsAdd = (req, res) => {
     }, true
   ).then((data) => {
     console.log(data)
-    collection_statistiqueusers.updateOne({ "userId": req.body.userId },
-      { $inc: { "totalPosts": 1 } }, true)
+    collection_statistiqueusers.updateOne({ "userId": req.body.auteurId },
+      { $inc: { "totalPoints": 1 } }, true)
      //  .then(data1 => {  res.send(data1); })
       .catch(err => {
         res.status(500).send({

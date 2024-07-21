@@ -13,6 +13,8 @@ export class InteractionSocialComponent implements OnInit {
 
   interactionSociale !: InteractionSociale;
   @Input() id !: string;
+  @Input() auteurId !: string;
+  
   isLiked_: boolean = false;
   isPointAdded_: boolean = false;
 
@@ -20,36 +22,36 @@ export class InteractionSocialComponent implements OnInit {
   constructor(private interactionSocialeService: InteractionSocialeService) { }
 
   addLike(): void {
-    this.interactionSocialeService.addLike(this.interactionSociale._id, this.interactionSociale.likes + 1 );
+    this.interactionSocialeService.addLike(this.interactionSociale._id );
     setTimeout(()=>{
       this.display();
-    },250)
+    },350)
   }
 
 
   removeLike() {
-    this.interactionSocialeService.removeLike(this.interactionSociale._id, this.interactionSociale.likes - 1);
+    this.interactionSocialeService.removeLike(this.interactionSociale._id);
     setTimeout(()=>{
       this.display();
-    },250)
+    },450)
   }
 
 
   addPoints() {
-    this.interactionSocialeService.addPoints(this.interactionSociale._id, this.interactionSociale.points + 1);
+    this.interactionSocialeService.addPoints(this.interactionSociale._id, this.auteurId);
     setTimeout(()=>{
       this.display();
-    },250)
+    },350)
   }
 
 
   removePoints() {
    // if(this.interactionSociale.points>0)
-    this.interactionSocialeService.removePoints(this.interactionSociale._id, this.interactionSociale.points - 1);
+    this.interactionSocialeService.removePoints(this.interactionSociale._id, this.auteurId);
  
     setTimeout(()=>{
       this.display();
-    },250)
+    },450)
   }
 
 
