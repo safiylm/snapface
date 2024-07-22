@@ -41,15 +41,18 @@ exports.delete = async (req, res) => {
 
   collection_commentaires.
     findOne({  "_id": new ObjectId(req.body.id) }).then(c => {
+      
       collection_interactionsociales.
         findOne({ "postId": c.postId }).then(i => {
+          
           collection_commentaires.
             deleteOne({ "_id": new ObjectId(req.body.id) }).then(k => {
-              const updateResult = collection_interactionsociales.
+              
+              collection_interactionsociales.
               updateOne({ "postId": c.postId },
-                { $set: { "comments": i.comments - 1 } }).then(x => {
+                { $inc: { "comments":  - 1 } }).then(x => {
                   res.set('Access-Control-Allow-Origin', '*');
-                  res.send(updateResult);
+                  res.send(x);
                 })
             })
         })
