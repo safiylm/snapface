@@ -10,7 +10,6 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./my-account.component.scss']
 })
 export class MyAccountComponent implements OnInit {
-  title = 'json-read-example';
   id: string = localStorage.getItem('userId')?.toString() as string;
 
   isDisplayPosts: boolean = true;
@@ -57,6 +56,6 @@ export class MyAccountComponent implements OnInit {
 
   logout(){
     this.userService.logout();  
-   document.location.href="/"
+    this.router.navigate(['/']);
   }
 }
