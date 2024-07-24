@@ -15,9 +15,9 @@ export class StatistiqueUserComponent implements OnInit {
 
   constructor(private StatistiqueUserService: StatistiqueUserService) { }
 
-  get Followers() { return (this.statistiqueUser && this.statistiqueUser.followers) ? this.statistiqueUser.followers : null }
-  get TotalPoints() { return (this.statistiqueUser && this.statistiqueUser.totalPoints) ? this.statistiqueUser.totalPoints : null }
-  get TotalPosts() { return (this.statistiqueUser && this.statistiqueUser.totalPosts) ? this.statistiqueUser.totalPosts : null }
+  get Followers() { return (this.statistiqueUser && this.statistiqueUser.followers) ? this.statistiqueUser.followers : 0 }
+  get TotalPoints() { return (this.statistiqueUser && this.statistiqueUser.totalPoints) ? this.statistiqueUser.totalPoints : 0 }
+  get TotalPosts() { return (this.statistiqueUser && this.statistiqueUser.totalPosts) ? this.statistiqueUser.totalPosts : 0 }
   
   displayFollowers() {
       this.isVisibleListFollowers= true;

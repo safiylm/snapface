@@ -89,15 +89,15 @@ export class InteractionSocialComponent implements OnInit {
 
 
   get Likes(){
-    return (this.interactionSociale && this.interactionSociale.likes )? this.interactionSociale.likes : null
+    return (this.interactionSociale && this.interactionSociale.likes )? this.interactionSociale.likes : 0
   }
   
   get Points(){
-    return (this.interactionSociale && this.interactionSociale.points )? this.interactionSociale.points : null
+    return (this.interactionSociale && this.interactionSociale.points )? this.interactionSociale.points : 0
   }
   
   get Comments(){
-    return (this.interactionSociale && this.interactionSociale.comments )? this.interactionSociale.comments : null
+    return (this.interactionSociale && this.interactionSociale.comments )? this.interactionSociale.comments : 0
   }
   
 }
