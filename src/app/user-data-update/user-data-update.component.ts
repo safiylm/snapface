@@ -12,77 +12,74 @@ import { FormGroup, FormControl } from "@angular/forms";
 })
 export class UserDataUpdateComponent implements OnInit {
 
-  @Input() userId !: any ;
-  
+  @Input() userId !: any;
+
   constructor(private userService: UserService, private route: ActivatedRoute) { }
 
   user?: User;
-  user2 = new User(this.userId, "","","","", "", "",  0);
+  user2 = new User(this.userId, "", "", "", "", 0, "", "");
 
   updateUserForm = new FormGroup({
-    lastName: new FormControl( this.user?.lastName.toString() ),
-    firstName: new FormControl(this.user?.firstName.toString()),
-    email: new FormControl(this.user?.email.toString()),
-    password: new FormControl(this.user?.password.toString()),
-    phoneNo : new FormControl(this.user?.phoneNo ),
-    photos_background: new FormControl(this.user?.photos_background.toString()),
-    photos_profil: new FormControl(this.user?.photos_profil.toString())
+    lastName: new FormControl(""),
+    firstName: new FormControl(),
+    email: new FormControl(""),
+    password: new FormControl(""),
+    phoneNo: new FormControl(""),
+    photos_background: new FormControl(""),
+    photos_profil: new FormControl("")
   });
 
 
   retrieveUser(): void {
-    this.userService.getUser( this.userId) 
+    this.userService.getUser(this.userId)
       .subscribe({
         next: (data) => {
           this.user = data;
-          console.log(data);
         },
         error: (e) => console.error(e)
       });
   }
 
+
   ngOnInit() {
-   this.retrieveUser()
-
-  } 
-  
-  onSubmit(){
-
-    this.user2._id = this.userId;
-    
-    this.user2.lastName= this.updateUserForm.value['lastName']?.toString() as string;
-    if( this.user2.lastName==undefined){
-      this.user2.lastName=this.user?.lastName.toString() as string;
-    }
-    this.user2.firstName= this.updateUserForm.value['firstName']?.toString() as string;
-    if( this.user2.firstName==undefined){
-      this.user2.firstName=this.user?.firstName as string;
-    }
-    this.user2.email= this.updateUserForm.value['email']?.toString() as string;
-    if( this.user2.email==undefined){
-      this.user2.email=this.user?.email as string;
-    }
-    this.user2.password= this.updateUserForm.value['password']?.toString() as string;
-    if( this.user2.password==undefined){
-      this.user2.password=this.user?.password as string;
-    }
-  
-    this.user2.photos_background= this.updateUserForm.value['photos_background']?.toString() as string;
-    if( this.user2.photos_background==undefined){
-      this.user2.photos_background=this.user?.photos_background as string;
-    }
-    this.user2.photos_profil= this.updateUserForm.value['photos_profil']?.toString() as string;
-    if( this.user2.photos_profil==undefined){
-      this.user2.photos_profil=this.user?.photos_profil as string;
-    }
-
-     this.user2.phoneNo= Number( this.updateUserForm.value['phoneNo']?.toString());
-    if( Number.isNaN(this.user2.phoneNo)){
-      this.user2.phoneNo=Number(this.user?.phoneNo) ;
-    }
-    //console.log(this.user2)
-    this.userService.updateUser(this.user2)
+    this.retrieveUser()
   }
 
+
+  onSubmit() {
+    this.user2._id = localStorage.getItem("userId") as string;
+    this.user2.lastName = this.user?.lastName.toString() as string;
+    this.user2.firstName = this.user?.firstName.toString() as string;
+    this.user2.email = this.user?.email.toString() as string;
+    this.user2.password = this.user?.password.toString() as string;
+    this.user2.photos_background = this.user?.photos_background.toString() as string;
+    this.user2.phoneNo = Number(this.user?.phoneNo.toString());
+    this.user2.photos_profil = this.user?.photos_profil.toString() as string;
+
+    if (this.updateUserForm.controls['lastName'].value != "") {
+      this.user2.lastName = this.updateUserForm.controls['lastName'].value as string
+    }
+    if (this.updateUserForm.controls['firstName'].value != "") {
+      this.user2.firstName = this.updateUserForm.controls['firstName'].value as string
+    }
+    if (this.updateUserForm.controls['email'].value != "") {
+      this.user2.email = this.updateUserForm.controls['email'].value as string
+    }
+    if (this.updateUserForm.controls['password'].value != "") {
+      this.user2.password = this.updateUserForm.controls['password'].value as string
+    }
+    if (this.updateUserForm.controls['photos_background'].value != "") {
+      this.user2.photos_background = this.updateUserForm.controls['photos_background'].value as string
+    }
+    if (this.updateUserForm.controls['photos_profil'].value != "") {
+      this.user2.photos_profil = this.updateUserForm.controls['photos_profil'].value as string
+    }
+    if (this.updateUserForm.controls['phoneNo'].value != "") {
+      this.user2.phoneNo = Number(this.updateUserForm.controls['phoneNo'].value);
+    }
+
+    this.userService.updateUser(this.user2)
+
+  }
   
 }
