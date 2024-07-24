@@ -50,7 +50,6 @@ export class PublicationsService {
   }
 
   deletePost(id: string): void {
-
     this.http
       .post<any>(
         `https://snapface.onrender.com/api/publication/delete`,
@@ -59,7 +58,6 @@ export class PublicationsService {
         console.log(" publication delete post req body content :")
         console.log(data)
       })
-
   }
 
   getPublicationById(PublicationId: string): Observable<Publication> {

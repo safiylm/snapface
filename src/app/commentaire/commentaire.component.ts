@@ -43,7 +43,6 @@ export class CommentaireComponent implements OnInit {
       this.commentaire.userId = localStorage.getItem('userId')?.toString() as string;
 
       this.commentaireService.updateCommentaire(this.commentaire);
-      console.log("edit comment ")
       this.edited = false;
      // window.location.reload();
 
@@ -61,7 +60,7 @@ export class CommentaireComponent implements OnInit {
       let text = "Êtes-vous sûre de supprimer votre commentaire!\n OK or Cancel.";
       if (confirm(text) == true) {
         this.commentaireService.deleteCommentaire(commentId);
-        window.location.reload();
+        //window.location.reload();
       } else {
         text = "You canceled!";
       }

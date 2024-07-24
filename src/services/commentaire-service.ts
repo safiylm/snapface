@@ -48,15 +48,9 @@ export class CommentaireService {
   }
 
   deleteCommentaire( commentId: string ){
-    const httpOptions = {
-      headers: new HttpHeaders({ 
-        'Access-Control-Allow-Origin':'*',
-      })
-    };
-
-   return this.http
+    this.http
     .post<any>(
-      `https://snapface.onrender.com/api/commentaire/delete`,
+      "https://snapface.onrender.com/api/commentaire/delete",
       {"id" : commentId }
     ).subscribe(data => {
       if(data)

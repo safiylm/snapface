@@ -65,8 +65,6 @@ export class InteractionSocialeService {
     })
   }
 
-
-
   addComments(_id:string , comments: number):Observable<any> {
     return this.http
     .post<any>(

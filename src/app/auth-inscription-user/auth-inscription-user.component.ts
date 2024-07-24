@@ -29,7 +29,7 @@ export class AuthInscriptionUserComponent implements OnInit {
     photos_background: new FormControl(""),
     photos_profil: new FormControl("")
   });
-  user = new User("", "", "", "", "", "", "", 0);
+  user = new User("", "", "", "", "",0, "", "");
 
 
   ngOnInit() { }
