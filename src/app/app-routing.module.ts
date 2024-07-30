@@ -10,10 +10,11 @@ import { PublicationCreateComponent } from './publication-create/publication-cre
 import { AuthGuard } from './guards/auth.guard';  
 import { MyAccountComponent } from './my-account/my-account.component';
 import { FormulaireGuard } from './guards/fomulaire.guard';
+import { PublicationsResolverService } from 'src/services/publication-resolver-service';
 
 const routes: Routes = [
   { path: 'user/:id', component: UserAccountComponent },
-  { path: '', component:  HomeComponent },
+  { path: '', component:  HomeComponent, resolve:{publications : PublicationsResolverService} },
   { path: 'connexion', component:  AuthConnexionUserComponent },
   { path: 'inscription', component:  AuthInscriptionUserComponent ,
     canDeactivate : [FormulaireGuard]

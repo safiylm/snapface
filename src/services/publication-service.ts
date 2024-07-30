@@ -15,25 +15,39 @@ export class PublicationsService {
   constructor(private http: HttpClient) { }
 
 
-  getAllPublications(): Observable<Publication[]> {
-    return this.http.get<Publication[]>("https://snapface.onrender.com/api/publication");
+  getAllPublications(): Promise<Publication[]> {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        return this.http.get<Publication[]>("https://snapface.onrender.com/api/publication")
+          .subscribe(response => {
+
+            resolve(response)
+          }, err => {
+            console.log(err.message);
+          }, () => {
+            console.log('completed');
+          }
+
+          );
+      }, 1000);
+    })
   }
 
-  getAllPublicationsByUserId( id :string): Observable<Publication[]> {
-    return this.http.get<Publication[]>("https://snapface.onrender.com/api/publicationByUserId?id="+id);
+  getAllPublicationsByUserId(id: string): Observable<Publication[]> {
+    return this.http.get<Publication[]>("https://snapface.onrender.com/api/publicationByUserId?id=" + id);
   }
 
-  public  createNewPublication(formData: Publication): void {
- 
+  public createNewPublication(formData: Publication): void {
+
     this.http
       .post<Publication>(
         `https://snapface.onrender.com/api/publication/create`,
         formData,
       ).subscribe(data => {
-        console.log("Add new post " )
+        console.log("Add new post ")
       })
   }
-  
+
 
 
   editPost(formData: Publication): void {
@@ -43,8 +57,8 @@ export class PublicationsService {
         `https://snapface.onrender.com/api/publication/edit`,
         formData,
       ).subscribe(data => {
-        if(data)
-          console.log("Post edited" )
+        if (data)
+          console.log("Post edited")
       })
 
   }
@@ -53,7 +67,7 @@ export class PublicationsService {
     this.http
       .post<any>(
         `https://snapface.onrender.com/api/publication/delete`,
-        {"id" : id },
+        { "id": id },
       ).subscribe(data => {
         console.log(" publication delete post req body content :")
         console.log(data)
@@ -61,7 +75,7 @@ export class PublicationsService {
   }
 
   getPublicationById(PublicationId: string): Observable<Publication> {
-    return this.http.get<Publication>("https://snapface.onrender.com/api/publicationByPostId?postId="+PublicationId);
+    return this.http.get<Publication>("https://snapface.onrender.com/api/publicationByPostId?postId=" + PublicationId);
 
   }
 
@@ -80,13 +94,13 @@ export class PublicationsService {
 
   snapPublicationById(PublicationId: string, snapType: 'snap' | 'unsnap'): void {
     const Publication = this.getPublicationById(PublicationId);
-   // snapType === 'snap' ? Publication.snaps++ : Publication.snaps--;
+    // snapType === 'snap' ? Publication.snaps++ : Publication.snaps--;
   }
 
   unsnapPublicationById(PublicationId: string): void {
     const Publication = this.publications.find(Publication => Publication._id === PublicationId);
     if (Publication) {
-    //  Publication.snaps--;
+      //  Publication.snaps--;
     } else {
       throw new Error('Publication not found!');
     }
