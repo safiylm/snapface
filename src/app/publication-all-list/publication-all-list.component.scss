@@ -7,3 +7,11 @@
     width: 60px;
     height: 60px;
 }
+
+.listofposts{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+
+}

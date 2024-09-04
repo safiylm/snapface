@@ -6,11 +6,10 @@ h2{
 .div-list-users {
 
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: flex-start;
     margin: 10px auto;
-
+    width: 95vw;
 
     .div-user {
         min-width: 200px !important;

@@ -4,9 +4,7 @@
     top: 50px;
 }
 
-#div-list-post{
-    width:70%;
-}
+
 @media(max-width:930px) {
 
     .home {
@@ -17,10 +15,7 @@
       
     }
 
-    #div-list-post{
-        width:100%;
-    }
-
+  
     #div-list-users {
         width: 100vw;
         overflow-x: scroll;
