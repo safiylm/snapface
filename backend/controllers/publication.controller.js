@@ -5,6 +5,7 @@ const collection_commentaires = db.collection('commentaires');
 const ObjectId = require('mongodb').ObjectId;
 const collection_statistiqueusers = db.collection('statistiqueusers')
 
+//create new post 
 exports.create = (req, res) => {
     // Validate request
     //   if (!req.body.firstName) {
@@ -56,7 +57,8 @@ exports.create = (req, res) => {
         });
 };
 
-// Retrieve all Users from the database.
+
+// Retrieve all Posts from the database.
 exports.findAll = async (req, res) => {
     res.set('Access-Control-Allow-Origin', '*');
  
@@ -65,23 +67,18 @@ exports.findAll = async (req, res) => {
 
 }
 
+
+// Retrieve all Posts by userID from the database.
 exports.findAllPublicationByUserId = async (req, res) => {
 
     res.set('Access-Control-Allow-Origin', '*');
   
     const findResult = await collection_publications.find({"userId" : req.query.id }).toArray();
     res.send(findResult);
-
 }
 
-exports.findAllPublicationByPostId= async (req, res) => {
-    res.set('Access-Control-Allow-Origin', '*');
- 
-    const findResult = await collection_publications.findOne({"_id" : new ObjectId(req.query.postId ) });
-    res.send(findResult);
 
-}
-
+//Retrieve post by id 
 exports.findOneById = async (req, res) => {
     res.set('Access-Control-Allow-Origin', '*');
 
@@ -90,6 +87,7 @@ exports.findOneById = async (req, res) => {
 };
 
 
+//Edit post 
 exports.edit = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
 
@@ -105,9 +103,10 @@ exports.edit = async (req, res) => {
         }
       });
     res.send(updateResult);
-  }
+}
 
-  
+
+//Delete post 
 exports.delete =  (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
 
@@ -119,4 +118,4 @@ exports.delete =  (req, res) => {
             })
         })
     });
-  }
+}

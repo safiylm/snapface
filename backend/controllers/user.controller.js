@@ -6,7 +6,7 @@ const collection_abonnees = db.collection('abonnees');
 
 const ObjectId = require('mongodb').ObjectId;
 
-
+//create new user
 exports.create = (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
 
@@ -61,9 +61,7 @@ exports.create = (req, res) => {
 };
 
 
-
-
-
+//edit user data
 exports.update = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
 
@@ -83,6 +81,7 @@ exports.update = async (req, res) => {
 }
 
 
+//dete user 
 exports.delete = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
 
@@ -103,6 +102,8 @@ exports.findAll = async (req, res) => {
 
 }
 
+
+// Retrieve one User by id from the database.
 exports.findOneById = async (req, res) => {
 
   const id = req.query.id;
@@ -111,6 +112,7 @@ exports.findOneById = async (req, res) => {
 };
 
 
+//connexion
 exports.connexion = async function (req, res) {
 
   res.set('Access-Control-Allow-Origin', '*');
@@ -119,15 +121,5 @@ exports.connexion = async function (req, res) {
   res.set('Access-Control-Allow-Headers', 'Content-Type')
 
   res.send(await collection_user.findOne({ "email": req.body.email, "password": req.body.password }));
-
-  //.then(   data => {
-  //     if (data == undefined || data == null) {
-  //       res.send( { resultat : "error connexion"})
-  //     }
-  //     else {
-  //       if (data._id != null && data.email == req.body.email) {
-  //         res.send(data)
-  //       }}}
-
 
 };

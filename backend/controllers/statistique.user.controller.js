@@ -1,6 +1,7 @@
 const db = require('../config/db.config.js');
 const collection_statistiqueusers = db.collection('statistiqueusers');
 
+//create new user statistique
 exports.create = (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
 
@@ -33,7 +34,7 @@ exports.create = (req, res) => {
 };
 
 
-
+//get user statistique by iy 
 exports.findByUserId = async (req, res) => {
     const id = req.query.id;
     res.set('Access-Control-Allow-Origin', '*');

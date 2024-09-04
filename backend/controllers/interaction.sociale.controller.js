@@ -3,6 +3,7 @@ const collection_interactionsociales = db.collection('interactionsociales');
 const ObjectId = require('mongodb').ObjectId;
 const collection_statistiqueusers = db.collection('statistiqueusers')
 
+//create new interaction social for one post
 exports.create = (req, res) => {
 
   // Validate request
@@ -34,9 +35,10 @@ exports.create = (req, res) => {
     });
 };
 
+
+//Remove point
 exports.pointsRemove = (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
-
   const updateResult = collection_interactionsociales.updateOne({ "_id": new ObjectId(req.body._id) },
     {
       $set: { "pointedBy_": [""] },
@@ -62,10 +64,10 @@ exports.pointsRemove = (req, res) => {
       })
     });
 
-
-
 };
 
+
+//add point
 exports.pointsAdd = (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
 
@@ -98,6 +100,8 @@ exports.pointsAdd = (req, res) => {
 
 };
 
+
+//like/ add like 
 exports.likesAdd = async (req, res) => {
 
   if (req.body.userId != null)
@@ -120,6 +124,8 @@ exports.likesAdd = async (req, res) => {
 
 };
 
+
+//Remove like / dislike
 exports.likesRemove = async (req, res) => {
 
   const updateResult = await collection_interactionsociales.updateOne({ "_id": new ObjectId(req.body._id) },
@@ -139,6 +145,8 @@ exports.likesRemove = async (req, res) => {
 
 };
 
+
+//Retrieve post by Id
 exports.findByPublicationId = async (req, res) => {
 
   const id = req.query.id;

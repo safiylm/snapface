@@ -4,6 +4,7 @@ const collection_interactionsociales = db.collection('interactionsociales');
 
 const ObjectId = require('mongodb').ObjectId;
 
+//create new comments
 exports.create = (req, res) => {
 
   collection_interactionsociales.findOne({ "postId": req.body.postId }).then(i => {
@@ -18,7 +19,7 @@ exports.create = (req, res) => {
       })
       .then(data => {
         const updateResult = collection_interactionsociales.updateOne({ "postId": req.body.postId },
-          { $set: { "comments": i.comments + 1 } }).then(x => {
+          { $inc: { "comments": 1 } }).then(x => {
             res.set('Access-Control-Allow-Origin', '*');
             res.send(updateResult);
           })
@@ -36,7 +37,7 @@ exports.create = (req, res) => {
 };
 
 
-
+//delete comment with id
 exports.delete = async (req, res) => {
 
   collection_commentaires.
@@ -60,6 +61,7 @@ exports.delete = async (req, res) => {
 }
 
 
+//update comment with id 
 exports.update = async (req, res) => {
 
   console.log(req.body._id);
@@ -72,6 +74,7 @@ exports.update = async (req, res) => {
 
 //res.body.insertedId
 
+//get comment with id 
 exports.findByPublicationId = async (req, res) => {
 
   const id = req.query.id;

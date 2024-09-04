@@ -2,6 +2,7 @@ const db = require('../config/db.config.js');
 const collection_abonnees = db.collection('abonnees');
 const collection_statistiqueusers = db.collection('statistiqueusers');
 
+//create new abonnee list
 exports.create = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
 
@@ -22,7 +23,7 @@ exports.create = async (req, res) => {
     });
 };
 
-
+//add new abonnee in list
 exports.abonneeAdd = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
 
@@ -46,7 +47,7 @@ exports.abonneeAdd = async (req, res) => {
     });
 };
 
-
+//remove abonnee in list
 exports.abonneeRemove = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
 
@@ -72,7 +73,7 @@ exports.abonneeRemove = async (req, res) => {
 };
 
 
-
+//get followers of user with id 
 exports.findByUserId = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
 
