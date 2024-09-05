@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Publication } from '../../models/publication.model';
-import { PublicationsService } from '../../services/publication-service'
 
 @Component({
   selector: 'app-publication',
@@ -12,33 +11,20 @@ export class PublicationComponent implements OnInit {
 
   @Input() publication!: Publication;
 
-  constructor(private publicationService: PublicationsService) { }
-
+  constructor() { }
   index: number = 0;
-  buttonText!: string;
   isMyPost: boolean = false ;
 
-
   ngOnInit() {
-    this.buttonText = 'Oh Snap!';
     if(this.publication.userId == localStorage.getItem('userId')){
       this.isMyPost = true;
     }
+
   }
   goToEditPost(){
     document.location.href='publication/edit/'+this.publication._id 
   }
 
-
-  onSnap() {
-    if (this.buttonText === 'Oh Snap!') {
-      this.publicationService.snapPublicationById(this.publication._id, 'snap');
-      this.buttonText = 'Oops, unSnap!';
-    } else {
-      this.publicationService.snapPublicationById(this.publication._id, 'unsnap');
-      this.buttonText = 'Oh Snap!';
-    }
-  }
 
   displayImageNext() {
     if (this.index < this.publication.images.length -1 ){

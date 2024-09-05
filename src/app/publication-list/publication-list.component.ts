@@ -13,8 +13,7 @@ export class PublicationListComponent implements OnInit {
   constructor( private publicationsService: PublicationsService, private route: ActivatedRoute) { }
   @Input() id !: string ;
  
-  publications!: Publication[];
-  userConnectedId = "65cd023efb273094193ac038"; 
+  publications!: Publication[]; 
 
   
   retrievePublications(): void {
@@ -29,7 +28,7 @@ export class PublicationListComponent implements OnInit {
 
 
   ngOnInit() {
-   this.retrievePublications()
+   this.retrievePublications();
 
   }
 }

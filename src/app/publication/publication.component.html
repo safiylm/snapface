@@ -1,5 +1,5 @@
 <div class="face-snap-card">
-  <app-auteur-in-post-or-commentaire [id]="publication.userId.toString()"></app-auteur-in-post-or-commentaire>
+  <app-auteur-in-post-or-commentaire [id]="publication.userId.toString()" ></app-auteur-in-post-or-commentaire>
 
   <div *ngIf="isMyPost" style="text-align:right;">
     <button type="button" (click)="goToEditPost()" > <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen" viewBox="0 0 16 16">
@@ -7,9 +7,7 @@
     </svg> Modifier</button>
   </div>
 
-  <h2>{{ Title | titlecase }}</h2>
-  <!-- <p>Mis en ligne le {{ publication.date | date: 'à HH:mm, le d MMMM yyyy' }}</p> -->
-  
+ <br/>
   <div class="div-images" *ngIf="publication.images.length > 0">
     <button (click)="displayImagePrecedent()"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
         fill="currentColor" class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
@@ -24,7 +22,9 @@
       </svg></button>
   </div>
 
-
+  <h2>{{ Title | titlecase }}</h2>
+  <!-- <p>Mis en ligne le {{ publication.date | date: 'à HH:mm, le d MMMM yyyy' }}</p> -->
+  
 
   <p id="body">{{ Body | titlecase }}</p>
 
