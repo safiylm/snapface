@@ -1,11 +1,11 @@
-<div *ngFor="let com of commentaires" class="div-un-commentaire">
-    <app-commentaire [commentaire]="com"></app-commentaire> 
+<ng-container *ngIf="isDisplayListOfComments">
+    <div *ngFor="let com of commentaires" class="div-un-commentaire">
+        <app-commentaire [commentaire]="com" [isDisplayListOfComments]="isDisplayListOfComments"></app-commentaire>
+    </div>
+</ng-container>
 
- </div>
- 
- <form [formGroup]="commentForm" (ngSubmit)="createNewComment()" id="addNewComment" autocomplete="off">
-     <input type="text" name="nom" formControlName="comment" id="inputcreatecomment" />
-     <button type="submit" >Envoyer</button>
-     <div id="info-createNewComment{{id}}"></div>
- </form>
- 
+<form [formGroup]="commentForm" (ngSubmit)="createNewComment()" id="addNewComment" autocomplete="off">
+    <input type="text" name="nom" formControlName="comment" id="inputcreatecomment" />
+    <button type="submit">Envoyer</button>
+    <div id="info-createNewComment{{id}}"></div>
+</form>

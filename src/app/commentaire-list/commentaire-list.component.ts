@@ -14,6 +14,7 @@ export class CommentaireListComponent implements OnInit {
   commentaires !: Commentaire[];
   @Input() id !: string;
   commentaire = new Commentaire("", "", Date.now(), "", "");
+  @Input() isDisplayListOfComments !: boolean;
 
   commentForm = new FormGroup({
     comment: new FormControl(""),
@@ -37,7 +38,6 @@ export class CommentaireListComponent implements OnInit {
       (document.getElementById("info-createNewComment" + this.id) as HTMLFormElement).innerHTML = "Il faut se connecter!";
     }
 
-
   }
 
 
@@ -54,4 +54,6 @@ export class CommentaireListComponent implements OnInit {
   ngOnInit() {
     this.display();
   }
+
+  
 }

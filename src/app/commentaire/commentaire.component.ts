@@ -15,6 +15,7 @@ export class CommentaireComponent implements OnInit {
   isMyComment: boolean = false;
 
   @Input() id !: string;
+  @Input() isDisplayListOfComments !: boolean;
   @Input() commentaire !: Commentaire;
   //commentaire = new Commentaire("8", "Essai k+888888", Date.now(),"userid978463152","postuibjn894651") ;
   commentForm = new FormGroup({

@@ -10,7 +10,7 @@ import { Publication } from '../../models/publication.model';
 export class PublicationComponent implements OnInit {
 
   @Input() publication!: Publication;
-
+  isDisplayListOfComments !: boolean;
   constructor() { }
   index: number = 0;
   isMyPost: boolean = false ;
@@ -19,12 +19,15 @@ export class PublicationComponent implements OnInit {
     if(this.publication.userId == localStorage.getItem('userId')){
       this.isMyPost = true;
     }
-
+    this.isDisplayListOfComments= false;
   }
   goToEditPost(){
     document.location.href='publication/edit/'+this.publication._id 
   }
 
+  toggleDisplayListOfComments(){
+    this.isDisplayListOfComments = ! this.isDisplayListOfComments;
+  }
 
   displayImageNext() {
     if (this.index < this.publication.images.length -1 ){
