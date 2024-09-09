@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user-service'
 import { User } from '../../models/user.model'
-import { FormGroup, FormControl } from "@angular/forms";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
 import { interval, scan, takeWhile } from 'rxjs';
 
 @Component({
@@ -20,14 +20,14 @@ export class AuthInscriptionUserComponent implements OnInit {
 
 
   inscriptionUserForm = new FormGroup({
-    lastName: new FormControl(""),
-    firstName: new FormControl(""),
-    email: new FormControl(""),
-    password: new FormControl(""),
-    password2: new FormControl(""),
-    phoneNo: new FormControl(""),
-    photos_background: new FormControl(""),
-    photos_profil: new FormControl("")
+    lastName: new FormControl("", [Validators.required]),
+    firstName: new FormControl("",[Validators.required]),
+    email: new FormControl("",[Validators.required]),
+    password: new FormControl("",[Validators.required]),
+    password2: new FormControl("",[Validators.required]),
+    phoneNo: new FormControl("",[Validators.required]),
+    photos_background: new FormControl("",[Validators.required]),
+    photos_profil: new FormControl("",[Validators.required])
   });
   user = new User("", "", "", "", "",0, "", "");
 
@@ -44,8 +44,8 @@ export class AuthInscriptionUserComponent implements OnInit {
       this.user.photos_background = this.inscriptionUserForm.value['photos_background']?.toString() as string;
       this.user.photos_profil = this.inscriptionUserForm.value['photos_profil']?.toString() as string;
 
-      this.userService.pushNewUser(this.user);
-
+     const resins = this.userService.pushNewUser(this.user)
+console.log(resins)
       this.displayToasts = true;
 
       this.timeForRedirection$ = interval(1000).pipe(

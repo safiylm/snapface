@@ -1,17 +1,32 @@
+.page-inscription {
+    background-image: url('../../assets/login.jpg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position-x: center;
+    min-height: 95vh;
+}
+
 form {
-    margin-top: 100px;
-    padding: 80px 50px;
-    box-shadow: rgb(229, 213, 245) 4px 4px 20px;
-   
+    padding: 10px 30px;
+    background-color: rgb(255, 255, 255);
+    width: 1000px;
+    border-radius: 15px;
+
     h1 {
         text-align: center;
-        color: blueviolet;
+        color: black;
+        font-weight: 500;
+        margin: 30px 0;
+    }
 
+    
+    .row{
+        padding: 15px;
     }
 
     .div-input {
         margin: 16px 0;
-        width: 500px;
+        width: 100%;
 
         label,
         input {
@@ -29,34 +44,66 @@ form {
         }
     }
 
-    button[type="submit"],
-    button {
+    button[type="submit"] {
         border: none;
         font-size: medium;
-        margin: 15px auto;
-        display: block;
+        margin: 15px ;
         color: aliceblue;
-        background-color: blueviolet;
-        padding: 10px 20px;
+        background-color: #1e1731;
+        padding: 7px 14px;
         border-radius: 12px;
+    }
+
+    a{
+        color:black;
+        margin: 15px ;
     }
 }
 
-.toast{
+.toast {
     // display: none;
     display: block;
-  margin-top: 70px;
-  background-color: #81e473;
-  font-weight: bold;
+    margin-top: 70px;
+    background-color: #81e473;
+    font-weight: bold;
 
 }
-@media(max-width:650px) {
+
+@media(max-width:950px) {
 
     form {
-        
-        width: 100vw;
+
+        width: 400px;
         padding: 30px;
         box-sizing: border-box;
         margin: 20px 0;
+        height: auto;
+
+        .form2row{
+            flex-direction: column;
+            .row{
+                padding: 1px;
+            }
+        }
+    }
+}
+
+
+@media(max-width:550px) {
+
+    form {
+
+        width: 90vw;
+        padding: 30px;
+        box-sizing: border-box;
+        margin: 20px auto;
+        height: auto;
+
+        .form2row{
+            flex-direction: column;
+            .row{
+                padding: 1px;
+            }
+        }
     }
 }

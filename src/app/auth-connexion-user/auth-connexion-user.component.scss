@@ -1,16 +1,28 @@
+.page-connexion {
+    background-image: url('../../assets/login.jpg');
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position-x: center;
+    height: 95vh;
+}
+
+
 form {
-    margin-top: 100px;
-    padding: 80px 50px;
-    box-shadow: rgb(229, 213, 245) 4px 4px 20px;
+    padding: 10px 30px;
+    background-color: rgb(255, 255, 255);
+    width: 400px;
+    border-radius: 15px;
+
     h1 {
         text-align: center;
-        color: blueviolet;
-
+        color: black;
+        font-weight: 500;
+        margin: 30px 0;
     }
 
     .div-input {
-        margin: 16px 0;
-        width: 500px;
+        margin: 16px auto;
+        width: 100%;
 
         label,
         input {
@@ -28,17 +40,17 @@ form {
         }
     }
 
-    button[type="submit"],
-    button {
+    button[type="submit"] {
         border: none;
-   
-        font-size: medium;
-        margin: 15px auto;
-        display: block;
-        color: aliceblue;
-        background-color: blueviolet;
-        padding: 10px 20px;
-        border-radius: 12px;
+        margin: 15px 10px;
+        color: white;
+        background-color: #1e1731;
+        padding: 7px 14px;
+        border-radius: 5px;
+    }
+
+    a {
+        color: #1e1731;
     }
 
     #connexion-info {
@@ -47,12 +59,12 @@ form {
     }
 }
 
-@media(max-width:650px) {
+@media(max-width:480px) {
 
     form {
 
-        width: 100vw;
-        padding: 30px;
+        width: 90vw;
+        padding: 15px;
         box-sizing: border-box;
         margin: 20px 0;
     }
