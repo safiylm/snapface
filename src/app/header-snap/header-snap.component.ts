@@ -19,8 +19,25 @@ export class HeaderSnapComponent implements OnInit {
   istMe: boolean = false;
   user !: User;
   abonnee!: Abonnee[];
-
+  isDisplayPhotoViewerProfil !: boolean;
+  isDisplayPhotoViewerBackground !: boolean;
   constructor(private userService: UserService, private router: Router) { }
+
+  hidePhotoViewerProfil() {
+    this.isDisplayPhotoViewerProfil = false;
+  }
+
+  hidePhotoViewerBackground() {
+    this.isDisplayPhotoViewerBackground = false;
+  }
+
+  showPhotoViewerProfil() {
+    this.isDisplayPhotoViewerProfil = true;
+  }
+
+  showPhotoViewerBackground() {
+    this.isDisplayPhotoViewerBackground = true;
+  }
 
   get UserName() {
     return (this.user && this.user.firstName && this.user.lastName) ? this.user.firstName + " " + this.user.lastName : null
@@ -74,6 +91,9 @@ export class HeaderSnapComponent implements OnInit {
 
   ngOnInit() {
     this.displayUser();
+    this.isDisplayPhotoViewerProfil = false;
+    this.isDisplayPhotoViewerBackground = false;
+    
     if (localStorage.getItem('userId') == this.id) {
       this.istMe = true;
     }
@@ -84,7 +104,7 @@ export class HeaderSnapComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-   
+
   }
 
   sabonner() {

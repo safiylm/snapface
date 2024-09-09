@@ -15,6 +15,27 @@
         object-fit: cover;
         border-radius: 50%;
     }
+
+    z-index: 1;
+}
+
+#photo-viewer-photo-profil, 
+#photo-viewer-photo-background {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.37);
+    margin: 10px auto;
+    text-align: center;
+    padding: 30px;
+    z-index: 2;
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    img {
+        width: auto;
+        height: 80vh;
+    }
 }
 
 .name {
@@ -26,8 +47,8 @@
         border: none;
         border-radius: 15px;
         padding: 7px 14px;
-        font-size:small;
-        background-color:#f2f2f2; 
+        font-size: small;
+        background-color: #f2f2f2;
         color: black;
         margin-left: 15px;
     }

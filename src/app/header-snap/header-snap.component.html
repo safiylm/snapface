@@ -1,6 +1,16 @@
-<img id="photo-background" src={{UserPhotoBackground}}  />
+<img id="photo-background" src={{UserPhotoBackground}} (click)="showPhotoViewerBackground()" />
 <div id="div-photo-profil">
-    <img id="photo-profil" src={{UserPhotoProfil}} />
+    <img id="photo-profil" src={{UserPhotoProfil}} (click)="showPhotoViewerProfil()"/>
+</div>
+
+<div id="photo-viewer-photo-profil" *ngIf="isDisplayPhotoViewerProfil">
+    <img src={{UserPhotoProfil}}  />
+    <button (click)="hidePhotoViewerProfil()" class="btn btn-light">Fermer</button>
+</div>
+
+<div id="photo-viewer-photo-background" *ngIf="isDisplayPhotoViewerBackground">
+    <img src={{UserPhotoBackground}}  />
+    <button (click)="hidePhotoViewerBackground()" class="btn btn-light">Fermer</button>
 </div>
 
 <h3 class="name"> 
