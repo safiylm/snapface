@@ -1,8 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { Commentaire } from '../../models/commentaire.model';
 import { CommentaireService } from '../../services/commentaire-service';
 import { FormControl, FormGroup } from '@angular/forms';
-import { InteractionSocialComponent } from '../interaction-social/interaction-social.component';
 
 @Component({
   selector: 'app-commentaire-list',
@@ -22,6 +21,16 @@ export class CommentaireListComponent implements OnInit {
 
   constructor(private commentaireService: CommentaireService) { }
 
+  
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['isDisplayListOfComments']) {
+      console.log('La valeur a changé de', changes['isDisplayListOfComments'].previousValue, 'à', changes['isDisplayListOfComments'].currentValue);
+    }
+    //this.doSomething(changes.categoryId.currentValue);
+    // You can also use categoryId.previousValue and 
+    // categoryId.firstChange for comparing old and new values
+    
+}
 
   createNewComment() {
     if (localStorage.getItem('userId') != null &&
@@ -53,6 +62,7 @@ export class CommentaireListComponent implements OnInit {
 
   ngOnInit() {
     this.display();
+    this.isDisplayListOfComments=false;
   }
 
   

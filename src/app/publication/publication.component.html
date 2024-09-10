@@ -29,8 +29,9 @@
   <p id="body">{{ Body | titlecase }}</p>
 
 
-  <app-interaction-social [id]="publication._id.toString()" [auteurId]="publication.userId.toString()" ></app-interaction-social>
-  <app-commentaire-list [id]="publication._id.toString()" [isDisplayListOfComments]="isDisplayListOfComments" ></app-commentaire-list>
+  <!-- <app-interaction-social [id]="publication._id.toString()" [auteurId]="publication.userId.toString()" [isDisplayListOfComments]="isDisplayListOfComments" ></app-interaction-social> -->
+  <app-interaction-social [id]="publication._id.toString()" [auteurId]="publication.userId.toString()"  ></app-interaction-social>
+  <app-commentaire-list [id]="publication._id.toString()" [isDisplayListOfComments]="isDisplayListOfComments"></app-commentaire-list>
   <button (click)="toggleDisplayListOfComments()">Afficher les commentaires</button>
   
 </div>

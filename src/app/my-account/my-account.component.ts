@@ -30,13 +30,15 @@ export class MyAccountComponent implements OnInit {
     }
   }
 
+
+  
   displayPosts() {
     this.isDisplayPosts = true;
     this.isDisplayCreateNewPost = false;
     this.isDisplayUserEditForm = false;
     this.router.navigate(['/mon-compte']);
-
   }
+
 
   displayCreateNewPost() {
     this.isDisplayPosts = false;
@@ -45,12 +47,12 @@ export class MyAccountComponent implements OnInit {
     this.router.navigate(['/mon-compte/create-new-post']);
   }
 
+
   displayUserEditForm() {
     this.isDisplayPosts = false;
     this.isDisplayCreateNewPost = false;
     this.isDisplayUserEditForm = true;
     this.router.navigate(['/mon-compte/edit']);
-
   }
 
 

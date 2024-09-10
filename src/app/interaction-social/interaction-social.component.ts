@@ -1,6 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { InteractionSociale } from '../../models/interaction.sociale.model';
 import { InteractionSocialeService } from '../../services/interaction-social-service';
+import { CommentaireService } from '../../services/commentaire-service';
 
 @Component({
   selector: 'app-interaction-social',
@@ -14,12 +15,12 @@ export class InteractionSocialComponent implements OnInit {
   interactionSociale !: InteractionSociale;
   @Input() id !: string;
   @Input() auteurId !: string;
-  
   isLiked_: boolean = false;
   isPointAdded_: boolean = false;
+  // @Input() isDisplayListOfComments !: boolean;
 
+  constructor(private interactionSocialeService: InteractionSocialeService ) { }
 
-  constructor(private interactionSocialeService: InteractionSocialeService) { }
 
   addLike(): void {
     this.interactionSocialeService.addLike(this.interactionSociale._id );

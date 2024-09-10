@@ -1,19 +1,17 @@
 import { Injectable } from '@angular/core';
 import {
-  HttpClientModule, HttpClient, HttpHeaders,
-  HttpErrorResponse
+  HttpClient, HttpHeaders
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { Commentaire } from '../models/commentaire.model';
 import { User } from '../models/user.model';
-
-
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class CommentaireService {
+
 
   constructor(private http: HttpClient) { }
  

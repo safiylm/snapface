@@ -88,9 +88,11 @@ export class UserService {
       .post<User>(
         `https://snapface.onrender.com/api/user/create`,
         formData,
-      ).subscribe(data => {
-        console.log("Inscription success")
-      })
+      ).subscribe(
+        value => {return value},
+        error => { return error}
+        //() =>  console.log(""),
+      )
 
   }
 
