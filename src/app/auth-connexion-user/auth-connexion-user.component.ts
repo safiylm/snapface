@@ -14,14 +14,19 @@ export class AuthConnexionUserComponent implements OnInit {
 
   password !: string;
   email !: string;
-
+  isDisplayPassword !: boolean;
   connexionUserForm = new FormGroup({
     email: new FormControl("", [Validators.required, Validators.email]),
     password: new FormControl("", Validators.required),
   });
 
+  toggleDisplayPassword(){
+    this.isDisplayPassword = !this.isDisplayPassword;
+  }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    this.isDisplayPassword=false;
+  }
 
 
   onSubmit() {
