@@ -42,6 +42,8 @@ form {
             padding: 6px 12px;
             margin: 5px 0;
         }
+
+      
     }
 
     button[type="submit"] {
@@ -52,6 +54,11 @@ form {
         background-color: #1e1731;
         padding: 7px 14px;
         border-radius: 12px;
+    }
+
+    button:disabled{
+        cursor: not-allowed;  
+     
     }
 
     a{
