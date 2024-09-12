@@ -12,7 +12,8 @@ exports.create = (req, res) => {
     //     res.status(400).send({ message: "Content can not be empty!" });
     //     return;
     //   }
-  res.set('Access-Control-Allow-Origin', '*');
+  
+    res.set('Access-Control-Allow-Origin', '*');
     
     const post = {
         title: req.body.title,
