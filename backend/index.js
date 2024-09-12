@@ -10,7 +10,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 const router_user = require("./routes/user.route")
-const router_publication = require("./routes/publication.route")
+//const router_publication = require("./routes/publication.route")
 const router_statistique_user = require("./routes/statistique.user.route")
 const router_interacation_sociale = require("./routes/interaction.sociale.route")
 const router_commentaires = require("./routes/commentaire.route")
@@ -29,7 +29,7 @@ var corsOptions = {
 app.use(cors(corsOptions));
 
 app.use(router_user )
-app.use(router_publication )
+//app.use(router_publication )
 app.use(router_statistique_user )
 app.use(router_interacation_sociale )
 app.use(router_commentaires )
