@@ -11,15 +11,16 @@ const saltRounds = 108;
 //create new user
 exports.create = (req, res) => {
   
+  if(req.body.password != "" ){
 
-  bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
+ // bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
    
     const user = {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       photos_profil: req.body.photos_profil,
       photos_background: req.body.photos_background,
-      password: hash,
+      password: "hash",
       email: req.body.email,
       phoneNo: req.body.phoneNo,
     }
@@ -55,8 +56,8 @@ exports.create = (req, res) => {
             err.message || "Some error occurred while creating the User."
         });
       });
-  });
-
+  //});
+    }
 };
 
 
