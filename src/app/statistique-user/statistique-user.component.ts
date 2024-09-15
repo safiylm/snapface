@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { StatistiqueUser } from '../../models/statistique.user.model'
 import { StatistiqueUserService } from '../../services/statistique-user-service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-statistique-user',
@@ -12,6 +13,7 @@ export class StatistiqueUserComponent implements OnInit {
   statistiqueUser !: StatistiqueUser;
   @Input() id !: string;
   isVisibleListFollowers : boolean = false;
+  subscription !: Subscription;
 
   constructor(private StatistiqueUserService: StatistiqueUserService) { }
 
@@ -29,13 +31,17 @@ export class StatistiqueUserComponent implements OnInit {
 }
 
   ngOnInit() {
-    this.StatistiqueUserService.getStatistiqueUserById(this.id)
+    this.subscription = this.StatistiqueUserService.getStatistiqueUserById(this.id)
       .subscribe({
         next: (data) => {
           this.statistiqueUser = data;
         },
         error: (e) => console.error(e)
       });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }

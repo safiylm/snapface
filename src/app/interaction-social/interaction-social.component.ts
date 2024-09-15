@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { InteractionSociale } from '../../models/interaction.sociale.model';
 import { InteractionSocialeService } from '../../services/interaction-social-service';
-import { CommentaireService } from '../../services/commentaire-service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-interaction-social',
@@ -18,6 +18,7 @@ export class InteractionSocialComponent implements OnInit {
   isLiked_: boolean = false;
   isPointAdded_: boolean = false;
   // @Input() isDisplayListOfComments !: boolean;
+  subscription !: Subscription;
 
   constructor(private interactionSocialeService: InteractionSocialeService ) { }
 
@@ -57,7 +58,7 @@ export class InteractionSocialComponent implements OnInit {
 
 
   display(){
-    this.interactionSocialeService.getInteractionSocialeById(this.id)
+    this.subscription = this.interactionSocialeService.getInteractionSocialeById(this.id)
     .subscribe( (data) => {
         this.interactionSociale = data;
         this.isLiked_ = false;
@@ -99,6 +100,10 @@ export class InteractionSocialComponent implements OnInit {
   
   get Comments(){
     return (this.interactionSociale && this.interactionSociale.comments )? this.interactionSociale.comments : 0
+  }
+
+  ngOnDestroy(){
+    this.subscription.unsubscribe();
   }
   
 }

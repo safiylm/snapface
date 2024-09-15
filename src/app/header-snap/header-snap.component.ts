@@ -3,6 +3,8 @@ import { UserService } from '../../services/user-service'
 import { User } from '../../models/user.model'
 import { Abonnee } from 'src/models/abonnee.model';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'app-header-snap',
@@ -21,6 +23,9 @@ export class HeaderSnapComponent implements OnInit {
   abonnee!: Abonnee[];
   isDisplayPhotoViewerProfil !: boolean;
   isDisplayPhotoViewerBackground !: boolean;
+  subscription !: Subscription;
+
+
   constructor(private userService: UserService, private router: Router) { }
 
   hidePhotoViewerProfil() {
@@ -54,7 +59,7 @@ export class HeaderSnapComponent implements OnInit {
   get Sedesabonner() { return (this.abonnee && this.isAbonnee && !this.istMe) ? "" : null }
 
   displayUser(): void {
-    this.userService.getUser(this.id)
+   this.subscription = this.userService.getUser(this.id)
       .subscribe({
         next: (data) => {
           this.user = data;
@@ -64,7 +69,7 @@ export class HeaderSnapComponent implements OnInit {
   }
 
   getAbonneeByUserId(): void {
-    this.userService.getAbonneeByUserId(this.id)
+    this.subscription = this.userService.getAbonneeByUserId(this.id)
       .subscribe({
         next: (data) => {
           this.abonnee = data;
@@ -122,6 +127,11 @@ export class HeaderSnapComponent implements OnInit {
       this.checkIfDejaAbonnee();
     }, 400)
   }
+
+  ngOnDestroy(){
+    this.subscription.unsubscribe();
+  }
+  
 
 }
 

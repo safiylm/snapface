@@ -4,6 +4,7 @@ import { PublicationsService } from '../../services/publication-service';
 import { Publication } from 'src/models/publication.model';
 import { FormGroup, FormControl } from "@angular/forms";
 import { first } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-publication-edit',
@@ -15,6 +16,7 @@ export class PublicationEditComponent {
   id: string = "65cd023efb273094193ac038";
   data?: Publication;
   post = new Publication("", "", "", [""], 0, "",);
+  subscription !: Subscription;
 
   constructor(private publicationService: PublicationsService, private route: ActivatedRoute) { }
 
@@ -25,7 +27,7 @@ export class PublicationEditComponent {
   });
 
   getDataPost(): void {
-    this.publicationService.getPublicationById(this.id)
+    this.subscription = this.publicationService.getPublicationById(this.id)
       .subscribe({
         next: (data) => {
           this.data = data;
@@ -66,6 +68,10 @@ export class PublicationEditComponent {
       this.post.images[0] = this.postEditForm.controls['image'].value as string
 
     this.publicationService.editPost(this.post);
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }

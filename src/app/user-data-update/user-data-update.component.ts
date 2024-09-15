@@ -3,6 +3,7 @@ import { UserService } from '../../services/user-service'
 import { ActivatedRoute } from '@angular/router';
 import { User } from '../../models/user.model'
 import { FormGroup, FormControl } from "@angular/forms";
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class UserDataUpdateComponent implements OnInit {
 
   user?: User;
   user2 = new User(this.userId, "", "", "", "", 0, "", "");
+  subscription !: Subscription;
 
   updateUserForm = new FormGroup({
     lastName: new FormControl(""),
@@ -31,7 +33,7 @@ export class UserDataUpdateComponent implements OnInit {
 
 
   retrieveUser(): void {
-    this.userService.getUser(this.userId)
+    this.subscription = this.userService.getUser(this.userId)
       .subscribe({
         next: (data) => {
           this.user = data;
@@ -43,6 +45,10 @@ export class UserDataUpdateComponent implements OnInit {
 
   ngOnInit() {
     this.retrieveUser()
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 

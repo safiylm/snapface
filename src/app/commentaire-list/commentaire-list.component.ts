@@ -2,6 +2,7 @@ import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { Commentaire } from '../../models/commentaire.model';
 import { CommentaireService } from '../../services/commentaire-service';
 import { FormControl, FormGroup } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-commentaire-list',
@@ -14,14 +15,14 @@ export class CommentaireListComponent implements OnInit {
   @Input() id !: string;
   commentaire = new Commentaire("", "", Date.now(), "", "");
   @Input() isDisplayListOfComments !: boolean;
-
+  subscription!: Subscription;
   commentForm = new FormGroup({
     comment: new FormControl(""),
   });
 
   constructor(private commentaireService: CommentaireService) { }
 
-  
+
   ngOnChanges(changes: SimpleChanges) {
     if (changes['isDisplayListOfComments']) {
       console.log('La valeur a changé de', changes['isDisplayListOfComments'].previousValue, 'à', changes['isDisplayListOfComments'].currentValue);
@@ -29,8 +30,8 @@ export class CommentaireListComponent implements OnInit {
     //this.doSomething(changes.categoryId.currentValue);
     // You can also use categoryId.previousValue and 
     // categoryId.firstChange for comparing old and new values
-    
-}
+
+  }
 
   createNewComment() {
     if (localStorage.getItem('userId') != null &&
@@ -51,7 +52,7 @@ export class CommentaireListComponent implements OnInit {
 
 
   display() {
-    this.commentaireService.getCommentaireByPostId(this.id)
+    this.subscription = this.commentaireService.getCommentaireByPostId(this.id)
       .subscribe({
         next: (data) => {
           this.commentaires = data;
@@ -62,8 +63,11 @@ export class CommentaireListComponent implements OnInit {
 
   ngOnInit() {
     this.display();
-    this.isDisplayListOfComments=false;
+    this.isDisplayListOfComments = false;
   }
 
-  
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+
 }
