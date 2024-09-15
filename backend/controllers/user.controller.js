@@ -12,13 +12,8 @@ const saltRounds = 108;
 exports.create = (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
 
-  // Validate request
-  if (!req.body.email) {
-    res.status(400).send({ message: "Content can not be empty!" });
-    return;
-  }
-
   bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
+   
     const user = {
       firstName: req.body.firstName,
       lastName: req.body.lastName,
@@ -28,7 +23,7 @@ exports.create = (req, res) => {
       email: req.body.email,
       phoneNo: req.body.phoneNo,
     }
-    console.log("back controller :" + user)
+
     // Save Tutorial in the database
     collection_user
       .insertOne(user)
