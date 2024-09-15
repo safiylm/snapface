@@ -10,7 +10,7 @@ const saltRounds = 108;
 
 //create new user
 exports.create = (req, res) => {
-  res.set('Access-Control-Allow-Origin', '*');
+  
 
   bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
    
@@ -23,6 +23,8 @@ exports.create = (req, res) => {
       email: req.body.email,
       phoneNo: req.body.phoneNo,
     }
+
+    res.set('Access-Control-Allow-Origin', '*');
 
     // Save Tutorial in the database
     collection_user
