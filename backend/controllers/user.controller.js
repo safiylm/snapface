@@ -114,6 +114,6 @@ exports.connexion = async function (req, res) {
   res.set('Access-Control-Allow-Credentials', 'true');
   res.set('Access-Control-Allow-Methods', 'GET, POST,  OPTIONS');
   res.set('Access-Control-Allow-Headers', 'Content-Type')
-  res.send(await collection_user.findOne({ "email": req.body.email, "password": req.body.password })); 
+  res.send(await collection_user.findOne({ "email": req.body.email })); 
 
 };
