@@ -5,60 +5,55 @@ const collection_statistiqueusers = db.collection('statistiqueusers');
 const collection_abonnees = db.collection('abonnees');
 
 const ObjectId = require('mongodb').ObjectId;
-const bcrypt = require('bcrypt');
-const saltRounds = 108;
+
 
 //create new user
 exports.create = (req, res) => {
-  
-  if(req.body.password != "" ){
 
- // bcrypt.hash(req.body.password, saltRounds, function (err, hash) {
-   
-    const user = {
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      photos_profil: req.body.photos_profil,
-      photos_background: req.body.photos_background,
-      password: "hash",
-      email: req.body.email,
-      phoneNo: req.body.phoneNo,
-    }
+  const user = {
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    photos_profil: req.body.photos_profil,
+    photos_background: req.body.photos_background,
+    password: req.body.password,
+    email: req.body.email,
+    phoneNo: req.body.phoneNo,
+  }
 
-    res.set('Access-Control-Allow-Origin', '*');
+  res.set('Access-Control-Allow-Origin', '*');
 
-    // Save Tutorial in the database
-    collection_user
-      .insertOne(user)
-      .then(data => {
-        collection_statistiqueusers
-          .insertOne({
-            userId: data.insertedId.toString(),
-            followers: 0,
-            totalPosts: 0,
-            totalPoints: 0,
-          })
-          .then(data1 => {
-            collection_abonnees
-              .insertOne({
+  // Save Tutorial in the database
+  collection_user
+    .insertOne(user)
+    .then(data => {
+      collection_statistiqueusers
+        .insertOne({
+          userId: data.insertedId.toString(),
+          followers: 0,
+          totalPosts: 0,
+          totalPoints: 0,
+        })
+        .then(data1 => {
+          collection_abonnees
+            .insertOne({
 
-                userId: data.insertedId.toString(),
-                followers: []
-              })
-              .then(data3 => {
-                res.send(data3);
-              })
-          })
-      })
-      .catch(err => {
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while creating the User."
-        });
+              userId: data.insertedId.toString(),
+              followers: []
+            })
+            .then(data3 => {
+              res.send(data3);
+            })
+        })
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while creating the User."
       });
-  //});
-    }
+    });
+
 };
+
 
 
 //edit user data
@@ -123,13 +118,6 @@ exports.connexion = async function (req, res) {
   // res.send(await collection_user.findOne({ "email": req.body.email, "password": req.body.password }));
 
   const user = await collection_user.findOne({ "email": req.body.email })
-
-  bcrypt.compare(req.body.password, user.password, function (err, result) {
-    if (result) {
-      res.send("connexion réussie")
-    } else {
-      res.send("connexion échouée")
-
-    }
-  });
+  res.send(user)
+  
 };
