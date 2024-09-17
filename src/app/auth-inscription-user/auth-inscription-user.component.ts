@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user-service'
 import { User } from '../../models/user.model'
 import { FormGroup, FormControl, Validators } from "@angular/forms";
-import { interval, scan, takeWhile } from 'rxjs';
+import * as bcrypt from "bcryptjs";
 
 @Component({
   selector: 'app-auth-inscription-user',
@@ -13,6 +13,8 @@ import { interval, scan, takeWhile } from 'rxjs';
 
 export class AuthInscriptionUserComponent implements OnInit {
   constructor(private userService: UserService) { }
+
+
 
   isDisplayPassword !: boolean;
   isDisplayPassword2 !: boolean;
@@ -33,7 +35,7 @@ export class AuthInscriptionUserComponent implements OnInit {
     photos_background: new FormControl("", [Validators.required]),
     photos_profil: new FormControl("", [Validators.required])
   });
-  user = new User("", "", "", "", "", 0, "", "");
+  user = new User("", "aYHAN", "YILMAZ", "AYHAN@GMAIL.COM", "AyHAN123*", 0, "ZDFGVB", "DESFCVB");
 
 
   ngOnInit() {
@@ -57,12 +59,12 @@ export class AuthInscriptionUserComponent implements OnInit {
 
   getFirstPassword(event: any) {
     this.firstPassword = event.target.value;
-   
-    if (this.firstPassword.length> 8 &&
-      this.firstPassword.match('[a-z]+')!= null  &&
-      this.firstPassword.match('[A-Z]+')!= null  &&
-      this.firstPassword.match('[0-9]+')!= null  &&
-      this.firstPassword.match('[!@#$%^&*]+')!= null 
+
+    if (this.firstPassword.length > 8 &&
+      this.firstPassword.match('[a-z]+') != null &&
+      this.firstPassword.match('[A-Z]+') != null &&
+      this.firstPassword.match('[0-9]+') != null &&
+      this.firstPassword.match('[!@#$%^&*]+') != null
 
     ) {
       this.reglePasswordRespected = true;
@@ -85,7 +87,9 @@ export class AuthInscriptionUserComponent implements OnInit {
 
 
   onSubmit() {
+
     if (this.inscriptionUserForm.valid) {
+    
       this.user.lastName = this.inscriptionUserForm.value['lastName']?.toString() as string;
       this.user.firstName = this.inscriptionUserForm.value['firstName']?.toString() as string;
       this.user.email = this.inscriptionUserForm.value['email']?.toString() as string;
@@ -94,18 +98,21 @@ export class AuthInscriptionUserComponent implements OnInit {
       this.user.photos_background = this.inscriptionUserForm.value['photos_background']?.toString() as string;
       this.user.photos_profil = this.inscriptionUserForm.value['photos_profil']?.toString() as string;
 
-      const resins = this.userService.pushNewUser(this.user)
-      console.log(resins)
-      this.displayToasts = true;
+      const salt = bcrypt.genSaltSync(10);
+      this.user.password = bcrypt.hashSync(this.inscriptionUserForm.value['password']?.toString() as string, salt);
+      console.log(this.user)
+      this.userService.inscription(this.user)
 
-      this.timeForRedirection$ = interval(1000).pipe(
-        scan(acc => --acc, 10),
-        takeWhile(x => x >= 0)
-      );
+      //  this.displayToasts = true;
 
-      setTimeout(() => {
-        document.location.href = '/connexion'
-      }, 10000)
+      // this.timeForRedirection$ = interval(1000).pipe(
+      //   scan(acc => --acc, 10),
+      //   takeWhile(x => x >= 0)
+      // );
+
+      // setTimeout(() => {
+      //   document.location.href = '/connexion'
+      // }, 10000)
 
     }
   }
