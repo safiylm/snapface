@@ -28,6 +28,8 @@ import { PublicationCreateComponent } from './publication-create/publication-cre
 import { PublicationEditComponent } from './publication-edit/publication-edit.component';
 import { AuthGuard } from './guards/auth.guard';
 import { MyAccountComponent } from './my-account/my-account.component'; 
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,7 +62,7 @@ import { MyAccountComponent } from './my-account/my-account.component';
     ReactiveFormsModule
   ],
   providers: [AuthGuard,
-    { provide: LOCALE_ID, useValue: 'fr-FR'}
+    { provide:  LOCALE_ID, useValue: 'fr-FR',useClass: HashLocationStrategy},
   ],
   bootstrap: [AppComponent]
 })
