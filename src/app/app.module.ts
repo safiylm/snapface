@@ -29,6 +29,7 @@ import { PublicationEditComponent } from './publication-edit/publication-edit.co
 import { AuthGuard } from './guards/auth.guard';
 import { MyAccountComponent } from './my-account/my-account.component'; 
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { PasswordEditComponent } from './password-edit/password-edit.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     UserDataUpdateComponent,
     PublicationCreateComponent,
     PublicationEditComponent,
-    MyAccountComponent
+    MyAccountComponent,
+    PasswordEditComponent
   ],
   imports: [
     BrowserModule,

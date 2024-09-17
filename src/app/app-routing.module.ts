@@ -46,6 +46,13 @@ const routes: Routes = [
     canDeactivate: [formulaireDesactiveGuard]
   },
 
+  {
+    path: 'password/edit/:id', 
+    component: PublicationEditComponent,
+    title: "Modifier sa publication",
+    canDeactivate: [formulaireDesactiveGuard]
+  },
+
 ];
 
 @NgModule({
