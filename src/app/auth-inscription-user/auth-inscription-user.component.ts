@@ -70,9 +70,7 @@ export class AuthInscriptionUserComponent implements OnInit {
       this.reglePasswordRespected = true;
     } else {
       this.reglePasswordRespected = false;
-
     }
-
   }
 
   getSecondPassword(event: any) {
@@ -81,7 +79,6 @@ export class AuthInscriptionUserComponent implements OnInit {
       this.is2PasswordIdentique = true;
     } else {
       this.is2PasswordIdentique = false;
-
     }
   }
 
