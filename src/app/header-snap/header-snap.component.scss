@@ -21,11 +21,14 @@
 
 #photo-viewer-photo-profil, 
 #photo-viewer-photo-background {
+   
     position: fixed;
-    background-color: rgba(0, 0, 0, 0.37);
+    background-color: rgb(255, 255, 255);
     margin: 10px auto;
     text-align: center;
+    box-shadow: 5px 44px 77px 1px rgb(192, 192, 192);
     padding: 30px;
+    padding-bottom: 5px ;
     z-index: 2;
     z-index: 2;
     top: 50%;
@@ -35,6 +38,11 @@
     img {
         width: auto;
         height: 80vh;
+        display: block;
+    }
+
+    button{
+        margin: 20px auto;
     }
 }
 
