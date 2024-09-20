@@ -48,9 +48,10 @@ const routes: Routes = [
   },
 
   {
-    path: 'password/edit/:id', 
+    path: 'user/password/edit', 
     component: PasswordEditComponent,
     title: "Modifier son mot de passe",
+    canActivate: [AuthGuard],
   },
 
 ];

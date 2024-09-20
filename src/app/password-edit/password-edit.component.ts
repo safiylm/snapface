@@ -12,7 +12,7 @@ import * as bcrypt from "bcryptjs";
 })
 export class PasswordEditComponent {
 
-  id: string = "";
+  id: string = localStorage.getItem('userId')?.toString() as string;
 
   isDisplayPassword !: boolean;
   isDisplayPassword2 !: boolean;
@@ -67,7 +67,6 @@ export class PasswordEditComponent {
 
 
   ngOnInit() {
-    this.id = this.route.snapshot.paramMap.get('id')!;
 
     this.isDisplayPassword = false;
     this.isDisplayPassword2 = false;
