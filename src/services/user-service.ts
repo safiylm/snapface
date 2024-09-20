@@ -35,8 +35,8 @@ export class UserService {
 
   public connexion(email: string): Observable<any> {
     const httpOptions = {
-      headers: new HttpHeaders({ 
-        'Access-Control-Allow-Origin':'*',
+      headers: new HttpHeaders({
+        'Access-Control-Allow-Origin': '*',
       })
     };
 
@@ -45,7 +45,7 @@ export class UserService {
         `https://snapface.onrender.com/api/user/connexion`,
         { "email": email },
         //  httpOptions, 
-       )
+      )
   }
 
   public inscription(formData: User): void {
@@ -57,7 +57,20 @@ export class UserService {
       ).subscribe(data => {
         console.log("Inscription success")
       })
-      
+
+  }
+
+
+  public editPassword(userId: string, newpassword: string) {
+    this.http
+      .post<User>(
+        `https://snapface.onrender.com/api/user/edit/password`,
+        { "_id": userId, "newpassword": newpassword },
+      ).subscribe(data => {
+        if (data) {
+          console.log("User edit password")
+        }
+      })
   }
 
 
@@ -70,7 +83,7 @@ export class UserService {
       this.http.post(`https://snapface.onrender.com/api/abonnees/abonneeAdd`,
         { 'userSuiviId': userSuiviId, 'userConnectedId': localStorage.getItem('userId')?.toString() as string, })
         .subscribe(data => {
-          console.log("S'ABONNER")          
+          console.log("S'ABONNER")
         })
     }
   }

@@ -11,6 +11,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { MyAccountComponent } from './my-account/my-account.component';
 import { PublicationsResolverService } from 'src/services/publication-resolver-service';
 import {formulaireDesactiveGuard } from './guards/formulaire-desactive.guard'
+import { PasswordEditComponent } from './password-edit/password-edit.component';
 
 const routes: Routes = [
   { path: 'user/:id', component: UserAccountComponent },
@@ -48,9 +49,8 @@ const routes: Routes = [
 
   {
     path: 'password/edit/:id', 
-    component: PublicationEditComponent,
-    title: "Modifier sa publication",
-    canDeactivate: [formulaireDesactiveGuard]
+    component: PasswordEditComponent,
+    title: "Modifier son mot de passe",
   },
 
 ];

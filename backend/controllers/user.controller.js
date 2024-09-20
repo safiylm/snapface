@@ -75,6 +75,19 @@ exports.update = async (req, res) => {
   res.send(updateResult);
 }
 
+//edit password
+exports.editPassword = async function (req, res){
+  res.set('Access-Control-Allow-Origin', '*');
+
+  const updateResult = await collection_user.updateOne({ "_id": new ObjectId(req.body._id) },
+    {
+      $set: {
+        "password": req.body.newpassword,
+      }
+    });
+  res.send(updateResult);
+}
+
 
 //dete user 
 exports.delete = async (req, res) => {
@@ -117,3 +130,4 @@ exports.connexion = async function (req, res) {
   res.send(await collection_user.findOne({ "email": req.body.email })); 
 
 };
+
