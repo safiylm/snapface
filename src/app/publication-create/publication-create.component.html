@@ -1,19 +1,26 @@
 <form [formGroup]="postCreateForm" (ngSubmit)="onSubmit()">
 
-
+    <h2>Ajouter une nouvelle publication </h2>
     <div class="div-input">
         <label>Saisissez votre titre:</label>
-        <input type="text" name="title" placeholder="title" formControlName="title" autocomplete="off" />
+        <input type="text" class="form-control" formControlName="title" autocomplete="off" />
     </div>
 
     <div class="div-input">
         <label>Saisissez le corps:</label>
-        <input type="text" name="body" placeholder="body" formControlName="body" autocomplete="off"/>
+        <input type="text" class="form-control"  formControlName="body" autocomplete="off"/>
     </div>
+
+    <div #image></div>
+
     <div class="div-input">
         <label>Saisissez le lien d'une image:</label>
-        <input type="text" name="image" placeholder="images" formControlName="image" autocomplete="off"/>
+        <div class="d-flex align-items-center justify-content-center">
+            <input type="text" class="form-control" formControlName="image"  [(ngModel)]="newimage" autocomplete="off"/>
+            <button type="button" class="btn btn-dark" (click)="addNewImage()">Ajouter une nouvelle image</button>
+        </div>
     </div>
+
 <!-- 
     <div *ngFor="let item of array_image">
 
@@ -24,6 +31,6 @@
     </div> 
 
     <button type="button" (click)="addnewImages()">Ajouter une nouvelle image </button>-->
-    <button type="submit">S'inscrire </button>
+    <button class="btn btn-dark" type="submit">Ajouter </button>
 
 </form>

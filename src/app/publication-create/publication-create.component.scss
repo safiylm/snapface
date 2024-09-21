@@ -1,50 +1,42 @@
 form {
-    width: 600px;
-    margin: 50px auto;
+    width: 500px;
+    margin: 20px auto;
 
-    h1 {
+    h2 {
+        margin: 20px auto;
         text-align: center;
+        font-size: x-large;
+        font-weight: 300;
     }
 
     .div-input {
         margin: 16px 0;
 
-        label,
-        input {
-            display: block;
-            width: 100%;
-            font-size: medium;
-
+        label {
+            margin-bottom: 5px;
         }
 
-        input {
-            border: none;
-            border-bottom: 1px solid gray;
-            padding: 15px 0;
-            margin: 5px 0;
-        }
     }
 
-    button[type="submit"],
-    button {
-        border: none;
-        background-color: aliceblue;
-        padding: 12px 22px;
-        font-size: medium;
-        margin: 15px auto;
+    button[type="submit"] {
         display: block;
+        margin: 20px auto;
+        text-align: center;
+        width: 100%;
     }
+
+
 }
 
 @media(max-width:650px) {
 
     form {
-        
+
         width: 100vw;
         padding: 30px;
         box-sizing: border-box;
         margin: 20px 0;
-    
+
     }
 
 }
