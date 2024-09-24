@@ -115,7 +115,18 @@ exports.delete =  (req, res) => {
         collection_interactionsociales.deleteOne({ "postId": req.body.id }).then(data1 => {
             collection_commentaires.
             deleteMany({ "postId": req.body.id }).then(k => {
-            res.send(k );
+           
+              collection_statistiqueusers.updateOne({ "userId": data.userId },
+                { $inc: { "totalPosts": -1 } }) 
+                .catch(err => {
+                  res.status(500).send({
+                    message:
+                      err.message || "Some error occurred while add like."
+                  })
+                });
+  
+             
+   
             })
         })
     });
