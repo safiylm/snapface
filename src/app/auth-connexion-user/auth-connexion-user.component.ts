@@ -62,12 +62,12 @@ export class AuthConnexionUserComponent implements OnInit {
                 localStorage.setItem('userId', data["_id"]);
                 window.location.href = '/mon-compte'
               } else {
-                this.connexionInfo.nativeElement.innerText = "Votre email et/ou votre mot de passe est incorrecte.";
+                this.connexionInfo.nativeElement.innerText = "Votre votre mot de passe est incorrecte.";
               }
             })
           }
           else
-            this.connexionInfo.nativeElement.innerText = "Votre email et/ou votre mot de passe est incorrecte.";
+            this.connexionInfo.nativeElement.innerText = "Votre email est incorrecte.";
 
         }, 2000)
 
