@@ -63,7 +63,7 @@ exports.create = (req, res) => {
 exports.findAll = async (req, res) => {
     res.set('Access-Control-Allow-Origin', '*');
  
-    const findResult = await collection_publications.find({}).toArray();
+    const findResult = await collection_publications.find({}).sort({ date: -1 }).toArray();
     res.send(findResult);
 
 }
@@ -74,7 +74,7 @@ exports.findAllPublicationByUserId = async (req, res) => {
 
     res.set('Access-Control-Allow-Origin', '*');
   
-    const findResult = await collection_publications.find({"userId" : req.query.id }).toArray();
+    const findResult = await collection_publications.find({"userId" : req.query.id }).sort({ date: -1 }).toArray();
     res.send(findResult);
 }
 
