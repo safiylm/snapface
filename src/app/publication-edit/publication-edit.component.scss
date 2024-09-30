@@ -2,7 +2,8 @@ form {
     width: 600px;
     margin: 50px auto;
 
-    h1 {
+    h1{
+        font-size: larger;
         text-align: center;
     }
 
@@ -13,14 +14,10 @@ form {
         input {
             display: block;
             width: 100%;
-            font-size: medium;
-
         }
 
         input {
-            border: none;
-            border-bottom: 1px solid gray;
-            padding: 15px 0;
+            padding: 5px;
             margin: 5px 0;
         }
     }
@@ -28,9 +25,7 @@ form {
     button[type="submit"],
     button {
         border: none;
-        background-color: aliceblue;
-        padding: 12px 22px;
-        font-size: medium;
+        padding: 6px 12px;
         margin: 15px auto;
         display: block;
     }
@@ -39,12 +34,10 @@ form {
 @media(max-width:650px) {
 
     form {
-        
         width: 100vw;
         padding: 30px;
         box-sizing: border-box;
         margin: 20px 0;
-    
     }
 
 }

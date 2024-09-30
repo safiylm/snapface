@@ -26,6 +26,7 @@ export class PublicationEditComponent {
     image: new FormControl("")
   });
 
+
   getDataPost(): void {
     this.subscription = this.publicationService.getPublicationById(this.id)
       .subscribe({
@@ -36,27 +37,40 @@ export class PublicationEditComponent {
       });
   }
 
+
+  deleteImage(nb: number) {
+    this.data!.images = this.data?.images.filter((item, i) => i !== nb) as [string]
+  }
+
+
+  addNewImage() {
+    this.data?.images.push(this.postEditForm.value['image']?.toString() as string);
+    this.postEditForm.controls['image'].setValue("")
+  }
+
+
   deletePost() {
     if (confirm("Êtes-vous sur de vouloir supprimer la publication?")) {
       this.publicationService.deletePost(this.id)
     }
   }
 
+
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id')!;
     this.getDataPost();
-
     this.publicationService.getPublicationById(this.id)
       .pipe(first())
       .subscribe(x => this.postEditForm.patchValue(x));
   }
+
 
   onSubmit() {
     this.post._id = this.id;
     this.post.title = this.data?.title.toString() as string;
     this.post.body = this.data?.body.toString() as string;
     this.post.userId = localStorage.getItem("userId") as string;
-    this.post.images[0] = this.data?.images[0].toString() as string;
+    this.post.images = this.data?.images as [string];
 
     if (this.postEditForm.controls['title'].valueChanges.subscribe.length != 0)
       this.post.title = this.postEditForm.controls['title'].value as string
@@ -64,10 +78,13 @@ export class PublicationEditComponent {
     if (this.postEditForm.controls['body'].valueChanges.subscribe.length != 0)
       this.post.body = this.postEditForm.controls['body'].value as string
 
-    if (this.postEditForm.controls['image'].value != "")
-      this.post.images[0] = this.postEditForm.controls['image'].value as string
 
     this.publicationService.editPost(this.post);
+    setTimeout(() => {
+      document.location.href = "/mon-compte"
+    }, 2000);
+
+
   }
 
   ngOnDestroy() {

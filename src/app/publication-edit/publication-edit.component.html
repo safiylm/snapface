@@ -1,22 +1,33 @@
 <form [formGroup]="postEditForm" (ngSubmit)="onSubmit()">
-   
+    <h1>Modifier sa publication</h1>
     <div class="div-input">
-        <label>Saisissez votre titre:</label>
-        <input type="text" name="title" placeholder="title" formControlName="title" value={{data?.title}} />
+        <label>Modifiez votre titre:</label>
+        <input class="form-control" type="text" formControlName="title" value={{data?.title}} />
     </div>
 
     <div class="div-input">
-        <label>Saisissez le corps:</label>
-        <input type="text" name="body" placeholder="body" formControlName="body" value={{data?.body}} />
+        <label>Modifiez le corps:</label>
+        <input class="form-control" type="text" formControlName="body" value={{data?.body}} />
+    </div>
+
+    <div class="d-flex align-items-center justify-content-center">
+        <div *ngFor="let image of data?.images ; let i = index" style="width:200px"
+            class="d-flex flex-column align-items-center justify-content-center">
+            <img width='200px' height='auto' src={{image}} alt="Nouvelle image n°{{+ i}}" />
+            <button class='btn btn-dark' type='button' (click)='deleteImage(i)'>Supprimer</button><br />
+        </div>
     </div>
 
     <div class="div-input">
-        <label>Saisissez le lien d'une image:</label>
-        <input type="text" name="image" placeholder="image" formControlName="image" value={{data?.images}} />
+        <label>Ajouter une nouvelle image:</label>
+        <div class="d-flex align-items-center justify-content-center">
+            <input class="form-control" type="text" formControlName="image" />
+            <button class="btn btn-light" type="button" (click)='addNewImage()'>Ajouter une nouvelle image</button>
+        </div>
     </div>
 
 
-    <button type="submit">Modifier </button>
-    <button type="button" (click)="deletePost()">Supprimer </button>
+    <button class="btn btn-dark" type="submit">Modifier </button>
+    <button class="btn btn-danger" type="button" (click)="deletePost()">SUPPRIMER LA PUBLICATION</button>
 
 </form>
