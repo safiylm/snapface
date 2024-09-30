@@ -75,7 +75,7 @@ export class PublicationsService {
   }
 
   getPublicationById(PublicationId: string): Observable<Publication> {
-    return this.http.get<Publication>("https://snapface.onrender.com/api/publicationByPostId?postId=" + PublicationId);
+    return this.http.get<Publication>("https://snapface.onrender.com/api/publicationid?id=" + PublicationId);
 
   }
 
