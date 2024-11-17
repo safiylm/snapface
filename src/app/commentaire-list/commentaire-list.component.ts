@@ -35,15 +35,23 @@ export class CommentaireListComponent implements OnInit {
 
   createNewComment() {
     if (localStorage.getItem('userId') != null &&
-      localStorage.getItem('isLoggedIn') != "false") {
-      this.commentaire.title = this.commentForm.value['comment']?.toString() as string;
-      this.commentaire.postId = this.id;
-      this.commentaire.userId = localStorage.getItem('userId')?.toString() as string;
-      this.commentaireService.addNewCommentaire(this.commentaire);
-      setTimeout(() => {
-        this.display();
-        this.commentForm.reset();
-      }, 500)
+      localStorage.getItem('isLoggedIn') != "false"
+    ) {
+
+      if (this.commentForm.value['comment']?.toString().length != 0) {
+        this.commentaire.title = this.commentForm.value['comment']?.toString() as string;
+        this.commentaire.postId = this.id;
+        this.commentaire.userId = localStorage.getItem('userId')?.toString() as string;
+
+        this.commentaireService.addNewCommentaire(this.commentaire);
+        setTimeout(() => {
+          this.display();
+          this.commentForm.reset();
+        }, 500)
+      }
+      else {
+        (document.getElementById("info-createNewComment" + this.id) as HTMLFormElement).innerHTML = "Saisissez votre commentaire";
+      }
     } else {
       (document.getElementById("info-createNewComment" + this.id) as HTMLFormElement).innerHTML = "Il faut se connecter!";
     }
