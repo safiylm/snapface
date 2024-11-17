@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { InteractionSociale } from '../../models/interaction.sociale.model';
 import { InteractionSocialeService } from '../../services/interaction-social-service';
 import { Subscription } from 'rxjs';
@@ -17,12 +17,18 @@ export class InteractionSocialComponent implements OnInit {
   @Input() auteurId !: string;
   isLiked_: boolean = false;
   isPointAdded_: boolean = false;
-  // @Input() isDisplayListOfComments !: boolean;
+  @Output() newItemEvent = new EventEmitter<string>();
+  @Input() isDisplayListeOfComments !: boolean ;
   subscription !: Subscription;
 
   constructor(private interactionSocialeService: InteractionSocialeService ) { }
 
 
+  toggleDisplayListOfComments(value: boolean) {
+    this.newItemEvent.emit( value as unknown as string );
+  }
+
+  
   addLike(): void {
     this.interactionSocialeService.addLike(this.interactionSociale._id );
     setTimeout(()=>{
@@ -48,7 +54,6 @@ export class InteractionSocialComponent implements OnInit {
 
 
   removePoints() {
-   // if(this.interactionSociale.points>0)
     this.interactionSocialeService.removePoints(this.interactionSociale._id, this.auteurId);
  
     setTimeout(()=>{

@@ -22,16 +22,11 @@
       </svg></button>
   </div>
 
-  <h2>{{ Title | titlecase }}</h2>
-  <!-- <p>Mis en ligne le {{ publication.date | date: 'à HH:mm, le d MMMM yyyy' }}</p> -->
-  
+  <h2>{{ Title | titlecase }}</h2>  
 
   <p id="body">{{ Body | titlecase }}</p>
 
-
-  <!-- <app-interaction-social [id]="publication._id.toString()" [auteurId]="publication.userId.toString()" [isDisplayListOfComments]="isDisplayListOfComments" ></app-interaction-social> -->
-  <app-interaction-social [id]="publication._id.toString()" [auteurId]="publication.userId.toString()"  ></app-interaction-social>
+  <app-interaction-social (newItemEvent)="toggleDisplayListOfComments($event)" [isDisplayListeOfComments]="isDisplayListOfComments" [id]="publication._id.toString()" [auteurId]="publication.userId.toString()"  ></app-interaction-social>
   <app-commentaire-list [id]="publication._id.toString()" [isDisplayListOfComments]="isDisplayListOfComments"></app-commentaire-list>
-  <button (click)="toggleDisplayListOfComments()">Afficher les commentaires</button>
   
 </div>

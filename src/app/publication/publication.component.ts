@@ -25,8 +25,8 @@ export class PublicationComponent implements OnInit {
     document.location.href='publication/edit/'+this.publication._id 
   }
 
-  toggleDisplayListOfComments(){
-    this.isDisplayListOfComments = ! this.isDisplayListOfComments;
+  toggleDisplayListOfComments(event : string ){
+    this.isDisplayListOfComments = event as unknown as boolean;
   }
 
   displayImageNext() {
