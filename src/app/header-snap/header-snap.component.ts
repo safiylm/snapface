@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { UserService } from '../../services/user-service'
 import { User } from '../../models/user.model'
 import { Abonnee } from 'src/models/abonnee.model';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 
@@ -26,7 +26,9 @@ export class HeaderSnapComponent implements OnInit {
   subscription !: Subscription;
 
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService, private router: ActivatedRoute) {
+      this.user = router.snapshot.data['user'];
+   }
 
   hidePhotoViewerProfil() {
     this.isDisplayPhotoViewerProfil = false;
@@ -95,7 +97,7 @@ export class HeaderSnapComponent implements OnInit {
 
 
   ngOnInit() {
-    this.displayUser();
+   // this.displayUser();
     this.isDisplayPhotoViewerProfil = false;
     this.isDisplayPhotoViewerBackground = false;
     
@@ -106,10 +108,6 @@ export class HeaderSnapComponent implements OnInit {
     setTimeout(() => {
       this.checkIfDejaAbonnee();
     }, 400)
-  }
-
-  ngAfterViewInit() {
-
   }
 
   sabonner() {

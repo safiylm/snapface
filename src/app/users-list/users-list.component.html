@@ -1,11 +1,9 @@
 <h2>Vous connaissez peut-être </h2>
-
 <div class="div-list-users">
-    <div class="div-user" *ngFor="let item of data;">
+    <div class="div-user" *ngFor="let item of users;">
         <a href="user/{{item['_id'] }}" >
             <img src='{{item["photos_profil"]}}' />
           <p>{{ item['firstName'] }} {{ item['lastName'] }} </p>  
         </a>
     </div>
-
 </div>

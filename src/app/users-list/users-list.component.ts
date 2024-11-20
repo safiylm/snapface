@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../services/user-service'
+import { Component } from '@angular/core';
 import { User } from '../../models/user.model'
-import {Subscription} from "rxjs";
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-users-list',
@@ -9,30 +8,12 @@ import {Subscription} from "rxjs";
   styleUrls: ['./users-list.component.scss']
 })
 
-export class UsersListComponent implements OnInit {
-  title = 'json-read-example';
-  subscription !: Subscription;
-  constructor(private UserService: UserService) { }
-  data?: User[];
-
-
-  retrieveUsers(): void {
-   this.subscription = this.UserService.getAllUsers()
-      .subscribe({
-        next: (data) => {
-          this.data = data;
-        },
-        error: (e) => console.error(e)
-      });
+export class UsersListComponent {
+  
+  users?: User[];
+  
+  constructor(private roote: ActivatedRoute) {
+    this.users = this.roote.snapshot.data['users']
   }
 
-
-  ngOnInit() {
-   this.retrieveUsers()
-  }
-
-  ngOnDestroy(){
-    // dabonner du flux et ainsi améliore les performances de mon application.
-    this.subscription.unsubscribe();
-  }
 }

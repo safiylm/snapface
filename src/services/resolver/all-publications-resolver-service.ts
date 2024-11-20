@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Publication } from '../models/publication.model'
+import { Publication } from '../../models/publication.model'
 import { Observable } from 'rxjs';
-import { PublicationsService } from './publication-service';
+import { PublicationsService } from '../publication-service';
 import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 
 
@@ -9,7 +9,7 @@ import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
   providedIn: 'root'
 })
 
-export class PublicationsResolverService {
+export class AllPublicationsResolverService {
   constructor(private publication : PublicationsService) { }
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<Publication[]> | Observable<Publication[]>{

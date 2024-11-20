@@ -11,22 +11,11 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class PublicationAllListComponent implements OnInit {
 
-  constructor(private publicationsService: PublicationsService, private route: ActivatedRoute) {
+  publications!: Publication[];
+
+  constructor( private route: ActivatedRoute) {
     this.publications = this.route.snapshot.data['publications'];
   }
 
-  loading = true;
-  publications!: Publication[];
-  publication = new Publication("8", "essai add new post", "", [""], Date.now(), "",);
-  interactionsocial = new InteractionSociale("", "", 0, 0, 0, [""], [""]);
-
-
-
-  ngOnInit() {
-    setTimeout(() => {
-      if (this.publications != null)
-        this.loading = false;
-    }, 1000)
-
-  }
+  ngOnInit() {}
 }

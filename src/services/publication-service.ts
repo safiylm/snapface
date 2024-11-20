@@ -37,6 +37,10 @@ export class PublicationsService {
     return this.http.get<Publication[]>("https://snapface.onrender.com/api/publicationByUserId?id=" + id);
   }
 
+  getMyPublications(): Observable<Publication[]> {
+    return this.http.get<Publication[]>("https://snapface.onrender.com/api/publicationByUserId?id=" + localStorage.getItem('userId')?.toString());
+  }
+
   public createNewPublication(formData: Publication): void {
 
     this.http

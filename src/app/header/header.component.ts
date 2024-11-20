@@ -1,4 +1,4 @@
-import { Component, OnInit  } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-header',
@@ -7,17 +7,14 @@ import { Component, OnInit  } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-isLoggedIn : boolean =false;
+  isLoggedIn: boolean = false;
 
-ngOnInit() {
-     if (localStorage.getItem('isLoggedIn') == "true") {      
-      this.isLoggedIn= true;
+  ngOnInit() {
+    if (localStorage.getItem('isLoggedIn') == "true") {
+      this.isLoggedIn = true;
     } else {
-      this.isLoggedIn= false;
+      this.isLoggedIn = false;
     }
-   
+
   }
-
-
-
 }
