@@ -78,6 +78,10 @@ export class UserService {
     return this.http.get<User>("https://snapface.onrender.com/api/userid?id=" + id);
   }
 
+  getMyData(): Observable<User> {
+    return this.http.get<User>("https://snapface.onrender.com/api/userid?id=" + localStorage.getItem('userId')?.toString());
+  }
+
   addAbonnee(userSuiviId: string) {
     if (userSuiviId != null) {
       this.http.post(`https://snapface.onrender.com/api/abonnees/abonneeAdd`,
