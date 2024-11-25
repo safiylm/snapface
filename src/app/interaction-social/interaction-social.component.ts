@@ -4,6 +4,7 @@ import { InteractionSocialeService } from '../../services/interaction-social-ser
 import { Subscription } from 'rxjs';
 
 @Component({
+  standalone:true, 
   selector: 'app-interaction-social',
   templateUrl: './interaction-social.component.html',
   styleUrls: ['./interaction-social.component.scss']

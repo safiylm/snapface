@@ -2,11 +2,14 @@ import { Component, OnInit, Input } from '@angular/core';
 import { StatistiqueUser } from '../../models/statistique.user.model'
 import { StatistiqueUserService } from '../../services/statistique-user-service';
 import { Subscription } from 'rxjs';
+import { ListFollowersComponent } from '../list-followers/list-followers.component';
 
 @Component({
+  standalone:true, 
   selector: 'app-statistique-user',
   templateUrl: './statistique-user.component.html',
-  styleUrls: ['./statistique-user.component.scss']
+  styleUrls: ['./statistique-user.component.scss'], 
+  imports:[ ListFollowersComponent]
 })
 export class StatistiqueUserComponent implements OnInit {
 

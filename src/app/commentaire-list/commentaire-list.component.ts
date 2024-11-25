@@ -1,13 +1,16 @@
 import { Component, OnInit, Input, SimpleChanges } from '@angular/core';
 import { Commentaire } from '../../models/commentaire.model';
 import { CommentaireService } from '../../services/commentaire-service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { CommentaireComponent } from '../commentaire/commentaire.component';
 
 @Component({
+  standalone:true, 
   selector: 'app-commentaire-list',
   templateUrl: './commentaire-list.component.html',
-  styleUrls: ['./commentaire-list.component.scss']
+  styleUrls: ['./commentaire-list.component.scss'], 
+  imports:[ReactiveFormsModule, CommentaireComponent]
 })
 export class CommentaireListComponent implements OnInit {
 
@@ -20,7 +23,7 @@ export class CommentaireListComponent implements OnInit {
     comment: new FormControl(""),
   });
 
-  constructor(private commentaireService: CommentaireService) { }
+  constructor(protected commentaireService: CommentaireService) { }
 
 
   ngOnChanges(changes: SimpleChanges) {

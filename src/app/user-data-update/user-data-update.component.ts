@@ -2,14 +2,16 @@ import { Component, Input, OnInit } from '@angular/core';
 import { UserService } from '../../services/user-service'
 import { ActivatedRoute } from '@angular/router';
 import { User } from '../../models/user.model'
-import { FormGroup, FormControl } from "@angular/forms";
+import { FormGroup, FormControl, ReactiveFormsModule } from "@angular/forms";
 import { Subscription } from 'rxjs';
 
 
 @Component({
+  standalone:true, 
   selector: 'app-user-data-update',
   templateUrl: './user-data-update.component.html',
-  styleUrls: ['./user-data-update.component.scss']
+  styleUrls: ['./user-data-update.component.scss'], 
+  imports:[ReactiveFormsModule]
 })
 export class UserDataUpdateComponent implements OnInit {
 

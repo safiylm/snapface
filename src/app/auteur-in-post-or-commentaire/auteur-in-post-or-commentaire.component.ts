@@ -3,6 +3,7 @@ import {User} from '../../models/user.model';
 import {UserService} from '../../services/user-service';
 import { Subscription } from 'rxjs';
 @Component({
+  standalone:true, 
   selector: 'app-auteur-in-post-or-commentaire',
   templateUrl: './auteur-in-post-or-commentaire.component.html',
   styleUrls: ['./auteur-in-post-or-commentaire.component.scss']

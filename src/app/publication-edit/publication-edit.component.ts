@@ -2,14 +2,16 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { PublicationsService } from '../../services/publication-service';
 import { Publication } from 'src/models/publication.model';
-import { FormGroup, FormControl } from "@angular/forms";
+import { FormGroup, FormControl, ReactiveFormsModule } from "@angular/forms";
 import { first } from 'rxjs';
 import { Subscription } from 'rxjs';
 
 @Component({
+  standalone: true,
   selector: 'app-publication-edit',
   templateUrl: './publication-edit.component.html',
-  styleUrls: ['./publication-edit.component.scss']
+  styleUrls: ['./publication-edit.component.scss'],
+  imports:[ReactiveFormsModule]
 })
 export class PublicationEditComponent {
 

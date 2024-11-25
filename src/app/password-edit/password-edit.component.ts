@@ -1,14 +1,17 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl } from "@angular/forms";
+import { FormGroup, FormControl, ReactiveFormsModule } from "@angular/forms";
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user-service'
 import * as bcrypt from "bcryptjs";
+import { NgClass, NgStyle } from '@angular/common';
 
 
 @Component({
+  standalone:true, 
   selector: 'app-password-edit',
   templateUrl: './password-edit.component.html',
-  styleUrls: ['./password-edit.component.scss']
+  styleUrls: ['./password-edit.component.scss'], 
+  imports:[ReactiveFormsModule, NgStyle]
 })
 export class PasswordEditComponent {
 

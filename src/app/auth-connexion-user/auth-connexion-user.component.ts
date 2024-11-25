@@ -1,12 +1,16 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { UserService } from '../../services/user-service'
-import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from "@angular/forms";
 import * as bcrypt from "bcryptjs";
+import { CommonModule } from '@angular/common';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
+  standalone: true,
   selector: 'app-auth-connexion-user',
   templateUrl: './auth-connexion-user.component.html',
-  styleUrls: ['./auth-connexion-user.component.scss']
+  styleUrls: ['./auth-connexion-user.component.scss'],
+  imports: [CommonModule, ReactiveFormsModule, HeaderComponent],
 })
 
 export class AuthConnexionUserComponent implements OnInit {

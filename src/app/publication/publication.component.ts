@@ -1,10 +1,17 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Pipe } from '@angular/core';
 import { Publication } from '../../models/publication.model';
+import { AuteurInPostOrCommentaireComponent } from '../auteur-in-post-or-commentaire/auteur-in-post-or-commentaire.component';
+import { InteractionSocialComponent } from '../interaction-social/interaction-social.component';
+import { CommentaireListComponent } from '../commentaire-list/commentaire-list.component';
+import { TitleCasePipe } from '@angular/common';
 
 @Component({
+  standalone:true,
   selector: 'app-publication',
   templateUrl: './publication.component.html',
-  styleUrls: ['./publication.component.scss']
+  styleUrls: ['./publication.component.scss'], 
+  imports: [AuteurInPostOrCommentaireComponent, 
+    InteractionSocialComponent, CommentaireListComponent, TitleCasePipe ]
 })
 
 export class PublicationComponent implements OnInit {

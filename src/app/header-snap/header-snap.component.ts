@@ -4,12 +4,15 @@ import { User } from '../../models/user.model'
 import { Abonnee } from 'src/models/abonnee.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { StatistiqueUserComponent } from '../statistique-user/statistique-user.component';
 
 
 @Component({
+  standalone:true, 
   selector: 'app-header-snap',
   templateUrl: './header-snap.component.html',
-  styleUrls: ['./header-snap.component.scss']
+  styleUrls: ['./header-snap.component.scss'], 
+  imports:[StatistiqueUserComponent]
 })
 
 

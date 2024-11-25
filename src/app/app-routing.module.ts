@@ -1,9 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component'
-import { AuthConnexionUserComponent } from './auth-connexion-user/auth-connexion-user.component'
-import { AuthInscriptionUserComponent } from './auth-inscription-user/auth-inscription-user.component'
-import { UserAccountComponent } from './user-account/user-account.component'
 import { PublicationEditComponent } from './publication-edit/publication-edit.component';
 import { UserDataUpdateComponent } from './user-data-update/user-data-update.component';
 import { PublicationCreateComponent } from './publication-create/publication-create.component';
@@ -19,22 +15,34 @@ import { UserDataResolverService } from 'src/services/resolver/user-data-resolve
 
 import { formulaireDesactiveGuard } from './guards/formulaire-desactive.guard'
 import { PasswordEditComponent } from './password-edit/password-edit.component';
+import { UserAccountComponent } from './user-account/user-account.component';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
   {
-    path: 'user/:id', component: UserAccountComponent,
+    path: 'user/:id', 
+  //  loadComponent: import('./user-account/user-account.component'),
+  component: UserAccountComponent,
+
     resolve: { publications: PublicationsByUserIdResolverService , 
       user : UserDataResolverService }
   },
   {
-    path: '', component: HomeComponent,
+    path: '', 
+     loadComponent :()=> import('./home/home.component')
+     .then(mod => mod.HomeComponent) , 
+    //component : HomeComponent,
     resolve: { publications: AllPublicationsResolverService, 
       users: AllUsersResolverService }
   },
-  { path: 'connexion', component: AuthConnexionUserComponent },
+  { path: 'connexion', 
+    loadComponent:   () => import('./auth-connexion-user/auth-connexion-user.component')
+    .then(mod => mod.AuthConnexionUserComponent)                   
+   },
   {
     path: 'inscription',
-    component: AuthInscriptionUserComponent,
+    loadComponent:   () => import('./auth-inscription-user/auth-inscription-user.component')
+    .then(mod => mod.AuthInscriptionUserComponent),   
     canDeactivate: [formulaireDesactiveGuard]
 
   },

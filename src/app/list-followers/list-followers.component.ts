@@ -2,11 +2,14 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Abonnee } from '../../models/abonnee.model'
 import { AbonneeService } from '../../services/abonnee-service'
 import { Subscription } from 'rxjs';
+import { AuteurInPostOrCommentaireComponent } from '../auteur-in-post-or-commentaire/auteur-in-post-or-commentaire.component';
 
 @Component({
+  standalone:true, 
   selector: 'app-list-followers',
   templateUrl: './list-followers.component.html',
-  styleUrls: ['./list-followers.component.scss']
+  styleUrls: ['./list-followers.component.scss'], 
+  imports:[AuteurInPostOrCommentaireComponent]
 })
 export class ListFollowersComponent implements OnInit {
 

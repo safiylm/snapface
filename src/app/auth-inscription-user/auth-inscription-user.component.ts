@@ -1,13 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, NgModule, OnInit } from '@angular/core';
 import { UserService } from '../../services/user-service'
 import { User } from '../../models/user.model'
-import { FormGroup, FormControl, Validators } from "@angular/forms";
 import * as bcrypt from "bcryptjs";
+import { FormGroup, FormControl, Validators, ReactiveFormsModule } from "@angular/forms";
+import { CommonModule } from '@angular/common';
+import { HeaderComponent } from '../header/header.component';
+
 
 @Component({
+  standalone: true,
   selector: 'app-auth-inscription-user',
   templateUrl: './auth-inscription-user.component.html',
-  styleUrls: ['./auth-inscription-user.component.scss']
+  styleUrls: ['./auth-inscription-user.component.scss'],
+  imports: [CommonModule, ReactiveFormsModule, HeaderComponent],
+
 })
 
 
@@ -86,7 +92,7 @@ export class AuthInscriptionUserComponent implements OnInit {
   onSubmit() {
 
     if (this.inscriptionUserForm.valid) {
-    
+
       this.user.lastName = this.inscriptionUserForm.value['lastName']?.toString() as string;
       this.user.firstName = this.inscriptionUserForm.value['firstName']?.toString() as string;
       this.user.email = this.inscriptionUserForm.value['email']?.toString() as string;

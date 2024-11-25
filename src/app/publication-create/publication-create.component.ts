@@ -1,20 +1,23 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Publication } from '../../models/publication.model';
-import { FormGroup, FormControl } from "@angular/forms";
+import { FormGroup, FormControl, ReactiveFormsModule } from "@angular/forms";
 import { PublicationsService } from '../../services/publication-service';
 
 @Component({
+  standalone: true,
   selector: 'app-publication-create',
   templateUrl: './publication-create.component.html',
-  styleUrls: ['./publication-create.component.scss']
+  styleUrls: ['./publication-create.component.scss'], 
+  imports:[ReactiveFormsModule]
 })
 
 
 export class PublicationCreateComponent implements OnInit {
-  @Input() userId !: string;
-  post = new Publication("", "", "", [''], 0, this.userId,);
+  @Input() userId !:string ;
+  post = new Publication("", "", "", [''], 0, this.userId as string,);
   array_image !: string[];
   newimage !: string;
+ 
   postCreateForm = new FormGroup({
     title: new FormControl(""),
     body: new FormControl(""),
@@ -40,7 +43,7 @@ export class PublicationCreateComponent implements OnInit {
     this.post.title = this.postCreateForm.value['title']?.toString() as string;
     this.post.body = this.postCreateForm.value['body']?.toString() as string;
     this.post.images = this.array_image as [string];
-    this.post.userId = this.userId;
+    this.post.userId = this.userId as string;
 
     this.publicationsService.createNewPublication(this.post);
     setTimeout(() => {
