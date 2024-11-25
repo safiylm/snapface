@@ -3,7 +3,7 @@ import { Publication } from '../../models/publication.model';
 import { AuteurInPostOrCommentaireComponent } from '../auteur-in-post-or-commentaire/auteur-in-post-or-commentaire.component';
 import { InteractionSocialComponent } from '../interaction-social/interaction-social.component';
 import { CommentaireListComponent } from '../commentaire-list/commentaire-list.component';
-import { TitleCasePipe } from '@angular/common';
+import { NgIf, TitleCasePipe } from '@angular/common';
 
 @Component({
   standalone:true,
@@ -11,7 +11,8 @@ import { TitleCasePipe } from '@angular/common';
   templateUrl: './publication.component.html',
   styleUrls: ['./publication.component.scss'], 
   imports: [AuteurInPostOrCommentaireComponent, 
-    InteractionSocialComponent, CommentaireListComponent, TitleCasePipe ]
+    InteractionSocialComponent, CommentaireListComponent, TitleCasePipe,
+    NgIf ]
 })
 
 export class PublicationComponent implements OnInit {

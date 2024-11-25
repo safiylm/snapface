@@ -1,10 +1,14 @@
+import { NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
   standalone: true, 
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  styleUrls: ['./header.component.scss'], 
+  imports:[
+    NgIf 
+  ]
 })
 export class HeaderComponent implements OnInit {
 

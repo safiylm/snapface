@@ -2,13 +2,14 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Publication } from '../../models/publication.model';
 import { FormGroup, FormControl, ReactiveFormsModule } from "@angular/forms";
 import { PublicationsService } from '../../services/publication-service';
+import { NgFor } from '@angular/common';
 
 @Component({
   standalone: true,
   selector: 'app-publication-create',
   templateUrl: './publication-create.component.html',
   styleUrls: ['./publication-create.component.scss'], 
-  imports:[ReactiveFormsModule]
+  imports:[ReactiveFormsModule, NgFor]
 })
 
 

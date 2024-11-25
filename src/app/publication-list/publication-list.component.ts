@@ -3,13 +3,14 @@ import { Publication } from '../../models/publication.model';
 import { PublicationsService } from '../../services/publication-service'
 import { ActivatedRoute } from '@angular/router';
 import { PublicationComponent } from '../publication/publication.component';
+import { NgIf, NgFor } from '@angular/common';
 
 @Component({
   standalone:true, 
   selector: 'app-publication-list',
   templateUrl: './publication-list.component.html',
   styleUrls: ['./publication-list.component.scss'], 
-  imports:[PublicationComponent]
+  imports:[PublicationComponent,  NgIf , NgFor]
 })
 export class PublicationListComponent {
 

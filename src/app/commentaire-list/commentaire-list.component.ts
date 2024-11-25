@@ -4,13 +4,16 @@ import { CommentaireService } from '../../services/commentaire-service';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { CommentaireComponent } from '../commentaire/commentaire.component';
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
   standalone:true, 
   selector: 'app-commentaire-list',
   templateUrl: './commentaire-list.component.html',
   styleUrls: ['./commentaire-list.component.scss'], 
-  imports:[ReactiveFormsModule, CommentaireComponent]
+  imports:[ReactiveFormsModule, CommentaireComponent,
+    NgIf , NgFor
+  ]
 })
 export class CommentaireListComponent implements OnInit {
 

@@ -3,13 +3,16 @@ import { Commentaire } from '../../models/commentaire.model';
 import { CommentaireService } from '../../services/commentaire-service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuteurInPostOrCommentaireComponent } from '../auteur-in-post-or-commentaire/auteur-in-post-or-commentaire.component';
+import { NgIf } from '@angular/common';
 
 @Component({ 
    standalone:true, 
   selector: 'app-commentaire',
   templateUrl: './commentaire.component.html',
   styleUrls: ['./commentaire.component.scss'], 
-  imports:[ReactiveFormsModule,AuteurInPostOrCommentaireComponent ]
+  imports:[ReactiveFormsModule,AuteurInPostOrCommentaireComponent,
+    NgIf 
+   ]
 })
 export class CommentaireComponent implements OnInit {
 

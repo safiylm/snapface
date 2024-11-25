@@ -3,7 +3,7 @@ import { FormGroup, FormControl, ReactiveFormsModule } from "@angular/forms";
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user-service'
 import * as bcrypt from "bcryptjs";
-import { NgClass, NgStyle } from '@angular/common';
+import { NgClass, NgIf, NgStyle } from '@angular/common';
 
 
 @Component({
@@ -11,7 +11,7 @@ import { NgClass, NgStyle } from '@angular/common';
   selector: 'app-password-edit',
   templateUrl: './password-edit.component.html',
   styleUrls: ['./password-edit.component.scss'], 
-  imports:[ReactiveFormsModule, NgStyle]
+  imports:[ReactiveFormsModule, NgStyle, NgIf]
 })
 export class PasswordEditComponent {
 
