@@ -2,12 +2,14 @@ import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter } from '@
 import { InteractionSociale } from '../../models/interaction.sociale.model';
 import { InteractionSocialeService } from '../../services/interaction-social-service';
 import { Subscription } from 'rxjs';
+import { NgIf } from '@angular/common';
 
 @Component({
   standalone:true, 
   selector: 'app-interaction-social',
   templateUrl: './interaction-social.component.html',
-  styleUrls: ['./interaction-social.component.scss']
+  styleUrls: ['./interaction-social.component.scss'], 
+  imports:[NgIf]
 })
 
 

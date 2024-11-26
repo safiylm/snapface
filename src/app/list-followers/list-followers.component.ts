@@ -3,13 +3,14 @@ import { Abonnee } from '../../models/abonnee.model'
 import { AbonneeService } from '../../services/abonnee-service'
 import { Subscription } from 'rxjs';
 import { AuteurInPostOrCommentaireComponent } from '../auteur-in-post-or-commentaire/auteur-in-post-or-commentaire.component';
+import { NgFor } from '@angular/common';
 
 @Component({
   standalone:true, 
   selector: 'app-list-followers',
   templateUrl: './list-followers.component.html',
   styleUrls: ['./list-followers.component.scss'], 
-  imports:[AuteurInPostOrCommentaireComponent]
+  imports:[AuteurInPostOrCommentaireComponent, NgFor]
 })
 export class ListFollowersComponent implements OnInit {
 
