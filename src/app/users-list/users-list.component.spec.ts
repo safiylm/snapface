@@ -1,21 +1,27 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { UsersListComponent } from './users-list.component';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { RouterTestingModule } from '@angular/router/testing';
+import { UserService } from 'src/services/user-service';
+import { NgFor } from '@angular/common';
 
 describe('UserList', () => {
-  let component: UsersListComponent; let fixture: ComponentFixture<UsersListComponent>;
+  let component: UsersListComponent; 
 
-  beforeEach(waitForAsync(() => {
+  beforeEach( () => {
     TestBed.configureTestingModule({
-      imports: [UsersListComponent]
-    }).compileComponents();
-  }));
+      imports:[NgFor, RouterTestingModule],
+    }).compileComponents()
 
-  beforeEach(() => { 
+    let fixture: ComponentFixture<UsersListComponent>;
+  
     fixture = TestBed.createComponent(UsersListComponent); 
     component = fixture.componentInstance; fixture.detectChanges();
   });
 
-  it('should create', () => { expect(component).toBeDefined(); });
+  it('should create', () => { 
+    expect(component).toBeTruthy(); 
+  });
 
 
 })

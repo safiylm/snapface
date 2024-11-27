@@ -2,12 +2,14 @@ import { Component, OnInit, Input } from '@angular/core';
 import {User} from '../../models/user.model';
 import {UserService} from '../../services/user-service';
 import { Subscription } from 'rxjs';
+
 @Component({
   standalone:true, 
   selector: 'app-auteur-in-post-or-commentaire',
   templateUrl: './auteur-in-post-or-commentaire.component.html',
   styleUrls: ['./auteur-in-post-or-commentaire.component.scss']
 })
+
 export class AuteurInPostOrCommentaireComponent  implements OnInit {
  
   //Passing Data into this Component
@@ -41,7 +43,7 @@ export class AuteurInPostOrCommentaireComponent  implements OnInit {
   }
 
   ngOnDestroy(){
-    this.subscription.unsubscribe();
+   // this.subscription.unsubscribe();
   }
   
 }
