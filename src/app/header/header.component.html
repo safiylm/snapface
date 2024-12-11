@@ -1,6 +1,6 @@
 <nav class="d-flex align-items-center justify-content-between">
 
   <a href="/">Snapface</a>
-  <a *ngIf="!isLoggedIn" routerLink="/connexion">Connexion</a>
-  <a *ngIf="isLoggedIn" routerLink="/mon-compte">Mon compte </a>
+  <a *ngIf="!isLoggedIn" href="/connexion">Connexion</a>
+  <a *ngIf="isLoggedIn" href="/mon-compte">Mon compte </a>
 </nav>
