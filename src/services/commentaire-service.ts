@@ -69,8 +69,9 @@ export class CommentaireService {
       })
   }
 
-  test(id: string): Observable<any> | void {
-    
+
+  checkTotalComments(id: string): Observable<any> | void {
+
     this.http.get<Commentaire[]>("https://snapface.onrender.com/api/commentairesByPostId?id=" + id)
       .subscribe({
         next: (data) => {
@@ -90,7 +91,7 @@ export class CommentaireService {
 
     if (localStorage.getItem("totalComments") != null) {
       this.http
-        .post<any>('http://localhost:4100/api/interaction/social/comments/update/commenttotal'
+        .post<any>('http://localhost:4100/api/checkComments'
           , { "id": id, "comments": localStorage.getItem("totalComments") },
           {
             headers: new HttpHeaders({
@@ -99,14 +100,11 @@ export class CommentaireService {
           }
         ).subscribe(data => {
           if (data)
-            console.log("Commentaire created")
-          console.log(localStorage.getItem('totalComments'))
+           
           localStorage.removeItem('totalComments');
         })
-
-
     }
-
   }
+
 
 }

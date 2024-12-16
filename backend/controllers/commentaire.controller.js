@@ -15,7 +15,7 @@ exports.create = (req, res) => {
         date: Date.now(),
         userId: req.body.userId,
         postId: req.body.postId
-    
+
       })
       .then(data => {
         const updateResult = collection_interactionsociales.updateOne({ "postId": req.body.postId },
@@ -41,20 +41,20 @@ exports.create = (req, res) => {
 exports.delete = async (req, res) => {
 
   collection_commentaires.
-    findOne({  "_id": new ObjectId(req.body.id) }).then(c => {
-      
+    findOne({ "_id": new ObjectId(req.body.id) }).then(c => {
+
       collection_interactionsociales.
         findOne({ "postId": c.postId }).then(i => {
-          
+
           collection_commentaires.
             deleteOne({ "_id": new ObjectId(req.body.id) }).then(k => {
-              
+
               collection_interactionsociales.
-              updateOne({ "postId": c.postId },
-                { $inc: { "comments":  - 1 } }).then(x => {
-                  res.set('Access-Control-Allow-Origin', '*');
-                  res.send(x);
-                })
+                updateOne({ "postId": c.postId },
+                  { $inc: { "comments": - 1 } }).then(x => {
+                    res.set('Access-Control-Allow-Origin', '*');
+                    res.send(x);
+                  })
             })
         })
     })
@@ -67,14 +67,12 @@ exports.update = async (req, res) => {
   console.log(req.body._id);
   const updateResult = await collection_commentaires.updateOne({ "_id": new ObjectId(req.body._id) },
     { $set: { "title": req.body.title } });
-    res.set('Access-Control-Allow-Origin', '*');
+  res.set('Access-Control-Allow-Origin', '*');
   res.send(updateResult);
 
 }
 
-//res.body.insertedId
 
-//get comment with id 
 exports.findByPublicationId = async (req, res) => {
 
   const id = req.query.id;
@@ -84,3 +82,23 @@ exports.findByPublicationId = async (req, res) => {
 };
 
 
+exports.checkTotalComments = async (req, res) => {
+  const id = req.query.id;
+  const total = req.query.comments;
+  res.set('Access-Control-Allow-Origin', '*');
+
+ collection_interactionsociales
+      .updateOne({ postId: id },
+        {  $set: { "comments":  total }
+        }, true
+      )
+      .then(data => {
+          res.send('Update successful!')
+      })
+  .catch(err => {
+    res.status(500).send({
+      message:
+        err.message || "Some error occurred while creating the User."
+    });
+  });
+}
