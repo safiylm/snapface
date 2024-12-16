@@ -39,16 +39,15 @@ exports.create = (req, res) => {
 //Remove point
 exports.pointsRemove = (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
-  const updateResult = collection_interactionsociales.updateOne({ "_id": new ObjectId(req.body._id) },
+  collection_interactionsociales.updateOne({ "_id": new ObjectId(req.body._id) },
     {
       $set: { "pointedBy_": [""] },
       $inc: { "points": -1 }
     }, true
   ).then(data => {
-    console.log(data)
     collection_statistiqueusers.updateOne({ "userId": req.body.auteurId },
       { $inc: { "totalPoints": -1 } }, true)
-     // .then(data1 => {res.send(data1); })
+      .then(data1 => { res.send(data1); })
       .catch(err => {
         res.status(500).send({
           message:
@@ -77,10 +76,9 @@ exports.pointsAdd = (req, res) => {
       $inc: { "points": 1 }
     }, true
   ).then((data) => {
-    console.log(data)
     collection_statistiqueusers.updateOne({ "userId": req.body.auteurId },
       { $inc: { "totalPoints": 1 } }, true)
-     //  .then(data1 => {  res.send(data1); })
+      .then(data1 => { res.send(data1); })
       .catch(err => {
         res.status(500).send({
           message:
@@ -155,28 +153,80 @@ exports.findByPublicationId = async (req, res) => {
 };
 
 
-//Retrieve post by Id
+//Update total of comment in interaction social by post Id
 exports.updateTotalComments = async (req, res) => {
 
- const id = req.body.id;
+  const id = req.body.id;
   const comments = req.body.comments;
   res.set('Access-Control-Allow-Origin', '*');
 
-  if( comments!= null || comments!= undefined);
-  //res.send(id+'oui '+ comments)
+  if (comments != null || comments != undefined);
+
   collection_interactionsociales
-      .updateOne({ postId: id },
-        {  $set: { "comments": Number( comments)   }
-        }, true
-      )
-      .then(data => {
-          res.send('Update Total Comments successful!')
-      })
-  .catch(err => {
-    res.status(500).send({
-      message:
-        err.message || "Some error occurred while creating the User."
+    .updateOne({ postId: id },
+      {
+        $set: { "comments": Number(comments) }
+      }, true
+    )
+    .then(data => {
+      res.send('Update Total Comments successful!')
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while creating the User."
+      });
     });
-  });
 };
 
+//Update total of likes in interaction social by post Id
+exports.updateTotalLikes = async (req, res) => {
+
+  const id = req.body.id;
+  const likes = req.body.likes;
+  res.set('Access-Control-Allow-Origin', '*');
+
+  if (likes != null || likes != undefined);
+
+  collection_interactionsociales
+    .updateOne({ postId: id },
+      {
+        $set: { "likes": Number(likes) }
+      }, true
+    )
+    .then(data => {
+      res.send('Update Total likes successful!')
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while creating the User."
+      });
+    });
+};
+
+//Update total of points in interaction social by post Id
+exports.updateTotalPoints = async (req, res) => {
+
+  const id = req.body.id;
+  const points = req.body.points;
+  res.set('Access-Control-Allow-Origin', '*');
+
+  if (points != null || points != undefined);
+
+  collection_interactionsociales
+    .updateOne({ postId: id },
+      {
+        $set: { "points": Number(points) }
+      }, true
+    )
+    .then(data => {
+      res.send('Update Total points successful!')
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while creating the User."
+      });
+    });
+};
