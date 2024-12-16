@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { Commentaire } from '../../models/commentaire.model';
 import { CommentaireService } from '../../services/commentaire-service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -14,16 +14,16 @@ import { NgIf } from '@angular/common';
     NgIf 
    ]
 })
-export class CommentaireComponent implements OnInit {
+export class CommentaireComponent //implements AfterViewInit 
+{
 
   public edited = false;
-
   isMyComment: boolean = false;
 
   @Input() id !: string;
   @Input() isDisplayListOfComments !: boolean;
   @Input() commentaire !: Commentaire;
-  //commentaire = new Commentaire("8", "Essai k+888888", Date.now(),"userid978463152","postuibjn894651") ;
+
   commentForm = new FormGroup({
     comment: new FormControl( "" )
   });
@@ -31,17 +31,17 @@ export class CommentaireComponent implements OnInit {
   constructor(private commentaireService: CommentaireService) { }
 
   showFormEditComment() {
-    this.edited = true;
-    this.commentForm.controls['comment'].setValue(this.commentaire.title.toString())
+   // this.edited = true;
+    //this.commentForm.controls['comment'].setValue(this.commentaire.title.toString())
   }
 
   hideFormEditComment() {
-    this.edited = false;
+   // this.edited = false;
   }
 
-
+ 
   editComment(commentId: string) {
-    if (localStorage.getItem('userId') != null &&
+    /*if (localStorage.getItem('userId') != undefined &&
       localStorage.getItem('isLoggedIn') != "false") {
 
       this.commentaire._id = commentId;
@@ -56,11 +56,12 @@ export class CommentaireComponent implements OnInit {
     } else {
       (document.getElementById("info-editComment" + this.commentaire._id) as HTMLFormElement).innerHTML = "Il faut se connecter!";
     }
-
+*/
 
   }
 
   deleteComment(commentId: string) {
+    /*
     if (localStorage.getItem('userId') != null &&
       localStorage.getItem('isLoggedIn') != "false"
     ) {
@@ -75,13 +76,12 @@ export class CommentaireComponent implements OnInit {
     } else {
       (document.getElementById("info-deleteComment" + this.commentaire._id) as HTMLFormElement).innerHTML = "Il faut se connecter!";
     }
+      */
   }
 
 
-  ngOnInit() {
-    if (this.commentaire.userId == localStorage.getItem('userId')?.toString()) {
-      this.isMyComment = true;
-    }
+  get UserId(){
+    return (this.commentaire.userId  )&& this.commentaire.userId 
   }
 
 }
