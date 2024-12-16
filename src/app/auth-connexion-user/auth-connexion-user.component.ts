@@ -21,7 +21,7 @@ export class AuthConnexionUserComponent implements OnInit {
   email !: string;
   isDisplayPassword !: boolean;
   resultatconnexion !: string;
-  @ViewChild("connexioninfo") connexionInfo !: ElementRef;
+  @ViewChild("connexionInfo") connexionInfo !: ElementRef;
 
   connexionUserForm = new FormGroup({
     email: new FormControl("", [Validators.required, Validators.email]),
