@@ -7,6 +7,7 @@ var router_interactionsociales = require("express").Router();
 router_interactionsociales.post("/api/interaction/social/create", interactionsociales.create);
 
 router_interactionsociales.get("/api/interactionSocialByPostId", interactionsociales.findByPublicationId);
+router_interactionsociales.post("/api/interaction/social/comments/update/commenttotal", interactionsociales.updateTotalComments)
 
 router_interactionsociales.post( "/api/interaction/social/points/add", interactionsociales.pointsAdd )
 router_interactionsociales.post( "/api/interaction/social/points/remove", interactionsociales.pointsRemove )

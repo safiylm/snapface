@@ -154,3 +154,29 @@ exports.findByPublicationId = async (req, res) => {
   res.send(await collection_interactionsociales.findOne({ "postId": id }))
 };
 
+
+//Retrieve post by Id
+exports.updateTotalComments = async (req, res) => {
+
+ const id = req.body.id;
+  const comments = req.body.comments;
+  res.set('Access-Control-Allow-Origin', '*');
+
+  if( comments!= null || comments!= undefined);
+  //res.send(id+'oui '+ comments)
+  collection_interactionsociales
+      .updateOne({ postId: id },
+        {  $set: { "comments": Number( comments)   }
+        }, true
+      )
+      .then(data => {
+          res.send('Update Total Comments successful!')
+      })
+  .catch(err => {
+    res.status(500).send({
+      message:
+        err.message || "Some error occurred while creating the User."
+    });
+  });
+};
+
