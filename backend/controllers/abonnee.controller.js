@@ -78,6 +78,6 @@ exports.findByUserId = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
 
   const id = req.query.id;
-  const findResult = await collection_abonnees.find({ "userId": id }).toArray();
+  const findResult = await collection_abonnees.findOne({ "userId": id });
   res.send(findResult);
 };
