@@ -3,7 +3,7 @@ const collection_statistiqueusers = db.collection('statistiqueusers');
 
 //create new user statistique
 exports.create = (req, res) => {
-  res.set('Access-Control-Allow-Origin', '*');
+    res.set('Access-Control-Allow-Origin', '*');
 
     // Validate request
     if (!req.body.id) {
@@ -21,7 +21,7 @@ exports.create = (req, res) => {
             totalPosts: 0,
             totalPoints: 0,
         }
-    )
+        )
         .then(data => {
             res.send(data);
         })
@@ -40,3 +40,28 @@ exports.findByUserId = async (req, res) => {
     res.set('Access-Control-Allow-Origin', '*');
     res.send(await collection_statistiqueusers.findOne({ "userId": id }))
 };
+
+
+exports.checkTotalFollowers = async (req, res) => {
+    const id = req.body.id;
+    const followers = req.body.followers;
+
+    collection_statistiqueusers
+        .updateOne({ userId: id },
+            {
+                $set: { "followers": followers }
+            }, true
+        )
+        .then(data => {
+            if (data) {
+                res.set('Access-Control-Allow-Origin', '*');
+                res.send('Update total of followers successful!')
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while creating the User."
+            });
+        });
+}
