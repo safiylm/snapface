@@ -65,3 +65,56 @@ exports.checkTotalFollowers = async (req, res) => {
             });
         });
 }
+
+
+exports.checkTotalPublications = async (req, res) => {
+    const id = req.body.id;
+    const publications = req.body.publications;
+
+    if(id != null && publications != null)
+    collection_statistiqueusers
+        .updateOne({ userId: id },
+            {
+                $set: { "totalPosts": publications }
+            }, true
+        )
+        .then(data => {
+            if (data) {
+                res.set('Access-Control-Allow-Origin', '*');
+                res.send('Update total of posts successful!')
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while creating the User."
+            });
+        });
+}
+
+
+exports.checkTotalPoints = async (req, res) => {
+    const id = req.body.id;
+    const points = req.body.points;
+
+    if(id != null && points != null)
+
+    collection_statistiqueusers
+        .updateOne({ userId: id },
+            {
+                $set: { "totalPoints": points }
+            }, true
+        )
+        .then(data => {
+            if (data) {
+                res.set('Access-Control-Allow-Origin', '*');
+                res.send('Update total of points successful!')
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while creating the User."
+            });
+        });
+}
