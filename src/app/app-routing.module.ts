@@ -49,25 +49,25 @@ const routes: Routes = [
       publications: MyPublicationsResolverService,
       user: MyUserDataResolverService
     },
-    // child route path
-    children: [
-      {
-        path: 'edit',  
-        title: "Edit data",
-        loadComponent: () => import('./user-data-update/user-data-update.component')
-          .then(mod => mod.UserDataUpdateComponent),
-        canDeactivate: [formulaireDesactiveGuard],
-
-      },
-      {
-        path: 'create-new-post',
-        title: "Create new post",
-        loadComponent: () => import("./publication-create/publication-create.component")
-          .then(mod => mod.PublicationCreateComponent),
-        canDeactivate: [formulaireDesactiveGuard]
-      },
-    ]
   },
+
+  {
+    path: 'mon-compte/edit',
+    title: "Edit data",
+    loadComponent: () => import('./user-data-update/user-data-update.component')
+      .then(mod => mod.UserDataUpdateComponent),
+    canDeactivate: [formulaireDesactiveGuard],
+
+  },
+  {
+    path: 'mon-compte/create',
+    title: "Create new post",
+    loadComponent: () => import("./publication-create/publication-create.component")
+      .then(mod => mod.PublicationCreateComponent),
+    canDeactivate: [formulaireDesactiveGuard]
+  },
+
+
   {
     path: 'publication/edit/:id',
     title: "Modifier sa publication",

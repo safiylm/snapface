@@ -30,7 +30,7 @@ export class HeaderSnapComponent implements OnInit {
   subscription !: Subscription;
 
 
-  constructor(private userService: UserService, private router: ActivatedRoute) {
+  constructor(private userService: UserService, private router: ActivatedRoute,  private route: Router) {
       this.user = router.snapshot.data['user'];
    }
 
@@ -100,6 +100,12 @@ export class HeaderSnapComponent implements OnInit {
   }
 
 
+  logout(){
+    this.userService.logout();  
+    this.route.navigate(['/']);
+  }
+  
+
   ngOnInit() {
    // this.displayUser();
     this.isDisplayPhotoViewerProfil = false;
@@ -113,6 +119,7 @@ export class HeaderSnapComponent implements OnInit {
       this.checkIfDejaAbonnee();
     }, 400)
   }
+
 
   sabonner() {
     this.userService.addAbonnee(this.id);
@@ -129,6 +136,7 @@ export class HeaderSnapComponent implements OnInit {
       this.checkIfDejaAbonnee();
     }, 400)
   }
+
 
   ngOnDestroy(){
     this.subscription.unsubscribe();
