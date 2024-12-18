@@ -32,12 +32,12 @@ export class MyAccountComponent implements OnInit {
 
   ngOnInit() {
     this.id = localStorage.getItem('userId')?.toString() as string;
-    if(this.router.url == "/mon-compte/edit"){
+  /*  if(this.router.url == "/mon-compte/edit"){
       this.displayUserEditForm()
     }
     if(this.router.url == "/mon-compte/create-new-post"){
       this.displayCreateNewPost()
-    }
+    }*/
   }
 
 
@@ -49,7 +49,7 @@ export class MyAccountComponent implements OnInit {
     this.router.navigate(['/mon-compte']);
   }
 
-
+/*
   displayCreateNewPost() {
     this.isDisplayPosts = false;
     this.isDisplayCreateNewPost = true;
@@ -65,9 +65,6 @@ export class MyAccountComponent implements OnInit {
     this.router.navigate(['/mon-compte/edit']);
   }
 
+*/
 
-  logout(){
-    this.userService.logout();  
-    this.router.navigate(['/']);
-  }
 }
