@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
-const User = require("./user");
 
+//MODEL PUBLICATION
 
 const Publication = new mongoose.Schema({
 

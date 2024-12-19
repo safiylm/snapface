@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
 
+//MODEL COMMENTAIRE  
+
 const Commentaire = new mongoose.Schema({
 
     title: { type: String },

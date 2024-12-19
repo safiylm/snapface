@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
 
+//MODEL FLUX DE PERTINANCE  
+
 const FluxPertinence = new mongoose.Schema({
 
     relevance: { type: Number },

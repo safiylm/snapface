@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
 
+//MODEL INTERACTION SOCIALE
+
 const InteractionSociale = new mongoose.Schema({
 
     postId: { type: String },
