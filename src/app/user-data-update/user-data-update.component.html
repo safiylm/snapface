@@ -1,40 +1,60 @@
+<app-header [id]='userId'></app-header>
+<h1>Modifier ses données </h1>
 <form [formGroup]="updateUserForm" (ngSubmit)="onSubmit()">
-    <div class="div-input">
-        <label>Modifiez votre prénom:</label>
-        <input type="text" name="firstName" value={{user?.firstName}}  formControlName="firstName">
+    <div class="d-flex flex-wrap align-items-start justify-content-center">
+        <div class="col">
+            <div class="div-input">
+                <label>Modifiez votre prénom:</label>
+                <input type="text" class="form-control" value={{user?.firstName}} formControlName="firstName">
+            </div>
+
+            <div class="div-input">
+                <label>Modifiez votre nom de famille:</label>
+                <input type="text" class="form-control" value={{user?.lastName}} formControlName="lastName">
+            </div>
+
+            <img src={{user?.photos_profil}} alt="photo de profil de l'utilisateur" />
+
+            <div class="div-input">
+                <label>Modifiez le lien de votre photo de profil:</label>
+                <input type="text" class="form-control" value={{user?.photos_profil}} formControlName="photos_profil">
+            </div>
+            <!-- <div class="div-input">
+                <label>Modifiez votre email:</label>
+                <input type="email" class="form-control" value={{user?.email}} formControlName="email">
+            </div>
+
+            <div class="div-input">
+                <label>Modifiez votre mot de passe: </label>
+                <input type="password" class="form-control" value={{user?.password}} formControlName="password">
+            </div>  
+            
+            <div class="div-input">
+                <label>Modifiez le lien de votre numéro de téléphone :</label>
+                <input type="number" class="form-control" value={{user?.phoneNo}} formControlName="phoneNo">
+            </div> -->
+        </div>
+
+        <div class="col">
+
+
+            <img src={{user?.photos_background}} alt="photo de background de l'utilisateur" />
+
+            <div class="div-input">
+                <label>Modifiez le lien de votre photo de background:</label>
+                <input type="text" class="form-control" value={{user?.photos_background}}
+                    formControlName="photos_background">
+            </div>
+
+            <button class="btn btn-primary" type="submit">Enregistrer les modifications </button>
+            <br/>
+            <button class="btn btn-light" type="button">Modifier votre email</button>
+            <button class="btn btn-light" type="button">Modifier votre numéro de téléphone</button>
+            <button class="btn btn-light" type="button">Modifier votre mot de passe </button>
+
+        </div>
     </div>
 
-    <div class="div-input">
-        <label>Modifiez votre nom de famille:</label>
-        <input type="text" name="lastName" value={{user?.lastName}}  formControlName="lastName">
-    </div>
-    
-    <div class="div-input">
-        <label>Modifiez votre email:</label>
-        <input type="email" name="email" value={{user?.email}}  formControlName="email">
-    </div>
 
-    <div class="div-input">
-        <label>Modifiez votre mot de passe: </label>
-        <input type="password" name="password" value={{user?.password}}  formControlName="password">
-    </div>
-
-    <div class="div-input">
-        <label>Modifiez le lien de votre numéro de téléphone :</label>
-        <input type="number" name="phoneNo" value={{user?.phoneNo}}  formControlName="phoneNo">
-    </div>
-
-    <div class="div-input">
-        <label>Modifiez le lien de votre photo de profil:</label>
-        <input type="text" name="photos_profil" value={{user?.photos_profil}}  formControlName="photos_profil">
-    </div>
-
-    <div class="div-input">
-        <label>Modifiez le lien de votre photo de background:</label>
-        <input type="text" name="photos_background" value={{user?.photos_background}}  formControlName="photos_background">
-    </div>
-
-
-    <button type="submit">Modifier </button>
 
 </form>
