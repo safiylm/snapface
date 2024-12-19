@@ -53,7 +53,7 @@ const routes: Routes = [
 
   {
     path: 'mon-compte/edit',
-    title: "Edit data",
+    title: "Modifier mes données personnelles",
     loadComponent: () => import('./user-data-update/user-data-update.component')
       .then(mod => mod.UserDataUpdateComponent),
     canDeactivate: [formulaireDesactiveGuard],
