@@ -1,3 +1,4 @@
+//MODEL STATISTIQUE USER  
 export class StatistiqueUser {
     constructor(
         public _id:number,

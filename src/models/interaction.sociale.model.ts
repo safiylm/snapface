@@ -1,3 +1,4 @@
+//MODEL INTERACTION SOCIAL
 export class InteractionSociale {
     constructor(
         public _id:string ,

@@ -1,3 +1,4 @@
+//MODEL ABONNEE
 export class Abonnee {
     constructor(
         public _id: number,

@@ -1,4 +1,4 @@
-//raccourci typscript
+//MODEL PUBLICATION 
 export class Publication {
     constructor(
         public _id:string,
