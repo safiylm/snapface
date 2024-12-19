@@ -1,14 +1,18 @@
+<app-header></app-header>
+<!--<app-header-snap [id]='id' ></app-header-snap>
+-->
+    <h1>Créer une publication </h1>
+
 <form [formGroup]="postCreateForm" (ngSubmit)="onSubmit()" >
 
-    <h2>Ajouter une nouvelle publication </h2>
     <div class="div-input">
-        <label>Saisissez votre titre:</label>
+        <label>Saisissez le titre:</label>
         <input type="text" class="form-control" formControlName="title" autocomplete="off" />
     </div>
 
     <div class="div-input">
         <label>Saisissez le corps:</label>
-        <input type="text" class="form-control"  formControlName="body" autocomplete="off"/>
+        <textarea type="text" class="form-control"  formControlName="body" autocomplete="off"></textarea>
     </div>
 
     <div *ngFor="let image of ArrayImage ; let i = index" > 
@@ -20,7 +24,7 @@
         <label>Saisissez le lien d'une image:</label>
         <div class="d-flex align-items-center justify-content-center">
             <input type="text" class="form-control" formControlName="image"  [(ngModel)]="newimage" autocomplete="off"/>
-            <button type="button" class="btn btn-dark" (click)="addNewImage()">Ajouter une nouvelle image</button>
+            <button type="button" class="btn btn-dark" (click)="addNewImage()">Ajouter</button>
         </div>
     </div>
 
@@ -34,6 +38,6 @@
     </div> 
 
     <button type="button" (click)="addnewImages()">Ajouter une nouvelle image </button>-->
-    <button class="btn btn-dark" type="submit">Ajouter </button>
+   <br/> <button class="btn btn-dark" type="submit">Créer </button>
 
 </form>
