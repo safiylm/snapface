@@ -3,13 +3,14 @@ import { Publication } from '../../models/publication.model';
 import { FormGroup, FormControl, ReactiveFormsModule } from "@angular/forms";
 import { PublicationsService } from '../../services/publication-service';
 import { NgFor } from '@angular/common';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   standalone: true,
   selector: 'app-publication-create',
   templateUrl: './publication-create.component.html',
   styleUrls: ['./publication-create.component.scss'], 
-  imports:[ReactiveFormsModule, NgFor]
+  imports:[ReactiveFormsModule, NgFor, HeaderComponent]
 })
 
 
@@ -32,6 +33,7 @@ export class PublicationCreateComponent implements OnInit {
   }
 
   addNewImage() {
+    if( this.postCreateForm.value['image']?.toString() as string != null )
     this.array_image.push(this.postCreateForm.value['image']?.toString() as string);
     this.newimage = "";
   }

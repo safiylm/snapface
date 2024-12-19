@@ -1,13 +1,13 @@
+h1 {
+    margin: 40px auto;
+    text-align: center;
+    font-weight: lighter;
+}
+
 form {
     width: 500px;
     margin: 20px auto;
 
-    h2 {
-        margin: 20px auto;
-        text-align: center;
-        font-size: x-large;
-        font-weight: 300;
-    }
 
     .div-input {
         margin: 16px 0;
@@ -16,6 +16,10 @@ form {
             margin-bottom: 5px;
         }
 
+    }
+    
+    textarea{
+        height: 100px;
     }
 
     button[type="submit"] {
