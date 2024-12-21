@@ -6,17 +6,17 @@ import { ListFollowersComponent } from '../list-followers/list-followers.compone
 import { NgIf } from '@angular/common';
 
 @Component({
-  standalone:true, 
+  standalone: true,
   selector: 'app-statistique-user',
   templateUrl: './statistique-user.component.html',
-  styleUrls: ['./statistique-user.component.scss'], 
-  imports:[ ListFollowersComponent, NgIf]
+  styleUrls: ['./statistique-user.component.scss'],
+  imports: [ListFollowersComponent, NgIf]
 })
 export class StatistiqueUserComponent implements OnInit {
 
   statistiqueUser !: StatistiqueUser;
   @Input() id !: string;
-  isVisibleListFollowers : boolean = false;
+  isVisibleListFollowers: boolean = false;
   subscription !: Subscription;
 
   constructor(private StatistiqueUserService: StatistiqueUserService) { }
@@ -24,15 +24,14 @@ export class StatistiqueUserComponent implements OnInit {
   get Followers() { return (this.statistiqueUser && this.statistiqueUser.followers) ? this.statistiqueUser.followers : 0 }
   get TotalPoints() { return (this.statistiqueUser && this.statistiqueUser.totalPoints) ? this.statistiqueUser.totalPoints : 0 }
   get TotalPosts() { return (this.statistiqueUser && this.statistiqueUser.totalPosts) ? this.statistiqueUser.totalPosts : 0 }
-  
+
   displayFollowers() {
-      this.isVisibleListFollowers= true;
+    this.isVisibleListFollowers = true;
   }
 
-  hideListFollowers()
-{
-  this.isVisibleListFollowers= false;
-}
+  hideListFollowers() {
+    this.isVisibleListFollowers = false;
+  }
 
   ngOnInit() {
     this.subscription = this.StatistiqueUserService.getStatistiqueUserById(this.id)
@@ -47,5 +46,4 @@ export class StatistiqueUserComponent implements OnInit {
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
-
 }

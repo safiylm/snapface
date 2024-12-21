@@ -27,7 +27,6 @@ var corsOptions = {
 };
 
 app.use(cors(corsOptions));
-
 app.use(router_user )
 app.use(router_publication )
 app.use(router_statistique_user )
@@ -40,7 +39,6 @@ app.use(express.static(path.join(__dirname, '../dist/snapface')));
 app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../dist/snapface/index.html'));
 });
-
 
 app.listen(4100, function () {
   console.log('Example app listening on port 4100!')

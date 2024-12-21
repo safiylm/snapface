@@ -10,14 +10,14 @@ import { NgIf, NgFor } from '@angular/common';
   selector: 'app-publication-list',
   templateUrl: './publication-list.component.html',
   styleUrls: ['./publication-list.component.scss'], 
-  imports:[PublicationComponent,  NgIf , NgFor]
+  imports:[PublicationComponent,  NgFor]
 })
 export class PublicationListComponent {
 
   @Input() id !: string;
   publications!: Publication[];
 
-  constructor(private publicationsService: PublicationsService, private route: ActivatedRoute) {
+  constructor( route: ActivatedRoute) {
     this.publications = route.snapshot.data['publications']
   }
  

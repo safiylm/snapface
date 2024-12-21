@@ -16,7 +16,7 @@ import { NgFor } from '@angular/common';
 })
 export class PublicationEditComponent {
 
-  id: string = "65cd023efb273094193ac038";
+  id: string = "";
   data?: Publication;
   post = new Publication("", "", "", [""], 0, "",);
   subscription !: Subscription;
