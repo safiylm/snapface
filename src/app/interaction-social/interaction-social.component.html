@@ -53,12 +53,12 @@
 
 </div>
 
-<div id="div-liste-like" *ngIf="displayListeLike_">
+<div id="div-liste-like" *ngIf="displayListeLike_ && interactionSociale.likedBy_.length">
   <button type="button" class="btn-close" aria-label="Close" (click)="displayListeLike()"></button>
-  <app-users-list-vertical [liste]="interactionSociale.pointedBy_"></app-users-list-vertical>
+  <app-users-list-vertical [liste]="interactionSociale.likedBy_"></app-users-list-vertical>
 </div>
 
-<div id="div-liste-point" *ngIf="displayListePoint_">
+<div id="div-liste-point" *ngIf="displayListePoint_ && interactionSociale.pointedBy_.length">
   <button type="button" class="btn-close" aria-label="Close" (click)="displayListePoint()"></button>
-  <app-users-list-vertical [liste]="interactionSociale.likedBy_"></app-users-list-vertical>
+  <app-users-list-vertical [liste]="interactionSociale.pointedBy_"></app-users-list-vertical>
 </div>
