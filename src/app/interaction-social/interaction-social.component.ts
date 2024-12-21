@@ -2,14 +2,15 @@ import { Component, OnInit, Input, SimpleChanges, Output, EventEmitter } from '@
 import { InteractionSociale } from '../../models/interaction.sociale.model';
 import { InteractionSocialeService } from '../../services/interaction-social-service';
 import { Subscription } from 'rxjs';
-import { NgIf } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
+import { UsersListVerticalComponent } from '../users-list-vertical/users-list-vertical.component';
 
 @Component({
   standalone:true, 
   selector: 'app-interaction-social',
   templateUrl: './interaction-social.component.html',
   styleUrls: ['./interaction-social.component.scss'], 
-  imports:[NgIf]
+  imports:[NgIf, NgFor, UsersListVerticalComponent]
 })
 
 
@@ -23,9 +24,20 @@ export class InteractionSocialComponent implements OnInit {
   @Output() newItemEvent = new EventEmitter<string>();
   @Input() isDisplayListeOfComments !: boolean ;
   subscription !: Subscription;
+  displayListeLike_:boolean = false;
+  displayListePoint_:boolean = false;
 
   constructor(private interactionSocialeService: InteractionSocialeService ) { }
 
+  displayListeLike(){
+    this.displayListeLike_= ! this.displayListeLike_
+  }
+
+  displayListePoint(){
+    
+    this.displayListePoint_= ! this.displayListePoint_
+    console.log( this.displayListePoint_)
+  }
 
   toggleDisplayListOfComments(value: boolean) {
     this.newItemEvent.emit( value as unknown as string );
@@ -110,8 +122,18 @@ export class InteractionSocialComponent implements OnInit {
     return (this.interactionSociale && this.interactionSociale.comments )? this.interactionSociale.comments : 0
   }
 
+    
+  get LikedBy(){
+    return (this.interactionSociale && this.interactionSociale.likedBy_ )? this.interactionSociale.likedBy_ : 0
+  }
+
+
+  get PointedBy(){
+    return (this.interactionSociale && this.interactionSociale.pointedBy_ )? this.interactionSociale.pointedBy_ : 0
+  }
+
   ngOnDestroy(){
     this.subscription.unsubscribe();
   }
-  
+
 }
