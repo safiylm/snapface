@@ -1,7 +1,7 @@
-<app-auteur-in-post-or-commentaire [id]="commentaire.userId.toString()"></app-auteur-in-post-or-commentaire>
+ <app-auteur-in-post-or-commentaire [id]="UserId!"></app-auteur-in-post-or-commentaire>
 
 <div class="d-flex flex-row align-items-center justify-content-between">
-    <p *ngIf="!edited" id="p-commentaire">{{ commentaire.title}}</p>
+    <p *ngIf="!edited" id="p-commentaire">{{ Titre}}</p>
     
     <div *ngIf="isMyComment" >
         <button *ngIf="!edited" (click)="showFormEditComment()">

@@ -10,7 +10,7 @@ import { NgIf } from '@angular/common';
   selector: 'app-commentaire',
   templateUrl: './commentaire.component.html',
   styleUrls: ['./commentaire.component.scss'], 
-  imports:[ReactiveFormsModule,AuteurInPostOrCommentaireComponent,
+  imports:[ReactiveFormsModule, AuteurInPostOrCommentaireComponent,
     NgIf 
    ]
 })
@@ -79,9 +79,13 @@ export class CommentaireComponent //implements AfterViewInit
       */
   }
 
+  get Titre(){
+    return (this.commentaire && this.commentaire.title) ? this.commentaire.title : null
+  }
 
   get UserId(){
-    return (this.commentaire.userId  )&& this.commentaire.userId 
+  return (this.commentaire && this.commentaire.userId) ? this.commentaire.userId : null
   }
+
 
 }

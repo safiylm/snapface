@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Injectable, OnInit, Pipe, ViewChild } from '@angular/core';
 import { UserService } from '../../services/user-service'
 import { FormGroup, FormControl, Validators, ReactiveFormsModule } from "@angular/forms";
 import * as bcrypt from "bcryptjs";
@@ -10,12 +10,14 @@ import { HeaderComponent } from '../header/header.component';
   selector: 'app-auth-connexion-user',
   templateUrl: './auth-connexion-user.component.html',
   styleUrls: ['./auth-connexion-user.component.scss'],
-  imports: [CommonModule, ReactiveFormsModule, HeaderComponent],
+  imports: [ ReactiveFormsModule, HeaderComponent, CommonModule ],
 })
+
+@Injectable({ providedIn: 'root' })
 
 export class AuthConnexionUserComponent implements OnInit {
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private elemRef: ElementRef ) { }
 
   password !: string;
   email !: string;
@@ -34,14 +36,14 @@ export class AuthConnexionUserComponent implements OnInit {
 
   ngOnInit() {
     this.isDisplayPassword = false;
-    this.connexionInfo.nativeElement.innerText = "";
+   // this.connexionInfo.nativeElement.innerText = "";
   }
 
 
   ngAfterViewInit() {
     // Après l'initialisation de la vue, nous pouvons accéder en toute
     // sécurité à notre élément référencé.
-    this.connexionInfo.nativeElement.innerText = "";
+   // this.connexionInfo.nativeElement.innerText = "";
   }
 
   onSubmit() {
@@ -66,12 +68,12 @@ export class AuthConnexionUserComponent implements OnInit {
                 localStorage.setItem('userId', data["_id"]);
                 window.location.href = '/mon-compte'
               } else {
-                this.connexionInfo.nativeElement.innerText = "Votre votre mot de passe est incorrecte.";
+              //  this.connexionInfo.nativeElement.innerText = "Votre votre mot de passe est incorrecte.";
               }
             })
           }
-          else
-            this.connexionInfo.nativeElement.innerText = "Votre email est incorrecte.";
+         // else
+          //  this.connexionInfo.nativeElement.innerText = "Votre email est incorrecte.";
 
         }, 2000)
 

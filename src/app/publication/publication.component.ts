@@ -6,40 +6,42 @@ import { CommentaireListComponent } from '../commentaire-list/commentaire-list.c
 import { NgIf, TitleCasePipe } from '@angular/common';
 
 @Component({
-  standalone:true,
+  standalone: true,
   selector: 'app-publication',
   templateUrl: './publication.component.html',
-  styleUrls: ['./publication.component.scss'], 
-  imports: [AuteurInPostOrCommentaireComponent, 
+  styleUrls: ['./publication.component.scss'],
+  imports: [AuteurInPostOrCommentaireComponent,
     InteractionSocialComponent, CommentaireListComponent, TitleCasePipe,
-    NgIf ]
+    NgIf]
 })
 
-export class PublicationComponent implements OnInit {
+export class PublicationComponent  {
 
   @Input() publication!: Publication;
-  isDisplayListOfComments !: boolean;
-  constructor() { }
+  isDisplayListOfComments : boolean = false;
+  // constructor() { }
   index: number = 0;
-  isMyPost: boolean = false ;
+  isMyPost: boolean = false;
 
-  ngOnInit() {
-    if(this.publication.userId == localStorage.getItem('userId')){
-      this.isMyPost = true;
+  ngAfterContentChecked() {
+    if (this.UserId == localStorage.getItem('userId')) {
+    this.isMyPost = true;
     }
-    this.isDisplayListOfComments= false;
-  }
-  goToEditPost(){
-    document.location.href='publication/edit/'+this.publication._id 
+ }
+
+
+  goToEditPost() {
+    document.location.href = 'publication/edit/' + this.publication._id
   }
 
-  toggleDisplayListOfComments(event : string ){
+  toggleDisplayListOfComments(event: string) {
     this.isDisplayListOfComments = event as unknown as boolean;
   }
 
   displayImageNext() {
-    if (this.index < this.publication.images.length -1 ){
-      this.index += 1;}
+    if (this.index < this.publication.images.length - 1) {
+      this.index += 1;
+    }
   }
 
   displayImagePrecedent() {
@@ -47,16 +49,29 @@ export class PublicationComponent implements OnInit {
       this.index -= 1;
   }
 
-  get Title(){
-    return (this.publication && this.publication.title )? this.publication.title : null
+  get Id(){
+    return (this.publication && this.publication._id) ? this.publication._id : null
+
   }
 
-  get Body(){
-    return (this.publication && this.publication.body )? this.publication.body : null
+  get UserId() {
+    return (this.publication && this.publication.userId) ? this.publication.userId : null
   }
 
-  get Publicationn(){
-    return (this.publication  )? this.publication : null
+  get Title() {
+    return (this.publication && this.publication.title) ? this.publication.title : null
+  }
 
+  get Body() {
+    return (this.publication && this.publication.body) ? this.publication.body : null
+  }
+
+  get Images() {
+    return (this.publication && this.publication.images) ? this.publication.images : null
+  }
+
+
+  get Publicationn() {
+    return (this.publication) ? this.publication : null
   }
 }
