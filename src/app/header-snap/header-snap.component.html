@@ -1,11 +1,11 @@
 <div id="photo-viewer-photo-profil" *ngIf="isDisplayPhotoViewerProfil">
+    <button type="button" class="btn-close" aria-label="Close" (click)="hidePhotoViewerProfil()"></button>
     <img src={{UserPhotoProfil}} />
-    <button (click)="hidePhotoViewerProfil()" class="btn btn-dark">Fermer</button>
 </div>
 
 <div id="photo-viewer-photo-background" *ngIf="isDisplayPhotoViewerBackground">
+    <button type="button" class="btn-close" aria-label="Close" (click)="hidePhotoViewerBackground()"></button>
     <img src={{UserPhotoBackground}} />
-    <button (click)="hidePhotoViewerBackground()" class="btn btn-dark">Fermer</button>
 </div>
 
 <img id="photo-background" src={{UserPhotoBackground}} (click)="showPhotoViewerBackground()" />
@@ -20,7 +20,7 @@
             <button *ngIf="!isAbonnee && !istMe" (click)="sabonner()" id="sabonner"> S'abonner </button>
             <button *ngIf="isAbonnee && !istMe" (click)="sedesabonner()" id="sedesabonner"> Se désabonner </button>
         </h3>
-        <div class="dropdown" *ngIf="istMe" >
+        <div class="dropdown" *ngIf="istMe">
             <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                 aria-expanded="false">
                 +
