@@ -14,7 +14,7 @@
     </div>
 </div>
 
-<div id="div-liste-followers" *ngIf="isVisibleListFollowers">
+<div id="div-liste-followers" *ngIf="isVisibleListFollowers && Followers">
     <button type="button" class="btn-close" aria-label="Close" (click)="hideListFollowers()"></button>
     <app-list-followers [id]='id'></app-list-followers>
 </div>
