@@ -9,9 +9,7 @@ import { NgFor } from '@angular/common';
   templateUrl: './users-list.component.html',
   styleUrls: ['./users-list.component.scss'], 
   imports:[NgFor],
-  
 })
-
 
 
 export class UsersListComponent {

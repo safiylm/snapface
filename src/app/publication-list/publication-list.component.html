@@ -1,4 +1,10 @@
 <div class="listofposts">
-    <app-publication *ngFor="let publication of publications" [publication]="publication" >
+    <app-publication  *ngFor="let publication of publications" [publication]="publication" >
     </app-publication>
+
+    <div *ngIf="publications.length == 0">
+        <p>Aucune publication pour le moment </p>
+        <br/>
+        <app-users-list></app-users-list>
+    </div>
 </div>

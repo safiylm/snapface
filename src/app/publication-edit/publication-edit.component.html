@@ -1,14 +1,14 @@
 
 <form [formGroup]="postEditForm" (ngSubmit)="onSubmit()">
     <h1>Modifier sa publication</h1>
-    <div class="div-input">
+    <div class="form-floating">
         <label>Modifiez votre titre:</label>
-        <input class="form-control" type="text" formControlName="title" value={{data?.title}} />
+        <input class="form-control"  type="text" formControlName="title" />
     </div>
 
-    <div class="div-input">
-        <label>Modifiez le corps:</label>
-        <input class="form-control" type="text" formControlName="body" value={{data?.body}} />
+    <div class="form-floating">
+        <label>Modifiez le texte de votre publication:</label>
+        <textarea class="form-control" formControlName="body">{{data?.body}}</textarea>
     </div>
 
     <div class="d-flex align-items-center justify-content-center">

@@ -4,4 +4,14 @@
     align-items: center;
     justify-content: center;
 
+    p{
+        border-top: 0.2px solid gray;
+        border-bottom: 0.2px solid gray;
+        text-align: center;
+        font-size: 22px;
+        font-weight: lighter;
+        padding: 40px;
+        width: 600px;
+        margin: 10px auto;
+    }
 }

@@ -16,7 +16,8 @@ const routes: Routes = [
       .then(mod => mod.UserAccountComponent),
     resolve: {
       publications: PublicationsByUserIdResolverService,
-      user: UserDataResolverService
+      user: UserDataResolverService,
+      users: AllUsersResolverService
     }
   },
   {
@@ -71,9 +72,9 @@ const routes: Routes = [
   {
     path: 'publication/edit/:id',
     title: "Modifier sa publication",
-    loadChildren: () => import('./publication-edit/publication-edit.component')
+    loadComponent: () => import('./publication-edit/publication-edit.component')
       .then(mod => mod.PublicationEditComponent),
-    canDeactivate: [formulaireDesactiveGuard]
+   // canDeactivate: [formulaireDesactiveGuard]
   },
 
   {
