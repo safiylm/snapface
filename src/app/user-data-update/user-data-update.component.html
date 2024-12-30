@@ -1,53 +1,43 @@
-<app-header [id]='userId'></app-header>
+<app-header [id]='user?._id'></app-header>
+
 <h1>Modifier ses données </h1>
-<form [formGroup]="updateUserForm" (ngSubmit)="onSubmit()">
+<form (ngSubmit)="onSubmit()" autocomplete="off">
     <div class="d-flex flex-wrap align-items-start justify-content-center">
         <div class="col">
             <div class="div-input">
                 <label>Modifiez votre prénom:</label>
-                <input type="text" class="form-control" value={{user?.firstName}} formControlName="firstName">
+                <input type="text" class="form-control" 
+                name="firstName" [(ngModel)]="user.firstName!" (ngModelChange)="user.firstName=$event" />
             </div>
 
             <div class="div-input">
                 <label>Modifiez votre nom de famille:</label>
-                <input type="text" class="form-control" value={{user?.lastName}} formControlName="lastName">
+                <input type="text" class="form-control" 
+                name="lastName"  [(ngModel)]="user.lastName" (ngModelChange)="user.lastName=$event" />
             </div>
 
-            <img src={{user?.photos_profil}} alt="photo de profil de l'utilisateur" />
+            <img [src]="user.photos_profil" alt="photo de profil de l'utilisateur" />
 
             <div class="div-input">
                 <label>Modifiez le lien de votre photo de profil:</label>
-                <input type="text" class="form-control" value={{user?.photos_profil}} formControlName="photos_profil">
+                <input type="text" class="form-control" name="photos_profil" 
+                [(ngModel)]="user.photos_profil" (ngModelChange)="user.photos_profil=$event" />
             </div>
-            <!-- <div class="div-input">
-                <label>Modifiez votre email:</label>
-                <input type="email" class="form-control" value={{user?.email}} formControlName="email">
-            </div>
-
-            <div class="div-input">
-                <label>Modifiez votre mot de passe: </label>
-                <input type="password" class="form-control" value={{user?.password}} formControlName="password">
-            </div>  
-            
-            <div class="div-input">
-                <label>Modifiez le lien de votre numéro de téléphone :</label>
-                <input type="number" class="form-control" value={{user?.phoneNo}} formControlName="phoneNo">
-            </div> -->
         </div>
 
         <div class="col">
 
 
-            <img src={{user?.photos_background}} alt="photo de background de l'utilisateur" />
+            <img [src]="user!.photos_background" alt="photo de background de l'utilisateur" />
 
             <div class="div-input">
                 <label>Modifiez le lien de votre photo de background:</label>
-                <input type="text" class="form-control" value={{user?.photos_background}}
-                    formControlName="photos_background">
+                <input type="text" class="form-control" name="photos_background" 
+                [(ngModel)]="user.photos_background" (ngModelChange)="user.photos_background=$event"  />
             </div>
 
             <button class="btn btn-primary" type="submit">Enregistrer les modifications </button>
-            <br/>
+            <br />
             <button class="btn btn-light" type="button">Modifier votre email</button>
             <button class="btn btn-light" type="button">Modifier votre numéro de téléphone</button>
             <button class="btn btn-light" type="button">Modifier votre mot de passe </button>
