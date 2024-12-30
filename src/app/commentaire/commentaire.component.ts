@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
 import { Commentaire } from '../../models/commentaire.model';
 import { CommentaireService } from '../../services/commentaire-service';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuteurInPostOrCommentaireComponent } from '../auteur-in-post-or-commentaire/auteur-in-post-or-commentaire.component';
 import { NgIf } from '@angular/common';
 
@@ -10,7 +10,7 @@ import { NgIf } from '@angular/common';
   selector: 'app-commentaire',
   templateUrl: './commentaire.component.html',
   styleUrls: ['./commentaire.component.scss'], 
-  imports:[ReactiveFormsModule, AuteurInPostOrCommentaireComponent,
+  imports:[ AuteurInPostOrCommentaireComponent, FormsModule,
     NgIf 
    ]
 })
@@ -31,23 +31,20 @@ export class CommentaireComponent //implements AfterViewInit
   constructor(private commentaireService: CommentaireService) { }
 
   showFormEditComment() {
-   // this.edited = true;
-    //this.commentForm.controls['comment'].setValue(this.commentaire.title.toString())
+    this.edited = true;
+    this.commentForm.controls['comment'].setValue(this.commentaire.title.toString())
   }
 
   hideFormEditComment() {
-   // this.edited = false;
+    this.edited = false;
   }
 
  
-  editComment(commentId: string) {
+  editComment() {
+    console.log(this.commentaire)
     /*if (localStorage.getItem('userId') != undefined &&
       localStorage.getItem('isLoggedIn') != "false") {
 
-      this.commentaire._id = commentId;
-      this.commentaire.title = this.commentForm.value['comment']?.toString() as string;
-      this.commentaire.postId = this.id;
-      this.commentaire.userId = localStorage.getItem('userId')?.toString() as string;
 
       this.commentaireService.updateCommentaire(this.commentaire);
       this.edited = false;
@@ -60,14 +57,14 @@ export class CommentaireComponent //implements AfterViewInit
 
   }
 
-  deleteComment(commentId: string) {
+  deleteComment() {
     /*
     if (localStorage.getItem('userId') != null &&
       localStorage.getItem('isLoggedIn') != "false"
     ) {
       let text = "Êtes-vous sûre de supprimer votre commentaire!\n OK or Cancel.";
       if (confirm(text) == true) {
-        this.commentaireService.deleteCommentaire(commentId);
+        this.commentaireService.deleteCommentaire(this.commentaire._id);
         //window.location.reload();
       } else {
         text = "You canceled!";
