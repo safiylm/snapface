@@ -1,18 +1,21 @@
 
-<form [formGroup]="postEditForm" (ngSubmit)="onSubmit()">
+<form (ngSubmit)="onSubmit()">
+
     <h1>Modifier sa publication</h1>
     <div class="form-floating">
         <label>Modifiez votre titre:</label>
-        <input class="form-control"  type="text" formControlName="title" />
+        <input class="form-control"  type="text" 
+        name="title" [(ngModel)]="post.title" (ngModelChange)="post.title=$event"/>
     </div>
 
     <div class="form-floating">
         <label>Modifiez le texte de votre publication:</label>
-        <textarea class="form-control" formControlName="body">{{data?.body}}</textarea>
+        <textarea class="form-control" name="body" 
+        [(ngModel)]="post.body!" (ngModelChange)="post.body=$event" >{{post.body}}</textarea>
     </div>
 
-    <div class="d-flex align-items-center justify-content-center">
-        <div *ngFor="let image of data?.images ; let i = index" style="width:200px"
+    <div class="div-images d-flex flex-wrap align-items-center justify-content-center">
+        <div *ngFor="let image of post.images ; let i = index" style="width:200px"
             class="d-flex flex-column align-items-center justify-content-center">
             <img width='200px' height='auto' src={{image}} alt="Nouvelle image n°{{+ i}}" />
             <button class='btn btn-dark' type='button' (click)='deleteImage(i)'>Supprimer</button><br />
@@ -20,15 +23,16 @@
     </div>
 
     <div class="div-input">
-        <label>Ajouter une nouvelle image:</label>
+        <label>Ajouter le lien de votre nouvelle image:</label>
         <div class="d-flex align-items-center justify-content-center">
-            <input class="form-control" type="text" formControlName="image" />
-            <button class="btn btn-light" type="button" (click)='addNewImage()'>Ajouter une nouvelle image</button>
+            <input class="form-control" type="text" name="image" />
+            <button class="btn btn-light" type="button" (click)='addNewImage("fgb")'>Ajouter</button>
         </div>
     </div>
 
 
-    <button class="btn btn-dark" type="submit">Modifier </button>
-    <button class="btn btn-danger" type="button" (click)="deletePost()">SUPPRIMER LA PUBLICATION</button>
+    <button class="btn btn-primary" type="submit">Enregistrer les modifications  </button>
+    <br/>
+    <button class="btn btn-danger" type="button" (click)="deletePost()">Supprimer la publication </button>
 
 </form>
