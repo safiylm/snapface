@@ -13,6 +13,8 @@ import { NgClass, NgIf, NgStyle } from '@angular/common';
   styleUrls: ['./password-edit.component.scss'], 
   imports:[ReactiveFormsModule, NgStyle, NgIf]
 })
+
+
 export class PasswordEditComponent {
 
   id: string = localStorage.getItem('userId')?.toString() as string;

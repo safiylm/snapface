@@ -26,7 +26,7 @@ export class MyAccountComponent implements OnInit {
   isDisplayCreateNewPost: boolean = false;
   isDisplayUserEditForm: boolean = false;
 
-  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private userService: UserService,  private router: Router) { }
 
   data?: User;
 
