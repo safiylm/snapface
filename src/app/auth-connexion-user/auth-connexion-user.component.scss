@@ -4,72 +4,77 @@
     background-repeat: no-repeat;
     background-position-x: center;
     height: calc(100vh - 50px);
-}
-
-
-form {
-    padding: 10px 30px;
-    background-color: rgb(255, 255, 255);
-    width: 400px;
-    border-radius: 15px;
-
-    h1 {
-        text-align: center;
-        color: black;
-        font-weight: 500;
-        margin: 30px 0;
-    }
-
-    .div-input {
-        margin: 16px auto;
-        width: 100%;
-
-        label,
-        input {
-            display: block;
-            width: 100%;
-            font-size: medium;
-
-        }
-
-        input {
-            border: none;
-            border-bottom: 1px solid rgb(229, 213, 245);
-            padding: 6px 12px;
-            margin: 5px 0;
-        }
-
-        #password{
-            width: 80%;
-        }
-    }
-
-    button[type="submit"] {
-        border: none;
-        margin: 15px 10px;
-        color: white;
-        background-color: #1e1731;
-        padding: 7px 14px;
-        border-radius: 5px;
-    }
-
-    a {
-        color: #1e1731;
-    }
-
-    #connexion-info {
-        text-align: center;
-        color: red;
-    }
-}
-
-@media(max-width:480px) {
 
     form {
+        padding: 10px 30px;
+        background-color: rgb(255, 255, 255);
+        width: 400px;
+        border-radius: 15px;
 
-        width: 90vw;
-        padding: 15px;
-        box-sizing: border-box;
-        margin: 20px 0;
+        h1 {
+            text-align: center;
+            color: black;
+            font-weight: 500;
+            margin: 30px 0;
+        }
+
+        .div-input {
+            margin: 16px auto;
+            width: 100%;
+
+            label,
+            input {
+                display: block;
+                width: 100%;
+                font-size: medium;
+
+            }
+
+            input {
+                border: none;
+                border-bottom: 1px solid rgb(229, 213, 245);
+                padding: 6px 12px;
+                margin: 5px 0;
+            }
+
+            #password {
+                width: 80%;
+            }
+        }
+
+        button[type="submit"] {
+            border: none;
+            margin: 15px 10px;
+            color: white;
+            background-color: #1e1731;
+            padding: 7px 14px;
+            border-radius: 5px;
+        }
+
+        a {
+            color: #1e1731;
+        }
+
+        #connexion-info {
+            text-align: center;
+            color: red;
+        }
+    }
+}
+
+
+@media(max-width:480px) {
+    .page-connexion {
+        height: auto;
+        min-height: 90vh;
+        background-size: auto;
+
+        form {
+
+            width: 90vw;
+            padding: 15px;
+            box-sizing: border-box;
+            margin: 20px 0;
+        }
     }
 }
