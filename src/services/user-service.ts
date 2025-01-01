@@ -48,15 +48,13 @@ export class UserService {
       )
   }
 
-  public inscription(formData: User): void {
+  public inscription(formData: User): Observable<User> {
 
-    this.http
+    return this.http
       .post<User>(
         `https://snapface.onrender.com/api/user/create`,
         formData,
-      ).subscribe(data => {
-        console.log("Inscription success")
-      })
+      )
 
   }
 
@@ -105,27 +103,19 @@ export class UserService {
   }
 
 
-
   getAbonneeByUserId(id: string): Observable<Abonnee[]> {
     return this.http.get<Abonnee[]>("https://snapface.onrender.com/api/abonneesbyUserId?id=" + id);
   }
 
 
-
-
-  updateUser(formData: User): void {
-
-    this.http
+  updateUser(formData: User): Observable<User> {
+    return this.http
       .post<User>(
         `https://snapface.onrender.com/api/user/update`,
-        formData,
-      ).subscribe(data => {
-        console.log(" user update post req body content :")
-        console.log(data)
-      })
-
+        formData
+      );
   }
-
+  
 
   deleteUser(userId: string): void {
 
@@ -139,10 +129,5 @@ export class UserService {
       })
 
   }
-
-
-
-
-
 
 }

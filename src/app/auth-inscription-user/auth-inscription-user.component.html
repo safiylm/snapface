@@ -1,49 +1,37 @@
 <app-header></app-header>
+
 <div class="page-inscription d-flex flex-column align-items-center justify-content-center">
 
-    <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" *ngIf="!!displayToasts">
-        <div class="toast-header">
-            <img src="..." class="rounded me-2" alt="...">
-            <strong class="me-auto">Inscription success</strong>
-            <small class="text-body-secondary">11 mins ago</small>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body">
-            Inscription success. Il faut confirmer votre email. Redirection dans
-            {{ timeForRedirection$ | async }} secondes pour vous connectez.
-        </div>
-    </div>
-
-    <form [formGroup]="inscriptionUserForm" (ngSubmit)="onSubmit()">
+    <form (ngSubmit)="onSubmit()" autocomplete="off">
         <h1>
-            S'inscrire {{ timeForRedirection$ | async }}
+            S'inscrire
         </h1>
         <div class="form2row d-flex align-items-center justify-content-center">
             <div class="row">
                 <div class="div-input">
                     <label>Saisissez votre prénom:</label>
-                    <input type="text" name="nom" formControlName="firstName" autocomplete="off" />
+                    <input type="text" name="firstName" class="form-control" [(ngModel)]="user.firstName" />
                 </div>
 
                 <div class="div-input">
                     <label>Saisissez votre nom de famille:</label>
-                    <input type="text" name="nom" formControlName="lastName" autocomplete="off" />
+                    <input type="text" name="lastName" class="form-control" [(ngModel)]="user.lastName" />
                 </div>
 
                 <div class="div-input">
                     <label>Saisissez votre email:</label>
-                    <input type="email" name="email" formControlName="email" autocomplete="off" />
+                    <input type="email" name="email" class="form-control" [(ngModel)]="user.email" />
                 </div>
                 <div class="div-input">
                     <label>Saisissez votre mot de passe: </label>
 
                     <div class="d-flex align-items-center justify-content-center">
-                        <input *ngIf="!isDisplayPassword" id="password" type="password" id="input-password"
-                            (keyup)="getFirstPassword($event)" formControlName="password" autocomplete="new-password" />
-                        <input *ngIf="!!isDisplayPassword" id="password" type="text" id="input-password"
-                            (keyup)="getFirstPassword($event)" formControlName="password" autocomplete="new-password" />
+                        <input *ngIf="!isDisplayPassword" type="password" class="form-control"
+                            [(ngModel)]="user.password" name="password" (keyup)="getFirstPassword($event)" />
+                        <input *ngIf="isDisplayPassword" type="text" class="form-control" [(ngModel)]="user.password"
+                            name="password" (keyup)="getFirstPassword($event)" autocomplete="new-password" />
 
-                        <button class="btn btn-dark" type="button" (click)="toggleDisplayPassword()">
+                        <button class="btn btn-dark" type="button" (click)="toggleDisplayPassword(1)">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-eye" viewBox="0 0 16 16">
                                 <path
@@ -54,14 +42,21 @@
                         </button>
                     </div>
                 </div>
-                <div *ngIf="!reglePasswordRespected">Le mot de passe doit contenir minimum: <br />
+                <div *ngIf="!(reglePasswordRespected) && ! isSubmited">
+                    Le mot de passe doit contenir minimum: <br />
                     une majuscule, une minuscule, un chiffre et un caractère special.</div>
 
-                <div *ngIf="reglePasswordRespected" [ngStyle]="{'color': 'green'}">Le mot de passe contient 
-                    une majuscule, une minuscule, un chiffre et un caractère special. <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check-square" viewBox="0 0 16 16" color="green">
-                        <path d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                        <path d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
-                      </svg></div>
+                <div *ngIf="reglePasswordRespected  && ! isSubmited" [ngStyle]="{'color': 'green'}">
+                    Le mot de passe contient
+                    une majuscule, une minuscule, un chiffre et un caractère special.
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                        class="bi bi-check-square" viewBox="0 0 16 16" color="green">
+                        <path
+                            d="M14 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z" />
+                        <path
+                            d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z" />
+                    </svg>
+                </div>
             </div>
 
             <div class="row">
@@ -71,12 +66,12 @@
                     <label>Confirmez votre mot de passe: </label>
 
                     <div class="d-flex align-items-center justify-content-center">
-                        <input *ngIf="!isDisplayPassword2" type="password" formControlName="password2"
-                            autocomplete="new-password" (keyup)="getSecondPassword($event)" />
-                        <input *ngIf="!!isDisplayPassword2" type="text" formControlName="password2"
-                            autocomplete="new-password" (keyup)="getSecondPassword($event)" />
+                        <input *ngIf="!isDisplayPassword2" type="password" name="password2" class="form-control"
+                            [(ngModel)]="password2" autocomplete="new-password" />
+                        <input *ngIf="isDisplayPassword2" type="text" name="password2" class="form-control"
+                            [(ngModel)]="password2" autocomplete="new-password" />
 
-                        <button class="btn btn-dark" type="button" (click)="toggleDisplayPassword2()">
+                        <button class="btn btn-dark" type="button" (click)="toggleDisplayPassword(2)">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-eye" viewBox="0 0 16 16">
                                 <path
@@ -88,31 +83,49 @@
                     </div>
                 </div>
 
-                <div *ngIf="!is2PasswordIdentique  && firstPassword!='' && secondPassword!='' "
-                    [ngStyle]="{'color': 'red'}">Les mots de passe ne sont pas identique </div>
-                <div *ngIf="is2PasswordIdentique" [ngStyle]="{'color': 'green'}">Les mots de passe sont identique </div>
+                <div *ngIf="!(this.user.password === this.password2) && !isSubmited " [ngStyle]="{'color': 'red'}">Les
+                    mots de passe ne sont pas identique </div>
+                <div *ngIf="this.user.password === this.password2 && user.password.length!=0 && !isSubmited"
+                    [ngStyle]="{'color': 'green'}">Les mots de passe sont
+                    identique </div>
 
                 <div class="div-input">
                     <label>Saisissez le lien de votre numéro de téléphone :</label>
-                    <input type="number" name="phoneNo" formControlName="phoneNo" autocomplete="off" />
+                    <input type="number" name="phoneNo" class="form-control" [(ngModel)]="user.phoneNo" />
                 </div>
 
                 <div class="div-input">
                     <label>Saisissez le lien de votre photo de profil:</label>
-                    <input type="text" name="photo" formControlName="photos_profil" autocomplete="off" />
+                    <input type="text" name="photos_profil" class="form-control" [(ngModel)]="user.photos_profil" />
                 </div>
 
                 <div class="div-input">
                     <label>Saisissez le lien de votre photo de background:</label>
-                    <input type="text" name="photo" formControlName="photos_background" autocomplete="off" />
+                    <input type="text" name="photos_background" class="form-control"
+                        [(ngModel)]="user.photos_background" />
                 </div>
             </div>
         </div>
         <div class="d-flex align-items-center justify-content-center">
-             <button *ngIf="!reglePasswordRespected && !is2PasswordIdentique" type="submit" disabled>S'inscrire </button>
-            <button *ngIf="reglePasswordRespected && is2PasswordIdentique" type="submit" >S'inscrire </button>
-          
+            <button type="submit" disabled *ngIf="!(reglePasswordRespected && user.password === password2)">
+                S'inscrire
+            </button>
 
+            <button type="submit" *ngIf="reglePasswordRespected && user.password === password2">
+                S'inscrire
+            </button>
             <a href='/connexion'>Se connecter</a>
+
+
         </div>
+        <div class="display-resultat" [ngClass]="{'d-block':  res() && isSubmited}">
+            Inscription success. Il faut confirmer votre email. Redirection dans
+            {{ timeForRedirection$ | async }} secondes pour vous connectez.
+        </div>
+        <div class="display-resultat" [ngClass]="{'d-block':  !res() && isSubmited }">
+            Inscription échoué </div>
+
+
+
     </form>
+</div>
