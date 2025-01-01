@@ -26,20 +26,32 @@ export class CommentaireCreateComponent {
           {
             next: (data) => {
               if (data) {
-
+                this.commentaire.title = ""
                 this.result = "Votre commentaire a été crée avec succès"
-                setTimeout(()=>{
+                setTimeout(() => {
                   this.result = ""
                 }, 1000)
-                this.commentaire.title = ""
-
               }
-            }, error: (e) => console.error(e)
+            }, error: (e) => {
+              this.commentaire.title = ""
+              this.result = "Une erreur s'est produite veuillez recommencer."
+              setTimeout(() => {
+                this.result = ""
+              }, 1000)
+              console.error(e)
+            }
           })
-      else
+      else {
         this.result = "Saisissez votre commentaire"
+        setTimeout(() => {
+          this.result = ""
+        }, 1000)
+      }
     } else {
       this.result = "Il faut se connecter!";
+      setTimeout(() => {
+        this.result = ""
+      }, 1000)
     }
 
   }
