@@ -10,22 +10,36 @@ import { CommentaireService } from 'src/services/commentaire-service';
   styleUrls: ['./commentaire-create.component.scss'],
   imports: [FormsModule]
 })
+
 export class CommentaireCreateComponent {
-  
+
   @Input() id !: string;
   commentaire = new Commentaire("", "", Date.now(), localStorage.getItem('userId')?.toString() as string, '');
-
+  result = "";
   constructor(private commentaireService: CommentaireService) { }
 
   createNewComment() {
     this.commentaire.postId = this.id;
-    if (localStorage.getItem('userId') ) {
+    if (localStorage.getItem('userId')) {
       if (this.commentaire.title.toString().length != 0)
-        this.commentaireService.addNewCommentaire(this.commentaire)
+        this.commentaireService.addNewCommentaire(this.commentaire).subscribe(
+          {
+            next: (data) => {
+              if (data) {
+
+                this.result = "Votre commentaire a été crée avec succès"
+                setTimeout(()=>{
+                  this.result = ""
+                }, 1000)
+                this.commentaire.title = ""
+
+              }
+            }, error: (e) => console.error(e)
+          })
       else
-        (document.getElementById("info-createNewComment" + this.id) as HTMLFormElement).innerHTML = "Saisissez votre commentaire"
+        this.result = "Saisissez votre commentaire"
     } else {
-      (document.getElementById("info-createNewComment" + this.id) as HTMLFormElement).innerHTML = "Il faut se connecter!";
+      this.result = "Il faut se connecter!";
     }
 
   }

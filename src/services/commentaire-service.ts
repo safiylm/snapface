@@ -24,7 +24,7 @@ export class CommentaireService {
     return this.http.get<User>("https://snapface.onrender.com/api/userid?id=" + id);
   }
 
-  addNewCommentaire(formData: Commentaire) {
+  addNewCommentaire(formData: Commentaire): Observable<Commentaire> {
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -32,19 +32,14 @@ export class CommentaireService {
       })
     };
 
-    this.http
+    return this.http
       .post<Commentaire>(
         `https://snapface.onrender.com/api/commentaire/create`,
         formData,
         httpOptions
-
-      ).subscribe(data => {
-        if (data)
-          console.log("Commentaire created")
-
-      })
-
+      )
   }
+  
 
   deleteCommentaire(commentId: string) {
     this.http
@@ -100,8 +95,8 @@ export class CommentaireService {
           }
         ).subscribe(data => {
           if (data)
-           
-          localStorage.removeItem('totalComments');
+
+            localStorage.removeItem('totalComments');
         })
     }
   }
