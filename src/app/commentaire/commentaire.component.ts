@@ -5,84 +5,102 @@ import { FormControl, FormGroup, FormsModule } from '@angular/forms';
 import { AuteurInPostOrCommentaireComponent } from '../auteur-in-post-or-commentaire/auteur-in-post-or-commentaire.component';
 import { NgIf } from '@angular/common';
 
-@Component({ 
-   standalone:true, 
+@Component({
+  standalone: true,
   selector: 'app-commentaire',
   templateUrl: './commentaire.component.html',
-  styleUrls: ['./commentaire.component.scss'], 
-  imports:[ AuteurInPostOrCommentaireComponent, FormsModule,
-    NgIf 
-   ]
+  styleUrls: ['./commentaire.component.scss'],
+  imports: [AuteurInPostOrCommentaireComponent, FormsModule,
+    NgIf
+  ]
 })
 
 export class CommentaireComponent //implements AfterViewInit 
 {
 
-  public edited = false;
+  public isDisplayingForm = false;
   isMyComment: boolean = false;
-
+  result = "";
   @Input() id !: string;
   @Input() isDisplayListOfComments !: boolean;
   @Input() commentaire !: Commentaire;
 
-  commentForm = new FormGroup({
-    comment: new FormControl( "" )
-  });
+
+  ngOnInit() {
+    this.isMyComment = this.commentaire.userId == localStorage.getItem("userId")
+  }
 
   constructor(private commentaireService: CommentaireService) { }
 
   showFormEditComment() {
-    this.edited = true;
-    this.commentForm.controls['comment'].setValue(this.commentaire.title.toString())
+    this.isDisplayingForm = true;
   }
 
   hideFormEditComment() {
-    this.edited = false;
+    this.isDisplayingForm = false;
   }
 
- 
+
   editComment() {
-    console.log(this.commentaire)
-    /*if (localStorage.getItem('userId') != undefined &&
-      localStorage.getItem('isLoggedIn') != "false") {
+    if (localStorage.getItem('userId') == this.commentaire.userId) {
 
+      this.commentaireService.updateCommentaire(this.commentaire).subscribe(
+        {
+          next: (data) => {
+            if (data) {
+              this.isDisplayingForm = false;
+              this.result = "Commentaire modifié avec succes!"
+              setInterval(() => {
+                this.result = ""
+              }, 1000)
+            }
+          }, error: e => {
+            this.result = "Une erreur s'est produite veuillez réessayer!"
+            setInterval(() => {
+              this.result = ""
+            }, 1000)
+          }
+        }
+      )
 
-      this.commentaireService.updateCommentaire(this.commentaire);
-      this.edited = false;
-     // window.location.reload();
-
-    } else {
-      (document.getElementById("info-editComment" + this.commentaire._id) as HTMLFormElement).innerHTML = "Il faut se connecter!";
     }
-*/
 
   }
 
   deleteComment() {
-    /*
-    if (localStorage.getItem('userId') != null &&
-      localStorage.getItem('isLoggedIn') != "false"
-    ) {
+
+    if (localStorage.getItem('userId') == this.commentaire.userId) {
+
       let text = "Êtes-vous sûre de supprimer votre commentaire!\n OK or Cancel.";
       if (confirm(text) == true) {
-        this.commentaireService.deleteCommentaire(this.commentaire._id);
-        //window.location.reload();
-      } else {
-        text = "You canceled!";
-      }
-
-    } else {
-      (document.getElementById("info-deleteComment" + this.commentaire._id) as HTMLFormElement).innerHTML = "Il faut se connecter!";
+        this.commentaireService.deleteCommentaire(this.commentaire._id)
+        .subscribe(
+          {
+            next: (data) => {
+              if (data) {
+                this.isDisplayingForm = false;
+                this.result = "Commentaire supprimé avec succes!"
+                setInterval(() => {
+                  this.result = ""
+                }, 1000)
+              }
+            }, error: e => {
+              this.result = "Une erreur s'est produite veuillez réessayer!"
+              setInterval(() => {
+                this.result = ""
+              }, 1000)
+            }
+          })
+      } 
     }
-      */
   }
 
-  get Titre(){
+  get Titre() {
     return (this.commentaire && this.commentaire.title) ? this.commentaire.title : null
   }
 
-  get UserId(){
-  return (this.commentaire && this.commentaire.userId) ? this.commentaire.userId : null
+  get UserId() {
+    return (this.commentaire && this.commentaire.userId) ? this.commentaire.userId : null
   }
 
 

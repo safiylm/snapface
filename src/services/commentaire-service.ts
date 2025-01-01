@@ -41,27 +41,21 @@ export class CommentaireService {
   }
   
 
-  deleteCommentaire(commentId: string) {
-    this.http
+  deleteCommentaire(commentId: string) : Observable<Commentaire> {
+   return this.http
       .post<any>(
         "https://snapface.onrender.com/api/commentaire/delete",
         { "id": commentId }
-      ).subscribe(data => {
-        if (data)
-          console.log("Commentaire deleted")
-      })
+      )
   }
 
-  updateCommentaire(form: Commentaire) {
+  updateCommentaire(form: Commentaire): Observable<Commentaire> {
 
     return this.http
       .post<Commentaire>(
         `https://snapface.onrender.com/api/commentaire/update`,
         form
-      ).subscribe(data => {
-        if (data)
-          console.log("Commentaire edited")
-      })
+      )
   }
 
 
