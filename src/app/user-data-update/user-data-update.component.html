@@ -1,48 +1,50 @@
-<app-header [id]='user._id'></app-header>
+<app-header></app-header>
 
 <h1>Modifier ses données </h1>
 <form (ngSubmit)="onSubmit()" autocomplete="off">
     <div class="d-flex flex-wrap align-items-start justify-content-center">
+        
         <div class="col">
             <div class="div-input">
                 <label>Modifiez votre prénom:</label>
-                <input type="text" class="form-control" 
-                name="firstName" [(ngModel)]="user.firstName!" (ngModelChange)="user.firstName=$event" />
+                <input type="text" class="form-control" name="firstName" [(ngModel)]="user.firstName" />
             </div>
 
             <div class="div-input">
                 <label>Modifiez votre nom de famille:</label>
-                <input type="text" class="form-control" 
-                name="lastName"  [(ngModel)]="user.lastName" (ngModelChange)="user.lastName=$event" />
+                <input type="text" class="form-control" name="lastName" [(ngModel)]="user.lastName" />
             </div>
 
             <img [src]="user.photos_profil" alt="photo de profil de l'utilisateur" />
 
             <div class="div-input">
                 <label>Modifiez le lien de votre photo de profil:</label>
-                <input type="text" class="form-control" name="photos_profil" 
-                [(ngModel)]="user.photos_profil" (ngModelChange)="user.photos_profil=$event" />
+                <input type="text" class="form-control" name="photos_profil" [(ngModel)]="user.photos_profil" />
             </div>
         </div>
 
         <div class="col">
-
-
             <img [src]="user!.photos_background" alt="photo de background de l'utilisateur" />
 
             <div class="div-input">
                 <label>Modifiez le lien de votre photo de background:</label>
-                <input type="text" class="form-control" name="photos_background" 
-                [(ngModel)]="user.photos_background" (ngModelChange)="user.photos_background=$event"  />
+                <input type="text" class="form-control" name="photos_background" [(ngModel)]="user.photos_background" />
             </div>
 
             <button class="btn btn-primary" type="submit">Enregistrer les modifications </button>
+            <div class="display-resultat" [ngClass]="{'d-block':  resultatOfEdit && isSubmit}" [ngStyle]="{'background-color': '#b2bb69'}">
+                Vos données ont été modifié avec succès.
+            </div>
+
+            <div class="display-resultat" [ngClass]="{'d-block':  !resultatOfEdit && isSubmit}" [ngStyle]="{'color': 'red'}">
+               Erreur, vos données n'ont pas été modifié.
+            </div>
             <br />
             <button class="btn btn-light" type="button">Modifier votre email</button>
             <button class="btn btn-light" type="button">Modifier votre numéro de téléphone</button>
             <button class="btn btn-light" type="button">Modifier votre mot de passe </button>
-
         </div>
+
     </div>
 
 
