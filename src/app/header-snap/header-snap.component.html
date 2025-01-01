@@ -1,20 +1,20 @@
 <div id="photo-viewer-photo-profil" *ngIf="isDisplayPhotoViewerProfil">
     <button type="button" class="btn-close" aria-label="Close" (click)="hidePhotoViewerProfil()"></button>
     <br/>
-    <img src={{UserPhotoProfil}} alt="photo de profil de l'utilisateur" />
+    <img [src]="UserPhotoProfil" alt="photo de profil de l'utilisateur" />
 </div>
 
 <div id="photo-viewer-photo-background" *ngIf="isDisplayPhotoViewerBackground">
     <button type="button" class="btn-close" aria-label="Close" (click)="hidePhotoViewerBackground()"></button>
     <br/>
-    <img src={{UserPhotoBackground}} alt="photo background de l'utilisateur"/>
+    <img [src]='UserPhotoBackground' alt="photo background de l'utilisateur"/>
 </div>
 
-<img id="photo-background" src={{UserPhotoBackground}} (click)="showPhotoViewerBackground()" />
+<img id="photo-background" [src]="UserPhotoBackground" (click)="showPhotoViewerBackground()" />
 <div class="d-flex flex-wrap align-items-center justify-content-center">
 
     <div id="div-photo-profil">
-        <img id="photo-profil" src={{UserPhotoProfil}} (click)="showPhotoViewerProfil()" />
+        <img id="photo-profil" [src]="UserPhotoProfil" (click)="showPhotoViewerProfil()" />
     </div>
     <div>
         <h3 class="name">

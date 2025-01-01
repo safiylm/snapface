@@ -43,7 +43,7 @@ export class AuteurInPostOrCommentaireComponent  implements OnInit {
   }
 
   ngOnDestroy(){
-   // this.subscription.unsubscribe();
+    this.subscription.unsubscribe();
   }
   
 }

@@ -16,55 +16,14 @@ import { UserDataUpdateComponent } from '../user-data-update/user-data-update.co
   templateUrl: './my-account.component.html',
   styleUrls: ['./my-account.component.scss'], 
   imports:[HeaderComponent, HeaderSnapComponent, 
-    PublicationListComponent, PublicationCreateComponent, UserDataUpdateComponent
+    PublicationListComponent, 
   ]
 })
 export class MyAccountComponent implements OnInit {
-  id: string = localStorage.getItem('userId')?.toString() as string;
-
-  isDisplayPosts: boolean = true;
-  isDisplayCreateNewPost: boolean = false;
-  isDisplayUserEditForm: boolean = false;
-
-  constructor(private userService: UserService,  private router: Router) { }
-
-  data?: User;
-
+  id !: string ;
+  
   ngOnInit() {
     this.id = localStorage.getItem('userId')?.toString() as string;
-  /*  if(this.router.url == "/mon-compte/edit"){
-      this.displayUserEditForm()
-    }
-    if(this.router.url == "/mon-compte/create-new-post"){
-      this.displayCreateNewPost()
-    }*/
   }
-
-
-  
-  displayPosts() {
-    this.isDisplayPosts = true;
-    this.isDisplayCreateNewPost = false;
-    this.isDisplayUserEditForm = false;
-    this.router.navigate(['/mon-compte']);
-  }
-
-/*
-  displayCreateNewPost() {
-    this.isDisplayPosts = false;
-    this.isDisplayCreateNewPost = true;
-    this.isDisplayUserEditForm = false;
-    this.router.navigate(['/mon-compte/create-new-post']);
-  }
-
-
-  displayUserEditForm() {
-    this.isDisplayPosts = false;
-    this.isDisplayCreateNewPost = false;
-    this.isDisplayUserEditForm = true;
-    this.router.navigate(['/mon-compte/edit']);
-  }
-
-*/
 
 }

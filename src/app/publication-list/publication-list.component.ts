@@ -12,6 +12,7 @@ import { UsersListComponent } from "../users-list/users-list.component";
   styleUrls: ['./publication-list.component.scss'], 
   imports: [PublicationComponent, NgFor, NgIf, UsersListComponent]
 })
+
 export class PublicationListComponent {
 
   @Input() id !: string;

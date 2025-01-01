@@ -3,27 +3,27 @@
 -->
     <h1>Créer une publication </h1>
 
-<form [formGroup]="postCreateForm" (ngSubmit)="onSubmit()" >
+<form [formGroup]="postCreateForm" (ngSubmit)="onSubmit()" autocomplete="off" >
 
     <div class="div-input">
         <label>Saisissez le titre:</label>
-        <input type="text" class="form-control" formControlName="title" autocomplete="off" />
+        <input type="text" class="form-control" formControlName="title"  />
     </div>
 
     <div class="div-input">
         <label>Saisissez le corps:</label>
-        <textarea type="text" class="form-control"  formControlName="body" autocomplete="off"></textarea>
+        <textarea type="text" class="form-control"  formControlName="body"></textarea>
     </div>
 
     <div *ngFor="let image of ArrayImage ; let i = index" > 
-      <img width='200px' height='auto' src={{image}} alt="Nouvelle image n°{{+ i}}" />
+      <img width='200px' height='auto' [src]="image" alt="Nouvelle image n°{{+ i}}" />
         <button class='btn btn-dark' type='button' (click)='deleteImage(i)'>Supprimer</button><br/>
     </div>
 
     <div class="div-input">
         <label>Saisissez le lien d'une image:</label>
         <div class="d-flex align-items-center justify-content-center">
-            <input type="text" class="form-control" formControlName="image"  [(ngModel)]="newimage" autocomplete="off"/>
+            <input type="text" class="form-control" formControlName="image"  [(ngModel)]="newimage" />
             <button type="button" class="btn btn-dark" (click)="addNewImage()">Ajouter</button>
         </div>
     </div>

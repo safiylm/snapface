@@ -12,15 +12,12 @@ import { PublicationListComponent } from '../publication-list/publication-list.c
   imports:[HeaderComponent, HeaderSnapComponent, PublicationListComponent]
 })
 
-export class UserAccountComponent  implements OnInit {
+export class UserAccountComponent {
 
   public id !: string ;
   
   constructor( private route: ActivatedRoute) { 
     this.id = this.route.snapshot.paramMap.get('id')! ;  
-  }
-
-  ngOnInit() {
   }
 
 }
