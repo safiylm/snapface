@@ -114,17 +114,15 @@
             <button type="submit" *ngIf="reglePasswordRespected && user.password === password2">
                 S'inscrire
             </button>
+
             <a href='/connexion'>Se connecter</a>
 
-
         </div>
-        <div class="display-resultat" [ngClass]="{'d-block':  res() && isSubmited}">
-            Inscription success. Il faut confirmer votre email. Redirection dans
-            {{ timeForRedirection$ | async }} secondes pour vous connectez.
+        <br />
+        <div>
+            {{res}}
         </div>
-        <div class="display-resultat" [ngClass]="{'d-block':  !res() && isSubmited }">
-            Inscription échoué </div>
-
+        <br />
 
 
     </form>

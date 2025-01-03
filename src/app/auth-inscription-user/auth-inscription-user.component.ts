@@ -21,7 +21,7 @@ import { interval, scan, takeWhile } from 'rxjs';
 export class AuthInscriptionUserComponent implements OnInit {
   constructor(private userService: UserService) { }
 
-  res = signal(false);
+  res !: string;
   isSubmited = false;
   isDisplayPassword !: boolean;
   isDisplayPassword2 !: boolean;
@@ -71,7 +71,7 @@ export class AuthInscriptionUserComponent implements OnInit {
       this.user.password = bcrypt.hashSync(this.user.password, salt);
       this.userService.inscription(this.user).subscribe(data => {
         if (data) {
-          this.res.set(true)
+          this.res =  "Inscription success. Il faut confirmer votre email. Redirection dans {{ timeForRedirection$ | async }} secondes pour vous connectez."
 
           this.timeForRedirection$ = interval(1000).pipe(
             scan(acc => --acc, 10),
@@ -81,7 +81,8 @@ export class AuthInscriptionUserComponent implements OnInit {
           setTimeout(() => {
             document.location.href = '/connexion'
           }, 10000)
-        }
+        }else
+          this.res = "Une erreur s'est introduite, veuillez réessayer!"
       })
     }
   }
