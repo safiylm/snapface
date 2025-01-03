@@ -33,16 +33,16 @@ form {
     }
 
     .div-images {
-        max-width: 700px;
-
+        
+        overflow: auto;; 
         img {
             width: 200px;
             height: 280px;
             object-fit: cover;
-            padding: 5px;
+            margin: 10px;
         }
     }
-
+    
 
 
 }

@@ -5,19 +5,19 @@
     <div class="form-floating">
         <label>Modifiez votre titre:</label>
         <input class="form-control"  type="text" 
-        name="title" [(ngModel)]="post.title" (ngModelChange)="post.title=$event"/>
+        name="title" [(ngModel)]="post.title" />
     </div>
 
     <div class="form-floating">
         <label>Modifiez le texte de votre publication:</label>
         <textarea class="form-control" name="body" 
-        [(ngModel)]="post.body!" (ngModelChange)="post.body=$event" >{{post.body}}</textarea>
+        [(ngModel)]="post.body!" >{{post.body}}</textarea>
     </div>
 
-    <div class="div-images d-flex flex-wrap align-items-center justify-content-center">
-        <div *ngFor="let image of post.images ; let i = index" style="width:200px"
+    <div class="div-images d-flex flex-wrap align-items-center justify-content-start">
+        <div *ngFor="let image of array_image ; let i = index"
             class="d-flex flex-column align-items-center justify-content-center">
-            <img width='200px' height='auto' src={{image}} alt="Nouvelle image n°{{+ i}}" />
+            <img width='300px' height='auto' [src]="image" alt="Nouvelle image n°{{+ i}}" />
             <button class='btn btn-dark' type='button' (click)='deleteImage(i)'>Supprimer</button><br />
         </div>
     </div>
@@ -25,12 +25,13 @@
     <div class="div-input">
         <label>Ajouter le lien de votre nouvelle image:</label>
         <div class="d-flex align-items-center justify-content-center">
-            <input class="form-control" type="text" name="image" />
-            <button class="btn btn-light" type="button" (click)='addNewImage("fgb")'>Ajouter</button>
+            <input class="form-control" type="text" name="image" [(ngModel)]="newimage"/>
+            <button class="btn btn-light" type="button" (click)='addNewImage()'>Ajouter</button>
         </div>
     </div>
 
-
+    {{resultatOfEdit}}
+    <br/>
     <button class="btn btn-primary" type="submit">Enregistrer les modifications  </button>
     <br/>
     <button class="btn btn-danger" type="button" (click)="deletePost()">Supprimer la publication </button>

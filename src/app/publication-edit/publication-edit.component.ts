@@ -11,13 +11,16 @@ import { NgFor } from '@angular/common';
   selector: 'app-publication-edit',
   templateUrl: './publication-edit.component.html',
   styleUrls: ['./publication-edit.component.scss'],
-  imports:[ NgFor, FormsModule]
+  imports: [NgFor, FormsModule]
 })
 export class PublicationEditComponent {
 
   id: string = "";
   post!: Publication;
   subscription !: Subscription;
+  resultatOfEdit = "";
+  array_image !: string[];
+  newimage = "";
 
   constructor(private publicationService: PublicationsService, private route: ActivatedRoute) { }
 
@@ -26,6 +29,7 @@ export class PublicationEditComponent {
       .subscribe({
         next: (data) => {
           this.post = data;
+          this.array_image = data.images
         },
         error: (e) => console.error(e)
       });
@@ -33,18 +37,30 @@ export class PublicationEditComponent {
 
 
   deleteImage(nb: number) {
-    this.post!.images = this.post?.images.filter((item, i) => i !== nb) as [string]
+    this.array_image = this.array_image.filter((item, i) => i !== nb) as [string]
   }
 
 
-  addNewImage(e : string ) {
-    this.post?.images.push(e);
+  addNewImage() {
+    if (this.newimage != null)
+      this.array_image.push(this.newimage);
+    this.newimage = "";
   }
 
 
   deletePost() {
     if (confirm("Êtes-vous sur de vouloir supprimer la publication?")) {
-      this.publicationService.deletePost(this.id)
+      this.publicationService.deletePost(this.id).subscribe(
+        data => {
+          if (data) {
+            this.resultatOfEdit = " Votre publication a été supprimé avec succès.";
+            setTimeout(() => {
+              document.location.href = '/mon-compte'
+            }, 3000)
+          }
+          else
+            this.resultatOfEdit = "Erreur, Votre publication n'a pas été supprimé."
+        })
     }
   }
 
@@ -56,10 +72,19 @@ export class PublicationEditComponent {
 
 
   onSubmit() {
-    this.publicationService.editPost(this.post!);
-    setTimeout(() => {
-      document.location.href = "/mon-compte"
-    }, 2000);
+    this.post.images = this.array_image as [string]
+    console.log(this.post)
+    this.publicationService.editPost(this.post!).subscribe(
+      data => {
+        if (data) {
+          this.resultatOfEdit = " Votre publication a été modifié avec succès.";
+          setTimeout(() => {
+            document.location.href = '/mon-compte'
+          }, 3000)
+        }
+        else
+          this.resultatOfEdit = "Erreur, Votre publication n'a pas été modifié."
+      })
   }
 
   ngOnDestroy() {
