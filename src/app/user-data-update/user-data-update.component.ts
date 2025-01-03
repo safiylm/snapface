@@ -20,7 +20,7 @@ export class UserDataUpdateComponent implements OnInit {
 
   user !: User;
   subscription !: Subscription;
-  resultatOfEdit = false;
+  resultatOfEdit = "";
   isSubmit = false;
 
   retrieveUser(): void {
@@ -46,13 +46,16 @@ export class UserDataUpdateComponent implements OnInit {
     this.userService.updateUser(this.user!).subscribe({
       next: data => {
         if (data) {
-          this.resultatOfEdit = true;
-          /*setTimeout(() => {
-            document.location.href = '/mon-compte'
-          }, 3000)*/
+          this.resultatOfEdit = " Vos données ont été modifié avec succès.";
+          // setTimeout(() => {
+          //   document.location.href = '/mon-compte'
+          // }, 3000)
         }
+        else
+        this.resultatOfEdit="Erreur, vos données n'ont pas été modifié."
       },
-      error: e =>{ this.resultatOfEdit = false; 
+      error: e =>{ this.resultatOfEdit = "Erreur, vos données n'ont pas été modifié."
+        ; 
         console.error(e)}
     })
   }

@@ -32,12 +32,9 @@
             </div>
 
             <button class="btn btn-primary" type="submit">Enregistrer les modifications </button>
-            <div class="display-resultat" [ngClass]="{'d-block':  resultatOfEdit && isSubmit}" [ngStyle]="{'background-color': '#b2bb69'}">
-                Vos données ont été modifié avec succès.
-            </div>
-
-            <div class="display-resultat" [ngClass]="{'d-block':  !resultatOfEdit && isSubmit}" [ngStyle]="{'color': 'red'}">
-               Erreur, vos données n'ont pas été modifié.
+            <br/>
+            <div>
+               {{resultatOfEdit}}
             </div>
             <br />
             <button class="btn btn-light" type="button">Modifier votre email</button>
