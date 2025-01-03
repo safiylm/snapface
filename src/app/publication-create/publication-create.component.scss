@@ -5,7 +5,7 @@ h1 {
 }
 
 form {
-    width: 500px;
+    width: 800px;
     margin: 20px auto;
 
 
@@ -28,11 +28,16 @@ form {
         text-align: center;
         width: 100%;
     }
+    .liste-images{
+        overflow: auto;; 
+        div{
+        margin: 10px;
+    }}
 
 
 }
 
-@media(max-width:650px) {
+@media(max-width:850px) {
 
     form {
 

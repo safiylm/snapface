@@ -1,43 +1,39 @@
 <app-header></app-header>
 <!--<app-header-snap [id]='id' ></app-header-snap>
 -->
-    <h1>Créer une publication </h1>
+<h1>Créer une publication </h1>
 
-<form [formGroup]="postCreateForm" (ngSubmit)="onSubmit()" autocomplete="off" >
+<form (ngSubmit)="onSubmit()" autocomplete="off">
 
     <div class="div-input">
         <label>Saisissez le titre:</label>
-        <input type="text" class="form-control" formControlName="title"  />
+        <input type="text" class="form-control" name="title" [(ngModel)]="post.title" />
     </div>
 
     <div class="div-input">
         <label>Saisissez le corps:</label>
-        <textarea type="text" class="form-control"  formControlName="body"></textarea>
+        <textarea type="text" class="form-control" name="body" [(ngModel)]="post.body"></textarea>
     </div>
+   
+    <div class="liste-images d-flex align-items-center justify-content-start">
 
-    <div *ngFor="let image of ArrayImage ; let i = index" > 
-      <img width='200px' height='auto' [src]="image" alt="Nouvelle image n°{{+ i}}" />
-        <button class='btn btn-dark' type='button' (click)='deleteImage(i)'>Supprimer</button><br/>
+        <div *ngFor="let image of ArrayImage ; let i = index"
+            class="d-flex flex-column align-items-center justify-content-center">
+            <img width='300px' height='auto' [src]="image" alt="Nouvelle image n°{{+ i}}" />
+            <button class='btn btn-danger' type='button' (click)='deleteImage(i)'>Supprimer</button><br />
+        </div>
     </div>
 
     <div class="div-input">
         <label>Saisissez le lien d'une image:</label>
         <div class="d-flex align-items-center justify-content-center">
-            <input type="text" class="form-control" formControlName="image"  [(ngModel)]="newimage" />
-            <button type="button" class="btn btn-dark" (click)="addNewImage()">Ajouter</button>
+            <input type="text" class="form-control" name="image" [(ngModel)]="newimage" />
+            <button type="button" class="btn btn-light" (click)="addNewImage()">Ajouter</button>
         </div>
     </div>
 
-<!-- 
-    <div *ngFor="let item of array_image">
-
-        <div class="div-input">
-            <label>Saisissez le lien d'une image:</label>
-            <input type="text" name="image{{item}}" placeholder={{item}}  />
-        </div>
-    </div> 
-
-    <button type="button" (click)="addnewImages()">Ajouter une nouvelle image </button>-->
-   <br/> <button class="btn btn-dark" type="submit">Créer </button>
-
+    <br /> <button class="btn btn-primary" type="submit">Créer </button>
+    <br />
+    {{result}}
+    <br />
 </form>
