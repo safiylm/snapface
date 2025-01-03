@@ -1,6 +1,6 @@
-import { Component, ElementRef, Injectable, OnInit, Pipe, ViewChild } from '@angular/core';
+import { Component, ElementRef, Injectable } from '@angular/core';
 import { UserService } from '../../services/user-service'
-import { FormGroup, FormControl, Validators, ReactiveFormsModule, FormsModule } from "@angular/forms";
+import { FormsModule } from "@angular/forms";
 import * as bcrypt from "bcryptjs";
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../header/header.component';

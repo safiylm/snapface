@@ -10,6 +10,7 @@ import { Component, OnInit } from '@angular/core';
     NgIf 
   ]
 })
+
 export class HeaderComponent implements OnInit {
 
   isLoggedIn: boolean = false;

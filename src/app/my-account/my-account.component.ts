@@ -25,5 +25,5 @@ export class MyAccountComponent implements OnInit {
   ngOnInit() {
     this.id = localStorage.getItem('userId')?.toString() as string;
   }
-
+  
 }

@@ -26,7 +26,6 @@ export class ListFollowersComponent implements OnInit {
       .subscribe({
         next: (data) => {
           this.abonnee = data;
-          //  console.log(data);
         },
         error: (e) => console.error(e)
       });
