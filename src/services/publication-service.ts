@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Publication } from '../models/publication.model'
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { InteractionSociale } from '../models/interaction.sociale.model';
 
 
@@ -41,41 +41,36 @@ export class PublicationsService {
     return this.http.get<Publication[]>("https://snapface.onrender.com/api/publicationByUserId?id=" + localStorage.getItem('userId')?.toString());
   }
 
-  public createNewPublication(formData: Publication): void {
-
-    this.http
+  public createNewPublication(formData: Publication): Observable<Publication> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Access-Control-Allow-Origin': '*',
+      })
+    };
+    return this.http
       .post<Publication>(
         `https://snapface.onrender.com/api/publication/create`,
-        formData,
-      ).subscribe(data => {
-        console.log("Add new post ")
-      })
+        formData,httpOptions
+      )
   }
 
 
+  editPost(formData: Publication): Observable<Publication> {
 
-  editPost(formData: Publication): void {
-
-    this.http
+    return this.http
       .post<Publication>(
         `https://snapface.onrender.com/api/publication/edit`,
         formData,
-      ).subscribe(data => {
-        if (data)
-          console.log("Post edited")
-      })
+      )
 
   }
 
-  deletePost(id: string): void {
-    this.http
+  deletePost(id: string): Observable<Publication> {
+    return this.http
       .post<any>(
         `https://snapface.onrender.com/api/publication/delete`,
         { "id": id },
-      ).subscribe(data => {
-        console.log(" publication delete post req body content :")
-        console.log(data)
-      })
+      )
   }
 
   getPublicationById(PublicationId: string): Observable<Publication> {
@@ -91,23 +86,6 @@ export class PublicationsService {
       throw new Error('Publication not found!');
     }
     return Publication;
-  }
-
-
-
-
-  snapPublicationById(PublicationId: string, snapType: 'snap' | 'unsnap'): void {
-    const Publication = this.getPublicationById(PublicationId);
-    // snapType === 'snap' ? Publication.snaps++ : Publication.snaps--;
-  }
-
-  unsnapPublicationById(PublicationId: string): void {
-    const Publication = this.publications.find(Publication => Publication._id === PublicationId);
-    if (Publication) {
-      //  Publication.snaps--;
-    } else {
-      throw new Error('Publication not found!');
-    }
   }
 
 }
