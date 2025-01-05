@@ -15,7 +15,7 @@ import { NgFor } from '@angular/common';
 })
 export class PublicationEditComponent {
 
-  id: string = "";
+  id: string = ""; //postId
   post!: Publication;
   subscription !: Subscription;
   resultatOfEdit = "";
@@ -47,16 +47,21 @@ export class PublicationEditComponent {
     this.newimage = "";
   }
 
+  ngOnInit() {
+    this.id = this.route.snapshot.paramMap.get('id')!;
+    this.getDataPost();
+  }
+
 
   deletePost() {
     if (confirm("Êtes-vous sur de vouloir supprimer la publication?")) {
       this.publicationService.deletePost(this.id).subscribe(
         data => {
           if (data) {
-            this.resultatOfEdit = " Votre publication a été supprimé avec succès.";
+            this.resultatOfEdit = "Votre publication a été supprimé avec succès.";
             setTimeout(() => {
               document.location.href = '/mon-compte'
-            }, 3000)
+            }, 1000)
           }
           else
             this.resultatOfEdit = "Erreur, Votre publication n'a pas été supprimé."
@@ -64,18 +69,12 @@ export class PublicationEditComponent {
     }
   }
 
-
-  ngOnInit() {
-    this.id = this.route.snapshot.paramMap.get('id')!;
-    this.getDataPost();
-  }
-
-
   onSubmit() {
     this.post.images = this.array_image as [string]
     console.log(this.post)
     this.publicationService.editPost(this.post!).subscribe(
       data => {
+        console.log(data)
         if (data) {
           this.resultatOfEdit = " Votre publication a été modifié avec succès.";
           setTimeout(() => {
