@@ -1,6 +1,6 @@
 <form (ngSubmit)="createNewComment()" id="addNewComment" autocomplete="off">
-    <input type="text" name="comment" 
+    <input type="text" name="comment" class="form-control"
     [(ngModel)]="commentaire.title" id="inputcreatecomment" />
-    <button type="submit">Envoyer</button>
+    <button class="btn btn-light" type="submit">Commenter</button>
 </form>
 <div>{{result}}</div>

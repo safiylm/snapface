@@ -23,9 +23,9 @@
 
 
 <form *ngIf="isMyComment && isDisplayingForm" autocomplete="off" (ngSubmit)="editComment()">
-    <input type="text" [(ngModel)]="commentaire.title" name="title" />
-    <button type="submit">Envoyer</button>
-    <button type="button" (click)="hideFormEditComment()">Annuler</button>
+    <input type="text" class="form-control" [(ngModel)]="commentaire.title" name="title" />
+    <button class="btn btn-primary" type="submit">Envoyer</button>
+    <button class="btn btn-light" type="button" (click)="hideFormEditComment()">Annuler</button>
 </form>
 
 <div>{{result}}</div>
