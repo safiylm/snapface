@@ -49,8 +49,8 @@ export class PublicationsService {
     };
     return this.http
       .post<Publication>(
-        `http://localhost:4100/api/publication/create`,
-        formData, httpOptions
+        `http://snapface.onrender.com/api/publication/create`,
+        formData,
       )
   }
 
@@ -68,7 +68,7 @@ export class PublicationsService {
   deletePost(id: string): Observable<any> {
     return this.http
       .post<any>(
-        `http://localhost:4100/api/publication/delete`,
+        `https://snapface.onrender.com/api/publication/delete`,
         { "id": id },
       )
   }
