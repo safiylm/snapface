@@ -41,14 +41,21 @@ export class PublicationCreateComponent implements OnInit {
   onSubmit() {
     this.post.userId = localStorage.getItem('userId')?.toString() as string;
     this.post.images = this.array_image as [string];
+    this.post.date = Date.now()
 
-    this.publicationsService.createNewPublication(this.post).subscribe(
-      (data) => {
-        if (data != null) { this.result = "Votre publication a été crée avec succès!" }
+    this.publicationsService.createNewPublication(this.post).subscribe({
+      next: (data) => {
+        console.log(data)
+        if (data) {
+          this.result = "Votre publication a été crée avec succès!"
+          setTimeout(() => {
+            document.location.href = '/mon-compte'
+          }, 1500)
+        }
         else { this.result = "Une erreur s'est introduite, veuillez réessayer!" }
       }
 
-    )
+    })
 
   }
 
