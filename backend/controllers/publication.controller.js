@@ -20,7 +20,7 @@ exports.create = (req, res) => {
         body: req.body.body,
         userId: req.body.userId,
         images:  req.body.images,
-         date: Date,
+        date: Date,
         // videos: [{ url: req.body.videos, title: "", }],
         // audios: [{ url: req.body.audios , title: "", }],
     };
@@ -39,7 +39,9 @@ exports.create = (req, res) => {
             .then(data1 => {
 
               collection_statistiqueusers.updateOne({ "userId": req.body.userId },
-              { $inc: { "totalPosts": 1 } }) 
+              { $inc: { "totalPosts": 1 } }).then(data => {
+                res.send(data);
+              })
               .catch(err => {
                 res.status(500).send({
                   message:
@@ -117,7 +119,10 @@ exports.delete =  (req, res) => {
             deleteMany({ "postId": req.body.id }).then(k => {
            
               collection_statistiqueusers.updateOne({ "userId": data.userId },
-                { $inc: { "totalPosts": -1 } }) 
+                { $inc: { "totalPosts": -1 } })
+                .then(data2 => {
+                  res.send(data2);
+                })
                 .catch(err => {
                   res.status(500).send({
                     message:
