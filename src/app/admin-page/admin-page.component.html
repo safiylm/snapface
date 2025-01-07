@@ -1,0 +1,25 @@
+<h1>Page Admin</h1>
+<h2>Tests Interactions Social</h2>
+
+<div class="title d-flex align-items-center justify-content-center">
+    <div>Nombre de j'aime</div>
+    <div>Nombre de points</div>
+    <div>Nombre de commentaires</div>
+</div>
+<div *ngIf="posts">
+    <app-interaction-social-admin *ngFor="let post of posts" [postId]="post._id" ></app-interaction-social-admin>
+</div>
+
+
+<h2>Tests Statistique user </h2>
+
+
+<div class="title d-flex align-items-center justify-content-center">
+    <div>Nombre de followers</div>
+    <div>Nombre de points</div>
+    <div>Nombre de publications</div>
+</div>
+
+<div *ngIf="users">
+    <app-statistique-user-admin *ngFor="let user of users" [userId]="user._id"></app-statistique-user-admin>
+</div>

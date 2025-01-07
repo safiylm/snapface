@@ -1,0 +1,6 @@
+<div class="d-flex align-items-center justify-content-center">
+    <div [ngClass]="{'green': likestotalisOk}">Nombre de likes : {{interactionSocial.likes}}</div>
+    <div [ngClass]="{'green': pointstotalisOk}">Nombre de points : {{interactionSocial.points}}</div>
+    <div [ngClass]="{'green': interactionSocial.comments==commentaires.length}">Nombre de comments : {{interactionSocial.comments}}</div>
+</div>
+<div class="border"></div>

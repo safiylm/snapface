@@ -8,6 +8,7 @@ import { PublicationsByUserIdResolverService } from 'src/services/resolver/publi
 import { AllUsersResolverService } from 'src/services/resolver/all-users-resolver-service';
 import { UserDataResolverService } from 'src/services/resolver/user-data-resolver-service';
 import { formulaireDesactiveGuard } from './guards/formulaire-desactive.guard'
+import { AdminPageComponent } from './admin-page/admin-page.component';
 
 const routes: Routes = [
   {
@@ -61,7 +62,7 @@ const routes: Routes = [
 
   },
   {
-    path: 'mon-compte/create',
+    path: 'mon-compte/create-post',
     title: "Create new post",
     loadComponent: () => import("./publication-create/publication-create.component")
       .then(mod => mod.PublicationCreateComponent),
@@ -78,7 +79,7 @@ const routes: Routes = [
   },
 
   {
-    path: 'user/password/edit',
+    path: 'password/edit',
     title: "Modifier son mot de passe",
     loadComponent: () => import("./password-edit/password-edit.component")
       .then(mod => mod.PasswordEditComponent),
@@ -86,6 +87,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
 
+  {
+    path: 'admin',
+    title: "ADMIN",
+    component: AdminPageComponent
+  },
 ];
 
 @NgModule({
