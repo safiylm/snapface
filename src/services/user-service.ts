@@ -59,16 +59,12 @@ export class UserService {
   }
 
 
-  public editPassword(userId: string, newpassword: string) {
-    this.http
+  public editPassword(userId: string, newpassword: string): Observable<User> {
+   return this.http
       .post<User>(
         `https://snapface.onrender.com/api/user/edit/password`,
         { "_id": userId, "newpassword": newpassword },
-      ).subscribe(data => {
-        if (data) {
-          console.log("User edit password")
-        }
-      })
+      )
   }
 
 

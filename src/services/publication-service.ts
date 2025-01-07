@@ -33,6 +33,11 @@ export class PublicationsService {
     })
   }
 
+
+  getAllPublications_(): Observable<Publication[]> {   
+      return this.http.get<Publication[]>("https://snapface.onrender.com/api/publication")  
+  }
+
   getAllPublicationsByUserId(id: string): Observable<Publication[]> {
     return this.http.get<Publication[]>("https://snapface.onrender.com/api/publicationByUserId?id=" + id);
   }

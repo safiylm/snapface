@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
-import {
-  HttpClientModule, HttpClient, HttpHeaders,
-  HttpErrorResponse
-} from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { InteractionSociale } from '../models/interaction.sociale.model';
 
 
