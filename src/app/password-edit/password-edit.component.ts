@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl, ReactiveFormsModule } from "@angular/forms";
+import { FormGroup, FormControl, ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user-service'
 import * as bcrypt from "bcryptjs";
@@ -7,11 +7,11 @@ import { NgClass, NgIf, NgStyle } from '@angular/common';
 
 
 @Component({
-  standalone:true, 
+  standalone: true,
   selector: 'app-password-edit',
   templateUrl: './password-edit.component.html',
-  styleUrls: ['./password-edit.component.scss'], 
-  imports:[ReactiveFormsModule, NgStyle, NgIf]
+  styleUrls: ['./password-edit.component.scss'],
+  imports: [FormsModule, NgStyle, NgIf]
 })
 
 
@@ -19,30 +19,29 @@ export class PasswordEditComponent {
 
   id: string = localStorage.getItem('userId')?.toString() as string;
 
-  isDisplayPassword !: boolean;
-  isDisplayPassword2 !: boolean;
-  newpassword !: string;
-  newpassword2 !: string;
-  reglePasswordRespected !: boolean;
-  is2PasswordIdentique !: boolean;
+  isDisplayPassword0 = false;
+  isDisplayPassword = false;
+  isDisplayPassword2 = false;
+  passwordActuel = "";
+  passwordActuel0 = "";
+  newpassword = "";
+  newpassword2 = "";
+  reglePasswordRespected = false;
+  is2PasswordIdentique = false;
+  resultat = ""
 
-  passwordEditForm = new FormGroup({
-    password: new FormControl(""),
-    password2: new FormControl(""),
-  });
-
-  constructor(private route: ActivatedRoute, private userService: UserService) { }
+  constructor( private userService: UserService) { }
 
 
-  toggleDisplayPassword() {
-    this.isDisplayPassword = !this.isDisplayPassword;
+  toggleDisplayPassword(nb: number) {
+    if (nb == 0)
+      this.isDisplayPassword0 = ! this.isDisplayPassword0
+    if (nb == 1)
+      this.isDisplayPassword = !this.isDisplayPassword;
+    if (nb == 2)
+      this.isDisplayPassword2 = !this.isDisplayPassword2;
+
   }
-
-
-  toggleDisplayPassword2() {
-    this.isDisplayPassword2 = !this.isDisplayPassword2;
-  }
-
 
   getFirstPassword(event: any) {
     this.newpassword = event.target.value;
@@ -69,23 +68,50 @@ export class PasswordEditComponent {
     }
   }
 
-
+  getPassword(){
+    this.userService.getUser(localStorage.getItem("userId")?.toString() as string).subscribe({
+      next: (data) => {
+        if (data)
+          this.passwordActuel0 = data.password
+      }
+    })
+  }
 
   ngOnInit() {
-
-    this.isDisplayPassword = false;
-    this.isDisplayPassword2 = false;
-    this.newpassword = "";
-    this.newpassword2 = "";
-    this.reglePasswordRespected = false;
-    this.is2PasswordIdentique = false;
+    this.getPassword()
   }
 
   onSubmit() {
-    const salt = bcrypt.genSaltSync(10);    
+
+    const salt = bcrypt.genSaltSync(10);
     if (this.newpassword === this.newpassword2) {
-      this.newpassword = bcrypt.hashSync(this.newpassword, salt);
-      this.userService.editPassword(this.id, this.newpassword);
+      bcrypt.compare(this.passwordActuel, this.passwordActuel0, (err, data1) => {
+        //if error than throw error
+        if (err) throw err
+
+        //if both match than you can do anything
+        if (data1) {
+          this.userService.editPassword(this.id, bcrypt.hashSync(this.newpassword, salt))
+            .subscribe(data => {
+              if (data) {
+                this.resultat = "Votre mot de passe a été modifié avec succès!"
+                this.getPassword()
+                setTimeout(()=>{ 
+                  document.location.href = '/mon-compte'
+                }, 1500)
+              } else {
+                this.resultat = "Erreur veuillez réessayer!"
+              }
+            })
+        } else {
+          this.resultat = "Ancien mot de passe n'est pas bon!"
+
+        }
+      }
+      )
+
+    } else {
+      this.resultat = "Les mots de passe ne sont pas identique!"
     }
   }
 }
