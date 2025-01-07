@@ -8,6 +8,8 @@ router_user.post("/api/user/create", user.create);
 router_user.post("/api/user/connexion", user.connexion);
 router_user.post("/api/user/update", user.update);
 router_user.post("/api/user/edit/password", user.editPassword);
+router_user.post("/api/user/edit/email", user.editEmail);
+router_user.post("/api/user/edit/phonenumber", user.editPhoneNumber);
 router_user.post("/api/user/delete", user.delete);
 
 

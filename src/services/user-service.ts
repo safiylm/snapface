@@ -112,6 +112,22 @@ export class UserService {
       );
   }
   
+  editEmail(id : string, email: string): Observable<User>{
+    return this.http
+    .post<User>(
+      `http://localhost:4100/api/user/edit/email`,
+      { "_id": id,  "email": email },
+    );
+  }
+
+  editPhoneNumber( id : string, phoneNo: number): Observable<User>{
+    return this.http
+    .post<User>(
+      `http://localhost:4100/api/user/edit/phonenumber`,
+      { "_id": id, "phoneNo": phoneNo },
+    );
+  }
+
 
   deleteUser(userId: string): void {
 

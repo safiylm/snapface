@@ -66,9 +66,32 @@ exports.update = async (req, res) => {
         "firstName": req.body.firstName,
         "lastName": req.body.lastName,
         "photos_profil": req.body.photos_profil,
-        "password": req.body.password,
         "photos_background": req.body.photos_background,
+      }
+    });
+  res.send(updateResult);
+}
+
+
+exports.editEmail = async function (req, res){
+  res.set('Access-Control-Allow-Origin', '*');
+
+  const updateResult = await collection_user.updateOne({ "_id": new ObjectId(req.body._id) },
+    {
+      $set: {
         "email": req.body.email,
+      }
+    });
+  res.send(updateResult);
+}
+
+
+exports.editPhoneNumber = async function (req, res){
+  res.set('Access-Control-Allow-Origin', '*');
+
+  const updateResult = await collection_user.updateOne({ "_id": new ObjectId(req.body._id) },
+    {
+      $set: {
         "phoneNo": req.body.phoneNo,
       }
     });
