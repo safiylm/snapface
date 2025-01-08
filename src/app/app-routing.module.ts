@@ -9,6 +9,8 @@ import { AllUsersResolverService } from 'src/services/resolver/all-users-resolve
 import { UserDataResolverService } from 'src/services/resolver/user-data-resolver-service';
 import { formulaireDesactiveGuard } from './guards/formulaire-desactive.guard'
 import { AdminPageComponent } from './admin-page/admin-page.component';
+import { FormEmailComponent } from './password-oublier/form-email/form-email.component';
+import { PasswordOublierComponent } from './password-oublier/password-oublier.component';
 
 const routes: Routes = [
   {
@@ -91,6 +93,18 @@ const routes: Routes = [
     path: 'admin',
     title: "ADMIN",
     component: AdminPageComponent
+  },
+
+  {
+    path: 'password-oublie/email',
+    title: "Mot de passe oublie",
+    component: FormEmailComponent
+  },
+
+  {
+    path: 'reinistialisation-password/:token',
+    title: "Reinitialisation du mot de passe",
+    component: PasswordOublierComponent
   },
 ];
 

@@ -3,8 +3,17 @@ const db = require('../config/db.config.js')
 const collection_user = db.collection('users');
 const collection_statistiqueusers = db.collection('statistiqueusers');
 const collection_abonnees = db.collection('abonnees');
-
+const nodemailer = require('nodemailer');
 const ObjectId = require('mongodb').ObjectId;
+const jwt = require('../jwt.js')
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail', // ou autre fournisseur
+  auth: {
+    user: 'snapface2023@gmail.com',
+    pass: 'rdez jsdy ehbq zvkn', // Utilisez un mot de passe d'application si requis
+  },
+});
 
 
 //create new user
@@ -73,20 +82,41 @@ exports.update = async (req, res) => {
 }
 
 
-exports.editEmail = async function (req, res){
+exports.editEmail = async function (req, res) {
   res.set('Access-Control-Allow-Origin', '*');
 
-  const updateResult = await collection_user.updateOne({ "_id": new ObjectId(req.body._id) },
+  await collection_user.updateOne({ "_id": new ObjectId(req.body._id) },
     {
       $set: {
         "email": req.body.email,
       }
-    });
-  res.send(updateResult);
+    }).then(data => {
+      if (data) {
+
+        const mailOptions = {
+          from: 'snapface2023@gmail.com',
+          to: "safinazyilmaz54@gmail.com",
+          subject: "Email Modifier",
+          text: "Email Modifier",
+        };
+
+        transporter.sendMail(mailOptions, (error, info) => {
+          if (error) {
+            return res.status(500).send({ success: false, error });
+          }
+
+          res.status(200).send(data);
+          // res.status(200).send({ success: true, message: 'Email envoyé avec succès !' });
+        });
+
+      }
+
+    })
+
 }
 
 
-exports.editPhoneNumber = async function (req, res){
+exports.editPhoneNumber = async function (req, res) {
   res.set('Access-Control-Allow-Origin', '*');
 
   const updateResult = await collection_user.updateOne({ "_id": new ObjectId(req.body._id) },
@@ -99,7 +129,7 @@ exports.editPhoneNumber = async function (req, res){
 }
 
 //edit password
-exports.editPassword = async function (req, res){
+exports.editPassword = async function (req, res) {
   res.set('Access-Control-Allow-Origin', '*');
 
   const updateResult = await collection_user.updateOne({ "_id": new ObjectId(req.body._id) },
@@ -145,12 +175,62 @@ exports.findOneById = async (req, res) => {
 
 //connexion
 exports.connexion = async function (req, res) {
-
   res.set('Access-Control-Allow-Origin', '*');
   res.set('Access-Control-Allow-Credentials', 'true');
   res.set('Access-Control-Allow-Methods', 'GET, POST,  OPTIONS');
   res.set('Access-Control-Allow-Headers', 'Content-Type')
-  res.send(await collection_user.findOne({ "email": req.body.email })); 
-
+  res.send(await collection_user.findOne({ "email": req.body.email }));
 };
 
+
+exports.sendLinkForPasswordOublie = async function (req, res) {
+
+  const userEmail = req.body.email;
+  const resetLink = jwt.generateResetLink( userEmail);
+
+
+  const mailOptions = {
+    from: 'snapface2023@gmail.com',
+    to: "safinazylm@gmail.com",
+    subject: 'Réinitialisation de votre mot de passe',
+    html: `<p>Cliquez sur le lien ci-dessous pour réinitialiser votre mot de passe :</p>
+           <a href="${resetLink}">Réinitialiser le mot de passe</a>
+           <p>Ce lien expirera dans 1 heure.</p>`,
+  };
+
+
+  transporter.sendMail(mailOptions, (err, info) => {
+    if (err) {
+      console.error('Erreur lors de l\'envoi de l\'e-mail :', err);
+    } else {
+      res.set('Access-Control-Allow-Origin', '*');
+      res.send('E-mail envoyé :', info.response)
+    }
+  });
+}
+
+
+exports.getIfEmailExist = async function (req, res) {
+  res.set('Access-Control-Allow-Origin', '*');
+  collection_user.findOne({ "email": req.body.email }).then(data => {
+    res.send(data)
+  })
+}
+
+//edit password
+exports.reinitialisePassword = async function (req, res) {
+  res.set('Access-Control-Allow-Origin', '*');
+
+  const userId = jwt.verifyResetLink(req.query.token);
+
+  if (userId) 
+  await collection_user.updateOne({ "_id": new ObjectId(req.body._id) },
+    {
+      $set: {
+        "password": req.body.password,
+      }
+    }).then(data=>{
+      res.send(data);
+
+    })
+}

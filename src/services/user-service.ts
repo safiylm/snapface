@@ -60,7 +60,7 @@ export class UserService {
 
 
   public editPassword(userId: string, newpassword: string): Observable<User> {
-   return this.http
+    return this.http
       .post<User>(
         `https://snapface.onrender.com/api/user/edit/password`,
         { "_id": userId, "newpassword": newpassword },
@@ -111,21 +111,21 @@ export class UserService {
         formData
       );
   }
-  
-  editEmail(id : string, email: string): Observable<User>{
+
+  editEmail(id: string, email: string): Observable<User> {
     return this.http
-    .post<User>(
-      `http://localhost:4100/api/user/edit/email`,
-      { "_id": id,  "email": email },
-    );
+      .post<User>(
+        `http://localhost:4100/api/user/edit/email`,
+        { "_id": id, "email": email },
+      );
   }
 
-  editPhoneNumber( id : string, phoneNo: number): Observable<User>{
+  editPhoneNumber(id: string, phoneNo: number): Observable<User> {
     return this.http
-    .post<User>(
-      `http://localhost:4100/api/user/edit/phonenumber`,
-      { "_id": id, "phoneNo": phoneNo },
-    );
+      .post<User>(
+        `http://localhost:4100/api/user/edit/phonenumber`,
+        { "_id": id, "phoneNo": phoneNo },
+      );
   }
 
 
@@ -141,5 +141,22 @@ export class UserService {
       })
 
   }
+
+  getMailForChangePasswordOublie(email: string){
+    return this.http.post("http://localhost:4100/password-oublie/email",
+      { 'email': email, })
+  }
+
+  public getIfEmailExist(email: string) {
+    
+    return this.http.post(`http://localhost:4100/api/user/email`,
+      { 'email': email, })
+  }
+
+  public reinitialisePassword( id:string, pwd: string) {
+    return this.http.post(`http://localhost:4100/api/user/reinitialise/password`,
+      { "_id": id, 'password': pwd, })
+  }
+ 
 
 }

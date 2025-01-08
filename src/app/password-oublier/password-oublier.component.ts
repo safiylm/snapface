@@ -72,18 +72,20 @@ export class PasswordOublierComponent {
     this.is2PasswordIdentique = false;
   }
 
+
   onSubmit() {
     const salt = bcrypt.genSaltSync(10);    
     if (this.newpassword === this.newpassword2) {
-      
-      this.userService.editPassword(this.id, bcrypt.hashSync(this.newpassword, salt))
-      .subscribe(data => {
+      const p = bcrypt.hashSync(this.newpassword, salt)
+      this.userService.reinitialisePassword(localStorage.getItem('userId')?.toString() as string,p )
+      .subscribe({
+        next: data => {
         if (data) {
-        this.resultat = "Votre mot de passe a été modifié avec succès!"
+        this.resultat = "Votre mot de passe a été initialisée avec succès!"
         }else{
-          this.resultat = "Erreur veuillez réessayer!"
+          this.resultat = "erreur"
         }
-      })
+      }, error: e=> this.resultat =e})
     }
   }
 }
