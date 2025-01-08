@@ -80,7 +80,7 @@ export class CommentaireService {
 
     if (localStorage.getItem("totalComments") != null) {
       this.http
-        .post<any>('http://localhost:4100/api/checkComments'
+        .post<any>('https://snapface.onrender.com/api/checkComments'
           , { "id": id, "comments": localStorage.getItem("totalComments") },
           {
             headers: new HttpHeaders({

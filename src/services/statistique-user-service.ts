@@ -37,7 +37,7 @@ export class StatistiqueUserService {
                   && data1 != null && data != null) {
 
                   this.http
-                    .post<any>('http://localhost:4100/api/checkFollowers'
+                    .post<any>('https://snapface.onrender.com/api/checkFollowers'
                       , { "id": id, "followers": data1.followers.length },
 
                     ).subscribe(data2 => {
@@ -69,7 +69,7 @@ export class StatistiqueUserService {
                   && data1 != null && data != null) {
 
                   this.http
-                    .post<any>('http://localhost:4100/api/checkPublications'
+                    .post<any>('https://snapface.onrender.com/api/checkPublications'
                       , { "id": id, "publications": data1.length },
 
                     ).subscribe(data2 => {
@@ -111,7 +111,7 @@ export class StatistiqueUserService {
 
                         if (index== data1.length)
                           this.http
-                            .post<any>('http://localhost:4100/api/checkPoints'
+                            .post<any>('https://snapface.onrender.com/api/checkPoints'
                               , { "id": id, "points": total },
 
                             ).subscribe(data2 => {

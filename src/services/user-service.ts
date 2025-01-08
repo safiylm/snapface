@@ -1,14 +1,10 @@
 import { Injectable } from '@angular/core';
-import {
-  HttpClientModule, HttpClient, HttpHeaders,
-  HttpErrorResponse
-} from '@angular/common/http';
-import { Observable, async, throwError } from 'rxjs';
+import { HttpClient, HttpHeaders,} from '@angular/common/http';
+import { Observable, } from 'rxjs';
 import { User } from '../models/user.model';
 import { Router } from '@angular/router';
 import { Abonnee } from '../models/abonnee.model';
 
-//http://localhost:4200/api/user
 
 @Injectable({
   providedIn: 'root'
@@ -115,7 +111,7 @@ export class UserService {
   editEmail(id: string, email: string): Observable<User> {
     return this.http
       .post<User>(
-        `http://localhost:4100/api/user/edit/email`,
+        `https://snapface.onrender.com/api/user/edit/email`,
         { "_id": id, "email": email },
       );
   }
@@ -123,7 +119,7 @@ export class UserService {
   editPhoneNumber(id: string, phoneNo: number): Observable<User> {
     return this.http
       .post<User>(
-        `http://localhost:4100/api/user/edit/phonenumber`,
+        `https://snapface.onrender.com/api/user/edit/phonenumber`,
         { "_id": id, "phoneNo": phoneNo },
       );
   }
@@ -143,18 +139,18 @@ export class UserService {
   }
 
   getMailForChangePasswordOublie(email: string){
-    return this.http.post("http://localhost:4100/password-oublie/email",
+    return this.http.post("https://snapface.onrender.com/password-oublie/email",
       { 'email': email, })
   }
 
   public getIfEmailExist(email: string) {
     
-    return this.http.post(`http://localhost:4100/api/user/email`,
+    return this.http.post(`https://snapface.onrender.com/api/user/email`,
       { 'email': email, })
   }
 
   public reinitialisePassword( token: string, pwd: string) {
-    return this.http.post(`http://localhost:4100/api/user/reinitialise/password`,
+    return this.http.post(`https://snapface.onrender.com/api/user/reinitialise/password`,
       { 'password': pwd, 'token': token, })
   }
  

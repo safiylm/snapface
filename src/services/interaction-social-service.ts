@@ -80,7 +80,7 @@ export class InteractionSocialeService {
           
           if (data.likedBy_.length  != data.likes) {
             this.http
-              .post<any>('http://localhost:4100/api/checkLikes',
+              .post<any>('https://snapface.onrender.com/api/checkLikes',
                { "id": id, "likes": data.likedBy_.length },
               ).subscribe(data1 => {
                 if (data1)
@@ -103,7 +103,7 @@ export class InteractionSocialeService {
           
           if (data.pointedBy_.length  != data.points) {
             this.http
-              .post<any>('http://localhost:4100/api/checkPoints'
+              .post<any>('https://snapface.onrender.com/api/checkPoints'
                 , { "id": id, "points": data.pointedBy_.length },
                
               ).subscribe(data1 => {
