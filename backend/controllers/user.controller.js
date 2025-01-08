@@ -186,7 +186,7 @@ exports.connexion = async function (req, res) {
 exports.sendLinkForPasswordOublie = async function (req, res) {
 
   const userEmail = req.body.email;
-  const resetLink = jwt.generateResetLink( userEmail);
+  const resetLink = jwt.generateResetLink(userEmail);
 
 
   const mailOptions = {
@@ -221,16 +221,14 @@ exports.getIfEmailExist = async function (req, res) {
 exports.reinitialisePassword = async function (req, res) {
   res.set('Access-Control-Allow-Origin', '*');
 
-  const userId = jwt.verifyResetLink(req.query.token);
-
-  if (userId) 
-  await collection_user.updateOne({ "_id": new ObjectId(req.body._id) },
+  const token = jwt.verifyResetLink(req.body.token);
+  
+  await collection_user.updateOne({ "email": token },
     {
       $set: {
         "password": req.body.password,
       }
-    }).then(data=>{
+    }).then(data => {
       res.send(data);
-
     })
 }

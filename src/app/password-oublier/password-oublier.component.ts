@@ -61,7 +61,6 @@ export class PasswordOublierComponent {
   }
 
 
-
   ngOnInit() {
 
     this.isDisplayPassword = false;
@@ -77,7 +76,7 @@ export class PasswordOublierComponent {
     const salt = bcrypt.genSaltSync(10);    
     if (this.newpassword === this.newpassword2) {
       const p = bcrypt.hashSync(this.newpassword, salt)
-      this.userService.reinitialisePassword(localStorage.getItem('userId')?.toString() as string,p )
+      this.userService.reinitialisePassword(  this.route.snapshot.paramMap.get('token') as string ,p )
       .subscribe({
         next: data => {
         if (data) {

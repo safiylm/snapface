@@ -153,9 +153,9 @@ export class UserService {
       { 'email': email, })
   }
 
-  public reinitialisePassword( id:string, pwd: string) {
+  public reinitialisePassword( token: string, pwd: string) {
     return this.http.post(`http://localhost:4100/api/user/reinitialise/password`,
-      { "_id": id, 'password': pwd, })
+      { 'password': pwd, 'token': token, })
   }
  
 
