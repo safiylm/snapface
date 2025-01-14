@@ -9,8 +9,6 @@ import { InteractionSociale } from '../models/interaction.sociale.model';
   providedIn: 'root'
 })
 export class PublicationsService {
-  publications: Publication[] = [
-  ];
 
   constructor(private http: HttpClient) { }
 
@@ -83,14 +81,6 @@ export class PublicationsService {
 
   }
 
-  getAllPublicationsByAuteur(userId: string): Publication[] {
 
-    let Publication = this.publications.filter(Publication => Publication.userId == userId);
-
-    if (!Publication) {
-      throw new Error('Publication not found!');
-    }
-    return Publication;
-  }
 
 }
