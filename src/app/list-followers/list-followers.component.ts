@@ -17,12 +17,12 @@ export class ListFollowersComponent implements OnInit {
   constructor(private abonneeService: AbonneeService) { }
   @Input() id !: string;
   subscription !: Subscription;
-  abonnee!: Abonnee[];
+  abonnee!: Abonnee;
 
 
 
   retrievePublications(): void {
-    this.subscription = this.abonneeService.getAbonneeByUserId(this.id)
+    this.subscription = this.abonneeService.getFollowersByUserId(this.id)
       .subscribe({
         next: (data) => {
           this.abonnee = data;

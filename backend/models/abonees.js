@@ -6,8 +6,8 @@ const User = require("../models/user");
 const Abonee = new mongoose.Schema({
 
     usedId: { type: String },
-    followers: [ String ],
-   
+    followers: [String], //au lieu de String[]
+    abonnements: [String] //au lieu de String[]
 }, { versionKey: false });
 
 mongoose.model('Abonee', Abonee);
