@@ -14,7 +14,6 @@ import { NgClass, NgIf, NgStyle } from '@angular/common';
 })
 export class PasswordOublierComponent {
 
-  id: string = localStorage.getItem('userId')?.toString() as string;
 
   isDisplayPassword !: boolean;
   isDisplayPassword2 !: boolean;
@@ -62,7 +61,9 @@ export class PasswordOublierComponent {
 
 
   ngOnInit() {
-
+    if(this.route.snapshot.paramMap.get('token') == null || this.route.snapshot.paramMap.get('token') == undefined){
+      location.href="/"
+    }
     this.isDisplayPassword = false;
     this.isDisplayPassword2 = false;
     this.newpassword = "";

@@ -1,7 +1,7 @@
-<form (ngSubmit)="onSubmit()">
-    <label>Saisissez votre email : </label>
-    <input name="email" [(ngModel)]="email" class="form-control">
+<app-header></app-header>
+<form (ngSubmit)="onSubmit()" autocomplete="off">
+    <label>Saisissez votre email pour recevoir un lien pour modifier votre mot de passe: </label>
+    <input name="email" [(ngModel)]="email" class="form-control" placeholder="email@gmail.com">
     <button class="btn btn-light">Envoyer</button>
+    <p>{{resultat}}</p>
 </form>
-
-{{resultat}}

@@ -1,0 +1,21 @@
+form{
+    width: 50vw;
+    margin: 150px auto;  
+    text-align: center; 
+
+    label{
+        font-size: large;
+        font-weight: 600;
+    }
+    *{
+        margin-bottom: 25px;
+    }
+}
+@media  (max-width: 600px) {
+    form{
+        width: 90vw;
+        *{
+            margin-bottom: 35px;
+        }
+    }
+}

@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UserService } from 'src/services/user-service';
+import { HeaderComponent } from "../../header/header.component";
 
 @Component({
   standalone: true,
   selector: 'app-form-email',
   templateUrl: './form-email.component.html',
   styleUrls: ['./form-email.component.scss'],
-  imports: [FormsModule]
+  imports: [FormsModule, HeaderComponent]
 })
 
 export class FormEmailComponent {
