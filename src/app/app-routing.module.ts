@@ -11,6 +11,7 @@ import { formulaireDesactiveGuard } from './guards/formulaire-desactive.guard'
 import { AdminPageComponent } from './admin-page/admin-page.component';
 import { FormEmailComponent } from './password-oublier/form-email/form-email.component';
 import { PasswordOublierComponent } from './password-oublier/password-oublier.component';
+import { PourMoiComponent } from './pour-moi/pour-moi.component';
 
 const routes: Routes = [
   {
@@ -106,6 +107,14 @@ const routes: Routes = [
     title: "Reinitialisation du mot de passe",
     component: PasswordOublierComponent
   },
+
+  {
+    path: 'pour-moi',
+    title: "Pour moi",
+    component: PourMoiComponent
+  },
+
+
 ];
 
 @NgModule({

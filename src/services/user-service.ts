@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders,} from '@angular/common/http';
+import { HttpClient, HttpHeaders, } from '@angular/common/http';
 import { Observable, } from 'rxjs';
 import { User } from '../models/user.model';
 import { Router } from '@angular/router';
@@ -21,7 +21,6 @@ export class UserService {
     localStorage.removeItem('userId')
     localStorage.removeItem('token');
   }
-  //users ?: User[];
 
   getAllUsers(): Observable<User[]> {
     return this.http.get<User[]>("https://snapface.onrender.com/api/user"
@@ -72,26 +71,20 @@ export class UserService {
     return this.http.get<User>("https://snapface.onrender.com/api/userid?id=" + localStorage.getItem('userId')?.toString());
   }
 
-  addAbonnee(userSuiviId: string) {
-    if (userSuiviId != null) {
-      this.http.post(`https://snapface.onrender.com/api/abonnees/abonneeAdd`,
-        { 'userSuiviId': userSuiviId, 'userConnectedId': localStorage.getItem('userId')?.toString() as string, })
-        .subscribe(data => {
-          console.log("S'ABONNER")
-        })
-    }
+  addAbonnee(userId: string, follower: string): Observable<any> {
+    return this.http.post(`http://localhost:4100/api/abonnees/add`,
+      { 'userId': userId, 'follower': follower, })
+
   }
 
-  removeAbonnee(userSuiviId: string) {
+  removeAbonnee(userId: string, follower: string): Observable<any> {
 
-    if (userSuiviId != null) {
-      this.http.post(`https://snapface.onrender.com/api/abonnees/abonneeRemove`,
-        { 'userConnectedId': localStorage.getItem('userId')?.toString() as string, 'userSuiviId': userSuiviId }
-      ).subscribe(data => {
-        console.log("SE DESABONNER")
-      })
-    }
-
+    return this.http.post(`http://localhost:4100/api/abonnees/remove`,
+      {
+        'follower': follower,
+        'userId': userId
+      }
+    )
   }
 
 
@@ -138,21 +131,21 @@ export class UserService {
 
   }
 
-  getMailForChangePasswordOublie(email: string){
+  getMailForChangePasswordOublie(email: string) {
     return this.http.post("https://snapface.onrender.com/password-oublie/email",
       { 'email': email, })
   }
 
   public getIfEmailExist(email: string) {
-    
+
     return this.http.post(`https://snapface.onrender.com/api/user/email`,
       { 'email': email, })
   }
 
-  public reinitialisePassword( token: string, pwd: string) {
+  public reinitialisePassword(token: string, pwd: string) {
     return this.http.post(`https://snapface.onrender.com/api/user/reinitialise/password`,
       { 'password': pwd, 'token': token, })
   }
- 
+
 
 }
