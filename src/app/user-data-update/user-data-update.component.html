@@ -1,7 +1,7 @@
 <app-header></app-header>
 
 <h1>Modifier ses données </h1>
-<form (ngSubmit)="onSubmit()" autocomplete="off">
+<form (ngSubmit)="onSubmit()" autocomplete="off" *ngIf="user">
     <div class="d-flex flex-wrap align-items-start justify-content-center">
         
         <div class="col">
@@ -47,3 +47,7 @@
 
 
 </form>
+
+
+<app-edit-email></app-edit-email>
+<app-edit-phonenumber></app-edit-phonenumber>

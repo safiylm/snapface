@@ -1,10 +1,10 @@
-<form (ngSubmit)="onSubmit()">
+<form (ngSubmit)="onSubmit()" *ngIf="post">
 
     <h1>Modifier sa publication</h1>
     <div class="form-floating">
         <label>Modifiez votre titre:</label>
-        <input class="form-control"  type="text" 
-        name="title" [(ngModel)]="post.title" />
+        <input class="form-control"  type="text" name="title"
+      [(ngModel)]="post.title" />
     </div>
 
     <div class="form-floating">

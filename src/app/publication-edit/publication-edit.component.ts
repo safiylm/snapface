@@ -4,14 +4,14 @@ import { PublicationsService } from '../../services/publication-service';
 import { Publication } from 'src/models/publication.model';
 import { FormsModule } from "@angular/forms";
 import { Subscription } from 'rxjs';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 
 @Component({
   standalone: true,
   selector: 'app-publication-edit',
   templateUrl: './publication-edit.component.html',
   styleUrls: ['./publication-edit.component.scss'],
-  imports: [NgFor, FormsModule]
+  imports: [NgFor, FormsModule, NgIf]
 })
 export class PublicationEditComponent {
 

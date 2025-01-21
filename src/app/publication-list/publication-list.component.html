@@ -1,4 +1,4 @@
-<div class="listofposts">
+<div class="listofposts" *ngIf="publications">
     <app-publication  *ngFor="let publication of publications" [publication]="publication" >
     </app-publication>
 
