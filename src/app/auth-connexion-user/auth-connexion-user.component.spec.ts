@@ -7,6 +7,7 @@ import { ElementRef } from '@angular/core';
 
 describe('AuthConnexionUserComponent', () => {
   let component: AuthConnexionUserComponent; 
+  let fixture: ComponentFixture<AuthConnexionUserComponent>;
 
   beforeEach( () => {
     TestBed.configureTestingModule({
@@ -14,18 +15,28 @@ describe('AuthConnexionUserComponent', () => {
       declarations:[ ],
    
       providers: [
-        { provide: ElementRef, useValue: { nativeElement: document.getElementById('connexionInfo') } }
       ],
     }).compileComponents()
 
-    let fixture: ComponentFixture<AuthConnexionUserComponent>;
   
     fixture = TestBed.createComponent(AuthConnexionUserComponent); 
-    component = fixture.componentInstance; fixture.detectChanges();
+    component = fixture.componentInstance; 
+    fixture.detectChanges();
   });
 
-  it('should create', () => { 
-    expect(component).toBeTruthy(); 
+  it('should create the component', () => {
+    expect(component).toBeTruthy();// Vérifie que le composant est créé
   });
+
+  it('should render the title in the template', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('h1')?.textContent).toContain('Connexion'); // Vérifie le rendu dans le DOM
+  });
+  
+
+  it('should have the initial email "example@gmail.com"', () => {
+    expect(component.email).toBe('example@gmail.com'); // Vérifie la valeur initiale
+  });
+
 
 })

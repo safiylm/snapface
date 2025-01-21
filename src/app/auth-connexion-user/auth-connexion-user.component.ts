@@ -17,13 +17,11 @@ import { HeaderComponent } from '../header/header.component';
 
 export class AuthConnexionUserComponent {
 
-  constructor(private userService: UserService, private elemRef: ElementRef) { }
+  constructor(private userService: UserService) { }
   result = "";
   password = "";
-  email = "";
+  email = "example@gmail.com";
   isDisplayPassword = false;
-
-
 
   toggleDisplayPassword() {
     this.isDisplayPassword = !this.isDisplayPassword;
