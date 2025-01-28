@@ -39,4 +39,8 @@ export class ListFollowersComponent implements OnInit {
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
+  
+  get Followers(){
+    return (this.abonnee && this.abonnee.followers) ? this.abonnee.followers : null;
+  }
 }
