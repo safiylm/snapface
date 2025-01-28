@@ -5,13 +5,16 @@ import { FormsModule } from "@angular/forms";
 import { Subscription } from 'rxjs';
 import { HeaderComponent } from '../header/header.component';
 import { CommonModule } from '@angular/common';
+import { EditEmailComponent } from '../edit-email/edit-email.component';
+import { EditPhonenumberComponent } from '../edit-phonenumber/edit-phonenumber.component';
 
 @Component({
   standalone: true,
   selector: 'app-user-data-update',
   templateUrl: './user-data-update.component.html',
   styleUrls: ['./user-data-update.component.scss'],
-  imports: [CommonModule, HeaderComponent, FormsModule],
+  imports: [CommonModule, HeaderComponent, FormsModule, 
+    EditEmailComponent, EditPhonenumberComponent],
 })
 
 export class UserDataUpdateComponent implements OnInit {
@@ -22,9 +25,10 @@ export class UserDataUpdateComponent implements OnInit {
   subscription !: Subscription;
   resultatOfEdit = "";
   isSubmit = false;
+  id = localStorage.getItem("userId")?.toString() as string;
 
   retrieveUser(): void {
-    this.subscription = this.userService.getUser(localStorage.getItem("userId")?.toString() as string)
+    this.subscription = this.userService.getUser( this.id )
       .subscribe({
         next: (data) => {
           this.user = data;
