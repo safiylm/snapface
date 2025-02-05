@@ -1,6 +1,5 @@
+<app-header></app-header>
 <div *ngIf="abonnement">
-<app-publications-list *ngFor="let user of abonnement.abonnements" [userId]="user"> 
-</app-publications-list>
-
+    <app-publications-list *ngFor="let user of abonnement" [userId]="user.follows">
+    </app-publications-list>
 </div>
-

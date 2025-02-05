@@ -7,22 +7,23 @@ import { PublicationComponent } from "../publication/publication.component";
 import { PublicationsService } from 'src/services/publication-service';
 import { forkJoin } from 'rxjs';
 import { PublicationsListComponent } from './publications-list/publications-list.component';
+import { HeaderComponent } from "../header/header.component";
 
 @Component({
   standalone: true,
   selector: 'app-pour-moi',
   templateUrl: './pour-moi.component.html',
   styleUrls: ['./pour-moi.component.scss'],
-  imports: [NgFor, NgIf, PublicationsListComponent]
+  imports: [NgFor, NgIf, PublicationsListComponent, HeaderComponent]
 })
 export class PourMoiComponent implements OnInit {
 
   constructor(private abonneeService: AbonneeService) { }
 
-  abonnement !: Abonnee;
+  abonnement !: Abonnee[];
 
   ngOnInit() {
-    this.abonneeService.getAbonnementByUserId("662eb397c2fd9ad3238d752c")
+    this.abonneeService.getAbonnementByUserId(localStorage.getItem("userId")?.toString() as string)
       .subscribe({
         next: (data) => {
           if (data != null) {
