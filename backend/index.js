@@ -23,7 +23,7 @@ app.use((req, res, next) => {
 });
 
 var corsOptions = {
-  origin: "*"
+  origin: "https://snapfaceangular.web.app"
 };
 
 app.use(cors(corsOptions));
