@@ -53,7 +53,6 @@ describe('AuteurInPostOrCommentaireComponent', () => {
 
     // Vérifie que les données sont assignées correctement
     expect(component.user).toEqual(mockData);
-    console.log(component.user)
    
   });
 

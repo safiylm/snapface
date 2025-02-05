@@ -18,7 +18,7 @@ export class AuteurInPostOrCommentaireComponent  implements OnInit {
   @Input() id !: string ;
   subscription !: Subscription;
   user !: User;
-  isMe=false;
+  isMe = false;
 
   constructor(private UserService: UserService) { }
 
