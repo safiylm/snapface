@@ -1,25 +1,38 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { UsersListComponent } from './users-list.component';
-import { RouterTestingModule } from '@angular/router/testing';
 import { NgFor } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import { UserService } from 'src/services/user-service';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('UserList', () => {
-  let component: UsersListComponent; 
+  let component: UsersListComponent;
+  let fixture: ComponentFixture<UsersListComponent>;
+  let httpTestingController: HttpTestingController;
 
-  beforeEach( () => {
-    TestBed.configureTestingModule({
-      imports:[NgFor, RouterTestingModule, HttpClientModule],
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      providers: [
+        UserService,
+      ],
+      imports: [NgFor, HttpClientTestingModule, RouterTestingModule],
     }).compileComponents()
 
-    let fixture: ComponentFixture<UsersListComponent>;
-  
-    fixture = TestBed.createComponent(UsersListComponent); 
-    component = fixture.componentInstance; fixture.detectChanges();
+
+    fixture = TestBed.createComponent(UsersListComponent);
+    component = fixture.componentInstance;
+    component.users=[];
+    fixture.detectChanges();// Déclenche la détection des modifications initiales
+    httpTestingController = TestBed.inject(HttpTestingController);
   });
 
-  it('should create', () => { 
-    expect(component).toBeTruthy(); 
+  it('should create', () => {
+    expect(component).toBeTruthy();
   });
+
+
+ /* it('should load data from the API', () => {
+  });
+  */
 
 })

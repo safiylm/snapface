@@ -6,20 +6,24 @@ import { HttpClientModule } from '@angular/common/http';
 
 describe('UserAccount', () => {
   let component: UserAccountComponent; 
+  let fixture: ComponentFixture<UserAccountComponent>;
 
   beforeEach( () => {
     TestBed.configureTestingModule({
       imports:[NgFor, RouterTestingModule, HttpClientModule],
     }).compileComponents()
 
-    let fixture: ComponentFixture<UserAccountComponent>;
   
     fixture = TestBed.createComponent(UserAccountComponent); 
-    component = fixture.componentInstance; fixture.detectChanges();
+     component = fixture.componentInstance; // Accès à l'instance du composant
+     fixture.detectChanges();// Déclenche la détection des modifications initiales
+ 
   });
 
   it('should create', () => { 
     expect(component).toBeTruthy(); 
   });
+
+
 
 })
