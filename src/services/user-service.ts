@@ -71,21 +71,7 @@ export class UserService {
     return this.http.get<User>("https://snapface.onrender.com/api/userid?id=" + localStorage.getItem('userId')?.toString());
   }
 
-  addAbonnee(userId: string, follower: string): Observable<any> {
-    return this.http.post(`http://localhost:4100/api/abonnees/add`,
-      { 'userId': userId, 'follower': follower, })
 
-  }
-
-  removeAbonnee(userId: string, follower: string): Observable<any> {
-
-    return this.http.post(`http://localhost:4100/api/abonnees/remove`,
-      {
-        'follower': follower,
-        'userId': userId
-      }
-    )
-  }
 
 
   getAbonneeByUserId(id: string): Observable<Abonnee[]> {

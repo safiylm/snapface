@@ -17,7 +17,7 @@ export class ListFollowersComponent implements OnInit {
   constructor(private abonneeService: AbonneeService) { }
   @Input() id !: string;
   subscription !: Subscription;
-  abonnee!: Abonnee;
+  abonnee!: Abonnee[];
 
 
 
@@ -41,6 +41,6 @@ export class ListFollowersComponent implements OnInit {
   }
   
   get Followers(){
-    return (this.abonnee && this.abonnee.followers) ? this.abonnee.followers : null;
+    return (this.abonnee && this.abonnee) ? this.abonnee : null;
   }
 }

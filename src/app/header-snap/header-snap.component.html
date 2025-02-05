@@ -19,10 +19,10 @@
     <div>
         <h3 class="name">
             {{ UserName }}
-            <button *ngIf="!isAbonnee && !istMe" (click)="sabonner()" id="sabonner"> S'abonner </button>
-            <button *ngIf="isAbonnee && !istMe" (click)="sedesabonner()" id="sedesabonner"> Se désabonner </button>
-        </h3>
-        <div class="dropdown" *ngIf="istMe">
+            <app-button-follow [isMe]="isMe" [pageuserid]="id"></app-button-follow>
+          </h3>
+
+        <div class="dropdown" *ngIf="isMe">
             <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                 aria-expanded="false">
                 +
@@ -68,6 +68,7 @@
                         Deconnexion</button></li>
             </ul>
         </div>
+
         <app-statistique-user [id]="id"></app-statistique-user>
 
     </div>
