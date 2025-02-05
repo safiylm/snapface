@@ -12,20 +12,20 @@ export class PublicationsService {
 
   constructor(private http: HttpClient) { }
 
-
+  url="https://snapface.onrender.com"
+  //url="http://localhost:4100"
+ 
   getAllPublications(): Promise<Publication[]> {
     return new Promise((resolve) => {
       setTimeout(() => {
-        return this.http.get<Publication[]>("https://snapface.onrender.com/api/publication")
+        return this.http.get<Publication[]>(this.url + "/api/publication")
           .subscribe(response => {
-
             resolve(response)
           }, err => {
             console.log(err.message);
           }, () => {
             console.log('completed');
           }
-
           );
       }, 1000);
     })
@@ -33,15 +33,15 @@ export class PublicationsService {
 
 
   getAllPublications_(): Observable<Publication[]> {   
-      return this.http.get<Publication[]>("https://snapface.onrender.com/api/publication")  
+      return this.http.get<Publication[]>(this.url + "/api/publication")  
   }
 
   getAllPublicationsByUserId(id: string): Observable<Publication[]> {
-    return this.http.get<Publication[]>("https://snapface.onrender.com/api/publicationByUserId?id=" + id);
+    return this.http.get<Publication[]>(this.url + "/api/publicationByUserId?id=" + id);
   }
 
   getMyPublications(): Observable<Publication[]> {
-    return this.http.get<Publication[]>("https://snapface.onrender.com/api/publicationByUserId?id=" + localStorage.getItem('userId')?.toString());
+    return this.http.get<Publication[]>(this.url + "/api/publicationByUserId?id=" + localStorage.getItem('userId')?.toString());
   }
 
   public createNewPublication(formData: Publication): Observable<Publication> {
@@ -52,7 +52,7 @@ export class PublicationsService {
     };
     return this.http
       .post<Publication>(
-        `http://snapface.onrender.com/api/publication/create`,
+        this.url + `/api/publication/create`,
         formData,
       )
   }
@@ -62,22 +62,21 @@ export class PublicationsService {
 
     return this.http
       .post<Publication>(
-        `https://snapface.onrender.com/api/publication/edit`,
+        this.url + `/api/publication/edit`,
         formData,
       )
-
   }
 
   deletePost(id: string): Observable<any> {
     return this.http
       .post<any>(
-        `https://snapface.onrender.com/api/publication/delete`,
+        this.url + `/api/publication/delete`,
         { "id": id },
       )
   }
 
   getPublicationById(PublicationId: string): Observable<Publication> {
-    return this.http.get<Publication>("https://snapface.onrender.com/api/publicationid?id=" + PublicationId);
+    return this.http.get<Publication>(this.url + "/api/publicationid?id=" + PublicationId);
 
   }
 

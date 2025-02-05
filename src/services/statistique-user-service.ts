@@ -1,11 +1,7 @@
 import { Injectable } from '@angular/core';
-import {
-  HttpClientModule, HttpClient, HttpHeaders,
-  HttpErrorResponse
-} from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { StatistiqueUser } from '../models/statistique.user.model';
-import { Abonnee } from 'src/models/abonnee.model';
 import { Publication } from 'src/models/publication.model';
 import { InteractionSociale } from 'src/models/interaction.sociale.model';
 
@@ -18,14 +14,17 @@ import { InteractionSociale } from 'src/models/interaction.sociale.model';
 export class StatistiqueUserService {
 
   constructor(private http: HttpClient) { }
-
+ 
+  url="https://snapface.onrender.com"
+  //url="http://localhost:4100"
+ 
   getStatistiqueUserById(id: string): Observable<StatistiqueUser> {
-    return this.http.get<StatistiqueUser>("https://snapface.onrender.com/api/statistiqueUserByUserId?id=" + id);
+    return this.http.get<StatistiqueUser>(this.url + "/api/statistiqueUserByUserId?id=" + id);
   }
 
   checkTotalFollowers(id: string): Observable<any> | void {
 
-    this.http.get<StatistiqueUser>("https://snapface.onrender.com/api/statistiqueUserByUserId?id=" + id)
+  /*  this.http.get<StatistiqueUser>("https://snapface.onrender.com/api/statistiqueUserByUserId?id=" + id)
       .subscribe({
         next: (data) => {
 
@@ -52,16 +51,17 @@ export class StatistiqueUserService {
         },
         error: (e) => console.error(e)
       });
+      */
   }
 
 
   checkTotalPublication(id: string): Observable<any> | void {
 
-    this.http.get<StatistiqueUser>("https://snapface.onrender.com/api/statistiqueUserByUserId?id=" + id)
+    this.http.get<StatistiqueUser>(this.url + "/api/statistiqueUserByUserId?id=" + id)
       .subscribe({
         next: (data) => {
 
-          this.http.get<Publication[]>("https://snapface.onrender.com/api/publicationByUserId?id=" + id)
+          this.http.get<Publication[]>(this.url + "/api/publicationByUserId?id=" + id)
             .subscribe({
               next: (data1) => {
                 console.log(data.totalPosts + " != " + data1.length)
@@ -69,7 +69,7 @@ export class StatistiqueUserService {
                   && data1 != null && data != null) {
 
                   this.http
-                    .post<any>('https://snapface.onrender.com/api/checkPublications'
+                    .post<any>(this.url + '/api/checkPublications'
                       , { "id": id, "publications": data1.length },
 
                     ).subscribe(data2 => {
@@ -89,11 +89,11 @@ export class StatistiqueUserService {
 
   checkTotalPoints(id: string): Observable<any> | void {
 
-    this.http.get<StatistiqueUser>("https://snapface.onrender.com/api/statistiqueUserByUserId?id=" + id)
+    this.http.get<StatistiqueUser>(this.url + "/api/statistiqueUserByUserId?id=" + id)
       .subscribe({
         next: (data) => {
 
-          this.http.get<Publication[]>("https://snapface.onrender.com/api/publicationByUserId?id=" + id)
+          this.http.get<Publication[]>(this.url + "/api/publicationByUserId?id=" + id)
             .subscribe({
               next: (data1) => {
                 //console.log(data.totalPoints + " != " + data1)
@@ -101,7 +101,7 @@ export class StatistiqueUserService {
                 let index =0
                 data1.forEach((value) => {
 
-                  this.http.get<InteractionSociale>("https://snapface.onrender.com/api/interactionSocialByPostId?id=" + value._id)
+                  this.http.get<InteractionSociale>(this.url + "/api/interactionSocialByPostId?id=" + value._id)
                     .subscribe({
                       next: (data2) => {
                         total = data2.points + total
@@ -111,7 +111,7 @@ export class StatistiqueUserService {
 
                         if (index== data1.length)
                           this.http
-                            .post<any>('https://snapface.onrender.com/api/checkPoints'
+                            .post<any>(this.url + '/api/checkPoints'
                               , { "id": id, "points": total },
 
                             ).subscribe(data2 => {

@@ -16,12 +16,15 @@ export class CommentaireService {
 
   constructor(private http: HttpClient) { }
 
+  url="https://snapface.onrender.com"
+  //url="http://localhost:4100"
+ 
   getCommentaireByPostId(id: string): Observable<Commentaire[]> {
-    return this.http.get<Commentaire[]>("https://snapface.onrender.com/api/commentairesByPostId?id=" + id);
+    return this.http.get<Commentaire[]>( this.url + "/api/commentairesByPostId?id=" + id);
   }
 
   getUserByUserId(id: string): Observable<User> {
-    return this.http.get<User>("https://snapface.onrender.com/api/userid?id=" + id);
+    return this.http.get<User>(this.url + "/api/userid?id=" + id);
   }
 
   addNewCommentaire(formData: Commentaire): Observable<Commentaire> {
@@ -34,7 +37,7 @@ export class CommentaireService {
 
     return this.http
       .post<Commentaire>(
-        `https://snapface.onrender.com/api/commentaire/create`,
+        this.url + `/api/commentaire/create`,
         formData,
         httpOptions
       )
@@ -44,7 +47,7 @@ export class CommentaireService {
   deleteCommentaire(commentId: string) : Observable<Commentaire> {
    return this.http
       .post<any>(
-        "https://snapface.onrender.com/api/commentaire/delete",
+        this.url + "/api/commentaire/delete",
         { "id": commentId }
       )
   }
@@ -53,7 +56,7 @@ export class CommentaireService {
 
     return this.http
       .post<Commentaire>(
-        `https://snapface.onrender.com/api/commentaire/update`,
+        this.url + "/api/commentaire/update",
         form
       )
   }
@@ -61,10 +64,10 @@ export class CommentaireService {
 
   checkTotalComments(id: string): Observable<any> | void {
 
-    this.http.get<Commentaire[]>("https://snapface.onrender.com/api/commentairesByPostId?id=" + id)
+    this.http.get<Commentaire[]>(this.url + "/api/commentairesByPostId?id=" + id)
       .subscribe({
         next: (data) => {
-          this.http.get<InteractionSociale>("https://snapface.onrender.com/api/interactionSocialByPostId?id=" + id)
+          this.http.get<InteractionSociale>(this.url + "/api/interactionSocialByPostId?id=" + id)
             .subscribe({
               next: (data1) => {
                 if (data.length != data1.comments) {
@@ -80,7 +83,7 @@ export class CommentaireService {
 
     if (localStorage.getItem("totalComments") != null) {
       this.http
-        .post<any>('https://snapface.onrender.com/api/checkComments'
+        .post<any>(this.url + '/api/checkComments'
           , { "id": id, "comments": localStorage.getItem("totalComments") },
           {
             headers: new HttpHeaders({

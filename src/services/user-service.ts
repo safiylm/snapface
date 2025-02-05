@@ -13,7 +13,10 @@ import { Abonnee } from '../models/abonnee.model';
 export class UserService {
 
   constructor(private http: HttpClient, public router: Router) { }
-
+  
+  url="https://snapface.onrender.com"
+  //url="http://localhost:4100"
+ 
 
   logout(): void {
     localStorage.setItem('isLoggedIn', 'false');
@@ -23,7 +26,7 @@ export class UserService {
   }
 
   getAllUsers(): Observable<User[]> {
-    return this.http.get<User[]>("https://snapface.onrender.com/api/user"
+    return this.http.get<User[]>(this.url + "/api/user"
     );
   }
 
@@ -37,7 +40,7 @@ export class UserService {
 
     return this.http
       .post(
-        `https://snapface.onrender.com/api/user/connexion`,
+        this.url + `/api/user/connexion`,
         { "email": email },
         //  httpOptions, 
       )
@@ -47,7 +50,7 @@ export class UserService {
 
     return this.http
       .post<User>(
-        `https://snapface.onrender.com/api/user/create`,
+        this.url + `/api/user/create`,
         formData,
       )
 
@@ -57,32 +60,32 @@ export class UserService {
   public editPassword(userId: string, newpassword: string): Observable<User> {
     return this.http
       .post<User>(
-        `https://snapface.onrender.com/api/user/edit/password`,
+        this.url + `/api/user/edit/password`,
         { "_id": userId, "newpassword": newpassword },
       )
   }
 
 
   getUser(id: string): Observable<User> {
-    return this.http.get<User>("https://snapface.onrender.com/api/userid?id=" + id);
+    return this.http.get<User>(this.url + "/api/userid?id=" + id);
   }
 
   getMyData(): Observable<User> {
-    return this.http.get<User>("https://snapface.onrender.com/api/userid?id=" + localStorage.getItem('userId')?.toString());
+    return this.http.get<User>(this.url + "/api/userid?id=" + localStorage.getItem('userId')?.toString());
   }
 
 
 
 
   getAbonneeByUserId(id: string): Observable<Abonnee[]> {
-    return this.http.get<Abonnee[]>("https://snapface.onrender.com/api/abonneesbyUserId?id=" + id);
+    return this.http.get<Abonnee[]>(this.url + "/api/abonneesbyUserId?id=" + id);
   }
 
 
   updateUser(formData: User): Observable<User> {
     return this.http
       .post<User>(
-        `https://snapface.onrender.com/api/user/update`,
+        this.url + `/api/user/update`,
         formData
       );
   }
@@ -90,7 +93,7 @@ export class UserService {
   editEmail(id: string, email: string): Observable<User> {
     return this.http
       .post<User>(
-        `https://snapface.onrender.com/api/user/edit/email`,
+        this.url + `/api/user/edit/email`,
         { "_id": id, "email": email },
       );
   }
@@ -98,7 +101,7 @@ export class UserService {
   editPhoneNumber(id: string, phoneNo: number): Observable<User> {
     return this.http
       .post<User>(
-        `https://snapface.onrender.com/api/user/edit/phonenumber`,
+        this.url + `/api/user/edit/phonenumber`,
         { "_id": id, "phoneNo": phoneNo },
       );
   }
@@ -108,7 +111,7 @@ export class UserService {
 
     this.http
       .post<User>(
-        `https://snapface.onrender.com/api/user/delete`,
+        this.url + `/api/user/delete`,
         { "id": userId },
       ).subscribe(data => {
         console.log(" user delete post req body content :")
@@ -118,18 +121,18 @@ export class UserService {
   }
 
   getMailForChangePasswordOublie(email: string) {
-    return this.http.post("https://snapface.onrender.com/password-oublie/email",
+    return this.http.post(this.url + "/password-oublie/email",
       { 'email': email, })
   }
 
   public getIfEmailExist(email: string) {
 
-    return this.http.post(`https://snapface.onrender.com/api/user/email`,
+    return this.http.post(this.url + `/api/user/email`,
       { 'email': email, })
   }
 
   public reinitialisePassword(token: string, pwd: string) {
-    return this.http.post(`https://snapface.onrender.com/api/user/reinitialise/password`,
+    return this.http.post(this.url + `/api/user/reinitialise/password`,
       { 'password': pwd, 'token': token, })
   }
 

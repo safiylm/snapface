@@ -11,9 +11,12 @@ import { InteractionSociale } from '../models/interaction.sociale.model';
 export class InteractionSocialeService {
 
   constructor(private http: HttpClient) { }
+  url="https://snapface.onrender.com"
+  //url="http://localhost:4100"
+ 
 
   getInteractionSocialeById(id: string): Observable<InteractionSociale> {
-    return this.http.get<InteractionSociale>("https://snapface.onrender.com/api/interactionSocialByPostId?id=" + id);
+    return this.http.get<InteractionSociale>(this.url + "/api/interactionSocialByPostId?id=" + id);
   }
 
 
@@ -21,7 +24,7 @@ export class InteractionSocialeService {
 
     this.http
       .post(
-        `https://snapface.onrender.com/api/interaction/social/likes/add`,
+        this.url + "/api/interaction/social/likes/add",
         { '_id': _id, 'userId': localStorage.getItem('userId') },
       ).subscribe(data => {
         if (data)
@@ -32,7 +35,7 @@ export class InteractionSocialeService {
   removeLike(_id: string) {
     this.http
       .post(
-        `https://snapface.onrender.com/api/interaction/social/likes/remove`,
+        this.url + "/api/interaction/social/likes/remove",
         { '_id': _id, 'userId': localStorage.getItem('userId') },
       ).subscribe(data => {
         if (data)
@@ -43,7 +46,7 @@ export class InteractionSocialeService {
   addPoints(_id: string, auteurId: string) {
     this.http
       .post(
-        `https://snapface.onrender.com/api/interaction/social/points/add`,
+        this.url + "/api/interaction/social/points/add",
         { '_id': _id, 'userId': localStorage.getItem('userId'), 'auteurId': auteurId },
       ).subscribe(data => {
         if (data)
@@ -54,7 +57,7 @@ export class InteractionSocialeService {
   removePoints(_id: string, auteurId: string) {
     this.http
       .post(
-        `https://snapface.onrender.com/api/interaction/social/points/remove`,
+        this.url + "/api/interaction/social/points/remove",
         { '_id': _id, 'userId': localStorage.getItem('userId'), 'auteurId': auteurId }
       ).subscribe(data => {
         if (data)
@@ -65,14 +68,14 @@ export class InteractionSocialeService {
   addComments(_id: string, comments: number): Observable<any> {
     return this.http
       .post<any>(
-        `https://snapface.onrender.com/api/interaction/social/comments/update`,
+        this.url + "/api/interaction/social/comments/update",
         { '_id': _id, 'comments': comments, 'userId': localStorage.getItem('userId') }
       )
   }
 
   checkTotalLikes(id: string): Observable<any> | void {
 
-    this.http.get<InteractionSociale>("https://snapface.onrender.com/api/interactionSocialByPostId?id=" + id)
+    this.http.get<InteractionSociale>(this.url + "/api/interactionSocialByPostId?id=" + id)
       .subscribe({
         next: (data) => {
 
@@ -80,7 +83,7 @@ export class InteractionSocialeService {
           
           if (data.likedBy_.length  != data.likes) {
             this.http
-              .post<any>('https://snapface.onrender.com/api/checkLikes',
+              .post<any>(this.url + '/api/checkLikes',
                { "id": id, "likes": data.likedBy_.length },
               ).subscribe(data1 => {
                 if (data1)
@@ -95,7 +98,7 @@ export class InteractionSocialeService {
 
   checkTotalPoints(id: string): Observable<any> | void {
 
-    this.http.get<InteractionSociale>("https://snapface.onrender.com/api/interactionSocialByPostId?id=" + id)
+    this.http.get<InteractionSociale>(this.url + "/api/interactionSocialByPostId?id=" + id)
       .subscribe({
         next: (data) => {
 
@@ -103,7 +106,7 @@ export class InteractionSocialeService {
           
           if (data.pointedBy_.length  != data.points) {
             this.http
-              .post<any>('https://snapface.onrender.com/api/checkPoints'
+              .post<any>(this.url + '/api/checkPoints'
                 , { "id": id, "points": data.pointedBy_.length },
                
               ).subscribe(data1 => {
