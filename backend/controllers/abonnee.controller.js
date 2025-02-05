@@ -4,7 +4,7 @@ const collection_statistiqueusers = db.collection('statistiqueusers');
 
 //create abonnee 
 exports.create = async (req, res) => {
-  //res.set('Access-Control-Allow-Origin', '*');
+  res.set('Access-Control-Allow-Origin', '*');
 
   collection_abonnees
     .insertOne({
@@ -36,7 +36,7 @@ exports.create = async (req, res) => {
 
 //remove abonnee 
 exports.remove = async (req, res) => {
- // res.set('Access-Control-Allow-Origin', '*');
+  res.set('Access-Control-Allow-Origin', '*');
 
   collection_abonnees.deleteOne({ "userId": req.body.userId, "follows": req.body.follows })
     .then((data) => {
