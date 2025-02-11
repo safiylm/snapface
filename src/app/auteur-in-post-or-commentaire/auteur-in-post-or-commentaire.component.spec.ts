@@ -9,7 +9,7 @@ describe('AuteurInPostOrCommentaireComponent', () => {
   let component: AuteurInPostOrCommentaireComponent;
   let fixture: ComponentFixture<AuteurInPostOrCommentaireComponent>;
   let httpTestingController: HttpTestingController;
-
+  let p_username: HTMLElement;
 
   beforeEach(async () => {
 
@@ -25,7 +25,7 @@ describe('AuteurInPostOrCommentaireComponent', () => {
     component.id = "66e9219abe68cdd15907399e";
     fixture.detectChanges();// Déclenche la détection des modifications initiales
     httpTestingController = TestBed.inject(HttpTestingController);
-
+    p_username = fixture.nativeElement.querySelector('#username');
   });
 
 
@@ -54,6 +54,11 @@ describe('AuteurInPostOrCommentaireComponent', () => {
     // Vérifie que les données sont assignées correctement
     expect(component.user).toEqual(mockData);
    
+  });
+
+  
+  it('should display username', () => {
+    expect(p_username.textContent).toContain(component.user.firstName+" "+ component.user.lastName);
   });
 
 });
