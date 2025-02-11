@@ -56,9 +56,15 @@ describe('AuteurInPostOrCommentaireComponent', () => {
    
   });
 
-  
+
   it('should display username', () => {
     expect(p_username.textContent).toContain(component.user.firstName+" "+ component.user.lastName);
+  });
+
+  it('should display updated userName after detectChanges', () => {
+    component.user.firstName = 'Jean';
+    fixture.detectChanges(); // detect changes explicitly
+    expect(p_username.textContent).toContain('Jean');
   });
 
 });
