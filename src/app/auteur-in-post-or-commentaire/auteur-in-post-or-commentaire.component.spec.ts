@@ -3,6 +3,8 @@ import { AuteurInPostOrCommentaireComponent } from './auteur-in-post-or-commenta
 import { UserService } from 'src/services/user-service';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { User } from 'src/models/user.model';
+import { CommaExpr } from '@angular/compiler';
+import { Component } from '@angular/core';
 
 
 describe('AuteurInPostOrCommentaireComponent', () => {
@@ -10,6 +12,7 @@ describe('AuteurInPostOrCommentaireComponent', () => {
   let fixture: ComponentFixture<AuteurInPostOrCommentaireComponent>;
   let httpTestingController: HttpTestingController;
   let p_username: HTMLElement;
+  let photo: HTMLElement;
 
   beforeEach(async () => {
 
@@ -26,6 +29,7 @@ describe('AuteurInPostOrCommentaireComponent', () => {
     fixture.detectChanges();// Déclenche la détection des modifications initiales
     httpTestingController = TestBed.inject(HttpTestingController);
     p_username = fixture.nativeElement.querySelector('#username');
+    photo = fixture.nativeElement.querySelector('#photos-profil-user-in-commentaire');
   });
 
 
@@ -58,13 +62,23 @@ describe('AuteurInPostOrCommentaireComponent', () => {
 
 
   it('should display username', () => {
+   component.user=new User("66e9219abe68cdd15907399e", "Cat", "Dog", "catdog@gmail.com",
+    "$2a$10$.y29U/K4Z9FG/FTLtylWvO5P05ufLVQt/uG/YK2bXWStughUmwX3C", 123,
+    "https://images.pexels.com/photos/1741205/pexels-photo-1741205.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    "https://images.pexels.com/photos/2558605/pexels-photo-2558605.jpeg");
+    fixture.detectChanges();
     expect(p_username.textContent).toContain(component.user.firstName+" "+ component.user.lastName);
   });
 
-  it('should display updated userName after detectChanges', () => {
-    component.user.firstName = 'Jean';
-    fixture.detectChanges(); // detect changes explicitly
-    expect(p_username.textContent).toContain('Jean');
-  });
+
+  it('should display photo', () => {
+    component.user=new User("66e9219abe68cdd15907399e", "Cat", "Dog", "catdog@gmail.com",
+     "$2a$10$.y29U/K4Z9FG/FTLtylWvO5P05ufLVQt/uG/YK2bXWStughUmwX3C", 123,
+     "https://images.pexels.com/photos/1741205/pexels-photo-1741205.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+     "https://images.pexels.com/photos/2558605/pexels-photo-2558605.jpeg");
+     fixture.detectChanges();
+     expect(photo.getAttribute("src")).toContain(component.user.photos_profil);
+   });
+ 
 
 });
