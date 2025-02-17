@@ -12,12 +12,11 @@ import { NgIf } from '@angular/common';
   imports: [UsersListVerticalComponent, NgIf]
 })
 export class PointButtonComponent {
-  interactionSociale !: InteractionSociale;
+   
 
   constructor(private interactionSocialeService: InteractionSocialeService) { }
   @Input() isPointAdded_!: boolean;
-  @Input() total_point!: number;
-  @Input() list!: [string];
+  @Input() interactionSociale !: InteractionSociale;
 
   displayListePoint_:boolean = false;
 
@@ -43,13 +42,9 @@ export class PointButtonComponent {
     }, 450)
   }
 
-  get Points() {
-    return (this.total_point) ? this.total_point : 0
-  }
-
 
   get PointedBy() {
-    return (this.list) ? this.list : 0
+    return (this.interactionSociale.pointedBy_ && this.interactionSociale) ? this.interactionSociale.pointedBy_ : []
   }
 
 }

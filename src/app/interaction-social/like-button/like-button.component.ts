@@ -13,11 +13,10 @@ import { NgIf } from '@angular/common';
   
 })
 export class LikeButtonComponent {
-  interactionSociale !: InteractionSociale;
+ 
   displayListeLike_:boolean = false;
   @Input() isLiked_!:boolean ;
-  @Input() total_like!: number;
-  @Input() list!: [string];
+  @Input()  interactionSociale !: InteractionSociale;
   constructor(private interactionSocialeService: InteractionSocialeService ) { }
 
   addLike(): void {
@@ -39,13 +38,9 @@ export class LikeButtonComponent {
     this.displayListeLike_= ! this.displayListeLike_
   }
 
-  get Likes(){
-    return (this.total_like )? this.total_like : 0
-  }
-
       
   get LikedBy(){
-    return (this.list) ? this.list : 0
+    return (this.interactionSociale.likedBy_ && this.interactionSociale) ? this.interactionSociale.likedBy_ : []
   }
 
 }

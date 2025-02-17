@@ -4,13 +4,14 @@ import { InteractionSocialeService } from '../../services/interaction-social-ser
 import { Subscription } from 'rxjs';
 import { LikeButtonComponent } from "./like-button/like-button.component";
 import { PointButtonComponent } from "./point-button/point-button.component";
+import { NgIf } from '@angular/common';
 
 @Component({
   standalone:true, 
   selector: 'app-interaction-social',
   templateUrl: './interaction-social.component.html',
   styleUrls: ['./interaction-social.component.scss'], 
-  imports: [ LikeButtonComponent, PointButtonComponent]
+  imports: [ LikeButtonComponent, PointButtonComponent, NgIf]
 })
 
 
@@ -35,6 +36,13 @@ export class InteractionSocialComponent implements OnInit {
         this.interactionSociale = data;
         this.isLiked_ = false;
         this.isPointAdded_ = false;
+          
+        if(data.likedBy_ != null || data.likedBy_!= undefined)
+        data.likedBy_.forEach(element => {
+          if (element == localStorage.getItem('userId')) {
+            this.isLiked_ = true;
+          }
+        });
         
         if(data.pointedBy_)
 
@@ -44,12 +52,7 @@ export class InteractionSocialComponent implements OnInit {
           }
     
         })
-        if(data.likedBy_ != null || data.likedBy_!= undefined)
-        data.likedBy_.forEach(element => {
-          if (element == localStorage.getItem('userId')) {
-            this.isLiked_ = true;
-          }
-        });
+      
 
       }
     );
@@ -69,5 +72,7 @@ export class InteractionSocialComponent implements OnInit {
   get Comments(){
     return (this.interactionSociale && this.interactionSociale.comments )? this.interactionSociale.comments : 0
   }
+
+  
 
 }

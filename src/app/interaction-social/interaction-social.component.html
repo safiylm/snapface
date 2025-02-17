@@ -1,9 +1,9 @@
 <div class="div-interactionSociale">
+ <app-point-button *ngIf="interactionSociale" [interactionSociale]="interactionSociale" [isPointAdded_]="isPointAdded_"></app-point-button>
 
-  <app-like-button [list]="interactionSociale.likedBy_" [total_like]="interactionSociale.likes" [isLiked_]="isLiked_"></app-like-button>
+  <app-like-button *ngIf="interactionSociale" [interactionSociale]="interactionSociale" [isLiked_]="isLiked_"></app-like-button>
 
-  <app-point-button [list]="interactionSociale.pointedBy_" [total_point]="interactionSociale.points" [isPointAdded_]="isPointAdded_"></app-point-button>
-
+ 
   <button (click)="toggleDisplayListOfComments(!isDisplayListeOfComments)">
     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-chat"
       viewBox="0 0 16 16">

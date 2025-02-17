@@ -16,12 +16,12 @@
     </svg>
   </button>
   
-  <button (click)="displayListeLike()">
-    {{Likes}}
+  <button *ngIf="interactionSociale.likes" (click)="displayListeLike()">
+    {{interactionSociale.likes}}
   </button>
 </div>
 
-<div id="div-liste-like" *ngIf="displayListeLike_ && list.length">
+<div id="div-liste-like" *ngIf="displayListeLike_ && LikedBy.length">
   <button type="button" class="btn-close" aria-label="Close" (click)="displayListeLike()"></button>
-  <app-users-list-vertical [liste]="list"></app-users-list-vertical>
+  <app-users-list-vertical [liste]="LikedBy"></app-users-list-vertical>
 </div>

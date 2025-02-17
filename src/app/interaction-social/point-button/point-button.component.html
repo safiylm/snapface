@@ -16,12 +16,13 @@
 
     </button>
 
-    <button (click)="displayListePoint()">
-        {{Points}}
+    <button *ngIf="interactionSociale.points" (click)="displayListePoint()">
+        {{interactionSociale.points}}
     </button>
 
 </div>
-<div id="div-liste-point" *ngIf="displayListePoint_ && list.length">
+
+<div id="div-liste-point" *ngIf="displayListePoint_ && interactionSociale.pointedBy_.length">
     <button type="button" class="btn-close" aria-label="Close" (click)="displayListePoint()"></button>
-    <app-users-list-vertical [liste]="list"></app-users-list-vertical>
+    <app-users-list-vertical [liste]="PointedBy"></app-users-list-vertical>
 </div>
