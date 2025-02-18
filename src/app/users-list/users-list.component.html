@@ -1,8 +1,3 @@
-<div class="div-list-users">
-    <div class="div-user" *ngFor="let item of users;">
-        <a href="user/{{item['_id'] }}" >
-            <img [src]='item["photos_profil"]' />
-          <p>{{ item['firstName'] }} {{ item['lastName'] }} </p>  
-        </a>
-    </div>
+<div class="div-list-users" *ngIf="users">
+      <app-user [user]="item" *ngFor="let item of users;"></app-user>
 </div>
