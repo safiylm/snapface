@@ -22,4 +22,7 @@ describe('AuthInscriptionUserComponent', () => {
     expect(component).toBeTruthy(); 
   });
 
+  it('should have the initial email "example@gmail.com"', () => {
+    expect(component.user.email).toBe('example@gmail.com'); // Vérifie la valeur initiale
+  });
 })

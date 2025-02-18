@@ -20,7 +20,7 @@ export class AuthConnexionUserComponent {
   constructor(private userService: UserService) { }
   result = "";
   password = "";
-  email = "example@gmail.com";
+  email = "";
   isDisplayPassword = false;
 
   toggleDisplayPassword() {

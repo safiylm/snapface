@@ -34,9 +34,7 @@ describe('AuthConnexionUserComponent', () => {
   });
   
 
-  it('should have the initial email "example@gmail.com"', () => {
-    expect(component.email).toBe('example@gmail.com'); // Vérifie la valeur initiale
-  });
+
 
 
 })

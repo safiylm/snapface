@@ -1,4 +1,4 @@
-import { Component, NgModule, OnInit, signal } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user-service'
 import { User } from '../../models/user.model'
 import * as bcrypt from "bcryptjs";
@@ -28,11 +28,11 @@ export class AuthInscriptionUserComponent implements OnInit {
   timeForRedirection$?: any;
   reglePasswordRespected !: boolean;
 
-  user = new User("", "firstName", "lastName", "firstName.lastName@gmail.com", "Snapface123*",
-    123, "https://images.pexels.com/photos/14615553/pexels-photo-14615553.jpeg?auto=compress&cs=tinysrgb&w=1200&lazy=load",
-    "https://images.pexels.com/photos/14615553/pexels-photo-14615553.jpeg?auto=compress&cs=tinysrgb&w=1200&lazy=load");
+  user = new User("", "", "",
+    "example@gmail.com", "",
+    0, "", "");
 
-  password2 = "Snapface123*";
+  password2 = "";
 
   ngOnInit() {
     this.isDisplayPassword = false;
@@ -71,7 +71,7 @@ export class AuthInscriptionUserComponent implements OnInit {
       this.user.password = bcrypt.hashSync(this.user.password, salt);
       this.userService.inscription(this.user).subscribe(data => {
         if (data) {
-          this.res =  "Inscription success. Il faut confirmer votre email. Redirection dans {{ timeForRedirection$ | async }} secondes pour vous connectez."
+          this.res = "Inscription success. Il faut confirmer votre email. Redirection dans {{ timeForRedirection$ | async }} secondes pour vous connectez."
 
           this.timeForRedirection$ = interval(1000).pipe(
             scan(acc => --acc, 10),
@@ -81,10 +81,14 @@ export class AuthInscriptionUserComponent implements OnInit {
           setTimeout(() => {
             document.location.href = '/connexion'
           }, 10000)
-        }else
+        } else
           this.res = "Une erreur s'est introduite, veuillez réessayer!"
       })
     }
+  }
+
+  ngOnDestroy() {
+  
   }
 
 }
