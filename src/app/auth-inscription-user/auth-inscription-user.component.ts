@@ -63,7 +63,7 @@ export class AuthInscriptionUserComponent implements OnInit {
     }
   }
 
-  onSubmit() {
+  onSubmit() : void {
     this.isSubmited = true;
 
     if (this.user) {
@@ -81,6 +81,7 @@ export class AuthInscriptionUserComponent implements OnInit {
           setTimeout(() => {
             document.location.href = '/connexion'
           }, 10000)
+         
         } else
           this.res = "Une erreur s'est introduite, veuillez réessayer!"
       })
