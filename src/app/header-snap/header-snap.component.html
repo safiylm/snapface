@@ -1,13 +1,13 @@
 <div id="photo-viewer-photo-profil" *ngIf="isDisplayPhotoViewerProfil">
     <button type="button" class="btn-close" aria-label="Close" (click)="hidePhotoViewerProfil()"></button>
-    <br/>
-    <img [src]="UserPhotoProfil" alt="photo de profil de l'utilisateur" />
+    <br />
+    <img id="imgpp" [src]="UserPhotoProfil" alt="Photo de profil de {{ UserName }}" />
 </div>
 
 <div id="photo-viewer-photo-background" *ngIf="isDisplayPhotoViewerBackground">
     <button type="button" class="btn-close" aria-label="Close" (click)="hidePhotoViewerBackground()"></button>
-    <br/>
-    <img [src]='UserPhotoBackground' alt="photo background de l'utilisateur"/>
+    <br />
+    <img id="imgpb" [src]='UserPhotoBackground' alt="Photo background de {{ UserName }}" />
 </div>
 
 <img id="photo-background" [src]="UserPhotoBackground" (click)="showPhotoViewerBackground()" />
@@ -17,10 +17,8 @@
         <img id="photo-profil" [src]="UserPhotoProfil" (click)="showPhotoViewerProfil()" />
     </div>
     <div>
-        <h3 class="name">
-            {{ UserName }}
-            <app-button-follow [isMe]="isMe" [pageuserid]="id"></app-button-follow>
-          </h3>
+        <h3 class="name">{{ UserName }}</h3>
+        <app-button-follow [isMe]="isMe" [pageuserid]="id"></app-button-follow>
 
         <div class="dropdown" *ngIf="isMe">
             <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
