@@ -15,7 +15,7 @@ import { NgFor, NgIf } from '@angular/common';
 })
 export class PublicationEditComponent {
 
-  id: string = ""; //postId
+  id: string = this.route.snapshot.paramMap.get('id')!; //postId
   post!: Publication;
   subscription !: Subscription;
   resultatOfEdit = "";
