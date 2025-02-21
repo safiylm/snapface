@@ -33,7 +33,7 @@ describe('Publication Edit Component', () => {
   });
 
 
-  it('should call the inscription to create new user', () => {
+  it('should edit post', () => {
 
     // Arrange
     const data = new Publication(
