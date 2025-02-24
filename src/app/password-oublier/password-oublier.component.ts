@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl, ReactiveFormsModule, FormsModule } from "@angular/forms";
+import { FormsModule } from "@angular/forms";
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../services/user-service'
 import * as bcrypt from "bcryptjs";
-import { NgClass, NgIf, NgStyle } from '@angular/common';
+import { NgIf, NgStyle } from '@angular/common';
 
 @Component({
   selector: 'app-password-oublier',
@@ -34,8 +34,8 @@ export class PasswordOublierComponent {
 
   }
 
-  getFirstPassword(event: any) {
-    this.newpassword = event.target.value;
+  getFirstPassword() {
+   // this.newpassword = event.target.value;
 
     if (this.newpassword.length > 8 &&
       this.newpassword.match('[a-z]+') != null &&
@@ -50,9 +50,9 @@ export class PasswordOublierComponent {
     }
   }
 
-  getSecondPassword(event: any) {
-    this.newpassword2 = event.target.value;
-    if (this.newpassword === this.newpassword2) {
+  getSecondPassword() {
+    //this.newpassword2 = event.target.value;
+    if (this.newpassword === this.newpassword2 && this.newpassword.trim()!="") {
       this.is2PasswordIdentique = true;
     } else {
       this.is2PasswordIdentique = false;
