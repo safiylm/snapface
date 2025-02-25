@@ -37,7 +37,6 @@ describe('AuteurInPostOrCommentaireComponent', () => {
   });
 
 
-
   it('should create the component', () => {
     expect(component).toBeTruthy();// Vérifie que le composant est créé
   });
@@ -65,12 +64,8 @@ describe('AuteurInPostOrCommentaireComponent', () => {
   });
 
 
-  it('should display username', () => {
+  it('should display', () => {
     expect(p_username.textContent).toContain(component.user.firstName + " " + component.user.lastName);
-  });
-
-
-  it('should display photo', () => {
     expect(photo.getAttribute("src")).toContain(component.user.photos_profil);
   });
 
