@@ -15,7 +15,7 @@ import { UserComponent } from './user/user.component';
 
 export class UsersListComponent {
   
-  users?: User[];
+  users!: User[];
   
   constructor(private roote: ActivatedRoute) {
     this.users = this.roote.snapshot.data['users']

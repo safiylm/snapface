@@ -1,22 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { UserComponent } from './user.component';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { UserService } from 'src/services/user-service';
 import { User } from 'src/models/user.model';
 
-describe('User in List', () => {
+describe('User', () => {
   let component: UserComponent;
   let fixture: ComponentFixture<UserComponent>;
-  let httpTestingController: HttpTestingController;
   let photo!: HTMLElement;
   let p_username!: HTMLElement;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      providers: [
-        UserService,
-      ],
-      imports: [HttpClientTestingModule],
     }).compileComponents()
 
 
@@ -28,7 +21,6 @@ describe('User in List', () => {
       "https://images.pexels.com/photos/2558605/pexels-photo-2558605.jpeg")
 
     fixture.detectChanges();// Déclenche la détection des modifications initiales
-    httpTestingController = TestBed.inject(HttpTestingController);
 
     p_username = fixture.nativeElement.querySelector('#username');
     photo = fixture.nativeElement.querySelector('#photos-profil');
@@ -37,13 +29,11 @@ describe('User in List', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+    expect(component.user).toBeDefined();
   });
 
-  it('should display username', () => {
+  it('should display ', () => {
     expect(p_username.textContent).toContain("");
-  });
-
-  it('should display photo', () => {
     expect(photo.getAttribute("src")).toContain(component.user.photos_profil);
   })
 
