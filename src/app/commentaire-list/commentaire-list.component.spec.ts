@@ -4,7 +4,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NgIf } from '@angular/common';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { CommentaireService } from 'src/services/commentaire-service';
-import { Commentaire } from 'src/models/commentaire.model';
 
 describe('CommentaireListComponent', () => {
   let component: CommentaireListComponent;
@@ -27,6 +26,7 @@ describe('CommentaireListComponent', () => {
     httpTestingController = TestBed.inject(HttpTestingController);
   });
 
+  
   it('should create', () => {
     expect(component).toBeTruthy();
   });

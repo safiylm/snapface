@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Pipe } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Publication } from '../../models/publication.model';
 import { AuteurInPostOrCommentaireComponent } from '../auteur-in-post-or-commentaire/auteur-in-post-or-commentaire.component';
 import { InteractionSocialComponent } from '../interaction-social/interaction-social.component';
@@ -15,19 +15,19 @@ import { NgIf, TitleCasePipe } from '@angular/common';
     NgIf]
 })
 
-export class PublicationComponent  {
+export class PublicationComponent {
 
   @Input() publication!: Publication;
-  isDisplayListOfComments : boolean = false;
+  isDisplayListOfComments: boolean = false;
   // constructor() { }
   index: number = 0;
   isMyPost: boolean = false;
 
   ngAfterContentChecked() {
     if (this.UserId == localStorage.getItem('userId')) {
-    this.isMyPost = true;
+      this.isMyPost = true;
     }
- }
+  }
 
 
   goToEditPost() {
@@ -49,7 +49,7 @@ export class PublicationComponent  {
       this.index -= 1;
   }
 
-  get Id(){
+  get Id() {
     return (this.publication && this.publication._id) ? this.publication._id : null
 
   }

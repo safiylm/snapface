@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UserService } from 'src/services/user-service';
 
@@ -12,18 +12,12 @@ import { UserService } from 'src/services/user-service';
 })
 export class EditPhonenumberComponent {
 
-  phoneNumber = 0;
+ @Input() phoneNumber !: number;
   resultat = "";
 
   ngOnInit(){
-    this.userService.getUser(localStorage.getItem("userId")?.toString() as string)
-    .subscribe({
-      next: (data) => {
-        this.phoneNumber = data.phoneNo;
-      },
-      error: (e) => console.error(e)
-    });
   }
+  
   constructor(private userService: UserService) { }
 
   editPhoneNumber() {

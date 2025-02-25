@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { UserService } from 'src/services/user-service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -12,20 +12,10 @@ import { CommonModule } from '@angular/common';
   
 })
 export class EditEmailComponent {
-  email= "";
+ @Input() email !: string;
   resultat= "";
 
   constructor(private userService: UserService){}
-
-  ngOnInit(){
-    this.userService.getUser(localStorage.getItem("userId")?.toString() as string)
-    .subscribe({
-      next: (data) => {
-        this.email = data.email;
-      },
-      error: (e) => console.error(e)
-    });
-  }
 
   editEmail(){
     this.userService.editEmail(localStorage.getItem('userId')?.toString() as string, this.email).subscribe({

@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, tick } from '@angular/core/testing';
 import { UserDataUpdateComponent } from './user-data-update.component';
 import { NgFor } from '@angular/common';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
@@ -26,7 +26,7 @@ describe('UserDataEditComponent', () => {
   });
 
 
-  it('should create', () => {
+  it('should create comp.', () => {
     expect(component).toBeTruthy();
   });
 
@@ -48,6 +48,8 @@ describe('UserDataEditComponent', () => {
 
     // Vérifie que les données sont assignées correctement
     expect(component.user).toEqual(mockData);
+    expect(component.user).toBeDefined()
+  //  expect(component.isSubmit).toBeTrue()
 
   });
 

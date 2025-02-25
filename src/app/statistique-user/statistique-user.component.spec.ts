@@ -54,16 +54,9 @@ describe('StatistiqueUserComponent', () => {
   });
 
 
-  it('should display followers', () => {
+  it('should display', () => {
     expect(followsNB.textContent).toEqual(" Followers "+component.statistiqueUser.followers);
-  });
-
-
-  it('should display total of points', () => {
     expect(pointsTotal.textContent).toEqual(" Points totales "+component.statistiqueUser.totalPoints);
-  });
-
-  it('should display total of posts ', () => {
     expect(postsTotal.textContent).toEqual(" Post totales "+component.statistiqueUser.totalPosts);
   });
 

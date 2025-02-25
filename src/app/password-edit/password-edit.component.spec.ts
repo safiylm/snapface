@@ -5,16 +5,17 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 describe('Password edit Component', () => {
   let component: PasswordEditComponent; 
+  let fixture: ComponentFixture<PasswordEditComponent>;
 
   beforeEach( () => {
     TestBed.configureTestingModule({
       imports:[HttpClientModule, RouterTestingModule],
     }).compileComponents()
 
-    let fixture: ComponentFixture<PasswordEditComponent>;
   
     fixture = TestBed.createComponent(PasswordEditComponent); 
     component = fixture.componentInstance; fixture.detectChanges();
+    component.id = "66e9219abe68cdd15907399e";
   });
 
   it('should create', () => { 
