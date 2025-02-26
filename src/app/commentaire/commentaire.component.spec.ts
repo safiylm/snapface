@@ -24,9 +24,10 @@ describe('CommentaireComponent', () => {
 
     fixture = TestBed.createComponent(CommentaireComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+   
     httpTestingController = TestBed.inject(HttpTestingController);
     service = TestBed.inject(CommentaireService);
+
     component.commentaire = new Commentaire(
       "6697ffa585ac11e40dccc044",
       "La mer est un espace de rigueur et de liberté. Victor Hugo",
@@ -35,7 +36,8 @@ describe('CommentaireComponent', () => {
       "662eb417c2fd9ad3238d752e"
     );
     window.localStorage.setItem("userId", "662eb2a1c2fd9ad3238d7528")
-
+  
+    fixture.detectChanges();
   });
 
 

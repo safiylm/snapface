@@ -21,7 +21,7 @@ export class CommentaireCreateComponent {
   createNewComment() {
     this.commentaire.postId = this.id;
     if (localStorage.getItem('userId')) {
-      if (this.commentaire.title.toString().length != 0)
+      if (this.commentaire.title.trim() != "")
         this.commentaireService.addNewCommentaire(this.commentaire).subscribe(
           {
             next: (data) => {

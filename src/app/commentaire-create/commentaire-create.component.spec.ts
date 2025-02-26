@@ -4,7 +4,7 @@ import { NgIf } from '@angular/common';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { CommentaireService } from 'src/services/commentaire-service';
 import { Commentaire } from 'src/models/commentaire.model';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 
 describe('Commentaire Create Component', () => {
   let component: CommentaireCreateComponent;
@@ -24,7 +24,7 @@ describe('Commentaire Create Component', () => {
 
     fixture = TestBed.createComponent(CommentaireCreateComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+   
     httpTestingController = TestBed.inject(HttpTestingController);
     service = TestBed.inject(CommentaireService);
     component.id = "662eb417c2fd9ad3238d752e"
@@ -32,51 +32,47 @@ describe('Commentaire Create Component', () => {
       "6697ffa585ac11e40dccc044",
       "La mer est un espace de rigueur et de liberté. Victor Hugo",
       1721237413177,
-      "662eb2a1c2fd9ad3238d7528",
-      "662eb417c2fd9ad3238d752e"
+      "662eb2a1c2fd9ad3238d7528", //userId
+      "662eb417c2fd9ad3238d752e" //postId
     );
-
+    window.localStorage.setItem("userId", "662eb2a1c2fd9ad3238d7528")
+ fixture.detectChanges();
   });
 
 
   it('should create', () => {
+    expect(component.id).toBeDefined()
     expect(component).toBeTruthy();
+    expect(component.result).toBe("");
   });
-
-
-  it('init ', () => {
-    expect(component.id).toBeDefined() // postId
-    expect(component.result).toBeDefined()
-    //expect(component.commentaire).toBeDefined()
-
-  })
-
 
 
   it('should create comment', () => {
 
-    // Arrange
-    const data = new Commentaire(
-      "6697ffa585ac11e40dccc044",
-      "Test Com Réussi",
-      1721237413177,
-      "662eb2a1c2fd9ad3238d7528",
-      "662eb417c2fd9ad3238d752e"
-    );
-
-    spyOn(component, 'createNewComment')
-    component.commentaire = data;
-
+    spyOn(component, 'createNewComment').and.callThrough();
     spyOn(service, 'addNewCommentaire').and
-      .returnValue(of(data));
-
+      .returnValue(of(component.commentaire));
     // Act
     component.createNewComment();
-
     // Assert
     expect(component.createNewComment).toHaveBeenCalled();
+    expect(component.result).toBe("Votre commentaire a été crée avec succès")
+
   });
 
+
+  it('should erreur create comment', () => {
+
+    spyOn(component, 'createNewComment').and.callThrough();
+    spyOn(service, 'addNewCommentaire').and
+      .returnValue(throwError(() => new Error('Erreur API')));
+    // Act
+    component.createNewComment();
+    // Assert
+    expect(component.createNewComment).toHaveBeenCalled();
+    expect(component.result).toContain("Une erreur s'est produite veuillez recommencer.")
+
+  });
 
 
 })

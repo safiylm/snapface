@@ -4,7 +4,7 @@ import { NgIf } from '@angular/common';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { User } from 'src/models/user.model';
 import { UserService } from 'src/services/user-service';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 
 describe('Edit email', () => {
   let component: EditEmailComponent;
@@ -24,6 +24,7 @@ describe('Edit email', () => {
     fixture.detectChanges();
     httpTestingController = TestBed.inject(HttpTestingController);
     service = TestBed.inject(UserService);
+    window.localStorage.setItem("userId", "662eb2a1c2fd9ad3238d7528")
 
   });
 
@@ -33,29 +34,28 @@ describe('Edit email', () => {
   });
 
 
-  it('should edit email', () => {
+  it('should edit email with success', () => {
 
-    // Arrange
-    const data = new User(
-      "", "Test", "Martin",
-      "test.martin@gmail.com", "$2a$10$8fBvUXdyAlmqTQTYoDMAyOLgD4CRX00BL39f2PsPCtwVI5hrmHChC",
-      768259414,
-      "https://images.pexels.com/photos/17542964/pexels-photo-17542964/free-photo-of-lumineux-route-lunettes-de-soleil-gens.jpeg",
-      "https://images.pexels.com/photos/4767578/pexels-photo-4767578.jpeg"
-    )
     component.email = "test.martin@gmail.com";
-    spyOn(component, 'editEmail')
+    spyOn(component, 'editEmail').and.callThrough();
 
     spyOn(service, 'editEmail').and
-      .returnValue(of(data));
-
+      .returnValue(of(new User("", "", "",component.email,"",0,"","")));
     // Act
     component.editEmail();
-
     // Assert
     expect(component.editEmail).toHaveBeenCalled();
+    expect(component.resultat).toContain("Email modifier avec succes")
 
   });
+
+  it("Should edit email with error", ()=>{
+    spyOn(component, "editEmail").and.callThrough()
+    spyOn(service, "editEmail").and.returnValue(throwError(()=>new Error('Error edit email')));
+    component.editEmail();
+    expect(component.editEmail).toHaveBeenCalled()
+    expect(component.resultat).toContain("Erreur, réessayser")
+  })
 
 
 })

@@ -28,8 +28,8 @@ export class CommentaireComponent //implements AfterViewInit
 
   ngOnInit() {
     
-    if (typeof localStorage !== 'undefined' && localStorage !== null && this.commentaire!=null && this.commentaire!=undefined ) {
-      this.isMyComment = this.commentaire.userId == (localStorage.getItem("userId")?.toString() as string)
+    if (typeof localStorage !== undefined && localStorage !== null && this.commentaire!=null && this.commentaire!=undefined ) {
+      this.isMyComment = this.commentaire.userId == (localStorage.getItem("userId")!.toString() as string)
     } else {
       console.error('localStorage is not available.');
     }
