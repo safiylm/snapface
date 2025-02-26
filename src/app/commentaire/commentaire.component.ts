@@ -77,7 +77,7 @@ export class CommentaireComponent //implements AfterViewInit
     if (localStorage.getItem('userId') == this.commentaire.userId) {
 
       let text = "Êtes-vous sûre de supprimer votre commentaire!\n OK or Cancel.";
-      if (confirm(text) == true) {
+    //  if (confirm(text) == true) {
         this.commentaireService.deleteCommentaire(this.commentaire._id)
         .subscribe(
           {
@@ -97,7 +97,7 @@ export class CommentaireComponent //implements AfterViewInit
             }
           })
       } 
-    }
+   // }
   }
 
   get Titre() {

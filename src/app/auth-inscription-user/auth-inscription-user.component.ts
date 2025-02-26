@@ -63,34 +63,36 @@ export class AuthInscriptionUserComponent implements OnInit {
     }
   }
 
-  onSubmit() : void {
+  onSubmit(): void {
     this.isSubmited = true;
 
     if (this.user) {
       const salt = bcrypt.genSaltSync(10);
       this.user.password = bcrypt.hashSync(this.user.password, salt);
-      this.userService.inscription(this.user).subscribe(data => {
-        if (data) {
-          this.res = "Inscription success. Il faut confirmer votre email. Redirection dans {{ timeForRedirection$ | async }} secondes pour vous connectez."
+      this.userService.inscription(this.user).subscribe(
+        {
+          next: (data) => {
+            if (data) {
+              this.res = "Inscription success. Il faut confirmer votre email. Redirection dans {{ timeForRedirection$ | async }} secondes pour vous connectez."
 
-          this.timeForRedirection$ = interval(1000).pipe(
-            scan(acc => --acc, 10),
-            takeWhile(x => x >= 0)
-          );
+              this.timeForRedirection$ = interval(1000).pipe(
+                scan(acc => --acc, 10),
+                takeWhile(x => x >= 0)
+              );
 
-          setTimeout(() => {
-            document.location.href = '/connexion'
-          }, 10000)
-         
-        } else
-          this.res = "Une erreur s'est introduite, veuillez réessayer!"
-      })
+              setTimeout(() => {
+                document.location.href = '/connexion'
+              }, 10000)
+
+            } else
+              this.res = "Une erreur s'est introduite, veuillez réessayer!"
+          },
+           error: (e) => console.error("Erreur inscription")
+
+        })
     }
   }
 
-  ngOnDestroy() {
-  
-  }
 
 }
 

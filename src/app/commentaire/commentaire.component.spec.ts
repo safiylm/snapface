@@ -4,7 +4,7 @@ import { NgIf } from '@angular/common';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { CommentaireService } from 'src/services/commentaire-service';
 import { Commentaire } from 'src/models/commentaire.model';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 
 describe('CommentaireComponent', () => {
   let component: CommentaireComponent;
@@ -34,6 +34,7 @@ describe('CommentaireComponent', () => {
       "662eb2a1c2fd9ad3238d7528",
       "662eb417c2fd9ad3238d752e"
     );
+    window.localStorage.setItem("userId", "662eb2a1c2fd9ad3238d7528")
 
   });
 
@@ -43,69 +44,76 @@ describe('CommentaireComponent', () => {
   });
 
 
-  it('init ', () => {
+  it('init', () => {
     expect(component.isMyComment).toBeDefined()
     expect(component.isDisplayingForm).toBeDefined()
   })
 
 
-  it('open & close form editting comment  ', () => {
+  it('show & hide form editting comment', () => {
 
     expect(component.isDisplayingForm).toEqual(false)
-    spyOn(component, 'showFormEditComment')
+    spyOn(component, 'showFormEditComment').and.callThrough()
     component.showFormEditComment();
     expect(component.showFormEditComment).toHaveBeenCalled()
-    // expect(component.isDisplayingForm).toEqual(true)
+    expect(component.isDisplayingForm).toEqual(true)
+
   })
 
 
   it('should edit comment', () => {
 
-    // Arrange
-    const data = new Commentaire(
-      "6697ffa585ac11e40dccc044",
-      "La mer est un espace de rigueur et de liberté. Victor Hugo",
-      1721237413177,
-      "662eb2a1c2fd9ad3238d7528",
-      "662eb417c2fd9ad3238d752e"
-    );
-
-    spyOn(component, 'editComment')
-    component.commentaire = data;
-
+    spyOn(component, 'editComment').and.callThrough()
     spyOn(service, 'updateCommentaire').and
-      .returnValue(of(data));
-
+      .returnValue(of( component.commentaire ));
     // Act
-    component.editComment();
-
+    component.editComment()
     // Assert
     expect(component.editComment).toHaveBeenCalled();
+    expect(component.result).toContain("Commentaire modifié avec succes!")
+  });
+
+
+  it('should erreur edit comment', () => {
+   
+    spyOn(component, 'editComment').and.callThrough();
+    spyOn(service, 'updateCommentaire').and
+      .returnValue(throwError(() => new Error('Erreur API')));
+    // Act
+    component.editComment();
+    // Assert
+    expect(component.editComment).toHaveBeenCalled();
+    expect(component.result).toContain("Une erreur s'est produite veuillez réessayer!")
+
   });
 
 
   it('should delete comment', () => {
 
-    // Arrange
-    const data = new Commentaire(
-      "6697ffa585ac11e40dccc044",
-      "La mer est un espace de rigueur et de liberté. Victor Hugo",
-      1721237413177,
-      "662eb2a1c2fd9ad3238d7528",
-      "662eb417c2fd9ad3238d752e"
-    );
-
-    spyOn(component, 'deleteComment')
-    component.commentaire = data;
-
+    spyOn(component, 'deleteComment').and.callThrough();
     spyOn(service, 'deleteCommentaire').and
-      .returnValue(of(data));
-
+      .returnValue(of(component.commentaire));
     // Act
     component.deleteComment();
-
     // Assert
     expect(component.deleteComment).toHaveBeenCalled();
+    expect(component.result).toContain("Commentaire supprimé avec succes!")
+
   });
+
+
+  it('should erreur delete comment', () => {
+   
+    spyOn(component, 'deleteComment').and.callThrough();
+    spyOn(service, 'deleteCommentaire').and
+      .returnValue(throwError(() => new Error('Erreur API')));
+    // Act
+    component.deleteComment();
+    // Assert
+    expect(component.deleteComment).toHaveBeenCalled();
+    expect(component.result).toContain("Une erreur s'est produite veuillez réessayer!")
+
+  });
+
 
 })
