@@ -3,7 +3,7 @@ const message = require("../controllers/message.controller.js");
 var router_message = require("express").Router();
 
 // Create 
-router_message.get("/message/create", message.create);
+router_message.post("/message/create", message.create);
 
 //GET
 router_message.get("/messages", message.find);

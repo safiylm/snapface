@@ -1,0 +1,10 @@
+<p>chat works!</p>
+<div class="chat-container">
+  <div class="messages">
+    <div *ngFor="let msg of messages">{{ msg }}</div>
+  </div>
+  <div class="d-flex align-items-center justify-content-center">
+    <input [(ngModel)]="message" name="message" class="form-control" placeholder="Écrivez un message..." />
+    <button class="btn btn-light" (click)="sendMessage()">Envoyer</button>
+  </div>
+</div>

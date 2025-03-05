@@ -38,6 +38,12 @@ const routes: Routes = [
     loadComponent: () => import('./auth-connexion-user/auth-connexion-user.component')
       .then(mod => mod.AuthConnexionUserComponent)
   },
+
+  {
+    path: 'chat',
+    loadComponent: () => import('./chat/chat.component')
+      .then(mod => mod.ChatComponent)
+  },
   {
     path: 'inscription',
     loadComponent: () => import('./auth-inscription-user/auth-inscription-user.component')
@@ -78,7 +84,7 @@ const routes: Routes = [
     title: "Modifier sa publication",
     loadComponent: () => import('./publication-edit/publication-edit.component')
       .then(mod => mod.PublicationEditComponent),
-   // canDeactivate: [formulaireDesactiveGuard]
+    canDeactivate: [formulaireDesactiveGuard]
   },
 
   {
