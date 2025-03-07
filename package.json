@@ -22,6 +22,7 @@
     "file-saver": "^2.0.5",
     "mssql": "^10.0.2",
     "rxjs": "~7.8.0",
+    "socket.io-client": "^4.8.1",
     "tslib": "^2.3.0",
     "write-json-file": "^5.0.0",
     "zone.js": "~0.13.0"

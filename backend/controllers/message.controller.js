@@ -5,10 +5,9 @@ const collection_messages = db.collection('messages');
 exports.create = async (req, res) => {
 // res.set('Access-Control-Allow-Origin', '*');
   //const { sender, receiver, text } = req.body;
-const sender = '662eb2a1c2fd9ad3238d7528'; 
-const receiver = '67750e706164bea251fc0562';
-
-const text = "MEssage 1: cc cv"
+const sender = req.body.sender; 
+const receiver = req.body.receiver;
+const text =req.body.text
 
 collection_messages
   .insertOne({sender, receiver, text })

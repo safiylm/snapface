@@ -14,23 +14,23 @@ export class ChatPublicService {
   constructor(private http: HttpClient) {
     this.socket = io('http://localhost:4110');
 
-    this.socket.on('connect', () => {
+    this.socket.on('connection', () => {
       console.log('✅ Connecté au serveur WebSocket');
     });
 
-    this.socket.on('connect_error', (error) => {
+    this.socket.on('disconnect', (error) => {
       console.error('❌ Erreur de connexion WebSocket :', error);
     });
   }
   
 /**Discusiion instantane ouvert à tout le monde  */
   sendMessagePublic(message: any) {
-    this.socket.emit('message', message);
+    this.socket.emit('publicMessage', message);
   }
 
   receiveMessagesPublic(): Observable<any> {
     return new Observable(observer => {
-      this.socket.on('message', (msg) => observer.next(msg));
+      this.socket.on('publicMessage', (msg) => observer.next(msg));
     });
   }
 

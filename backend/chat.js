@@ -1,81 +1,7 @@
-/*var express = require('express');
-var app = express();
-const { Server } = require('socket.io');
-const http = require('http');
-const server = http.createServer(app);
-
-
-io.on('connection', (socket) => {
-  console.log('Un utilisateur est connecté');
-
-  socket.on('message', (msg) => {
-    io.emit('message', msg); // Diffuser à tous
-  });
-
-  socket.on('disconnect', () => {
-    console.log('Un utilisateur est déconnecté');
-  });
-  socket.onerror = function () {
-    console.log('websocket error')
-  }
-});
-console.log("salut")
-
-
-app.get("/", (req, res) => {
-  res.send("Bienvenue")
-});
-
-app.listen(4400, function () {
-  console.log('Example app listening on port 4400!')
-})
-
-const express = require('express');
-const http = require('http');
-const { Server } = require('socket.io');
-const cors = require("cors");
-const app = express();
-
-const server = http.createServer(app);
-//const io = socketIO(server); // Initialize socket.io
-const io = new Server(server, {
-  cors: { origin: '*' }
-})
-
-
-const port = process.env.PORT || 4100;
-app.use(cors({origin: "*"}));
-
-
-io.on('connection', (socket) => {
-    console.log('New user connected');
-
-    socket.emit('newMessage', { from: 'Server', text: 'Welcome!', createdAt: Date.now() });
-
-    socket.on('createMessage', (message) => {
-        console.log('New message:', message);
-        io.emit('newMessage', message); // Send to everyone
-    });
-
-    socket.on('disconnect', () => {
-        console.log('User disconnected');
-    });
-});
-
-app.get("/", (req, res) => {
-  res.send("Bienvenue")
-});
-
-
-app.listen(port, () => {
-    console.log(`Server is up on port ${port}`);
-});
-*/
-
-
 const express = require("express");
 const http = require("http");
 const { Server } = require("socket.io");
+const axios = require('axios');
 
 const app = express();
 const server = http.createServer(app);
@@ -87,16 +13,49 @@ const io = new Server(server, {
 });
 
 io.on("connection", (socket) => {
-  console.log("Un utilisateur est connecté");
 
-  socket.on("message", (msg) => {
+  console.log("Un utilisateur est connecté");
+/*
+  socket.on("publicMessage", (msg) => {
     console.log("Message reçu :", msg);
-    io.emit("message", msg); // Diffuse le message à tous
+    io.emit("publicMessage", msg); // Diffuse le message à tous
   });
+*/
+
+/*
+  socket.on("privateMessage", (msg) => {
+    console.log("Message privé reçu :", msg);
+    io.emit("privateMessage", msg); // Diffuse le message à tous
+  });
+  */
+
+  socket.on('privateMessage', async ({ sender, receiver, text }) => {
+      //try {
+        const response = await axios.post('http://localhost:4100/message/create', {
+          sender,
+          receiver,
+          text
+         })
+     
+         const savedMessage = response.data;
+         io.to(receiver).emit('receiveprivateMessage', savedMessage);
+       // res.send(savedMessage);
+     /*  } catch (error) {
+         console.error('Erreur lors de l’enregistrement du message', error);
+       }*/
+  });
+
+
+  socket.on('joinRoom', (userId) => {
+    socket.join(userId);
+  });
+
+
 
   socket.on("disconnect", () => {
     console.log("Utilisateur déconnecté");
   });
+
 });
 
 server.listen(4110, () => {

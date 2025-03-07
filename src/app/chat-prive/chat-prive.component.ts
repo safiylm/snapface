@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ChatPriveService  } from '../../services/chatprive.service';
 import { FormsModule } from '@angular/forms';
 import { NgFor, NgIf } from '@angular/common';
+import { Message } from 'src/models/message.model';
 
 
 @Component({
@@ -16,7 +17,7 @@ export class ChatPriveComponent implements OnInit {
     message = '******';
     messages: any[] = [];
     sender : string = localStorage.getItem("userId")?.toString() as string;  
-
+    res !: Message;
     
     @Input() receiverId!: string;
 
@@ -34,18 +35,19 @@ export class ChatPriveComponent implements OnInit {
       });
   
       // Recevoir les nouveaux messages en temps réel
-      this.chatService.receiveMessages().subscribe(msg => {
+      this.chatService.receiveMessagesPrive().subscribe(msg => {
         this.messages.push(msg);
       });
 
     }
   
-    sendMessage() {
+    sendMessagePrivee() {
       if (this.message.trim()) {
-        this.chatService.sendMessage(this.sender, this.receiverId, this.message)
-        .subscribe({
-          
-        })
+        this.chatService.sendMessagePrivee(this.sender, this.receiverId, this.message)
+        /*.subscribe( (data)=>{
+          if(data)
+            this.res = data
+          })*/
       //  this.messages.push({ sender: this.sender, text: this.message });
         this.message = '';
       }

@@ -13,8 +13,8 @@
       </div>
     </div>
     <div class="d-flex">
-    <input class="form-control" [(ngModel)]="message" placeholder="Tapez un message..." />
-    <button class="btn btn-light" (click)="sendMessage()">Envoyer</button>
+    <input class="form-control" [(ngModel)]="message" placeholder="Tapez un message..." (keyup.enter)="sendMessagePrivee()"/>
+    <button class="btn btn-light" (click)="sendMessagePrivee()">Envoyer</button>
     </div>
   </div>
   
