@@ -1,10 +1,20 @@
+
 <div class="chat-box">
-    <div class="messages">
+
+  <div class="messages">
       <div *ngFor="let msg of messages">
-        <strong>{{ msg.sender === sender ? 'Moi' : 'Lui' }}:</strong> {{ msg.text }}
+       <p> <strong>{{ msg.sender === sender ? 'Moi' : 'Lui' }}</strong> </p>
+        <p>
+         {{ msg.text }}
+         </p>
+      </div>
+      <div *ngIf="messages.length==0">
+        <p>Dites Bonjour👋</p> 
       </div>
     </div>
-    <input [(ngModel)]="message" placeholder="Tapez un message..." />
-    <button (click)="sendMessage()">Envoyer</button>
+    <div class="d-flex">
+    <input class="form-control" [(ngModel)]="message" placeholder="Tapez un message..." />
+    <button class="btn btn-light" (click)="sendMessage()">Envoyer</button>
+    </div>
   </div>
   

@@ -1,44 +1,56 @@
- import { Component, OnInit } from '@angular/core';
-  import { WebsocketService } from '../../services/websocket.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { ChatPriveService  } from '../../services/chatprive.service';
 import { FormsModule } from '@angular/forms';
-import { NgFor } from '@angular/common';
-  
+import { NgFor, NgIf } from '@angular/common';
+
 
 @Component({
   standalone:true,
   selector: 'app-chat-prive',
   templateUrl: './chat-prive.component.html',
   styleUrls: ['./chat-prive.component.scss'], 
-  imports:[NgFor, FormsModule]
+  imports:[NgFor, FormsModule, NgIf]
 })
+
 export class ChatPriveComponent implements OnInit {
-    message = '';
+    message = '******';
     messages: any[] = [];
-    sender = '662eb2a1c2fd9ad3238d7528';  // Remplace par l'ID réel de l'utilisateur
-    receiver = '67750e706164bea251fc0562'; // L'ID du destinataire
-  
-    constructor(private websocketService: WebsocketService) {}
+    sender : string = localStorage.getItem("userId")?.toString() as string;  
+
+    
+    @Input() receiverId!: string;
+
+    constructor(private chatService: ChatPriveService, 
+    ) {}
   
     ngOnInit() {
-      this.websocketService.joinRoom(this.sender);
+      this.sender = localStorage.getItem("userId")?.toString() as string;  // ChatPublicServiceRemplace par l'ID réel de l'utilisateur
+
+      this.chatService.joinRoom(this.sender);
   
       // Charger l'historique des messages
-      this.websocketService.getMessageHistory(this.sender, this.receiver).subscribe((data: any) => {
+      this.chatService.getMessageHistory(this.sender, this.receiverId).subscribe((data: any) => {
         this.messages = data;
       });
   
       // Recevoir les nouveaux messages en temps réel
-      this.websocketService.receiveMessages().subscribe(msg => {
+      this.chatService.receiveMessages().subscribe(msg => {
         this.messages.push(msg);
       });
+
     }
   
     sendMessage() {
       if (this.message.trim()) {
-        this.websocketService.sendMessage(this.sender, this.receiver, this.message);
-        this.messages.push({ sender: this.sender, text: this.message });
+        this.chatService.sendMessage(this.sender, this.receiverId, this.message)
+        .subscribe({
+          
+        })
+      //  this.messages.push({ sender: this.sender, text: this.message });
         this.message = '';
       }
     }
+
+
   }
   

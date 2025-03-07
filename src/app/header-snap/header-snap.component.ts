@@ -1,11 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Pipe } from '@angular/core';
 import { UserService } from '../../services/user-service'
 import { User } from '../../models/user.model'
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { StatistiqueUserComponent } from '../statistique-user/statistique-user.component';
-import { NgIf } from '@angular/common';
+import { NgIf, TitleCasePipe } from '@angular/common';
 import { ButtonFollowComponent } from '../button-follow/button-follow.component';
+import { ChatPriveComponent } from "../chat-prive/chat-prive.component";
 
 
 @Component({
@@ -13,7 +14,7 @@ import { ButtonFollowComponent } from '../button-follow/button-follow.component'
   selector: 'app-header-snap',
   templateUrl: './header-snap.component.html',
   styleUrls: ['./header-snap.component.scss'], 
-  imports:[StatistiqueUserComponent, NgIf, ButtonFollowComponent]
+  imports: [StatistiqueUserComponent, NgIf, ButtonFollowComponent, TitleCasePipe, ChatPriveComponent]
 })
 
 
