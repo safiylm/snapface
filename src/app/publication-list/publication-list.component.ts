@@ -15,7 +15,6 @@ import { UsersListComponent } from "../users-list/users-list.component";
 
 export class PublicationListComponent {
 
-  @Input() id !: string;
   publications!: Publication[];
 
   constructor( route: ActivatedRoute) {

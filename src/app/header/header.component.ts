@@ -16,7 +16,7 @@ export class HeaderComponent implements OnInit {
   isLoggedIn: boolean = false;
 
   ngOnInit() {
-    if (localStorage.getItem('isLoggedIn') == "true") {
+    if (window.localStorage.getItem('isLoggedIn') == "true") {
       this.isLoggedIn = true;
     } else {
       this.isLoggedIn = false;

@@ -1,11 +1,7 @@
 import { NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Abonnee } from 'src/models/abonnee.model';
-import { Publication } from 'src/models/publication.model';
 import { AbonneeService } from 'src/services/abonnee-service';
-import { PublicationComponent } from "../publication/publication.component";
-import { PublicationsService } from 'src/services/publication-service';
-import { forkJoin } from 'rxjs';
 import { PublicationsListComponent } from './publications-list/publications-list.component';
 import { HeaderComponent } from "../header/header.component";
 

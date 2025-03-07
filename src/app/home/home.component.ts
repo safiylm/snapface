@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
 import { PublicationAllListComponent } from '../publication-all-list/publication-all-list.component';
 import { UsersListComponent } from '../users-list/users-list.component';
@@ -9,7 +9,7 @@ import { UsersListComponent } from '../users-list/users-list.component';
   standalone: true, 
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'], 
-  imports: [HeaderComponent, PublicationAllListComponent, UsersListComponent,
+  imports: [HeaderComponent, PublicationAllListComponent, UsersListComponent
   ]
 })
 
