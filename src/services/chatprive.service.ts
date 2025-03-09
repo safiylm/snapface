@@ -13,7 +13,7 @@ export class ChatPriveService {
 
   constructor(private http: HttpClient) {
     this.socket = io('http://localhost:4110');
-
+/*
     this.socket.on('connection', () => {
       console.log('✅ Connecté au serveur WebSocket');
     });
@@ -21,9 +21,10 @@ export class ChatPriveService {
     this.socket.on('disconnect', (error) => {
       console.error('❌ Erreur de connexion WebSocket :', error);
     });
+    */
   }
 
-  receiveMessagesPrive(): Observable<any> {
+  receiveMessagesPrive(): Observable<Message[]> {
     return new Observable(observer => {
       this.socket.on('receiveprivateMessage', (msg) => observer.next(msg));
     });

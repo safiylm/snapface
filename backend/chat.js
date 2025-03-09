@@ -15,19 +15,17 @@ const io = new Server(server, {
 io.on("connection", (socket) => {
 
   console.log("Un utilisateur est connecté");
-/*
+
   socket.on("publicMessage", (msg) => {
     console.log("Message reçu :", msg);
     io.emit("publicMessage", msg); // Diffuse le message à tous
   });
-*/
 
-/*
   socket.on("privateMessage", (msg) => {
     console.log("Message privé reçu :", msg);
     io.emit("privateMessage", msg); // Diffuse le message à tous
   });
-  */
+  
 
   socket.on('privateMessage', async ({ sender, receiver, text }) => {
       //try {
@@ -39,12 +37,16 @@ io.on("connection", (socket) => {
      
          const savedMessage = response.data;
          io.to(receiver).emit('receiveprivateMessage', savedMessage);
-       // res.send(savedMessage);
      /*  } catch (error) {
          console.error('Erreur lors de l’enregistrement du message', error);
        }*/
   });
 
+  /*
+  Les rooms permettent d'envoyer des messages uniquement à certains utilisateurs au lieu de diffuser à tous. Cela est utile pour : ✅ Un chat privé (envoyer un message à un utilisateur spécifique).
+✅ Des notifications personnalisées (alerter un utilisateur précis).
+✅ Un support en ligne (un agent parle à un client spécifique).
+  */
 
   socket.on('joinRoom', (userId) => {
     socket.join(userId);

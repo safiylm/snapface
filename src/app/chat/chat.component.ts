@@ -17,6 +17,7 @@ export class ChatComponent implements OnInit {
 
   constructor(private chatSerive: ChatPublicService) {}
 
+
   ngOnInit() {
     this.chatSerive.receiveMessagesPublic().subscribe(msg => {
       this.messages.push(msg);
@@ -24,6 +25,7 @@ export class ChatComponent implements OnInit {
     });
   }
 
+  
   sendMessage() {
     if (this.message.trim()) {
       this.chatSerive.sendMessagePublic(this.message);
