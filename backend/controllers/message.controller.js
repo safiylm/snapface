@@ -7,7 +7,7 @@ const collection_conversations = db.collection('conversations');
 exports.createMessage = async (req, res) => {
 
   const sender = req.body.sender;
-  const conversationId = req.query.conversationId;
+  const conversationId = req.body.conversationId;
   const text = req.body.text
 
   collection_messages

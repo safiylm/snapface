@@ -30,37 +30,24 @@ export class ChatPriveComponent implements OnInit {
     this.chatService.getMessageHistory(this.conversationId).subscribe((data: any) => {
       this.messages = data;
     });
-    this.receiveMessagesPrive()
 
   }
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes["conversationId"]  ) {
-      console.log('La valeur a changé de', changes["conversationId"].previousValue, 'à', changes["conversationId"].currentValue);
       this.chatService.getMessageHistory(changes["conversationId"].currentValue).subscribe((data: any) => {
         this.messages = data;
-        //  console.log(data)
       });
     }
   }
 
   sendMessagePrivee() {
-    if (this.message.trim()) {
+    if (this.message.trim() && this.conversationId.trim()) {
       this.chatService.sendMessagePrivee(this.sender, this.conversationId, this.message)
-    
       this.messages.push({ sender: this.sender, text: this.message });
       this.message = '';
-      this.receiveMessagesPrive()
 
     }
-  }
-
-
-  receiveMessagesPrive() {
-    // Recevoir les nouveaux messages en temps réel
-    this.chatService.receiveMessagesPrive().subscribe(msg => {
-      this.messages.push(msg);
-    });
   }
 
   createConversation(){

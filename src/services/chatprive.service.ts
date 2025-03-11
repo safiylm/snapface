@@ -36,8 +36,8 @@ export class ChatPriveService {
     this.socket.emit('joinRoom', userId);
   }
 
-  sendMessagePrivee(sender: string, receiver: string, text: string) {
-    this.socket.emit('privateMessage', { sender, receiver, text });
+  sendMessagePrivee(sender: string, conversationId: string, text: string) {
+    this.socket.emit('privateMessage', { sender, conversationId, text });
   }
 
   getMessageHistory(conversationId: string) {

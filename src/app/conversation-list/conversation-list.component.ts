@@ -30,6 +30,5 @@ export class ConversationListComponent implements OnInit {
 
   choisirConversation(newItem: string) {
     this.conversationId = newItem;
-    console.log(this.conversationId)
   }
 }

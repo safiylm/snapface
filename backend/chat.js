@@ -20,23 +20,21 @@ io.on("connection", (socket) => {
     console.log("Message reçu :", msg);
     io.emit("publicMessage", msg); // Diffuse le message à tous
   });
-
+/*
   socket.on("privateMessage", (msg) => {
-    console.log("Message privé reçu :", msg);
     io.emit("privateMessage", msg); // Diffuse le message à tous
   });
-  
+  */
 
-  socket.on('privateMessage', async ({ sender, receiver, text }) => {
+  socket.on('privateMessage', async ({ sender, conversationId, text }) => {
       //try {
         const response = await axios.post('http://localhost:4100/message/create', {
           sender,
-          receiver,
+          conversationId,
           text
          })
-     
          const savedMessage = response.data;
-         io.to(receiver).emit('receiveprivateMessage', savedMessage);
+         io.emit('receiveprivateMessage', savedMessage);
      /*  } catch (error) {
          console.error('Erreur lors de l’enregistrement du message', error);
        }*/

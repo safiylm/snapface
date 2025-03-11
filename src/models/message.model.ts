@@ -6,6 +6,7 @@ export class Message {
         public receiver: string,
         public text:  string ,
         public timestamp: number,
+        public seen : boolean
         ) {
     }
 }
