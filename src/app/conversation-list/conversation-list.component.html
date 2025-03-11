@@ -1,0 +1,9 @@
+<div class="d-flex">
+    <div>
+        <div *ngFor="let user of conversation" >
+            <app-item-user-with-last-message (newItemEvent)="choisirConversation($event)"
+              [conversationId]="user._id"  [userId]="user.speaker[0]"></app-item-user-with-last-message>
+        </div>
+    </div>
+   <app-chat-prive [conversationId]="conversationId"></app-chat-prive>
+</div>

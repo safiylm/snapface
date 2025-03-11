@@ -20,9 +20,9 @@
         <h3 class="name">{{ UserName }}</h3>
 
         <app-button-follow [isMe]="isMe" [pageuserid]="id"></app-button-follow>
-        <button class="btn" type="button" data-bs-toggle="offcanvas" id="btn-ecrire"
-            data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
-           {{ "écrire" | titlecase }}</button>
+        <a *ngIf="!isMe" class="btn" type="button" id="btn-ecrire" href="/chat"
+          >
+           {{ "écrire" | titlecase }}</a>
 
         <div class="dropdown" *ngIf="isMe">
             <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
@@ -75,18 +75,4 @@
 
     </div>
 
-</div>
-
-<div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions"
-    aria-labelledby="offcanvasWithBothOptionsLabel">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">
-            <img id="photo-profil-message-blox" [src]="UserPhotoProfil" />
-            {{user.firstName}} {{user.lastName}}
-        </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-       <app-chat-prive [receiverId]="user._id"></app-chat-prive>
-    </div>
 </div>

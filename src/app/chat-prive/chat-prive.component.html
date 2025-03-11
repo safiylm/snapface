@@ -1,20 +1,19 @@
-
 <div class="chat-box">
-
   <div class="messages">
-      <div *ngFor="let msg of messages">
-       <p> <strong>{{ msg.sender === sender ? 'Moi' : 'Lui' }}</strong> </p>
-        <p>
-         {{ msg.text }}
-         </p>
-      </div>
-      <div *ngIf="messages.length==0">
-        <p>Dites Bonjour👋</p> 
-      </div>
+    <div *ngFor="let msg of messages">
+      <p> <strong>{{ msg.sender === sender ? 'Moi' : 'Lui' }}</strong> </p>
+      <p>
+        {{ msg.text }}
+      </p>
     </div>
-    <div class="d-flex">
-    <input class="form-control" [(ngModel)]="message" placeholder="Tapez un message..." (keyup.enter)="sendMessagePrivee()"/>
-    <button class="btn btn-light" (click)="sendMessagePrivee()">Envoyer</button>
+    <div *ngIf="messages.length==0">
+      <p>Dites Bonjour👋</p>
     </div>
   </div>
-  
+
+  <div class="d-flex">
+    <input class="form-control" [(ngModel)]="message" placeholder="Tapez un message..."
+      (keyup.enter)="sendMessagePrivee()" />
+    <button class="btn btn-light" (click)="sendMessagePrivee()">Envoyer</button>
+  </div>
+</div>

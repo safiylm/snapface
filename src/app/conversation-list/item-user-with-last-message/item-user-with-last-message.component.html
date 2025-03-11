@@ -1,0 +1,9 @@
+<div class="div-user" *ngIf="user">
+    <button (click)="choiceConversation(conversationId)" class="d-flex flex-row align-items-center">
+      <img [src]='PhotoProfil' id="photos-profil" alt="photo de profil de {{UserName}}"  />
+     <div>
+        <p id="username">{{ UserName }} </p> 
+        <p>Last Message</p>
+      </div> 
+    </button>
+</div>

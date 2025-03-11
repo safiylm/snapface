@@ -1,8 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { ChatPriveService } from '../../services/chatprive.service';
 import { FormsModule } from '@angular/forms';
 import { NgFor, NgIf } from '@angular/common';
-import { Message } from 'src/models/message.model';
 
 
 @Component({
@@ -10,16 +9,14 @@ import { Message } from 'src/models/message.model';
   selector: 'app-chat-prive',
   templateUrl: './chat-prive.component.html',
   styleUrls: ['./chat-prive.component.scss'],
-  imports: [NgFor, FormsModule, NgIf]
+  imports: [FormsModule, NgFor, NgIf]
 })
 
 export class ChatPriveComponent implements OnInit {
-  message = '******';
+  message = ""
   messages: any[] = [];
   sender: string = localStorage.getItem("userId")?.toString() as string;
-  res !: Message;
-
-  @Input() receiverId!: string;
+  @Input() conversationId !: string ;
 
   constructor(private chatService: ChatPriveService,
   ) { }
@@ -28,18 +25,28 @@ export class ChatPriveComponent implements OnInit {
     this.sender = localStorage.getItem("userId")?.toString() as string;  // ChatPublicServiceRemplace par l'ID réel de l'utilisateur
 
     this.chatService.joinRoom(this.sender);
-
+    if(this.conversationId)
     // Charger l'historique des messages
-    this.chatService.getMessageHistory(this.sender, this.receiverId).subscribe((data: any) => {
+    this.chatService.getMessageHistory(this.conversationId).subscribe((data: any) => {
       this.messages = data;
     });
     this.receiveMessagesPrive()
 
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes["conversationId"]  ) {
+      console.log('La valeur a changé de', changes["conversationId"].previousValue, 'à', changes["conversationId"].currentValue);
+      this.chatService.getMessageHistory(changes["conversationId"].currentValue).subscribe((data: any) => {
+        this.messages = data;
+        //  console.log(data)
+      });
+    }
+  }
+
   sendMessagePrivee() {
     if (this.message.trim()) {
-      this.chatService.sendMessagePrivee(this.sender, this.receiverId, this.message)
+      this.chatService.sendMessagePrivee(this.sender, this.conversationId, this.message)
     
       this.messages.push({ sender: this.sender, text: this.message });
       this.message = '';
@@ -48,6 +55,7 @@ export class ChatPriveComponent implements OnInit {
     }
   }
 
+
   receiveMessagesPrive() {
     // Recevoir les nouveaux messages en temps réel
     this.chatService.receiveMessagesPrive().subscribe(msg => {
@@ -55,6 +63,13 @@ export class ChatPriveComponent implements OnInit {
     });
   }
 
+  createConversation(){
+    /*this.chatService.createConversation(this.receiverId, this.sender).subscribe({
+      next:data=>{
+        console.log(data);
+      }
+    })*/
+  }
 
 
 }

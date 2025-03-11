@@ -41,8 +41,8 @@ const routes: Routes = [
 
   {
     path: 'chat',
-    loadComponent: () => import('./chat/chat.component')
-      .then(mod => mod.ChatComponent)
+    loadComponent: () => import('./conversation-list/conversation-list.component')
+      .then(mod => mod.ConversationListComponent)
   },
   {
     path: 'inscription',
