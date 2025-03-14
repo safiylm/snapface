@@ -173,6 +173,27 @@ exports.findOneById = async (req, res) => {
 };
 
 
+exports.findByName = async (req, res) => {
+  const lname = req.query.lname;
+  const fname = req.query.fname;
+  let resultat = "error find user"
+  res.set('Access-Control-Allow-Origin', '*');
+  //if (lname.trim() != "" && lname != undefined && lname != null) {
+    resultat = await collection_user.find({
+
+      //$or: [
+         "lastName": { $options: 'i', "$regex": lname } ,
+         "firstName": { $options: 'i', "$regex": fname } 
+     // ],
+    },
+
+    ).toArray()
+  //}
+  res.json(resultat)
+
+}
+
+
 //connexion
 exports.connexion = async function (req, res) {
   res.set('Access-Control-Allow-Origin', '*');
@@ -222,7 +243,7 @@ exports.reinitialisePassword = async function (req, res) {
   res.set('Access-Control-Allow-Origin', '*');
 
   const token = jwt.verifyResetLink(req.body.token);
-  
+
   await collection_user.updateOne({ "email": token },
     {
       $set: {

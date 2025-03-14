@@ -13,10 +13,10 @@ import { Abonnee } from '../models/abonnee.model';
 export class UserService {
 
   constructor(private http: HttpClient, public router: Router) { }
-  
-  url="https://snapface.onrender.com"
-  //url="http://localhost:4100"
- 
+
+  url = "https://snapface.onrender.com"
+ // url="http://localhost:4100"
+
 
   logout(): void {
     localStorage.setItem('isLoggedIn', 'false');
@@ -74,7 +74,9 @@ export class UserService {
     return this.http.get<User>(this.url + "/api/userid?id=" + localStorage.getItem('userId')?.toString());
   }
 
-
+  searchByName(fname: string, lname:string):Observable<User[]> {
+    return this.http.get<User[]>(this.url + "/api/username?fname=" + fname+"&lname="+lname);
+  }
 
 
   getAbonneeByUserId(id: string): Observable<Abonnee[]> {

@@ -63,6 +63,12 @@ const routes: Routes = [
   },
 
   {
+    path: 'search',
+    loadComponent: () => import('./search/search.component')
+      .then(mod => mod.SearchComponent),
+  },
+
+  {
     path: 'mon-compte/edit',
     title: "Modifier mes données personnelles",
     loadComponent: () => import('./user-data-update/user-data-update.component')

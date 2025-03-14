@@ -1,0 +1,46 @@
+@font-face {
+    font-family: 'mango';
+    src: url('../../assets/Mango.otf');
+}
+
+.div-search-input-btn {
+    margin: 40px auto;
+
+    h2{
+        font-family: mango;
+    }
+input {
+    width: 500px;
+    margin: 20px 5px;
+}
+
+input[name="lname"],
+input[name="fname"] {
+    width: 300px;
+}
+
+button {
+    width: 100px;
+    background-color: transparent;
+    border: none;
+    padding: 7px 15px;
+}
+
+button:hover {
+    background-color: rgb(243, 248, 248);
+    border-bottom: 0.5px solid rgb(145, 145, 145);
+
+}
+
+button:active {
+    border-radius: 0 !important;
+    border: none !important;
+    outline: none;
+    /* Pour enlever la bordure bleu */
+}
+
+.btn-activee {
+    border-bottom: 1px solid black;
+    border-radius: 0 !important;
+}
+}

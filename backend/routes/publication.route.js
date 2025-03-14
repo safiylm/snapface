@@ -10,5 +10,7 @@ router_publication.post("/api/publication/delete",  publication.delete );
 router_publication.get("/api/publication", publication.findAll);
 router_publication.get("/api/publicationByUserId", publication.findAllPublicationByUserId);
 router_publication.get("/api/publicationid", publication.findOneById);
+router_publication.get("/api/publication/search", publication.searchPostByTitle);
 // /:id
 module.exports = router_publication;
+

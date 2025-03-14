@@ -18,5 +18,6 @@ router_user.post("/api/user/reinitialise/password", user.reinitialisePassword);
 router_user.get("/api/user", user.findAll);
 
 router_user.get("/api/userid", user.findOneById);
+router_user.get("/api/username", user.findByName);
 // /:id
 module.exports = router_user;

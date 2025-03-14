@@ -13,7 +13,7 @@ export class PublicationsService {
   constructor(private http: HttpClient) { }
 
   url="https://snapface.onrender.com"
-  //url="http://localhost:4100"
+// url="http://localhost:4100"
  
   getAllPublications(): Promise<Publication[]> {
     return new Promise((resolve) => {
@@ -77,6 +77,11 @@ export class PublicationsService {
 
   getPublicationById(PublicationId: string): Observable<Publication> {
     return this.http.get<Publication>(this.url + "/api/publicationid?id=" + PublicationId);
+
+  }
+
+  searchByTitle(name : string): Observable<Publication[]> {
+    return this.http.get<Publication[]>(this.url + "/api/publication/search?name=" + name);
 
   }
 
