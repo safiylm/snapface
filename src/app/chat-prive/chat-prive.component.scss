@@ -1,12 +1,13 @@
 
 .chat-box {
-  min-width: 70%;
-  max-width: 70%;
-  height: 100%;
+  min-width: calc(100vw - 350px);
+  max-width: calc(100vw - 350px);
+  height: calc(100vh - 70px);
   right: 0;
   display: flex;
-  padding: 5px;
   flex-direction: column;
+  padding: 10px;
+  text-align: center;
 
   .messages {
 

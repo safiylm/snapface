@@ -48,6 +48,10 @@ export class ChatPriveService {
     return this.http.get<Conversation[]>(`http://localhost:4100/conversations/?userId=${userId}`);
   }
 
+  getConversationById(id: string):Observable<Conversation> {
+    return this.http.get<Conversation>(`http://localhost:4100/conversation/?id=${id}`);
+  }
+
   createConversation(sender: string, receiver: string): Observable<Conversation> {
     return this.http
       .post<Conversation>(
@@ -58,7 +62,7 @@ export class ChatPriveService {
   markAsSeen(conversationId: string): Observable<any> {
     return this.http
       .post<any>(
-        `http://localhost:4100//message/markasseen`,
+        `http://localhost:4100/message/markasseen`,
         {"conversationId": conversationId})
   }
 }

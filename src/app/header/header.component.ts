@@ -1,5 +1,6 @@
 import { NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { ConversationListComponent } from '../conversation-list/conversation-list.component';
 
 @Component({
   standalone: true, 
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'], 
   imports:[
-    NgIf 
+    NgIf , ConversationListComponent
   ]
 })
 

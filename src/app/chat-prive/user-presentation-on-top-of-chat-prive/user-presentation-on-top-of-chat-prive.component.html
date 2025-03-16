@@ -1,0 +1,8 @@
+<div class="div-user" *ngIf="user">
+    <a href="/user/{{user._id}}" class="d-flex flex-row align-items-center">
+      <img [src]='PhotoProfil' id="photos-profil" alt="photo de profil de {{UserName}}"  />
+     <div>
+        <p id="username">{{ UserName }} </p> 
+      </div> 
+    </a>
+</div>

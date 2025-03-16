@@ -10,6 +10,7 @@ router_message.post("/message/markasseen", message.markAsSeen);
 //GET
 router_message.get("/messages", message.getMessages);
 router_message.get("/conversations", message.getConversationsByUserId);
+router_message.get("/conversation", message.getConversationById);
 
 
 // /:id

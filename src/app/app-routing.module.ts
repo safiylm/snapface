@@ -40,9 +40,9 @@ const routes: Routes = [
   },
 
   {
-    path: 'chat',
-    loadComponent: () => import('./conversation-list/conversation-list.component')
-      .then(mod => mod.ConversationListComponent)
+    path: 'chat/:id',
+    loadComponent: () => import('./chat-prive/chat-prive.component')
+      .then(mod => mod.ChatPriveComponent)
   },
   {
     path: 'inscription',

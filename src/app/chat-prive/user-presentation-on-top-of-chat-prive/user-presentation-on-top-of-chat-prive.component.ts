@@ -2,33 +2,30 @@ import { NgIf } from '@angular/common';
 import { Component, Input, SimpleChanges } from '@angular/core';
 import { User } from 'src/models/user.model';
 import { UserService } from 'src/services/user-service';
-import { Output, EventEmitter } from '@angular/core';
 
 @Component({
   standalone: true,
-  selector: 'app-item-user-with-last-message',
-  templateUrl: './item-user-with-last-message.component.html',
-  styleUrls: ['./item-user-with-last-message.component.scss'],
-  imports: [NgIf]
+  selector: 'app-user-presentation-on-top-of-chat-prive',
+  templateUrl: './user-presentation-on-top-of-chat-prive.component.html',
+  styleUrls: ['./user-presentation-on-top-of-chat-prive.component.scss'],
+  imports:[NgIf]
 })
-export class ItemUserWithLastMessageComponent {
+export class UserPresentationOnTopOfChatPriveComponent {
 
   @Input() userId !: string;
-  @Input() conversationId !: string;
-  @Input() offcanvas !: string;
-  
+
   constructor(private userService: UserService) { }
 
-  @Output() newItemEvent = new EventEmitter<string>();
   user !: User;
-
-  choiceConversation(value: string) {
-    this.newItemEvent.emit(value);
-  }
-
 
   ngOnInit() {
     this.retrieveUser(this.userId)
+  }
+
+  ngOnChanges(changes: SimpleChanges){
+    if( changes['userId']){
+      this.retrieveUser(this.userId)
+    }
   }
 
   retrieveUser(userId: string): void {
@@ -49,3 +46,4 @@ export class ItemUserWithLastMessageComponent {
     return (this.user && this.user.firstName && this.user.lastName) ? this.user.firstName + " " + this.user.lastName : null
   }
 }
+

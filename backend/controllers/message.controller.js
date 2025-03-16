@@ -1,6 +1,7 @@
 const db = require('../config/db.config.js');
 const collection_messages = db.collection('messages');
 const collection_conversations = db.collection('conversations');
+const ObjectId = require('mongodb').ObjectId;
 
 
 //create Message 
@@ -68,10 +69,7 @@ exports.getMessages = async (req, res) => {
   try {
     const messages = await collection_messages.find({
       "conversationId": conversationId
-      /* $or: [
-        { sender, receiver },
-        { sender: receiver, receiver: sender }
-      ]*/
+      
     }).sort('timestamp').toArray();
     res.json(messages);
   } catch (err) {
@@ -89,6 +87,20 @@ exports.getConversationsByUserId = async (req, res) => {
       "speaker": { $in: [userId] }
     }).toArray()
     res.json(conversations);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+exports.getConversationById= async (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
+  const id = req.query.id;
+
+  try {
+    const conversations = await collection_conversations.findOne({
+      "_id": new ObjectId(id)
+    })
+    res.send(conversations);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

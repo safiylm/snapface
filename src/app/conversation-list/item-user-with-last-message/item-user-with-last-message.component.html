@@ -1,9 +1,18 @@
 <div class="div-user" *ngIf="user">
-    <button (click)="choiceConversation(conversationId)" class="d-flex flex-row align-items-center">
+    <button *ngIf="offcanvas=='false'" (click)="choiceConversation(conversationId)" class="d-flex flex-row align-items-center">
       <img [src]='PhotoProfil' id="photos-profil" alt="photo de profil de {{UserName}}"  />
      <div>
         <p id="username">{{ UserName }} </p> 
-        <p>Last Message</p>
+        <p>Last Message..</p>
       </div> 
     </button>
+    <a *ngIf="offcanvas=='true_'" class="d-flex flex-row align-items-center" href="/chat/{{conversationId}}"> 
+      <img [src]='PhotoProfil' id="photos-profil" alt="photo de profil de {{UserName}}"  />
+      <div>
+         <p id="username">{{ UserName }} </p> 
+         <p>Last Message</p>
+       </div> 
+    
+    </a>
+
 </div>
