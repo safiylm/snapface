@@ -3,6 +3,8 @@ import { Component, Input, SimpleChanges } from '@angular/core';
 import { User } from 'src/models/user.model';
 import { UserService } from 'src/services/user-service';
 import { Output, EventEmitter } from '@angular/core';
+import { ChatPriveService } from 'src/services/chatprive.service';
+import { Message } from 'src/models/message.model';
 
 @Component({
   standalone: true,
@@ -16,8 +18,8 @@ export class ItemUserWithLastMessageComponent {
   @Input() userId !: string;
   @Input() conversationId !: string;
   @Input() offcanvas !: string;
-  
-  constructor(private userService: UserService) { }
+  nbNewMessage !: number;
+    constructor(private chatservice: ChatPriveService,private userService: UserService) { }
 
   @Output() newItemEvent = new EventEmitter<string>();
   user !: User;
@@ -29,6 +31,7 @@ export class ItemUserWithLastMessageComponent {
 
   ngOnInit() {
     this.retrieveUser(this.userId)
+    this.getNumberOfNewMessage()
   }
 
   retrieveUser(userId: string): void {
@@ -47,5 +50,13 @@ export class ItemUserWithLastMessageComponent {
 
   get UserName() {
     return (this.user && this.user.firstName && this.user.lastName) ? this.user.firstName + " " + this.user.lastName : null
+  }
+  getNumberOfNewMessage(){
+    this.chatservice.getNewMessagesByConversationId(this.conversationId)
+    .subscribe((data: Message[]) => {
+      console.log(data)
+      this.nbNewMessage = data.length
+    });
+    
   }
 }

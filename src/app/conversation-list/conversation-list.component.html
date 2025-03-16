@@ -2,7 +2,7 @@
     <div>
         <div *ngFor="let c of conversation" >
             <app-item-user-with-last-message (newItemEvent)="choisirConversation($event)"
-              [conversationId]="c._id"  [userId]="c.speaker[0]" [offcanvas]="offcanvas"></app-item-user-with-last-message>
+              [conversationId]="c._id"  [userId]="c.speaker[0]" [offcanvas]="offcanvas" ></app-item-user-with-last-message>
         </div>
     </div>
 </div>

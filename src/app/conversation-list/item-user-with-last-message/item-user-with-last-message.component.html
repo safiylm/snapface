@@ -3,14 +3,18 @@
       <img [src]='PhotoProfil' id="photos-profil" alt="photo de profil de {{UserName}}"  />
      <div>
         <p id="username">{{ UserName }} </p> 
-        <p>Last Message..</p>
+        <p *ngIf="nbNewMessage==0">Last Message</p>
+         <p *ngIf="nbNewMessage==1">{{nbNewMessage}} Nouveau Message</p>
+         <p *ngIf="nbNewMessage>1">{{nbNewMessage}} Nouveaux Messages</p>
       </div> 
     </button>
     <a *ngIf="offcanvas=='true_'" class="d-flex flex-row align-items-center" href="/chat/{{conversationId}}"> 
       <img [src]='PhotoProfil' id="photos-profil" alt="photo de profil de {{UserName}}"  />
       <div>
          <p id="username">{{ UserName }} </p> 
-         <p>Last Message</p>
+         <p *ngIf="nbNewMessage==0"> Last Message</p>
+         <p *ngIf="nbNewMessage==1">{{nbNewMessage}} Nouveau Message</p>
+         <p *ngIf="nbNewMessage>1">{{nbNewMessage}} Nouveaux Messages</p>
        </div> 
     
     </a>

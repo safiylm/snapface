@@ -65,4 +65,12 @@ export class ChatPriveService {
         `http://localhost:4100/message/markasseen`,
         {"conversationId": conversationId})
   }
+  
+  getNewMessagesByConversationId(conversationId: string){
+    return this.http
+    .get<Message[]>(
+      "http://localhost:4100/conversation/nbnewmsj?id="+ conversationId)
+  }
+
+  
 }

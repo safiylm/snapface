@@ -115,3 +115,15 @@ exports.markAsSeen = async (req, res) => {
   res.send(updateResult);
 
 };
+
+exports.getNewMessagesByConversationId = async (req, res) => {
+  const conversationId = req.query.id
+
+  const updateResult = await collection_messages.find(
+    { "conversationId": conversationId , "seen": false }
+  ).toArray();
+
+  res.set('Access-Control-Allow-Origin', '*');
+  res.send(updateResult);
+
+};
