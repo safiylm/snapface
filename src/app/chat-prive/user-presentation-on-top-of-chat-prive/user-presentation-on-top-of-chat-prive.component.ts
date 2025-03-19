@@ -8,23 +8,30 @@ import { UserService } from 'src/services/user-service';
   selector: 'app-user-presentation-on-top-of-chat-prive',
   templateUrl: './user-presentation-on-top-of-chat-prive.component.html',
   styleUrls: ['./user-presentation-on-top-of-chat-prive.component.scss'],
-  imports:[NgIf]
+  imports: [NgIf]
 })
 export class UserPresentationOnTopOfChatPriveComponent {
 
-  @Input() userId !: string;
+  @Input() users !: string[];
 
   constructor(private userService: UserService) { }
 
   user !: User;
 
   ngOnInit() {
-    this.retrieveUser(this.userId)
+    if (this.users[0] == localStorage.getItem('userId')?.toString() as string)
+      this.retrieveUser(this.users[1])
+    else
+      this.retrieveUser(this.users[0])
+
   }
 
-  ngOnChanges(changes: SimpleChanges){
-    if( changes['userId']){
-      this.retrieveUser(this.userId)
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['users']) {
+      if (this.users[0] == localStorage.getItem('userId')?.toString() as string)
+        this.retrieveUser(this.users[1])
+      else
+        this.retrieveUser(this.users[0])
     }
   }
 

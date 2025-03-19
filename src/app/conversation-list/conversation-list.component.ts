@@ -30,8 +30,6 @@ export class ConversationListComponent implements OnInit {
       });
   }
 
-
-
   choisirConversation(newItem: string) {
     this.newItemEvent2.emit(newItem);
 

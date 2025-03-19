@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component, Input, SimpleChanges } from '@angular/core';
+import { Component, Input, signal, SimpleChanges } from '@angular/core';
 import { User } from 'src/models/user.model';
 import { UserService } from 'src/services/user-service';
 import { Output, EventEmitter } from '@angular/core';
@@ -15,11 +15,13 @@ import { Message } from 'src/models/message.model';
 })
 export class ItemUserWithLastMessageComponent {
 
-  @Input() userId !: string;
+  @Input() users !: string[];
   @Input() conversationId !: string;
   @Input() offcanvas !: string;
   nbNewMessage !: number;
-    constructor(private chatservice: ChatPriveService,private userService: UserService) { }
+  nbConversationWithNewMessages = 0;
+
+  constructor(private chatservice: ChatPriveService, private userService: UserService) { }
 
   @Output() newItemEvent = new EventEmitter<string>();
   user !: User;
@@ -30,7 +32,10 @@ export class ItemUserWithLastMessageComponent {
 
 
   ngOnInit() {
-    this.retrieveUser(this.userId)
+    if (this.users[0] == localStorage.getItem("userId")?.toString() as string)
+      this.retrieveUser(this.users[1])
+    else
+      this.retrieveUser(this.users[0])
     this.getNumberOfNewMessage()
   }
 
@@ -51,12 +56,23 @@ export class ItemUserWithLastMessageComponent {
   get UserName() {
     return (this.user && this.user.firstName && this.user.lastName) ? this.user.firstName + " " + this.user.lastName : null
   }
-  getNumberOfNewMessage(){
+
+  getNumberOfNewMessage() {
     this.chatservice.getNewMessagesByConversationId(this.conversationId)
-    .subscribe((data: Message[]) => {
-      console.log(data)
-      this.nbNewMessage = data.length
-    });
-    
+      .subscribe((data: Message[]) => {
+        this.nbNewMessage = data.length
+
+        if (this.nbNewMessage > 0) {
+          var a = localStorage.getItem('nbConversationWithNewMessages')?.toString() as string;
+          var y: number = +a;
+          y = y + 1;
+
+          localStorage.setItem("nbConversationWithNewMessages", y.toString() as string)
+          console.log(localStorage.getItem('nbConversationWithNewMessages'))
+
+        }
+
+      })
   }
+
 }

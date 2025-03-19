@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
 import { ChatPriveService } from '../../services/chatprive.service';
 import { FormsModule } from '@angular/forms';
 import { NgFor, NgIf } from '@angular/common';
@@ -14,7 +14,7 @@ import { UserPresentationOnTopOfChatPriveComponent } from "./user-presentation-o
   selector: 'app-chat-prive',
   templateUrl: './chat-prive.component.html',
   styleUrls: ['./chat-prive.component.scss'],
-  imports: [FormsModule, NgFor, NgIf, ConversationListComponent, 
+  imports: [FormsModule, NgFor, NgIf, ConversationListComponent,
     HeaderComponent, UserPresentationOnTopOfChatPriveComponent]
 })
 
@@ -22,8 +22,9 @@ export class ChatPriveComponent implements OnInit {
   message = ""
   messages: any[] = [];
   sender: string = localStorage.getItem("userId")?.toString() as string;
-   conversationId !: string ;
-   conversation !: Conversation;
+  conversationId !: string;
+  conversation !: Conversation;
+  receiver = "";
 
   constructor(private chatService: ChatPriveService,
     private route: ActivatedRoute) {
@@ -33,18 +34,17 @@ export class ChatPriveComponent implements OnInit {
 
   ngOnInit() {
     this.sender = localStorage.getItem("userId")?.toString() as string;  // ChatPublicServiceRemplace par l'ID réel de l'utilisateur
-   
-    //this.chatService.joinRoom(this.sender);
-      this.choisirConversation(this.conversationId)
-      this.chatService.getConversationById(this.conversationId).subscribe((data: any) => {
-        this.conversation = data;
-      });
+
+    this.chatService.joinRoom(this.sender);
+    this.choisirConversation(this.conversationId)
+    this.chatService.getConversationById(this.conversationId).subscribe((data: any) => {
+      this.conversation = data;
+    });
 
   }
 
-  /*
-  
-  */
+
+
   choisirConversation(newItem: string) {
     this.conversationId = newItem
     this.chatService.getConversationById(this.conversationId).subscribe((data: any) => {
@@ -53,13 +53,13 @@ export class ChatPriveComponent implements OnInit {
     this.chatService.getMessageHistory(newItem).subscribe((data: any) => {
       this.messages = data;
     });
-   
+
   }
 
   sendMessagePrivee() {
     if (this.message.trim() && this.conversationId.trim()) {
-      this.chatService.sendMessagePrivee(this.sender, this.conversationId, this.message)
-      this.messages.push({ sender: this.sender, text: this.message });
+      this.chatService.sendMessagePrivee(this.sender, this.conversation.speaker[1], this.conversationId, this.message)
+     // this.messages.push({ sender: this.sender, text: this.message });
       this.message = '';
 
     }
