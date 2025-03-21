@@ -5,7 +5,11 @@ var router_message = require("express").Router();
 // Create 
 router_message.post("/message/create", message.createMessage);
 router_message.post("/conversation/create", message.createConversation);
+router_message.post("/message/edit", message.editMessage);
+router_message.post("/message/delete", message.deleteMessage);
+router_message.post("/conversation/delete", message.deleteConversation);
 router_message.post("/message/markasseen", message.markAsSeen);
+
 
 //GET
 router_message.get("/messages", message.getMessages);

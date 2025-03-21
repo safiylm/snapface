@@ -11,19 +11,36 @@
               <div class="messages">
       <div *ngFor="let msg of messages">
         <p> <strong>{{ msg.sender === sender ? 'Moi' : 'Lui' }}</strong> </p>
-        <p>
+        <div>
           {{ msg.text }}
-        </p>
+          <div *ngIf=" msg.sender === sender">
+          <button class="btn btn-light" (click)="showEdit( msg.text, msg._id)">edit</button>
+          <button class="btn btn-light" (click)="delete(msg._id)">delete</button>
+        </div>
+        </div>
       </div>
       <div *ngIf="messages.length==0">
         <p>Dites Bonjour👋</p>
       </div>
     </div>
 
-    <div class="d-flex">
+    <div class="d-flex" *ngIf="messageEdittingId==''">
       <input class="form-control" [(ngModel)]="message" placeholder="Tapez un message..."
         (keyup.enter)="sendMessagePrivee()" />
       <button class="btn btn-light" (click)="sendMessagePrivee()">Envoyer</button>
     </div>
+
+    <div class="d-flex" *ngIf="messageEdittingId!=''">
+      
+        <div class="form-floating">
+          <input id="floatingInputGrid" class="form-control" 
+          [(ngModel)]="message" placeholder=""
+          (keyup.enter)="submitEdit()" />
+          <label for="floatingInputGrid">Modifier son message</label>
+        </div>
+    
+      <button class="btn btn-light" (click)="submitEdit()">Enregistrer les modifications</button>
+    </div>
+  
   </div>
 </div>

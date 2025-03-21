@@ -1,4 +1,4 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ChatPriveService } from '../../services/chatprive.service';
 import { FormsModule } from '@angular/forms';
 import { NgFor, NgIf } from '@angular/common';
@@ -25,6 +25,7 @@ export class ChatPriveComponent implements OnInit {
   conversationId !: string;
   conversation !: Conversation;
   receiver = "";
+  messageEdittingId = "";
 
   constructor(private chatService: ChatPriveService,
     private route: ActivatedRoute) {
@@ -40,9 +41,7 @@ export class ChatPriveComponent implements OnInit {
     this.chatService.getConversationById(this.conversationId).subscribe((data: any) => {
       this.conversation = data;
     });
-
   }
-
 
 
   choisirConversation(newItem: string) {
@@ -53,26 +52,56 @@ export class ChatPriveComponent implements OnInit {
     this.chatService.getMessageHistory(newItem).subscribe((data: any) => {
       this.messages = data;
     });
-
   }
+
 
   sendMessagePrivee() {
     if (this.message.trim() && this.conversationId.trim()) {
       this.chatService.sendMessagePrivee(this.sender, this.conversation.speaker[1], this.conversationId, this.message)
-     // this.messages.push({ sender: this.sender, text: this.message });
+      // this.messages.push({ sender: this.sender, text: this.message });
       this.message = '';
-
+      setTimeout(() => {
+        this.chatService.getMessageHistory(this.conversationId).subscribe((data: any) => {
+          this.messages = data;
+        });
+      }, 20)
     }
   }
 
-  createConversation() {
-    /*this.chatService.createConversation(this.receiverId, this.sender).subscribe({
-      next:data=>{
-        console.log(data);
-      }
-    })*/
+
+  showEdit(text: string, id: string) {
+
+    if (this.messageEdittingId == "") {
+      this.messageEdittingId = id;
+      this.message = text;
+    }
+    else {
+      this.messageEdittingId = ""
+      this.message = "";
+    }
   }
 
+
+  submitEdit() {
+    this.chatService.editMessage(this.messageEdittingId, this.message).subscribe((data: any) => {
+      this.chatService.getMessageHistory(this.conversationId).subscribe((data: any) => {
+        this.messages = data;
+      });
+    });
+    this.messageEdittingId = "";
+    this.message = "";
+
+  }
+
+
+  delete(id: string) {
+    this.chatService.deleteMessage(id).subscribe((data: any) => {
+      this.chatService.getMessageHistory(this.conversationId).subscribe((data: any) => {
+        this.messages = data;
+      });
+    });
+
+  }
 
 }
 

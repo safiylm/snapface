@@ -2,6 +2,6 @@
 export class Conversation {
     constructor(
         public _id:string ,
-        public speaker: [ string ],
+        public speaker: string[  ],
     ){}
 }

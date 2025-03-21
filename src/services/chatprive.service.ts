@@ -15,20 +15,13 @@ export class ChatPriveService {
 
   constructor(private http: HttpClient) {
     this.socket = io('http://localhost:4110');
-    /*
-        this.socket.on('connection', () => {
-          console.log('✅ Connecté au serveur WebSocket');
-        });
-    
-        this.socket.on('disconnect', (error) => {
-          console.error('❌ Erreur de connexion WebSocket :', error);
-        });
-        */
   }
 
-  receiveMessagesPrive(): Observable<Message[]> {
+  receiveMessagesPrive() {
     return new Observable(observer => {
-      this.socket.on('receiveprivateMessage', (msg) => observer.next(msg));
+      this.socket.on('receiveprivateMessage', (msg) =>{ observer.next(msg)
+    console.log(msg)});
+    
     });
   }
 
@@ -36,12 +29,25 @@ export class ChatPriveService {
     this.socket.emit('joinRoom', userId);
   }
 
-  sendMessagePrivee(sender: string, conversationId: string, text: string) {
-    this.socket.emit('privateMessage', { sender, conversationId, text });
+  sendMessagePrivee(sender: string, receiver: string, conversationId: string, text: string) {
+    this.socket.emit('privateMessage', { sender, receiver, conversationId, text })
+    
   }
 
   getMessageHistory(conversationId: string) {
     return this.http.get(`http://localhost:4100/messages/?conversationId=${conversationId}`);
+  }
+
+  editMessage(id: string, text: string) {
+    return this.http.post(`http://localhost:4100/message/edit`, {"id": id, "text": text });
+  }
+
+  deleteMessage(id: string) {
+    return this.http.post(`http://localhost:4100/message/delete`,  { "id": id });
+  }
+
+  deleteConversation(conversationId: string) {
+    return this.http.post(`http://localhost:4100/conversation/delete`, {"conversationId": conversationId});
   }
 
   getUsersWeHaveConversation(userId: string):Observable<Conversation[]> {

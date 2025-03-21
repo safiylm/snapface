@@ -12,7 +12,7 @@ exports.createMessage = async (req, res) => {
   const text = req.body.text
 
   collection_messages
-    .insertOne({ sender, conversationId, text })
+    .insertOne({ sender, conversationId, text, "seen": false })
     .then(data => {
       res.set('Access-Control-Allow-Origin', '*');
       res.send(data);
@@ -36,21 +36,21 @@ exports.createConversation = async (req, res) => {
     .then((data) => {
       res.set('Access-Control-Allow-Origin', '*');
       console.log(data.insertedId)
-    
-       if(data)
-       collection_messages
-         .insertOne({ sender, conversationId: data.insertedId , text : "text" })
-         .then(data1 => {
-           res.set('Access-Control-Allow-Origin', '*');
-           res.send(data1);
-         })
-         .catch(err => {
-           res.status(500).send({
-             message:
-               err.message || "Error while creating the message."
-           });
-         });
- 
+
+      if (data)
+        collection_messages
+          .insertOne({ sender, conversationId: data.insertedId, text: "text" })
+          .then(data1 => {
+            res.set('Access-Control-Allow-Origin', '*');
+            res.send(data1);
+          })
+          .catch(err => {
+            res.status(500).send({
+              message:
+                err.message || "Error while creating the message."
+            });
+          });
+
     })
     .catch(err => {
       res.status(500).send({
@@ -69,13 +69,42 @@ exports.getMessages = async (req, res) => {
   try {
     const messages = await collection_messages.find({
       "conversationId": conversationId
-      
+
     }).sort('timestamp').toArray();
     res.json(messages);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
+
+exports.editMessage = async (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
+
+  const updateResult = await collection_messages.updateOne({ "_id": new ObjectId(req.body.id) },
+    {
+      $set: {
+        "text": req.body.text,
+        "seen": false
+      }
+    });
+  res.send(updateResult);
+}
+
+exports.deleteMessage = (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
+  collection_messages.deleteOne({ "_id": new ObjectId(req.body.id) })
+  .then(data => {
+    res.send(data)
+  })
+}
+
+exports.deleteConversation = (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
+  collection_messages.deleteMany({ "_id": new ObjectId(req.body.conversationId) })
+  .then(data => {
+    res.send(data)
+  })
+}
 
 
 exports.getConversationsByUserId = async (req, res) => {
@@ -92,7 +121,7 @@ exports.getConversationsByUserId = async (req, res) => {
   }
 };
 
-exports.getConversationById= async (req, res) => {
+exports.getConversationById = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
   const id = req.query.id;
 
@@ -120,7 +149,7 @@ exports.getNewMessagesByConversationId = async (req, res) => {
   const conversationId = req.query.id
 
   const updateResult = await collection_messages.find(
-    { "conversationId": conversationId , "seen": false }
+    { "conversationId": conversationId, "seen": false }
   ).toArray();
 
   res.set('Access-Control-Allow-Origin', '*');
