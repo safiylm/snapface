@@ -83,10 +83,8 @@ export class ChatPriveService {
           }
         })
         setTimeout(()=>{
-          console.log(this.numberofmessage)
           localStorage.setItem('nbConversationWithNewMessages', this.numberofmessage.toString())
-
-        },900)
+        },1200)
 
   }
 
