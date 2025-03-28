@@ -3,7 +3,7 @@
       <img [src]='PhotoProfil' id="photos-profil" alt="photo de profil de {{UserName}}"  />
      <div>
         <p id="username">{{ UserName }} </p> 
-        <p *ngIf="nbNewMessage==0">Last Message</p>
+        <p *ngIf="nbNewMessage==0">{{LastMessage}}</p>
          <p *ngIf="nbNewMessage==1">{{nbNewMessage}} Nouveau Message</p>
          <p *ngIf="nbNewMessage>1">{{nbNewMessage}} Nouveaux Messages</p>
       </div> 
@@ -12,7 +12,7 @@
       <img [src]='PhotoProfil' id="photos-profil" alt="photo de profil de {{UserName}}"  />
       <div>
          <p id="username">{{ UserName }} </p> 
-         <p *ngIf="nbNewMessage==0"> Last Message</p>
+         <p *ngIf="nbNewMessage==0">{{LastMessage}}</p>
          <p *ngIf="nbNewMessage==1">{{nbNewMessage}} Nouveau Message</p>
          <p *ngIf="nbNewMessage>1">{{nbNewMessage}} Nouveaux Messages</p>
        </div> 

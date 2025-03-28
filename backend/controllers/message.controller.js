@@ -1,3 +1,4 @@
+const { console } = require('inspector');
 const db = require('../config/db.config.js');
 const collection_messages = db.collection('messages');
 const collection_conversations = db.collection('conversations');
@@ -12,7 +13,8 @@ exports.createMessage = async (req, res) => {
   const text = req.body.text
 
   collection_messages
-    .insertOne({ sender, conversationId, text, "seen": false })
+    .insertOne({ sender, conversationId, text, 
+      "time_" : new Date(Date.now()),  "seen": true })
     .then(data => {
       res.set('Access-Control-Allow-Origin', '*');
       res.send(data);
@@ -70,12 +72,29 @@ exports.getMessages = async (req, res) => {
     const messages = await collection_messages.find({
       "conversationId": conversationId
 
-    }).sort('timestamp').toArray();
+    }).sort({'time_': 1}).toArray();
     res.json(messages);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
+
+//Get Last Message
+exports.getLastMessage =  async (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
+  const conversationId = req.query.conversationId;
+
+  try {
+    const messages = await collection_messages.find({
+      "conversationId": conversationId
+    }).sort({'time_': -1}).toArray()
+    res.json(messages[0]);//.sort({'timestamp': -1}).limit(1)
+    
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
 
 exports.editMessage = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
@@ -89,6 +108,7 @@ exports.editMessage = async (req, res) => {
     });
   res.send(updateResult);
 }
+
 
 exports.deleteMessage = (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');

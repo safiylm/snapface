@@ -20,7 +20,7 @@ export class ItemUserWithLastMessageComponent {
   @Input() offcanvas !: string;
   nbNewMessage !: number;
   nbConversationWithNewMessages = 0;
-
+  lastMessage="";
   constructor(private chatservice: ChatPriveService, private userService: UserService) { }
 
   @Output() newItemEvent = new EventEmitter<string>();
@@ -37,6 +37,14 @@ export class ItemUserWithLastMessageComponent {
     else
       this.retrieveUser(this.users[0])
     this.getNumberOfNewMessage()
+
+    this.chatservice.getLastMessage(this.conversationId).subscribe(
+      (data: Message ) => {
+        if(data)
+        this.lastMessage= data.text
+      }
+    )
+
   }
 
   retrieveUser(userId: string): void {
@@ -53,6 +61,10 @@ export class ItemUserWithLastMessageComponent {
     return (this.user && this.user.photos_profil) ? this.user.photos_profil : null
   }
 
+  get LastMessage() {
+    return (this.lastMessage ) ? this.lastMessage : ""
+  }
+
   get UserName() {
     return (this.user && this.user.firstName && this.user.lastName) ? this.user.firstName + " " + this.user.lastName : null
   }
@@ -61,18 +73,8 @@ export class ItemUserWithLastMessageComponent {
     this.chatservice.getNewMessagesByConversationId(this.conversationId)
       .subscribe((data: Message[]) => {
         this.nbNewMessage = data.length
-
-        if (this.nbNewMessage > 0) {
-          var a = localStorage.getItem('nbConversationWithNewMessages')?.toString() as string;
-          var y: number = +a;
-          y = y + 1;
-
-          localStorage.setItem("nbConversationWithNewMessages", y.toString() as string)
-          console.log(localStorage.getItem('nbConversationWithNewMessages'))
-
-        }
-
       })
+     
   }
 
 }

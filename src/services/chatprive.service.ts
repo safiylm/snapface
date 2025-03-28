@@ -19,9 +19,11 @@ export class ChatPriveService {
 
   receiveMessagesPrive() {
     return new Observable(observer => {
-      this.socket.on('receiveprivateMessage', (msg) =>{ observer.next(msg)
-    console.log(msg)});
-    
+      this.socket.on('receiveprivateMessage', (msg) => {
+        observer.next(msg)
+        console.log(msg)
+      });
+
     });
   }
 
@@ -31,52 +33,83 @@ export class ChatPriveService {
 
   sendMessagePrivee(sender: string, receiver: string, conversationId: string, text: string) {
     this.socket.emit('privateMessage', { sender, receiver, conversationId, text })
-    
+
   }
 
   getMessageHistory(conversationId: string) {
     return this.http.get(`http://localhost:4100/messages/?conversationId=${conversationId}`);
   }
 
+  getLastMessage(conversationId: string) {
+    return this.http.get<Message>(`http://localhost:4100/last-message/?conversationId=${conversationId}`);
+  }
+
+
   editMessage(id: string, text: string) {
-    return this.http.post(`http://localhost:4100/message/edit`, {"id": id, "text": text });
+    return this.http.post(`http://localhost:4100/message/edit`, { "id": id, "text": text });
   }
 
   deleteMessage(id: string) {
-    return this.http.post(`http://localhost:4100/message/delete`,  { "id": id });
+    return this.http.post(`http://localhost:4100/message/delete`, { "id": id });
   }
 
   deleteConversation(conversationId: string) {
-    return this.http.post(`http://localhost:4100/conversation/delete`, {"conversationId": conversationId});
+    return this.http.post(`http://localhost:4100/conversation/delete`, { "conversationId": conversationId });
   }
 
-  getUsersWeHaveConversation(userId: string):Observable<Conversation[]> {
+  getUsersWeHaveConversation(userId: string): Observable<Conversation[]> {
+    this.getNumberOfNewMessagesByUserId(userId)
     return this.http.get<Conversation[]>(`http://localhost:4100/conversations/?userId=${userId}`);
   }
 
-  getConversationById(id: string):Observable<Conversation> {
+  getConversationById(id: string): Observable<Conversation> {
     return this.http.get<Conversation>(`http://localhost:4100/conversation/?id=${id}`);
   }
+  numberofmessage: number = 0;
+
+  getNumberOfNewMessagesByUserId(userid: string) {
+    this.http.get<Conversation[]>(`http://localhost:4100/conversations/?userId=${userid}`)
+      .subscribe(
+        (data: Conversation[]) => {
+          for (let d of data) {
+            this.http.get<Conversation[]>("http://localhost:4100/conversation/nbnewmsj?id=" + d._id)
+              .subscribe(
+                (dataa) => {
+                  if (dataa.length > 0) {
+                    this.numberofmessage = this.numberofmessage+1;
+                  }
+                }
+              )
+          }
+        })
+        setTimeout(()=>{
+          console.log(this.numberofmessage)
+          localStorage.setItem('nbConversationWithNewMessages', this.numberofmessage.toString())
+
+        },900)
+
+  }
+
 
   createConversation(sender: string, receiver: string): Observable<Conversation> {
     return this.http
       .post<Conversation>(
         `http://localhost:4100/conversation/create`,
-        {"sender": sender, "receiver":receiver})
+        { "sender": sender, "receiver": receiver })
   }
 
   markAsSeen(conversationId: string): Observable<any> {
     return this.http
       .post<any>(
         `http://localhost:4100/message/markasseen`,
-        {"conversationId": conversationId})
-  }
-  
-  getNewMessagesByConversationId(conversationId: string){
-    return this.http
-    .get<Message[]>(
-      "http://localhost:4100/conversation/nbnewmsj?id="+ conversationId)
+        { "conversationId": conversationId })
   }
 
-  
+  getNewMessagesByConversationId(conversationId: string) {
+    return this.http
+      .get<Message[]>(
+        "http://localhost:4100/conversation/nbnewmsj?id=" + conversationId)
+  }
+
+
 }
