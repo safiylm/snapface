@@ -25,4 +25,34 @@
   button {
     width: auto;
   }
+
+  .lui{
+    text-align: left;
+    border-radius: 9px;
+    background-color: aliceblue;
+    width: fit-content;
+    padding: 5px 10px;
+    border-radius: 9px;
+    margin: 10px 0;
+  }
+
+  .moi{
+    text-align: left;
+    background-color: blueviolet;
+    color: white;
+    width: fit-content;
+    padding: 5px 10px;
+    border-radius: 9px;
+    margin: 10px 0;
+
+  }
+
+  .right{
+    display: flex;
+    justify-content: end;
+  }
+
+  .d-flexx{
+    display: -webkit-flex;
+  }
 }

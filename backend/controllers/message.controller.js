@@ -14,7 +14,7 @@ exports.createMessage = async (req, res) => {
 
   collection_messages
     .insertOne({ sender, conversationId, text, 
-      "time_" : new Date(Date.now()),  "seen": true })
+      "time_" : new Date(Date.now()),  "seen": false })
     .then(data => {
       res.set('Access-Control-Allow-Origin', '*');
       res.send(data);
@@ -156,7 +156,7 @@ exports.getConversationById = async (req, res) => {
 };
 
 exports.markAsSeen = async (req, res) => {
-  const conversationId = req.query.conversationId
+  const conversationId = req.body.conversationId
   const updateResult = await collection_messages.updateMany({ "conversationId": conversationId },
     { $set: { "seen": true } });
 

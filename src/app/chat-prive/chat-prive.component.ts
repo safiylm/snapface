@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChatPriveService } from '../../services/chatprive.service';
 import { FormsModule } from '@angular/forms';
-import { NgFor, NgIf } from '@angular/common';
+import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
 import { ConversationListComponent } from "../conversation-list/conversation-list.component";
 import { ActivatedRoute } from '@angular/router';
 import { HeaderComponent } from "../header/header.component";
@@ -15,7 +15,7 @@ import { UserPresentationOnTopOfChatPriveComponent } from "./user-presentation-o
   templateUrl: './chat-prive.component.html',
   styleUrls: ['./chat-prive.component.scss'],
   imports: [FormsModule, NgFor, NgIf, ConversationListComponent,
-    HeaderComponent, UserPresentationOnTopOfChatPriveComponent]
+    HeaderComponent, NgClass, NgStyle, UserPresentationOnTopOfChatPriveComponent]
 })
 
 export class ChatPriveComponent implements OnInit {
@@ -26,6 +26,7 @@ export class ChatPriveComponent implements OnInit {
   conversation !: Conversation;
   receiver = "";
   messageEdittingId = "";
+  displayEditDeleteButton = false
 
   constructor(private chatService: ChatPriveService,
     private route: ActivatedRoute) {
@@ -42,16 +43,22 @@ export class ChatPriveComponent implements OnInit {
       this.conversation = data;
     });
   }
-
+  onRightClick(){
+    this.displayEditDeleteButton=true;
+  }
 
   choisirConversation(newItem: string) {
     this.conversationId = newItem
     this.chatService.getConversationById(this.conversationId).subscribe((data: any) => {
       this.conversation = data;
     });
-    this.chatService.getMessageHistory(newItem).subscribe((data: any) => {
+    this.chatService.getMessageHistory(this.conversationId).subscribe((data: any) => {
       this.messages = data;
     });
+
+    this.chatService.markAsSeen(this.conversationId).subscribe(
+      (data) => { if (data) console.log(data); })
+
   }
 
 
