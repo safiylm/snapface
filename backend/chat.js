@@ -26,7 +26,7 @@ io.on("connection", (socket) => {
   });
   */
 
-  socket.on('privateMessage', async ({ sender, conversationId, text }) => {
+  socket.on('privateMessage', async ({ sender, receiver, conversationId, text }) => {
       //try {
         const response = await axios.post('http://localhost:4100/message/create', {
           sender,
@@ -34,6 +34,8 @@ io.on("connection", (socket) => {
           text
          })
          const savedMessage = response.data;
+         console.log(savedMessage);
+      //   io.to(receiver).emit('receiveprivateMessage', savedMessage)
          io.emit('receiveprivateMessage', savedMessage);
      /*  } catch (error) {
          console.error('Erreur lors de l’enregistrement du message', error);
@@ -48,6 +50,7 @@ io.on("connection", (socket) => {
 
   socket.on('joinRoom', (userId) => {
     socket.join(userId);
+    console.log("userId")
   });
 
 
