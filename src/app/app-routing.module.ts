@@ -74,14 +74,19 @@ const routes: Routes = [
     loadComponent: () => import('./user-data-update/user-data-update.component')
       .then(mod => mod.UserDataUpdateComponent),
     canDeactivate: [formulaireDesactiveGuard],
-
+    resolve: {
+      user: MyUserDataResolverService
+    },
   },
   {
     path: 'mon-compte/create-post',
     title: "Create new post",
     loadComponent: () => import("./publication-create/publication-create.component")
       .then(mod => mod.PublicationCreateComponent),
-    canDeactivate: [formulaireDesactiveGuard]
+    canDeactivate: [formulaireDesactiveGuard],
+    resolve: {
+      user: MyUserDataResolverService
+    },
   },
 
 
@@ -90,7 +95,10 @@ const routes: Routes = [
     title: "Modifier sa publication",
     loadComponent: () => import('./publication-edit/publication-edit.component')
       .then(mod => mod.PublicationEditComponent),
-    canDeactivate: [formulaireDesactiveGuard]
+    canDeactivate: [formulaireDesactiveGuard],
+    resolve: {
+      user: MyUserDataResolverService
+    },
   },
 
   {

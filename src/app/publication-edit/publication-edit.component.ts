@@ -5,13 +5,14 @@ import { Publication } from 'src/models/publication.model';
 import { FormsModule } from "@angular/forms";
 import { Subscription } from 'rxjs';
 import { NgFor, NgIf } from '@angular/common';
+import { HeaderSnapComponent } from '../header-snap/header-snap.component';
 
 @Component({
   standalone: true,
   selector: 'app-publication-edit',
   templateUrl: './publication-edit.component.html',
   styleUrls: ['./publication-edit.component.scss'],
-  imports: [NgFor, FormsModule, NgIf]
+  imports: [NgFor, FormsModule, NgIf, HeaderSnapComponent]
 })
 export class PublicationEditComponent {
 

@@ -1,5 +1,5 @@
 <app-header></app-header>
-
+<app-header-snap [id]="user._id"></app-header-snap>
 <h1>Modifier ses données </h1>
 <form (ngSubmit)="onSubmit()" autocomplete="off" *ngIf="user">
     <div class="d-flex flex-wrap align-items-start justify-content-center">

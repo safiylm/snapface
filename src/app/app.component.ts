@@ -10,7 +10,8 @@ import { Subject, takeUntil } from 'rxjs';
 
 export class AppComponent implements OnDestroy {
   unsubscribe = new Subject<void>();
-  loading = true;
+  loadingPosts = false;
+  loading = false;
 
   constructor(private router: Router) {
     console.log('subscribing ...');
@@ -20,17 +21,29 @@ export class AppComponent implements OnDestroy {
       });
   }
 
+  //activation des notifications
+  ngOnInit() {
+    /* if (Notification.permission !== 'granted') {
+       Notification.requestPermission();
+     }*/
+  }
+
   checkRouterEvent(routerEvent: RouterEvent): void {
     if (routerEvent instanceof NavigationStart) {
-      this.loading = true;
-      console.log('starting.');
+      if (routerEvent.url == "/" || routerEvent.url == "/pour-moi") {
+        this.loadingPosts = true;
+      }else{
+        this.loading =true
+      }
     }
 
     if (routerEvent instanceof NavigationEnd ||
-        routerEvent instanceof NavigationCancel ||
-        routerEvent instanceof NavigationError) {
-        this.loading = false;
-        console.log('done.');
+      routerEvent instanceof NavigationCancel ||
+      routerEvent instanceof NavigationError) {
+      this.loadingPosts = false;
+      this.loading =false
+
+      //  console.log('done.');
     }
   }
 

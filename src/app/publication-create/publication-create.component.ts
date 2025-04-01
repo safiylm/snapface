@@ -4,27 +4,35 @@ import { FormsModule } from "@angular/forms";
 import { PublicationsService } from '../../services/publication-service';
 import { CommonModule, NgFor } from '@angular/common';
 import { HeaderComponent } from '../header/header.component';
+import { HeaderSnapComponent } from '../header-snap/header-snap.component';
 
 @Component({
   standalone: true,
   selector: 'app-publication-create',
   templateUrl: './publication-create.component.html',
   styleUrls: ['./publication-create.component.scss'],
-  imports: [FormsModule, NgFor, HeaderComponent, CommonModule]
+  imports: [FormsModule, NgFor, HeaderComponent, HeaderSnapComponent, CommonModule]
 })
 
 
 export class PublicationCreateComponent implements OnInit {
 
-  post = new Publication("", "", "", [''], 0, "");
+  post = new Publication("", "", "", [''], 0,  localStorage.getItem('userId')?.toString() as string);
   array_image !: string[];
   newimage !: string;
   result = ""
+   ;
 
   constructor(private publicationsService: PublicationsService) { }
 
   ngOnInit() {
     this.array_image = []
+    this.post.userId = localStorage.getItem('userId')?.toString() as string;
+  }
+
+  ngAfterViewInit(){
+    this.post.userId = localStorage.getItem('userId')?.toString() as string;
+
   }
 
   addNewImage() {
