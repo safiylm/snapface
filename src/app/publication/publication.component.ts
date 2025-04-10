@@ -49,6 +49,14 @@ export class PublicationComponent {
       this.index -= 1;
   }
 
+  isImage(url: string): boolean {
+    return url.match(/\.(jpeg|jpg|gif|png|webp|svg)$/i) !== null;
+  }
+  
+  isVideo(url: string): boolean {
+    return url.match(/\.(mp4|webm|ogg|mov|avi|mkv)$/i) !== null;
+  }
+
   get Id() {
     return (this.publication && this.publication._id) ? this.publication._id : null
 

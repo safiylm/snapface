@@ -2,14 +2,20 @@
   min-width: 250px;
   box-sizing: border-box;
   width: 490px;
-//  margin: 20px auto;
+  //  margin: 20px auto;
   padding: 20px;
   box-shadow: #d3d3d3 4px 4px 20px;
   margin: 10px;
+
+  video,
   img {
     width: 460px;
     height: 580px;
     object-fit: cover;
+  }
+
+  video {
+    height: auto;
   }
 
   h2 {
@@ -39,6 +45,7 @@
   justify-content: center;
   position: relative;
   width: 460px;
+  height: 580px;
 
   button {
     position: absolute;
