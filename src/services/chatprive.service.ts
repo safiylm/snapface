@@ -14,7 +14,8 @@ export class ChatPriveService {
   private socket: Socket;
 
   constructor(private http: HttpClient) {
-    this.socket = io('http://localhost:4110');
+   // this.socket = io('http://localhost:4110');
+    this.socket = io('https://snapface.onrender.com');
   }
 
   receiveMessagesPrive() {
@@ -31,9 +32,8 @@ export class ChatPriveService {
     this.socket.emit('joinRoom', userId);
   }
 
-  sendMessagePrivee(sender: string, receiver: string, conversationId: string, text: string) {
+  sendMessagePriee(sender: string, receiver: string, conversationId: string, text: string) {
     this.socket.emit('privateMessage', { sender, receiver, conversationId, text })
-
   }
 
   getMessageHistory(conversationId: string) {
@@ -109,5 +109,29 @@ export class ChatPriveService {
         "http://localhost:4100/conversation/nbnewmsj?id=" + conversationId)
   }
 
+
+
+    //------------------------------------------------
+
+
+
+
+    sendMessagePrivee(  sender: string, receiver:string , conversationId:string , text:string ) {
+  
+      this.socket.emit('privateMessage', { sender, receiver, conversationId, text })
+      this.socket.emit("joinRoom", "662eb361c2fd9ad3238d752a");  // Register this client with a user ID
+  
+    }
+  
+    receiveMessagePrivate(): Observable<any> {
+      this.socket.emit("receiver", "662eb361c2fd9ad3238d752a");  // Register this client with a user ID
+  
+      return new Observable(observer => {
+        this.socket.on('private', (msg) =>{
+           observer.next(msg)
+           console.log(msg)
+          });
+      });
+    }
 
 }

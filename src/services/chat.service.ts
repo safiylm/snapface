@@ -12,18 +12,12 @@ export class ChatPublicService {
   private socket: Socket;
 
   constructor(private http: HttpClient) {
-    this.socket = io('http://localhost:4110');
-
-    this.socket.on('connection', () => {
-      console.log('✅ Connecté au serveur WebSocket');
-    });
-
-    this.socket.on('disconnect', (error) => {
-      console.error('❌ Erreur de connexion WebSocket :', error);
-    });
+  //  this.socket = io('http://localhost:4110');
+    this.socket = io('https://snapface.onrender.com');
+    
   }
-  
-/**Discusiion instantane ouvert à tout le monde  */
+
+  /**Discusiion instantane ouvert à tout le monde  */
   sendMessagePublic(message: any) {
     this.socket.emit('publicMessage', message);
   }
@@ -34,5 +28,7 @@ export class ChatPublicService {
     });
   }
 
-  
+
+
+
 }

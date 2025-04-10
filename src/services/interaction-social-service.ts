@@ -11,8 +11,9 @@ import { InteractionSociale } from '../models/interaction.sociale.model';
 export class InteractionSocialeService {
 
   constructor(private http: HttpClient) { }
+ 
   url="https://snapface.onrender.com"
-  //url="http://localhost:4100"
+  // url="http://localhost:4100"
  
 
   getInteractionSocialeById(id: string): Observable<InteractionSociale> {
