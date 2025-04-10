@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, HostListener, OnInit, signal } from '@angular/core';
 import { ConversationListComponent } from '../conversation-list/conversation-list.component';
 import { ChatPriveService } from 'src/services/chatprive.service';
 
@@ -25,5 +25,23 @@ export class HeaderComponent implements OnInit {
       this.isLoggedIn = false;
     }
     this.nbConversationWithNewMessages = Number(localStorage.getItem('nbConversationWithNewMessages')?.toString() )
+
+  }
+
+  isAffix = false;
+  isMenuActive = false;
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    this.isAffix = scrollTop > 50;
+    if (this.isAffix) {
+      console.log('OK');
+    }
+  }
+
+  toggleMenu() {
+    this.isMenuActive = !this.isMenuActive;
+    console.log('Clicked menu');
   }
 }

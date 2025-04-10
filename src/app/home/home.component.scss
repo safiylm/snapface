@@ -1,4 +1,6 @@
-
+.home {
+    padding-top: 100px;
+}
 
 @media(max-width:930px) {
 
@@ -7,10 +9,10 @@
         flex-direction: column !important;
         width: 100vw;
         justify-content: center !important;
-      
+        
     }
 
-  
+
     #div-list-users {
         width: 100vw;
         overflow-x: scroll;
