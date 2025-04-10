@@ -10,7 +10,7 @@ import { Subject, takeUntil } from 'rxjs';
 
 export class AppComponent implements OnDestroy {
   unsubscribe = new Subject<void>();
-  loadingPosts = false;
+  loadingPosts = true;
   loading = false;
 
   constructor(private router: Router) {
