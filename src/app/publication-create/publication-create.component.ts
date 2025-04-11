@@ -18,15 +18,15 @@ import { HeaderSnapComponent } from '../header-snap/header-snap.component';
 export class PublicationCreateComponent implements OnInit {
 
   post = new Publication("", "", "", [''], 0,  localStorage.getItem('userId')?.toString() as string);
-  array_image !: string[];
-  newimage !: string;
+  array_assets !: string[];
+  newasset !: string;
   result = ""
    ;
 
   constructor(private publicationsService: PublicationsService) { }
 
   ngOnInit() {
-    this.array_image = []
+    this.array_assets = []
     this.post.userId = localStorage.getItem('userId')?.toString() as string;
   }
 
@@ -36,19 +36,19 @@ export class PublicationCreateComponent implements OnInit {
   }
 
   addNewImage() {
-    if (this.newimage != null) {
-      this.array_image.push(this.newimage);
+    if (this.newasset != null) {
+      this.array_assets.push(this.newasset);
     }
-    this.newimage = "";
+    this.newasset = "";
   }
 
   deleteImage(nb: number) {
-    this.array_image = this.array_image.filter((item, i) => i !== nb)
+    this.array_assets = this.array_assets.filter((item, i) => i !== nb)
   }
 
   onSubmit() {
     this.post.userId = localStorage.getItem('userId')?.toString() as string;
-    this.post.images = this.array_image as [string];
+    this.post.assets = this.array_assets as [string];
     this.post.date = Date.now()
 
     this.publicationsService.createNewPublication(this.post).subscribe({
@@ -67,8 +67,8 @@ export class PublicationCreateComponent implements OnInit {
 
   }
 
-  get ArrayImage() {
-    return (this.array_image) ? this.array_image : null
+  get ArrayAsset() {
+    return (this.array_assets) ? this.array_assets : null
   }
 
 }

@@ -39,7 +39,7 @@ export class PublicationComponent {
   }
 
   displayImageNext() {
-    if (this.index < this.publication.images.length - 1) {
+    if (this.index < this.publication.assets.length - 1) {
       this.index += 1;
     }
   }
@@ -74,8 +74,8 @@ export class PublicationComponent {
     return (this.publication && this.publication.body) ? this.publication.body : null
   }
 
-  get Images() {
-    return (this.publication && this.publication.images) ? this.publication.images : null
+  get Assets() {
+    return (this.publication && this.publication.assets) ? this.publication.assets : null
   }
 
 

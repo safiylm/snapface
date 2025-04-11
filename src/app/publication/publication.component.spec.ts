@@ -50,7 +50,7 @@ describe('PublicationComponent', () => {
 
 
     it("should display", ()=>{
-        expect(image.getAttribute("src")).toContain(component.publication.images[component.index]);
+        expect(image.getAttribute("src")).toContain(component.publication.assets[component.index]);
         expect(body.textContent?.toLowerCase()).toContain(component.Body?.toLowerCase())
         expect(title.textContent?.toLowerCase()).toContain(component.Title?.toLowerCase())
     })

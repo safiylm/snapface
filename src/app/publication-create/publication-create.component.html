@@ -18,7 +18,7 @@
    
     <div class="liste-images d-flex align-items-center justify-content-start">
 
-        <div *ngFor="let image of ArrayImage ; let i = index"
+        <div *ngFor="let image of ArrayAsset ; let i = index"
             class="d-flex flex-column align-items-center justify-content-center">
             <img width='300px' height='auto' [src]="image" alt="Nouvelle image n°{{+ i}}" />
             <button class='btn btn-danger' type='button' (click)='deleteImage(i)'>Supprimer</button><br />
@@ -28,7 +28,7 @@
     <div class="div-input">
         <label>Saisissez le lien d'une image:</label>
         <div class="d-flex align-items-center justify-content-center">
-            <input type="text" class="form-control" name="image" [(ngModel)]="newimage" />
+            <input type="text" class="form-control" name="image" [(ngModel)]="newasset" />
             <button type="button" class="btn btn-light" (click)="addNewImage()">Ajouter</button>
         </div>
     </div>

@@ -11,9 +11,9 @@
   </div>
 
   <br />
-  <div class="div-images" *ngIf="Images?.length">
+  <div class="div-images" *ngIf="Assets?.length">
 
-    <button *ngIf="publication.images.length! > 1 && index>0" (click)="displayImagePrecedent()">
+    <button *ngIf="publication.assets.length! > 1 && index>0" (click)="displayImagePrecedent()">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-chevron-left"
         viewBox="0 0 16 16">
         <path fill-rule="evenodd"
@@ -21,18 +21,18 @@
       </svg>
     </button>
 
-    <ng-container *ngIf="isImage(publication.images[index]); else videoTemplate">
-      <img id="image" [src]="publication.images[index]!" [alt]="publication.title">
+    <ng-container *ngIf="isImage(publication.assets[index]); else videoTemplate">
+      <img id="image" [src]="publication.assets[index]!" [alt]="publication.title">
     </ng-container>
 
     <ng-template #videoTemplate>
       <video controls>
-        <source [src]="publication.images[index]!" type="video/mp4">
+        <source [src]="publication.assets[index]!" type="video/mp4">
         Your browser does not support the video tag.
       </video>
     </ng-template>
 
-    <button *ngIf="publication.images.length! > 1  && index<publication.images.length" (click)="displayImageNext()">
+    <button *ngIf="publication.assets.length! > 1  && index<publication.assets.length" (click)="displayImageNext()">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-chevron-right"
         viewBox="0 0 16 16">
         <path fill-rule="evenodd"

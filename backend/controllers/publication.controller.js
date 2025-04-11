@@ -19,7 +19,7 @@ exports.create = (req, res) => {
         title: req.body.title,
         body: req.body.body,
         userId: req.body.userId,
-        images:  req.body.images,
+        assets:  req.body.assets,
         date: Date,
         // videos: [{ url: req.body.videos, title: "", }],
         // audios: [{ url: req.body.audios , title: "", }],
@@ -67,8 +67,7 @@ exports.findAll = async (req, res) => {
  
     const findResult = await collection_publications.find({}).sort({ date: -1 }).toArray();
     res.send(findResult);
-
-}
+  }
 
 
 // Retrieve all Posts by userID from the database.
@@ -106,8 +105,7 @@ exports.edit = async (req, res) => {
         $set: {
           "title": req.body.title,
           "body": req.body.body,
-          "images": req.body.images,
-        //   "videos": req.body.videos,
+          "assets": req.body.assets,
         //   "audios": req.body.audios,
          
         }

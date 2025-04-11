@@ -14,14 +14,16 @@ import { HeaderSnapComponent } from '../header-snap/header-snap.component';
   styleUrls: ['./publication-edit.component.scss'],
   imports: [NgFor, FormsModule, NgIf, HeaderSnapComponent]
 })
+
+
 export class PublicationEditComponent {
 
   id: string = this.route.snapshot.paramMap.get('id')!; //postId
   post!: Publication;
   subscription !: Subscription;
   resultatOfEdit = "";
-  array_image !: string[];
-  newimage = "";
+  array_assets !: string[];
+  newasset = "";
 
   constructor(private publicationService: PublicationsService, private route: ActivatedRoute) { }
 
@@ -30,7 +32,7 @@ export class PublicationEditComponent {
       .subscribe({
         next: (data) => {
           this.post = data;
-          this.array_image = data.images
+          this.array_assets = data.assets
         },
         error: (e) => console.error(e)
       });
@@ -38,14 +40,14 @@ export class PublicationEditComponent {
 
 
   deleteImage(nb: number) {
-    this.array_image = this.array_image.filter((item, i) => i !== nb) as [string]
+    this.array_assets = this.array_assets.filter((item, i) => i !== nb) as [string]
   }
 
 
-  addNewImage() {
-    if (this.newimage != null)
-      this.array_image.push(this.newimage);
-    this.newimage = "";
+  addNewAsset() {
+    if (this.newasset != null)
+      this.array_assets.push(this.newasset);
+    this.newasset = "";
   }
 
   ngOnInit() {
@@ -71,7 +73,7 @@ export class PublicationEditComponent {
   }
 
   onSubmit() {
-    this.post.images = this.array_image as [string]
+    this.post.assets = this.array_assets as [string]
     console.log(this.post)
     this.publicationService.editPost(this.post!).subscribe(
       data => {
