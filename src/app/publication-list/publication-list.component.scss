@@ -3,6 +3,7 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    max-width: 90vw;
 
     p{
         border-top: 0.2px solid gray;
@@ -13,5 +14,7 @@
         padding: 40px;
         width: 600px;
         margin: 10px auto;
+        max-width: 90vw;
+
     }
 }
