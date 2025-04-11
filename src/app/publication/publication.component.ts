@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 import { Publication } from '../../models/publication.model';
 import { AuteurInPostOrCommentaireComponent } from '../auteur-in-post-or-commentaire/auteur-in-post-or-commentaire.component';
 import { InteractionSocialComponent } from '../interaction-social/interaction-social.component';
@@ -22,11 +22,13 @@ export class PublicationComponent {
   // constructor() { }
   index: number = 0;
   isMyPost: boolean = false;
+  @ViewChild('audioPlayer') audioPlayer!: ElementRef<HTMLAudioElement>;
 
   ngAfterContentChecked() {
     if (this.UserId == localStorage.getItem('userId')) {
       this.isMyPost = true;
     }
+
   }
 
 
@@ -52,7 +54,7 @@ export class PublicationComponent {
   isImage(url: string): boolean {
     return url.match(/\.(jpeg|jpg|gif|png|webp|svg)$/i) !== null;
   }
-  
+
   isVideo(url: string): boolean {
     return url.match(/\.(mp4|webm|ogg|mov|avi|mkv)$/i) !== null;
   }
@@ -82,4 +84,19 @@ export class PublicationComponent {
   get Publicationn() {
     return (this.publication) ? this.publication : null
   }
+
+  get Audio() {
+    return (this.publication && this.publication.audio) ? this.publication.audio : null
+  }
+
+
+  audioStart() {
+    this.audioPlayer?.nativeElement.play();
+  }
+
+  audioEnd() {
+    this.audioPlayer?.nativeElement.pause();
+    this.audioPlayer.nativeElement.currentTime = 0; // remet à zéro si tu veux
+  }
+
 }

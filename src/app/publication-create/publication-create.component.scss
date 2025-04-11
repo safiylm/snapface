@@ -5,7 +5,7 @@ h1 {
 }
 
 form {
-    width: 800px;
+    width: 1000px;
     margin: 20px auto;
 
 
@@ -28,11 +28,42 @@ form {
         text-align: center;
         width: 100%;
     }
-    .liste-images{
-        overflow: auto;; 
-        div{
-        margin: 10px;
-    }}
+   
+    .div-images {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin: 10px auto;
+        max-width: 90vw;
+        overflow: auto;
+        margin: 0;
+        padding: 5px;
+
+        img,
+        video {
+            width: 300px;
+            height: 380px;
+            object-fit: cover;
+            margin: 10px;
+        }
+
+        .imgg {
+            position: relative;
+        }
+
+        button {
+            position: absolute;
+            bottom: 3px;
+            right: 3px;
+
+        }
+    }
+
+    .div-add-assets{
+        background-color: #888;
+        width: 100%;
+        padding: 30px ;
+    }
 
 
 }
@@ -48,4 +79,75 @@ form {
 
     }
 
+}
+
+
+.modal- {
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+
+
+    /* Modal Content/Box */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 50%;
+        /* Could be more or less, depending on screen size */
+    }
+
+    /* The Close Button */
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+
+        :hover,
+        :focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+    }
+
+}
+
+
+
+.audio-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+
+    .audio-item {
+        // background: #f1f1f1;
+        border-radius: 8px;
+        padding: 1rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        input{
+            margin: 15px;
+        }
+        
+    }
+
+    
 }

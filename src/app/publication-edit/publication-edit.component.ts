@@ -24,6 +24,7 @@ export class PublicationEditComponent {
   resultatOfEdit = "";
   array_assets !: string[];
   newasset = "";
+  isVisibleAddAssets = false;
 
   constructor(private publicationService: PublicationsService, private route: ActivatedRoute) { }
 
@@ -48,6 +49,8 @@ export class PublicationEditComponent {
     if (this.newasset != null)
       this.array_assets.push(this.newasset);
     this.newasset = "";
+    console.log(this.array_assets)
+    this.isVisibleAddAssets=false;
   }
 
   ngOnInit() {
@@ -93,5 +96,16 @@ export class PublicationEditComponent {
     this.subscription.unsubscribe();
   }
 
+  toggleAddAssets(){
+    this.isVisibleAddAssets= ! this.isVisibleAddAssets
+  }
+
+  isImage(url: string): boolean {
+    return url.match(/\.(jpeg|jpg|gif|png|webp|svg)$/i) !== null;
+  }
+
+  isVideo(url: string): boolean {
+    return url.match(/\.(mp4|webm|ogg|mov|avi|mkv)$/i) !== null;
+  }
 }
 

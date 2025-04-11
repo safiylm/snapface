@@ -41,7 +41,8 @@ describe('Publication Edit Component', () => {
       "Beautiful orange cat",
       "Beautiful orange cat...................",
       ["https://images.pexels.com/photos/1741205/pexels-photo-1741205.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"],
-      895, "66e9219abe68cdd15907399e"
+      895, "66e9219abe68cdd15907399e", 
+      ""
     )
     spyOn(component, 'onSubmit')
     component.post = data;
@@ -65,7 +66,7 @@ describe('Publication Edit Component', () => {
       "Beautiful orange cat...................",
       ["https://images.pexels.com/photos/1741205/pexels-photo-1741205.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"],
       Date.UTC(2024, 9, 24, 22, 0, 0, 0),
-      "66e9219abe68cdd15907399e");
+      "66e9219abe68cdd15907399e", "");
     component.id = "66f9678d9189a0956c8cfb4c";
     component.getDataPost();
     fixture.detectChanges(); // Déclenche ngOnInit

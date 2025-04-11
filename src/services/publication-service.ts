@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Publication } from '../models/publication.model'
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { InteractionSociale } from '../models/interaction.sociale.model';
 
 
 @Injectable({

@@ -17,11 +17,12 @@ import { HeaderSnapComponent } from '../header-snap/header-snap.component';
 
 export class PublicationCreateComponent implements OnInit {
 
-  post = new Publication("", "", "", [''], 0,  localStorage.getItem('userId')?.toString() as string);
+  post = new Publication("", "", "", [''], 0,  localStorage.getItem('userId')?.toString() as string, "");
   array_assets !: string[];
   newasset !: string;
   result = ""
-   ;
+  isVisibleAddAssets = false;
+
 
   constructor(private publicationsService: PublicationsService) { }
 
@@ -35,10 +36,11 @@ export class PublicationCreateComponent implements OnInit {
 
   }
 
-  addNewImage() {
+  addNewAsset() {
     if (this.newasset != null) {
       this.array_assets.push(this.newasset);
     }
+    this.isVisibleAddAssets = false; 
     this.newasset = "";
   }
 
@@ -71,5 +73,17 @@ export class PublicationCreateComponent implements OnInit {
     return (this.array_assets) ? this.array_assets : null
   }
 
+  
+  toggleAddAssets(){
+    this.isVisibleAddAssets= ! this.isVisibleAddAssets
+  }
+
+  isImage(url: string): boolean {
+    return url.match(/\.(jpeg|jpg|gif|png|webp|svg)$/i) !== null;
+  }
+
+  isVideo(url: string): boolean {
+    return url.match(/\.(mp4|webm|ogg|mov|avi|mkv)$/i) !== null;
+  }
 }
 

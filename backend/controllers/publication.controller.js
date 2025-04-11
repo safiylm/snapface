@@ -20,9 +20,8 @@ exports.create = (req, res) => {
         body: req.body.body,
         userId: req.body.userId,
         assets:  req.body.assets,
+        audio: req.body.audio,
         date: Date,
-        // videos: [{ url: req.body.videos, title: "", }],
-        // audios: [{ url: req.body.audios , title: "", }],
     };
 
     // Save Tutorial in the database
@@ -83,7 +82,6 @@ exports.findAllPublicationByUserId = async (req, res) => {
 //Retrieve post by id 
 exports.findOneById = async (req, res) => {
     res.set('Access-Control-Allow-Origin', '*');
-
     const id = req.query.id;
     res.send(await collection_publications.findOne({ "_id": new ObjectId(id) }))
 };
@@ -106,7 +104,7 @@ exports.edit = async (req, res) => {
           "title": req.body.title,
           "body": req.body.body,
           "assets": req.body.assets,
-        //   "audios": req.body.audios,
+           "audio": req.body.audio,
          
         }
       });
