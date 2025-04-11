@@ -6,11 +6,11 @@
 
     <div class="card" *ngFor="let number of [0,1,2,3,4]" aria-hidden="true">
         <div class="d-flex flex-wrap align-items-center justify-content-start">
-            <img src="../assets/gris.jpg" id="photos-profil-user" alt="images gris">
+            <div id="photos-profil-user"></div>
             <span class="placeholder col-5"></span>
         </div>
 
-        <img src="../assets/gris.jpg" class="card-img-top" alt="images gris">
+        <div class="card-img-top"></div>
         <div class="card-body">
             <h5 class="card-title placeholder-glow">
                 <span class="placeholder col-6"></span>
@@ -47,5 +47,6 @@
     </div>
 </div>
 
+<!-- <audio controls><source src="../assets/music.mp3" type="audio/mp3" /></audio>  -->
 
 <router-outlet></router-outlet>
