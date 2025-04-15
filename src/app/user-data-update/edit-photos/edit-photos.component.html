@@ -1,0 +1,39 @@
+<div class="edit-image d-flex flex-column align-items-center justify-content-center">
+     <h2 *ngIf="nom=='photos_profil'">Modifier votre photo de profil</h2>
+    <h2 *ngIf="nom=='photos_background'">Modifier votre photo de background</h2>
+    
+    <img [src]="photo" alt="photo de profil de l'utilisateur" />
+   
+    
+    <div class="dropdown">
+        <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Modifier votre photo en
+        </button>
+        <ul class="dropdown-menu">
+            <li>
+                <button class="btn" (click)="choiceMoyen='link'">
+                    Ajoutant un nouveau lien
+                </button>
+            </li>
+            <li>
+                <button class="btn" (click)="choiceMoyen='file'">
+                    Ajoutant une photo
+                </button>
+            </li>
+        </ul>
+    </div>
+
+    <div class="div-input" *ngIf="choiceMoyen=='link'">
+        <label>Modifiez le lien de votre photo de profil:</label>
+        <input type="text" class="form-control" name="photos_profil" [(ngModel)]="photo" />
+    </div>
+   
+    <div class="div-input" *ngIf="choiceMoyen=='file'">
+        
+        <label for="photo">Choisir une photo :</label>
+        <input type="file" id="photo" (change)="onFileSelected($event)" accept="image/*" />
+    </div>
+    {{res}}
+    <!-- [disabled]="!selectedFile || photo"  -->
+    <button class="btn btn-primary" (click)="onSubmit()"> Modifier son image</button>
+</div>

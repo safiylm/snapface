@@ -7,6 +7,15 @@ const nodemailer = require('nodemailer');
 const ObjectId = require('mongodb').ObjectId;
 const jwt = require('../jwt.js')
 
+const cloudinary = require('cloudinary').v2;
+
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key:    process.env.API_KEY,
+  api_secret: process.env.API_SECRET
+});
+
+
 const transporter = nodemailer.createTransport({
   service: 'gmail', // ou autre fournisseur
   auth: {
@@ -81,6 +90,81 @@ exports.update = async (req, res) => {
   res.send(updateResult);
 }
 
+exports.editPhotoDeProfil= async (req, res)=>{
+    const filePath = req.file.path;
+
+    cloudinary.uploader.upload(filePath, {
+      folder: 'uploads_secure',
+    }, async (error, result) => {
+      if (error) return res.status(500).json({ error });
+      await collection_user.updateOne({ "_id": new ObjectId(req.body.userId) },
+      {
+        $set: {
+          "photos_profil": result.secure_url,
+        }
+      }).then(data => {
+        if (data) {
+          res.json({ url: result.secure_url, data: "Modification de photo de profil reussi" });
+
+        }
+      })
+    });
+  }
+
+  
+exports.editPhotoBackground= async (req, res)=>{
+  const filePath = req.file.path;
+
+  cloudinary.uploader.upload(filePath, {
+    folder: 'uploads_secure',
+  }, async (error, result) => {
+    if (error) return res.status(500).json({ error });
+    await collection_user.updateOne({ "_id": new ObjectId(req.body.userId) },
+    {
+      $set: {
+        "photos_background": result.secure_url,
+      }
+    }).then(data => {
+      if (data) {
+        res.json({ url: result.secure_url, data: "Modification de photo background reussi" });
+
+      }
+    })
+  });
+}
+
+
+
+exports.editPhotoDeProfilWithLink= async (req, res)=>{
+  
+    await collection_user.updateOne({ "_id": new ObjectId(req.body._id) },
+    {
+      $set: {
+        "photos_profil": req.body.photo,
+      }
+    }).then(data => {
+      if (data) {
+        res.json({  data: "Modification de photo de profil reussi" });
+      }
+    })
+
+}
+
+
+exports.editPhotoBackgroundWithLink= async (req, res)=>{
+
+  await collection_user.updateOne({ "_id": new ObjectId(req.body._id) },
+  {
+    $set: {
+      "photos_background": req.body.photo,
+    }
+  }).then(data => {
+    if (data) {
+      res.json({ data: "Modification de photo background reussi" });
+    }
+  })
+
+}
 
 exports.editEmail = async function (req, res) {
   res.set('Access-Control-Allow-Origin', '*');
@@ -146,7 +230,14 @@ exports.editPassword = async function (req, res) {
 exports.delete = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
 
-  const deleteResult = await collection_user.deleteOne({ "_id": new ObjectId(req.body.id) });
+ // const deleteResult = await collection_user.deleteOne({ "_id": new ObjectId(req.body.id) });
+  const deleteResult = await collection_user.updateOne({ "_id": new ObjectId(req.body._id) },
+    {
+      $set: {
+        "firstName": "Utilisateur",
+        "lastName": "Introuvable",
+      }
+    });
   res.send(deleteResult);
 
 }

@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { EditEmailComponent } from '../edit-email/edit-email.component';
 import { EditPhonenumberComponent } from '../edit-phonenumber/edit-phonenumber.component';
 import { HeaderSnapComponent } from "../header-snap/header-snap.component";
+import { EditPhotosComponent } from './edit-photos/edit-photos.component';
 
 @Component({
   standalone: true,
@@ -15,7 +16,8 @@ import { HeaderSnapComponent } from "../header-snap/header-snap.component";
   templateUrl: './user-data-update.component.html',
   styleUrls: ['./user-data-update.component.scss'],
   imports: [CommonModule, HeaderComponent, FormsModule,
-    EditEmailComponent, EditPhonenumberComponent, HeaderSnapComponent],
+    EditEmailComponent, EditPhonenumberComponent, 
+    EditPhotosComponent, HeaderSnapComponent],
 })
 
 export class UserDataUpdateComponent implements OnInit {

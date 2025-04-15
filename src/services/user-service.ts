@@ -15,7 +15,7 @@ export class UserService {
   constructor(private http: HttpClient, public router: Router) { }
 
   url = "https://snapface.onrender.com"
- // url="http://localhost:4100"
+  // url="http://localhost:4100"
 
 
   logout(): void {
@@ -30,6 +30,35 @@ export class UserService {
     );
   }
 
+  editPhotoDeProfilViaFile(formData: FormData): Observable<any> {
+    return this.http.post<{ url: string }>(
+      'http://localhost:4100/api/user/edit/photodeprofil',
+      formData)
+  }
+
+  editPhotoDeBackgroundViaFile(formData: FormData): Observable<any> {
+    return this.http.post<{ url: string }>(
+      'http://localhost:4100/api/user/edit/photobackground',
+      formData)
+  }
+
+  editPhotoDeProfilViaLink(id: string, photo: string): Observable<any> {
+    return this.http
+      .post(
+      //  this.url +
+         `http://localhost:4100/api/user/edit/photodeprofilwithLink`,
+        { "_id": id, "photo": photo },
+      );
+  }
+
+  editPhotoDeBackgroundViaLink(id: string, photo: string): Observable<any> {
+    return this.http
+      .post(
+        //this.url +
+         `http://localhost:4100/api/user/edit/photobackgroundwithLink`,
+        { "_id": id, "photo": photo },
+      );
+  }
 
   public connexion(email: string): Observable<any> {
     const httpOptions = {
@@ -74,8 +103,8 @@ export class UserService {
     return this.http.get<User>(this.url + "/api/userid?id=" + localStorage.getItem('userId')?.toString());
   }
 
-  searchByName(fname: string, lname:string):Observable<User[]> {
-    return this.http.get<User[]>(this.url + "/api/username?fname=" + fname+"&lname="+lname);
+  searchByName(fname: string, lname: string): Observable<User[]> {
+    return this.http.get<User[]>(this.url + "/api/username?fname=" + fname + "&lname=" + lname);
   }
 
 

@@ -1,0 +1,38 @@
+.edit-image {
+    margin: 50px;
+
+    img {
+        width: 250px;
+        height: 250px;
+        object-fit: cover;
+        margin: 15px 0;
+    }
+
+    .dropdown {
+        position: relative;
+        border: 0.7px solid black;
+        border-radius: 15px;
+        margin: 10px;
+    }
+
+    .div-input {
+        margin: 15px 0;
+
+        label,
+        input {
+            display: block;
+            width: 100%;
+            font-size: medium;
+            padding: 7px;
+        }
+
+        input {
+            padding: 7px 14px;
+            margin: 15px 0;
+        }
+    }
+
+    .btn-primary{
+        margin: 15px 0;
+    } 
+}
