@@ -32,21 +32,21 @@ export class UserService {
 
   editPhotoDeProfilViaFile(formData: FormData): Observable<any> {
     return this.http.post<{ url: string }>(
-      'http://localhost:4100/api/user/edit/photodeprofil',
+      this.url + '/api/user/edit/photodeprofil',
       formData)
   }
 
   editPhotoDeBackgroundViaFile(formData: FormData): Observable<any> {
     return this.http.post<{ url: string }>(
-      'http://localhost:4100/api/user/edit/photobackground',
+      this.url + '/api/user/edit/photobackground',
       formData)
   }
 
   editPhotoDeProfilViaLink(id: string, photo: string): Observable<any> {
     return this.http
       .post(
-      //  this.url +
-         `http://localhost:4100/api/user/edit/photodeprofilwithLink`,
+        this.url +
+        `/api/user/edit/photodeprofilwithLink`,
         { "_id": id, "photo": photo },
       );
   }
@@ -54,8 +54,8 @@ export class UserService {
   editPhotoDeBackgroundViaLink(id: string, photo: string): Observable<any> {
     return this.http
       .post(
-        //this.url +
-         `http://localhost:4100/api/user/edit/photobackgroundwithLink`,
+        this.url +
+        `/api/user/edit/photobackgroundwithLink`,
         { "_id": id, "photo": photo },
       );
   }
