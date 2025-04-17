@@ -15,6 +15,11 @@ cloudinary.config({
 
 // Create a new User
 
+router_user.get("/api/user", user.findAll);
+
+router_user.get("/api/userid", user.findOneById);
+router_user.get("/api/username", user.findByName);
+
 router_user.post("/api/user/create", user.create);
 router_user.post("/api/user/connexion", user.connexion);
 router_user.post("/api/user/update", user.update);
@@ -28,12 +33,5 @@ router_user.post("/api/user/reinitialise/password", user.reinitialisePassword);
 router_user.post("/api/user/edit/photodeprofil",upload.single('image'),  user.editPhotoDeProfil);
 router_user.post("/api/user/edit/photobackground",upload.single('image'),  user.editPhotoBackground);
 
-router_user.post("/api/user/edit/photodeprofilwithLink",upload.single('image'),  user.editPhotoDeProfilWithLink);
-router_user.post("/api/user/edit/photobackgroundwithLink",upload.single('image'),  user.editPhotoBackgroundWithLink);
-
-router_user.get("/api/user", user.findAll);
-
-router_user.get("/api/userid", user.findOneById);
-router_user.get("/api/username", user.findByName);
 // /:id
 module.exports = router_user;

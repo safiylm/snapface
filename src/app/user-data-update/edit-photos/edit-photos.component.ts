@@ -22,8 +22,7 @@ export class EditPhotosComponent {
   previewUrl: string | ArrayBuffer | null = null;
   res = ""
   constructor(private userService: UserService) { }
-
-  choiceMoyen = ""
+  
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -40,7 +39,7 @@ export class EditPhotosComponent {
   }
 
   onSubmit(): void {
-    if (this.selectedFile && this.choiceMoyen == "file" && this.nom == "photos_profil") {
+    if (this.selectedFile && this.nom == "photos_profil") {
       // FormData pour l’envoi à une API backend
       const formData = new FormData();
       formData.append('image', this.selectedFile); // "image" = nom du champ dans le backend
@@ -64,7 +63,7 @@ export class EditPhotosComponent {
         });
     }
 
-    if (this.selectedFile && this.choiceMoyen == "file" && this.nom == "photos_background") {
+    if (this.selectedFile  && this.nom == "photos_background") {
       // FormData pour l’envoi à une API backend
       const formData = new FormData();
       formData.append('image', this.selectedFile); // "image" = nom du champ dans le backend
@@ -88,7 +87,7 @@ export class EditPhotosComponent {
         });
     }
 
-    if (this.choiceMoyen == "link" && this.photo.trim()!="" && this.nom == "photos_profil") {
+  /*  if (this.choiceMoyen == "link" && this.photo.trim()!="" && this.nom == "photos_profil") {
       this.userService.editPhotoDeProfilViaLink(localStorage.getItem("userId")?.toString() as string,
       this.photo)
         .subscribe({
@@ -122,6 +121,7 @@ export class EditPhotosComponent {
           }
         });
     }
+    */
   }
 
 }

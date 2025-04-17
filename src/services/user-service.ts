@@ -14,8 +14,8 @@ export class UserService {
 
   constructor(private http: HttpClient, public router: Router) { }
 
-  url = "https://snapface.onrender.com"
-  // url="http://localhost:4100"
+//  url = "https://snapface.onrender.com"
+ url="http://localhost:4100"
 
 
   logout(): void {
@@ -42,23 +42,6 @@ export class UserService {
       formData)
   }
 
-  editPhotoDeProfilViaLink(id: string, photo: string): Observable<any> {
-    return this.http
-      .post(
-        this.url +
-        `/api/user/edit/photodeprofilwithLink`,
-        { "_id": id, "photo": photo },
-      );
-  }
-
-  editPhotoDeBackgroundViaLink(id: string, photo: string): Observable<any> {
-    return this.http
-      .post(
-        this.url +
-        `/api/user/edit/photobackgroundwithLink`,
-        { "_id": id, "photo": photo },
-      );
-  }
 
   public connexion(email: string): Observable<any> {
     const httpOptions = {
@@ -167,5 +150,25 @@ export class UserService {
       { 'password': pwd, 'token': token, })
   }
 
+/*
 
+  editPhotoDeProfilViaLink(id: string, photo: string): Observable<any> {
+    return this.http
+      .post(
+        this.url +
+        `/api/user/edit/photodeprofilwithLink`,
+        { "_id": id, "photo": photo },
+      );
+  }
+
+  editPhotoDeBackgroundViaLink(id: string, photo: string): Observable<any> {
+    return this.http
+      .post(
+        this.url +
+        `/api/user/edit/photobackgroundwithLink`,
+        { "_id": id, "photo": photo },
+      );
+  }
+
+*/
 }

@@ -92,6 +92,7 @@ exports.update = async (req, res) => {
 
 exports.editPhotoDeProfil= async (req, res)=>{
     const filePath = req.file.path;
+    res.set('Access-Control-Allow-Origin', '*');
 
     cloudinary.uploader.upload(filePath, {
       folder: 'uploads_secure',
@@ -114,6 +115,7 @@ exports.editPhotoDeProfil= async (req, res)=>{
   
 exports.editPhotoBackground= async (req, res)=>{
   const filePath = req.file.path;
+  res.set('Access-Control-Allow-Origin', '*');
 
   cloudinary.uploader.upload(filePath, {
     folder: 'uploads_secure',
@@ -127,44 +129,12 @@ exports.editPhotoBackground= async (req, res)=>{
     }).then(data => {
       if (data) {
         res.json({ url: result.secure_url, data: "Modification de photo background reussi" });
-
       }
     })
   });
 }
 
 
-
-exports.editPhotoDeProfilWithLink= async (req, res)=>{
-  
-    await collection_user.updateOne({ "_id": new ObjectId(req.body._id) },
-    {
-      $set: {
-        "photos_profil": req.body.photo,
-      }
-    }).then(data => {
-      if (data) {
-        res.json({  data: "Modification de photo de profil reussi" });
-      }
-    })
-
-}
-
-
-exports.editPhotoBackgroundWithLink= async (req, res)=>{
-
-  await collection_user.updateOne({ "_id": new ObjectId(req.body._id) },
-  {
-    $set: {
-      "photos_background": req.body.photo,
-    }
-  }).then(data => {
-    if (data) {
-      res.json({ data: "Modification de photo background reussi" });
-    }
-  })
-
-}
 
 exports.editEmail = async function (req, res) {
   res.set('Access-Control-Allow-Origin', '*');

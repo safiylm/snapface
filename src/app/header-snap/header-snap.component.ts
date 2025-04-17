@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Pipe } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { UserService } from '../../services/user-service'
 import { User } from '../../models/user.model'
 import { ActivatedRoute, Router } from '@angular/router';
@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs';
 import { StatistiqueUserComponent } from '../statistique-user/statistique-user.component';
 import { NgIf, TitleCasePipe } from '@angular/common';
 import { ButtonFollowComponent } from '../button-follow/button-follow.component';
-import { ChatPriveComponent } from "../chat-prive/chat-prive.component";
+import { EditPhotosComponent } from "../user-data-update/edit-photos/edit-photos.component";
 
 
 @Component({
@@ -14,7 +14,7 @@ import { ChatPriveComponent } from "../chat-prive/chat-prive.component";
   selector: 'app-header-snap',
   templateUrl: './header-snap.component.html',
   styleUrls: ['./header-snap.component.scss'], 
-  imports: [StatistiqueUserComponent, NgIf, ButtonFollowComponent, TitleCasePipe, ChatPriveComponent]
+  imports: [StatistiqueUserComponent, NgIf, ButtonFollowComponent, TitleCasePipe, EditPhotosComponent]
 })
 
 
@@ -26,7 +26,8 @@ export class HeaderSnapComponent implements OnInit {
   isDisplayPhotoViewerProfil !: boolean;
   isDisplayPhotoViewerBackground !: boolean;
   subscription !: Subscription;
-
+  showEditPhotoProfil = false
+  showEditPhotoBackground = false
    
   constructor(private userService: UserService, 
     private router: ActivatedRoute,  private route: Router) {
@@ -77,10 +78,6 @@ export class HeaderSnapComponent implements OnInit {
   logout(){
     this.userService.logout();  
     this.route.navigate(['/']);
-  }
-
-  ngOnDestroy(){
-//    this.subscription.unsubscribe();
   }
   
 }

@@ -2,7 +2,7 @@
     width: 100% !important;
     height: 200px;
     object-fit: cover;
-    padding-top:50px;
+    padding-top: 50px;
 }
 
 #div-photo-profil {
@@ -16,6 +16,7 @@
         height: 250px;
         object-fit: cover;
         border-radius: 50%;
+
     }
 
     z-index: 1;
@@ -35,8 +36,9 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: auto;
-    height: 70vh;
+    height: auto;
     border-radius: 15px;
+    overflow: auto;
 
     img {
         margin: 1px auto;
@@ -49,21 +51,32 @@
         object-fit: cover;
     }
 
-    button {
+    .btn-close {
         float: right;
-        margin:10px 10px 0 0  ;
+        margin: 10px 10px 0 0;
         display: block;
+    }
+
+    #btn-open-edit {
+        margin: 0;
+        position: absolute;
+        bottom: 28px;
+        right: 23px;
+    }
+    .btn-dark{
+        margin-bottom: 20px;
     }
 
     @media (max-width:800px) {
         width: 90vw;
         margin: 2px auto;
         padding: 10px;
+
         img {
             height: auto;
         }
 
-        
+
     }
 }
 
@@ -75,17 +88,21 @@
 
 }
 
-#btn-ecrire{
+#btn-ecrire {
     border-radius: 15px !important;
-    padding: 7px 14px !important;;
-    font-size: small !important;;
+    padding: 7px 14px !important;
+    ;
+    font-size: small !important;
+    ;
     background-color: dodgerblue !important;
     color: #fff !important;
-    margin-left: 15px !important;;
+    margin-left: 15px !important;
+    ;
 }
 
 .dropdown {
     text-align: center;
+
     button {
         font-size: 17px;
         color: #343536 !important;
@@ -98,19 +115,18 @@
         border: none;
         padding: 10px 20px;
         font-size: 17px;
-        color:#292b2b !important;
+        color: #292b2b !important;
         font-weight: lighter;
     }
 
-    .dropdown-menu button{
+    .dropdown-menu button {
         background-color: white;
     }
 }
 
-#photo-profil-message-blox{
+#photo-profil-message-blox {
     width: 60px;
     height: 60px;
     object-fit: cover;
-    border-radius:50%;
+    border-radius: 50%;
 }
-
