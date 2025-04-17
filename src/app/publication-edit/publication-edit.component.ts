@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { NgFor, NgIf } from '@angular/common';
 import { HeaderSnapComponent } from '../header-snap/header-snap.component';
 
+
 @Component({
   standalone: true,
   selector: 'app-publication-edit',
@@ -23,10 +24,34 @@ export class PublicationEditComponent {
   subscription !: Subscription;
   resultatOfEdit = "";
   array_assets !: string[];
-  newasset = "";
-  isVisibleAddAssets = false;
+  selectedFiles: File[] = [];
 
-  constructor(private publicationService: PublicationsService, private route: ActivatedRoute) { }
+
+  constructor(private publicationService: PublicationsService,
+    private route: ActivatedRoute) { }
+  
+  ngOnInit() {
+    this.id = this.route.snapshot.paramMap.get('id')!;
+    this.getDataPost();
+  }
+
+  onFilesSelected(event: Event): void {
+
+    const input = event.target as HTMLInputElement;
+    if (!input.files) return;
+
+    this.selectedFiles = Array.from(input.files);
+
+    for (const file of this.selectedFiles) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        this.array_assets.push(e.target?.result as string);
+      };
+
+      reader.readAsDataURL(file);
+    }
+  }
+
 
   getDataPost(): void {
     this.subscription = this.publicationService.getPublicationById(this.id)
@@ -42,20 +67,6 @@ export class PublicationEditComponent {
 
   deleteImage(nb: number) {
     this.array_assets = this.array_assets.filter((item, i) => i !== nb) as [string]
-  }
-
-
-  addNewAsset() {
-    if (this.newasset != null)
-      this.array_assets.push(this.newasset);
-    this.newasset = "";
-    console.log(this.array_assets)
-    this.isVisibleAddAssets=false;
-  }
-
-  ngOnInit() {
-    this.id = this.route.snapshot.paramMap.get('id')!;
-    this.getDataPost();
   }
 
 
@@ -76,9 +87,20 @@ export class PublicationEditComponent {
   }
 
   onSubmit() {
-    this.post.assets = this.array_assets as [string]
-    console.log(this.post)
-    this.publicationService.editPost(this.post!).subscribe(
+    this.post.userId = localStorage.getItem('userId')?.toString() as string;
+
+    const formData = new FormData();
+    this.selectedFiles.forEach((file, index) => {
+      formData.append('photos', file); // ou `photos[]` si ton backend attend un tableau
+    });
+    formData.append('_id', this.post._id)
+    formData.append('title', this.post.title)
+    formData.append('audio', this.post.audio)
+    formData.append('userId', this.post.userId)
+    formData.append('body', this.post.body)
+   
+
+    this.publicationService.editPost(formData).subscribe(
       data => {
         console.log(data)
         if (data) {
@@ -96,12 +118,9 @@ export class PublicationEditComponent {
     this.subscription.unsubscribe();
   }
 
-  toggleAddAssets(){
-    this.isVisibleAddAssets= ! this.isVisibleAddAssets
-  }
 
   isImage(url: string): boolean {
-    return url.match(/\.(jpeg|jpg|gif|png|webp|svg)$/i) !== null;
+    return url.match(/^(data:image)|.*\.(jpeg|jpg|gif|png|webp|svg)$/i) !== null;
   }
 
   isVideo(url: string): boolean {

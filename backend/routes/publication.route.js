@@ -1,11 +1,17 @@
 const publication = require("../controllers/publication.controller.js");
-
 var router_publication = require("express").Router();
 
+const multer = require('multer');
+const dotenv = require('dotenv');
+dotenv.config();
+const upload = multer({ dest: 'uploads/' });
+
+
 // Create a new User
-router_publication.post("/api/publication/create", publication.create);
-router_publication.post("/api/publication/edit",  publication.edit );
+router_publication.post("/api/publication/create",upload.array('photos'), publication.create);
+router_publication.post("/api/publication/edit", upload.array('photos'), publication.edit );
 router_publication.post("/api/publication/delete",  publication.delete );
+
 
 router_publication.get("/api/publication", publication.findAll);
 router_publication.get("/api/publicationByUserId", publication.findAllPublicationByUserId);

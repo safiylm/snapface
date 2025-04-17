@@ -11,8 +11,8 @@ export class PublicationsService {
 
   constructor(private http: HttpClient) { }
 
- url="https://snapface.onrender.com"
-//  url="http://localhost:4100"
+// url="https://snapface.onrender.com"
+  url="http://localhost:4100"
  
   getAllPublications(): Promise<Publication[]> {
     return new Promise((resolve) => {
@@ -43,24 +43,19 @@ export class PublicationsService {
     return this.http.get<Publication[]>(this.url + "/api/publicationByUserId?id=" + localStorage.getItem('userId')?.toString());
   }
 
-  public createNewPublication(formData: Publication): Observable<Publication> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Access-Control-Allow-Origin': '*',
-      })
-    };
+  public createNewPublication(formData: any): Observable<any> {
+   
     return this.http
-      .post<Publication>(
+      .post(
         this.url + `/api/publication/create`,
         formData,
       )
   }
 
 
-  editPost(formData: Publication): Observable<Publication> {
-
+  editPost(formData: any): Observable<any> {
     return this.http
-      .post<Publication>(
+      .post(
         this.url + `/api/publication/edit`,
         formData,
       )
