@@ -1,37 +1,93 @@
 <app-header></app-header>
- <app-header-snap [id]="user._id"></app-header-snap>
-<h1>Modifier ses données </h1>
+<app-header-snap [id]="user._id"></app-header-snap>
 
 <div class="container">
 
-     <form (ngSubmit)="onSubmit()" autocomplete="off" *ngIf="user">
-        <div class="div-input">
-            <label>Modifiez votre prénom:</label>
-            <input type="text" class="form-control" name="firstName" [(ngModel)]="user.firstName" />
-        </div>
-
-        <div class="div-input">
-            <label>Modifiez votre nom de famille:</label>
-            <input type="text" class="form-control" name="lastName" [(ngModel)]="user.lastName" />
-        </div>
-
-        <button class="btn btn-primary" type="submit">Enregistrer les modifications </button>
-        <br />
-        <div>
-            {{resultatOfEdit}}
-        </div>
-    </form>
-<!--  <div>
-        <button class="btn btn-light" type="button">Modifier votre email</button>
-        <button class="btn btn-light" type="button">Modifier votre numéro de téléphone</button> 
-        <app-edit-email></app-edit-email>
-        <app-edit-phonenumber></app-edit-phonenumber>
-    </div> 
-    -->
-  
- 
     <div class="d-flex flex-wrap align-items-center justify-content-center">
-        <app-edit-photos nom="photos_profil" [photo]="user.photos_profil"></app-edit-photos>
-        <app-edit-photos  nom="photos_background" [photo]="user.photos_background"></app-edit-photos>
+
+        <form (ngSubmit)="onSubmit()" autocomplete="off" *ngIf="user">
+            <div class="div-input">
+                <label>Modifiez votre prénom:</label>
+                <input type="text" class="form-control" name="firstName" [(ngModel)]="user.firstName" />
+            </div>
+
+            <div class="div-input">
+                <label>Modifiez votre nom de famille:</label>
+                <input type="text" class="form-control" name="lastName" [(ngModel)]="user.lastName" />
+            </div>
+
+            <button class="btn btn-primary" type="submit">Enregistrer les modifications </button>
+            <br />
+            <div>
+                {{resultatOfEdit}}
+            </div>
+        </form>
+
+        <div class="list-group">
+
+            <button type="button" class="list-group-item list-group-item-action" (click)="isVisibleEditEmail=true">
+                Modifier votre email
+            </button>
+
+            <button type="button" class="list-group-item list-group-item-action" (click)="isVisibleEditNbPhone=true">
+                Modifier votre numéro de téléphone
+            </button>
+
+            <button type="button" class="list-group-item list-group-item-action" (click)="isVisibleEditPassword=true">
+                Modifier votre mot de passe
+            </button>
+
+        </div>
     </div>
+
+
+    <div *ngIf="isVisibleEditEmail" class="modal-">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Modifier son adresse email</h5>
+                    <button type="button" class="close btn btn-light" (click)="isVisibleEditEmail=false">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <app-edit-email></app-edit-email>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="isVisibleEditNbPhone" class="modal-">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Modifier votre numéro de téléphone</h5>
+                    <button type="button" class="close btn btn-light" (click)="isVisibleEditNbPhone=false">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <app-edit-phonenumber></app-edit-phonenumber>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="isVisibleEditPassword" class="modal-">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Modifier votre mot de passe</h5>
+                    <button type="button" class="close btn btn-light" (click)="isVisibleEditPassword=false">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <app-password-edit></app-password-edit>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>

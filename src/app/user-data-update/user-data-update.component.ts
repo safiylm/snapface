@@ -9,6 +9,7 @@ import { EditEmailComponent } from '../edit-email/edit-email.component';
 import { EditPhonenumberComponent } from '../edit-phonenumber/edit-phonenumber.component';
 import { HeaderSnapComponent } from "../header-snap/header-snap.component";
 import { EditPhotosComponent } from './edit-photos/edit-photos.component';
+import { PasswordEditComponent } from "../password-edit/password-edit.component";
 
 @Component({
   standalone: true,
@@ -16,8 +17,8 @@ import { EditPhotosComponent } from './edit-photos/edit-photos.component';
   templateUrl: './user-data-update.component.html',
   styleUrls: ['./user-data-update.component.scss'],
   imports: [CommonModule, HeaderComponent, FormsModule,
-    EditEmailComponent, EditPhonenumberComponent, 
-    EditPhotosComponent, HeaderSnapComponent],
+    EditEmailComponent, EditPhonenumberComponent,
+    EditPhotosComponent, HeaderSnapComponent, PasswordEditComponent],
 })
 
 export class UserDataUpdateComponent implements OnInit {
@@ -29,7 +30,9 @@ export class UserDataUpdateComponent implements OnInit {
   resultatOfEdit = "";
   isSubmit = false;
   id = localStorage.getItem("userId")?.toString() as string;
-
+  isVisibleEditEmail= false;
+  isVisibleEditPassword =false;
+  isVisibleEditNbPhone =false;
   retrieveUser(): void {
     this.subscription = this.userService.getUser( this.id )
       .subscribe({

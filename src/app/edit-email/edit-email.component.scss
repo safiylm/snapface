@@ -1,0 +1,23 @@
+form {
+    margin: 20px 0;
+
+    * {
+        margin: 8px 0;
+    }
+
+    input {
+        width: 100%;
+    }
+
+    label {
+        text-align: left;
+        width: 100% !important;
+
+    }
+
+    button {
+        margin: 20px auto !important;
+        display: block !important;
+    }
+
+}

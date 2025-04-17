@@ -1,5 +1,8 @@
 <form (ngSubmit)="editPhoneNumber()" autocomplete="off">
-    <input class="form-control" name="phoneNumber" type="number" [(ngModel)]="phoneNumber"/>
+    <label>Saisissez votre nouveau numéro de téléphone:
+        <input class="form-control" name="phoneNumber" type="number" [(ngModel)]="phoneNumber" />
+    </label>
+    <br/>
     <button type="submit" class="btn btn-light">Modifier </button>
     {{resultat}}
 </form>
