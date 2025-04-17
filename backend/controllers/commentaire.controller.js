@@ -1,8 +1,8 @@
 const db = require('../config/db.config.js');
 const collection_commentaires = db.collection('commentaires');
 const collection_interactionsociales = db.collection('interactionsociales');
-
 const ObjectId = require('mongodb').ObjectId;
+
 
 //create new comments
 exports.create = (req, res) => {

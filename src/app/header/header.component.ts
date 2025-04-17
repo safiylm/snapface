@@ -35,9 +35,7 @@ export class HeaderComponent implements OnInit {
   onWindowScroll() {
     const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
     this.isAffix = scrollTop > 50;
-    if (this.isAffix) {
-      console.log('OK');
-    }
+   
   }
 
   toggleMenu() {

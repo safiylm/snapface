@@ -3,7 +3,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Conversation } from 'src/models/conversation';
 import { ChatPriveService } from 'src/services/chatprive.service';
 import { ItemUserWithLastMessageComponent } from "./item-user-with-last-message/item-user-with-last-message.component";
-import { Message } from 'src/models/message.model';
 
 @Component({
   standalone: true,
@@ -27,11 +26,13 @@ export class ConversationListComponent implements OnInit {
       .subscribe((data: Conversation[]) => {
         this.conversation = data;
         this.conversationId = data[0]._id
+
       });
   }
 
   choisirConversation(newItem: string) {
-    this.newItemEvent2.emit(newItem);
-
+    this.newItemEvent2.emit(newItem );
   }
+
+  
 }
