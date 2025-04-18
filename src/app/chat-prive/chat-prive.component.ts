@@ -15,7 +15,7 @@ import { UserPresentationOnTopOfChatPriveComponent } from "./user-presentation-o
   templateUrl: './chat-prive.component.html',
   styleUrls: ['./chat-prive.component.scss'],
   imports: [FormsModule, NgFor, NgIf, ConversationListComponent,
-    HeaderComponent, NgClass, NgStyle, UserPresentationOnTopOfChatPriveComponent]
+    HeaderComponent, NgClass, UserPresentationOnTopOfChatPriveComponent]
 })
 
 export class ChatPriveComponent implements OnInit {
@@ -24,7 +24,6 @@ export class ChatPriveComponent implements OnInit {
   sender: string = localStorage.getItem("userId")?.toString() as string;
   conversationId !: string;
   conversation !: Conversation;
-  receiver = "";
   messageEdittingId = "";
   displayEditDeleteButton = false
 
@@ -37,16 +36,36 @@ export class ChatPriveComponent implements OnInit {
   ngOnInit() {
     this.sender = localStorage.getItem("userId")?.toString() as string;  // ChatPublicServiceRemplace par l'ID réel de l'utilisateur
 
-    this.chatService.joinRoom(this.sender);
     this.choisirConversation(this.conversationId)
     this.chatService.getConversationById(this.conversationId).subscribe((data: any) => {
       this.conversation = data;
     });
-  }
-  onRightClick(){
-    this.displayEditDeleteButton=true;
+
+    this.chatService.receiveMessagePrivate().subscribe(msg => {
+      setTimeout(() => {
+        this.messages.push(msg);
+      }, 1050)
+    });
   }
 
+
+//SEND MESSAGE 
+  sendMessagePrivee() {
+    if (this.message.trim() && this.conversationId.trim()) {
+      if (localStorage.getItem("userId") == this.conversation.speaker[0])
+        this.chatService.sendMessagePrivee(this.sender, this.conversation.speaker[1], this.conversationId, this.message)
+      else
+        this.chatService.sendMessagePrivee(this.sender, this.conversation.speaker[0], this.conversationId, this.message)
+      this.message = '';
+    }
+  }
+
+
+  onRightClick() {
+    this.displayEditDeleteButton = true;
+  }
+
+  
   choisirConversation(newItem: string) {
     this.conversationId = newItem
     this.chatService.getConversationById(this.conversationId).subscribe((data: any) => {
@@ -59,20 +78,6 @@ export class ChatPriveComponent implements OnInit {
     this.chatService.markAsSeen(this.conversationId).subscribe(
       (data) => { if (data) console.log(data); })
 
-  }
-
-
-  sendMessagePrivee() {
-    if (this.message.trim() && this.conversationId.trim()) {
-      this.chatService.sendMessagePrivee(this.sender, this.conversation.speaker[1], this.conversationId, this.message)
-      // this.messages.push({ sender: this.sender, text: this.message });
-      this.message = '';
-      setTimeout(() => {
-        this.chatService.getMessageHistory(this.conversationId).subscribe((data: any) => {
-          this.messages = data;
-        });
-      }, 20)
-    }
   }
 
 

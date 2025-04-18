@@ -38,9 +38,10 @@ exports.createConversation = async (req, res) => {
     .then((data) => {
       res.set('Access-Control-Allow-Origin', '*');
       console.log(data.insertedId)
-
+    
       if (data)
-        collection_messages
+        res.send(data);
+       /* collection_messages
           .insertOne({ sender, conversationId: data.insertedId, text: "text" })
           .then(data1 => {
             res.set('Access-Control-Allow-Origin', '*');
@@ -51,7 +52,7 @@ exports.createConversation = async (req, res) => {
               message:
                 err.message || "Error while creating the message."
             });
-          });
+          });*/
 
     })
     .catch(err => {
