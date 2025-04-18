@@ -31,8 +31,8 @@ exports.create = (req, res) => {
   const user = {
     firstName: req.body.firstName,
     lastName: req.body.lastName,
-    photos_profil: req.body.photos_profil,
-    photos_background: req.body.photos_background,
+    photos_profil: "",
+    photos_background: "",
     password: req.body.password,
     email: req.body.email,
     phoneNo: req.body.phoneNo,
@@ -83,8 +83,6 @@ exports.update = async (req, res) => {
       $set: {
         "firstName": req.body.firstName,
         "lastName": req.body.lastName,
-        "photos_profil": req.body.photos_profil,
-        "photos_background": req.body.photos_background,
       }
     });
   res.send(updateResult);

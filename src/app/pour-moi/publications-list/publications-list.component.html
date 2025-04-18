@@ -1,3 +1,6 @@
+
 <div class="d-flex flex-wrap align-items-center justify-content-center ">
     <app-publication *ngFor="let post of publication" [publication]="post"></app-publication>
 </div>
+
+<div *ngIf="publication.length==0"> Mes abonnements n'ont rien publié pour le moment </div>

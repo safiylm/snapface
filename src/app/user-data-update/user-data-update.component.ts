@@ -18,7 +18,7 @@ import { PasswordEditComponent } from "../password-edit/password-edit.component"
   styleUrls: ['./user-data-update.component.scss'],
   imports: [CommonModule, HeaderComponent, FormsModule,
     EditEmailComponent, EditPhonenumberComponent,
-    EditPhotosComponent, HeaderSnapComponent, PasswordEditComponent],
+     HeaderSnapComponent, PasswordEditComponent],
 })
 
 export class UserDataUpdateComponent implements OnInit {
@@ -57,9 +57,9 @@ export class UserDataUpdateComponent implements OnInit {
       next: data => {
         if (data) {
           this.resultatOfEdit = " Vos données ont été modifié avec succès.";
-          // setTimeout(() => {
-          //   document.location.href = '/mon-compte'
-          // }, 3000)
+         setTimeout(() => {
+             document.location.href = '/mon-compte'
+           }, 1000)
         }
         else
         this.resultatOfEdit="Erreur, vos données n'ont pas été modifié."

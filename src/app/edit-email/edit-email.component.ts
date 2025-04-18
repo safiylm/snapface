@@ -12,12 +12,13 @@ import { CommonModule } from '@angular/common';
   
 })
 export class EditEmailComponent {
- @Input() email !: string;
+ @Input() email : string="";
   resultat= "";
 
   constructor(private userService: UserService){}
 
   editEmail(){
+    if(this.email.trim()!="")
     this.userService.editEmail(localStorage.getItem('userId')?.toString() as string, this.email).subscribe({
       next: (data)=>{
         if(data)

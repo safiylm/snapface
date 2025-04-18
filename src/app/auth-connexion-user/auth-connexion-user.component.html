@@ -3,21 +3,20 @@
 
     <form (ngSubmit)="onSubmit()" autocomplete="off">
 
-        <h1>
-            Connexion
-        </h1>
+        <h1>Connexion</h1>
+
         <div class="div-input">
             <label>Saisissez votre email:</label>
-            <input type="email" name="email" [(ngModel)]="email" />
+            <input type="email" name="email" class="form-control" [(ngModel)]="email" />
         </div>
 
         <div class="div-input">
             <label>Saisissez votre mot de passe: </label>
             <div class="d-flex align-items-center justify-content-center">
-                <input *ngIf="!isDisplayPassword"  [(ngModel)]="password" type="password" name="password" autocomplete="new-password" />
-                <input *ngIf="!!isDisplayPassword" [(ngModel)]="password" type="text" name="password" autocomplete="new-password" />
+                <input *ngIf="!isDisplayPassword" class="form-control" [(ngModel)]="password" type="password" name="password" autocomplete="new-password" />
+                <input *ngIf="!!isDisplayPassword" class="form-control" [(ngModel)]="password" type="text" name="password" autocomplete="new-password" />
 
-                <button class="btn btn-dark" type="button" (click)="toggleDisplayPassword()">
+                <button class="btn btn-light" type="button" (click)="toggleDisplayPassword()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye"
                         viewBox="0 0 16 16">
                         <path
@@ -28,11 +27,10 @@
                 </button>
             </div>
         </div>
-        <div>
-            {{result}}
-        </div>
 
-        <div class="d-flex flex-wrap align-items-center justify-content-center">
+        <div> {{result}} </div>
+
+        <div class="d-flex flex-column align-items-center justify-content-center">
 
             <button id="btn-submit" type="submit">Se connecter</button>
             <a href="/inscription">Pas de compte? </a>

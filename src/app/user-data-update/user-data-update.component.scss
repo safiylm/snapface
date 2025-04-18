@@ -61,8 +61,8 @@ form {
 
     .modal-header{
         justify-content: space-between !important;
-
     }
+    
     /* Modal Content/Box */
     .modal-content {
         background-color: #fefefe;
@@ -71,6 +71,8 @@ form {
         padding: 20px;
         border: 1px solid #888;
         width: 50%;
+        border-radius: 8px !important;
+
         /* Could be more or less, depending on screen size */
     }
 

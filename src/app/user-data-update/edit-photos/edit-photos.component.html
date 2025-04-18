@@ -2,8 +2,10 @@
     <h2 *ngIf="nom=='photos_profil'">Modifier votre photo de profil</h2>
     <h2 *ngIf="nom=='photos_background'">Modifier votre photo de background</h2>
     
-    <img [src]="photo" alt="photo de profil de l'utilisateur" />
-   
+    <img *ngIf="photo!=''" [src]="photo" alt="photo de profil de l'utilisateur" />
+    <img *ngIf="nom=='photos_profil'&& photo==''" src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg"  />
+    <img *ngIf="nom=='photos_background' && photo==''" src="../../../assets/violet.png"  />
+
     <div class="div-input" >
         <label for="photo">Choisir une photo :</label>
         <input type="file" id="photo" (change)="onFileSelected($event)" accept="image/*" />

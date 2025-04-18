@@ -1,3 +1,13 @@
+@font-face {
+    font-family: 'mango';
+    src: url('../../assets/Mango.otf');
+}
+
+h1{
+    font-family: mango, sans-serif;
+}
+
+
 .page-connexion {
     background-image: url('https://images.pexels.com/photos/7245258/pexels-photo-7245258.jpeg?auto=compress&amp;cs=tinysrgb&amp;fit=crop&amp;fp-y=0.699999988079071&amp;h=500&amp;w=1400&amp;dpr=1');
     background-size: 100% 100%;
@@ -19,22 +29,15 @@
         }
 
         .div-input {
-            margin: 16px auto;
+            margin: 19px auto;
             width: 100%;
 
             label,
             input {
                 display: block;
                 width: 100%;
-                font-size: medium;
-
-            }
-
-            input {
-                border: none;
-                border-bottom: 1px solid rgb(229, 213, 245);
-                padding: 6px 12px;
-                margin: 5px 0;
+                font-size: 14px;
+                margin: 7px 0;
             }
 
             #password {
@@ -44,7 +47,7 @@
 
         button[type="submit"] {
             border: none;
-            margin: 15px 10px;
+            margin: 18px 10px;
             color: white;
             background-color: #1e1731;
             padding: 7px 14px;
@@ -52,6 +55,7 @@
         }
 
         a {
+        margin: 10px 0;
             color: #1e1731;
         }
 

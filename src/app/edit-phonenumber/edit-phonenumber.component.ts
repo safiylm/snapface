@@ -21,6 +21,8 @@ export class EditPhonenumberComponent {
   constructor(private userService: UserService) { }
 
   editPhoneNumber() {
+    if(this.phoneNumber!=null)
+
     this.userService.editPhoneNumber( localStorage.getItem('userId')?.toString() as string, this.phoneNumber).subscribe({
       next: (data) => {
         if (data)

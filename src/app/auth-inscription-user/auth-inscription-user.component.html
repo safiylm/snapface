@@ -20,8 +20,12 @@
 
                 <div class="div-input">
                     <label>Saisissez votre email:</label>
-                    <input type="email" name="email" class="form-control" [(ngModel)]="user.email" />
+                    <input type="email" name="email" class="form-control" [(ngModel)]="user.email" required />
                 </div>
+
+            </div>
+
+            <div class="row">
                 <div class="div-input">
                     <label>Saisissez votre mot de passe: </label>
 
@@ -31,7 +35,7 @@
                         <input *ngIf="isDisplayPassword" type="text" class="form-control" [(ngModel)]="user.password"
                             name="password" (keyup)="getFirstPassword($event)" autocomplete="new-password" />
 
-                        <button class="btn btn-dark" type="button" (click)="toggleDisplayPassword(1)">
+                        <button class="btn btn-light" type="button" (click)="toggleDisplayPassword(1)">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-eye" viewBox="0 0 16 16">
                                 <path
@@ -57,10 +61,6 @@
                             d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z" />
                     </svg>
                 </div>
-            </div>
-
-            <div class="row">
-
 
                 <div class="div-input">
                     <label>Confirmez votre mot de passe: </label>
@@ -71,7 +71,7 @@
                         <input *ngIf="isDisplayPassword2" type="text" name="password2" class="form-control"
                             [(ngModel)]="password2" autocomplete="new-password" />
 
-                        <button class="btn btn-dark" type="button" (click)="toggleDisplayPassword(2)">
+                        <button class="btn btn-light" type="button" (click)="toggleDisplayPassword(2)">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-eye" viewBox="0 0 16 16">
                                 <path
@@ -94,18 +94,9 @@
                     <input type="number" name="phoneNo" class="form-control" [(ngModel)]="user.phoneNo" />
                 </div>
 
-                <div class="div-input">
-                    <label>Saisissez le lien de votre photo de profil:</label>
-                    <input type="text" name="photos_profil" class="form-control" [(ngModel)]="user.photos_profil" />
-                </div>
-
-                <div class="div-input">
-                    <label>Saisissez le lien de votre photo de background:</label>
-                    <input type="text" name="photos_background" class="form-control"
-                        [(ngModel)]="user.photos_background" />
-                </div>
             </div>
         </div>
+
         <div class="d-flex align-items-center justify-content-center">
             <button type="submit" disabled *ngIf="!(reglePasswordRespected && user.password === password2)">
                 S'inscrire
@@ -118,11 +109,10 @@
             <a href='/connexion'>Se connecter</a>
 
         </div>
-        <br />
-        <div>
+        <div class="resultat">
             {{res}}
         </div>
-        <br />
+      
 
 
     </form>
