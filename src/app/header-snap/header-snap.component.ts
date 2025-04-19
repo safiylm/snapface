@@ -7,6 +7,7 @@ import { StatistiqueUserComponent } from '../statistique-user/statistique-user.c
 import { NgIf, TitleCasePipe } from '@angular/common';
 import { ButtonFollowComponent } from '../button-follow/button-follow.component';
 import { EditPhotosComponent } from "../user-data-update/edit-photos/edit-photos.component";
+import { ChatPriveService } from 'src/services/chatprive.service';
 
 
 @Component({
@@ -29,7 +30,7 @@ export class HeaderSnapComponent implements OnInit {
   showEditPhotoProfil = false
   showEditPhotoBackground = false
    
-  constructor(private userService: UserService, 
+  constructor(private userService: UserService, private messageService: ChatPriveService ,
     private router: ActivatedRoute,  private route: Router) {
       this.user = router.snapshot.data['user'];
    }
@@ -79,7 +80,18 @@ export class HeaderSnapComponent implements OnInit {
     this.userService.logout();  
     this.route.navigate(['/']);
   }
+
+  createConversation(){
+    this.messageService.createConversation(
+      localStorage.getItem('userId')?.toString() as string, this.user._id)
+      .subscribe({
+        next: (data: any) => {
+         location.href='/chat/'+data.insertedId;
+        },
+        error: (e) => console.error(e)
+      });
   
+}
 }
 
 
