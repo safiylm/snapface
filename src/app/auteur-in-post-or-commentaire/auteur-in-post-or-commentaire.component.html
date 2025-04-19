@@ -1,6 +1,8 @@
 <div class="div-commentaire-user-data">
     <a href="user/{{id}}" >
-        <img [src]="PhotoProfil" id="photos-profil-user-in-commentaire" alt="photo de profil de {{UserName}}" />
+        <img *ngIf="PhotoProfil" [src]="PhotoProfil" id="photos-profil-user-in-commentaire" alt="photo de profil de {{UserName}}" />
+        <img *ngIf="!PhotoProfil" id="photos-profil-user-in-commentaire" src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg"  />
+
     </a>
     <a href="user/{{id}}" >  <p id="username"> {{ UserName }} </p>
     </a>

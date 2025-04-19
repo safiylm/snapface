@@ -3,13 +3,14 @@ import {User} from '../../models/user.model';
 import {UserService} from '../../services/user-service';
 import { Subscription } from 'rxjs';
 import { ButtonFollowComponent } from "../button-follow/button-follow.component";
+import { NgIf } from '@angular/common';
 
 @Component({
   standalone:true, 
   selector: 'app-auteur-in-post-or-commentaire',
   templateUrl: './auteur-in-post-or-commentaire.component.html',
   styleUrls: ['./auteur-in-post-or-commentaire.component.scss'],
-  imports: [ButtonFollowComponent]
+  imports: [ButtonFollowComponent, NgIf]
 })
 
 export class AuteurInPostOrCommentaireComponent  implements OnInit {

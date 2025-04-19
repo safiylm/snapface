@@ -1,6 +1,8 @@
 <div class="div-user" *ngIf="user">
     <a href="user/{{user._id}}" >
-        <img [src]='PhotoProfil' id="photos-profil" alt="photo de profil de {{UserName}}"  />
+        <img *ngIf="PhotoProfil" [src]='PhotoProfil' id="photos-profil" alt="photo de profil de {{UserName}}"  />
+        <img *ngIf="!PhotoProfil" id="photos-profil" src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg"  />
+    
       <p id="username">{{ UserName }} </p>  
     </a>
 </div>
