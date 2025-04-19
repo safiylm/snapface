@@ -12,6 +12,7 @@ import { AdminPageComponent } from './admin-page/admin-page.component';
 import { FormEmailComponent } from './password-oublier/form-email/form-email.component';
 import { PasswordOublierComponent } from './password-oublier/password-oublier.component';
 import { PourMoiComponent } from './pour-moi/pour-moi.component';
+import { ChatComponent } from './chat/chat.component';
 
 const routes: Routes = [
   {
@@ -102,15 +103,6 @@ const routes: Routes = [
   },
 
   {
-    path: 'password/edit',
-    title: "Modifier son mot de passe",
-    loadComponent: () => import("./password-edit/password-edit.component")
-      .then(mod => mod.PasswordEditComponent),
-
-    canActivate: [AuthGuard],
-  },
-
-  {
     path: 'admin',
     title: "ADMIN",
     component: AdminPageComponent
@@ -132,6 +124,12 @@ const routes: Routes = [
     path: 'pour-moi',
     title: "Pour moi",
     component: PourMoiComponent
+  },
+
+  {
+    path: 'chatpublic',
+    title: "Chat",
+    component: ChatComponent
   },
 
 

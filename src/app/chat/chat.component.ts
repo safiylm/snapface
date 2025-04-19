@@ -28,14 +28,15 @@ export class ChatComponent implements OnInit {
   
   sendMessage() {
     if (this.message.trim()) {
-      this.chatSerive.sendMessagePublic(this.message);
+    //  this.chatSerive.sendMessagePrivee("662eb361c2fd9ad3238d752a", "662eb361c2fd9ad3238d752a","67d4932175becdb436d19d0d","On essai");
+     this.chatSerive.sendMessagePublic(this.message);
       this.message = '';
     }
   }
 
   showNotification(msg: string) {
-   /* if (Notification.permission === 'granted') {
+    if (Notification.permission === 'granted') {
       new Notification('Nouveau message', { body: msg });
-    }*/
+    }
   }
 }
