@@ -12,8 +12,8 @@ export class ChatPublicService {
   private socket: Socket;
 
   constructor(private http: HttpClient) {
-  //  this.socket = io('http://localhost:4110');
-    this.socket = io('https://snapface.onrender.com');
+    this.socket = io('http://localhost:4100');
+  //  this.socket = io('https://snapface.onrender.com');
     
   }
 
