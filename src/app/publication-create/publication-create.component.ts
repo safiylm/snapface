@@ -17,7 +17,7 @@ import { HeaderSnapComponent } from '../header-snap/header-snap.component';
 
 export class PublicationCreateComponent implements OnInit {
 
-  post = new Publication("", "", "", [''], 0,  "", "");
+  post = new Publication("", "", "", [''], 0, "", "");
   array_assets !: string[];
   newasset !: string;
   result = ""
@@ -30,7 +30,7 @@ export class PublicationCreateComponent implements OnInit {
     if (!input.files) return;
 
     this.selectedFiles = Array.from(input.files);
-   // this.previewUrls = [];
+    // this.previewUrls = [];
 
     for (const file of this.selectedFiles) {
       const reader = new FileReader();
@@ -43,32 +43,36 @@ export class PublicationCreateComponent implements OnInit {
   }
 
   onSubmit(): void {
-    
+
     this.post.userId = localStorage.getItem('userId')?.toString() as string;
 
-    const formData = new FormData();
-    this.selectedFiles.forEach((file, index) => {
-      formData.append('photos', file); // ou `photos[]` si ton backend attend un tableau
-    });
-    formData.append('title', this.post.title)
-    formData.append('audio', this.post.audio)
-    formData.append('userId', this.post.userId)
-    formData.append('body', this.post.body)
-   
+    if (this.post.title.trim() != ""&&
+    this.post.body.trim() != ""
+  ) {
+      const formData = new FormData();
+      this.selectedFiles.forEach((file, index) => {
+        formData.append('photos', file); // ou `photos[]` si ton backend attend un tableau
+      });
+      formData.append('title', this.post.title)
+      formData.append('audio', this.post.audio)
+      formData.append('userId', this.post.userId)
+      formData.append('body', this.post.body)
 
-    this.publicationsService.createNewPublication(formData).subscribe
-    ({
-      next: (data) => {
-        console.log(data)
-        if (data) {
-          this.result = "Votre publication a été crée avec succès ✅!"
-           setTimeout(() => {
-             document.location.href = '/mon-compte'
-           }, 1500)
-        }
-        else { this.result = "❌ Une erreur s'est introduite, veuillez réessayer!" }
-      }
-    })
+
+      this.publicationsService.createNewPublication(formData).subscribe
+        ({
+          next: (data) => {
+            console.log(data)
+            if (data) {
+              this.result = "Votre publication a été crée avec succès ✅!"
+              setTimeout(() => {
+                document.location.href = '/mon-compte'
+              }, 1500)
+            }
+            else { this.result = "❌ Une erreur s'est introduite, veuillez réessayer!" }
+          }
+        })
+    }
   }
 
   ngOnInit() {
