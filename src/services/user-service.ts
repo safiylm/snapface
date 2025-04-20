@@ -14,8 +14,8 @@ export class UserService {
 
   constructor(private http: HttpClient, public router: Router) { }
 
-//  url = "https://snapface.onrender.com"
- url="http://localhost:4100"
+  url = "https://snapface.onrender.com"
+// url="http://localhost:4100"
 
 
   logout(): void {
