@@ -1,0 +1,16 @@
+<div [ngClass]="{ 'right': message.sender === sender}">
+    <div class="d-flex flex-column">
+        <div (dblclick)="displayEditDeleteButton=!displayEditDeleteButton"
+            [ngClass]="{'moi': message.sender === sender, 'lui': message.sender !== sender}">
+            {{ message.text }}
+        </div>
+
+        <div *ngIf=" message.sender === sender && displayEditDeleteButton" class="list-group">
+            <button type="button" class="list-group-item list-group-item-action"
+                (click)="showEdit( message.text, message._id)">Edit</button>
+            <button type="button" class="list-group-item list-group-item-action"
+                (click)="delete(message._id)">Delete</button>
+        </div>
+
+    </div>
+</div>

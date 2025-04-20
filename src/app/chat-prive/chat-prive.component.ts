@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HeaderComponent } from "../header/header.component";
 import { Conversation } from 'src/models/conversation';
 import { UserPresentationOnTopOfChatPriveComponent } from "./user-presentation-on-top-of-chat-prive/user-presentation-on-top-of-chat-prive.component";
+import { MessageComponent } from "./message/message.component";
 
 
 @Component({
@@ -15,7 +16,7 @@ import { UserPresentationOnTopOfChatPriveComponent } from "./user-presentation-o
   templateUrl: './chat-prive.component.html',
   styleUrls: ['./chat-prive.component.scss'],
   imports: [FormsModule, NgFor, NgIf, ConversationListComponent,
-    HeaderComponent, NgClass, UserPresentationOnTopOfChatPriveComponent]
+    HeaderComponent, NgClass, UserPresentationOnTopOfChatPriveComponent, MessageComponent]
 })
 
 export class ChatPriveComponent implements OnInit {
@@ -25,7 +26,6 @@ export class ChatPriveComponent implements OnInit {
   conversationId !: string;
   conversation !: Conversation;
   messageEdittingId = "";
-  displayEditDeleteButton = false
 
   constructor(private chatService: ChatPriveService,
     private route: ActivatedRoute) {
@@ -61,11 +61,30 @@ export class ChatPriveComponent implements OnInit {
   }
 
 
-  onRightClick() {
-    this.displayEditDeleteButton = true;
+  messageAEditer(value:string ){
+    if (this.messageEdittingId == "") {
+      this.messageEdittingId = value.split('-')[0];
+      this.message =value.split('-')[1];
+    }
   }
 
-  
+  submitEdit() {
+    this.chatService.editMessage(this.messageEdittingId, this.message).subscribe((data: any) => {
+       this.chatService.getMessageHistory(this.conversationId).subscribe((data: any) => {
+         this.messages = data;
+       });
+    });
+    this.messageEdittingId = "";
+    this.message = "";
+
+  }
+
+  loadMessages(){
+    this.chatService.getMessageHistory(this.conversationId).subscribe((data: any) => {
+      this.messages = data;
+    });
+  }
+
   choisirConversation(newItem: string) {
     this.conversationId = newItem
     this.chatService.getConversationById(this.conversationId).subscribe((data: any) => {
@@ -80,40 +99,6 @@ export class ChatPriveComponent implements OnInit {
 
   }
 
-
-  showEdit(text: string, id: string) {
-
-    if (this.messageEdittingId == "") {
-      this.messageEdittingId = id;
-      this.message = text;
-    }
-    else {
-      this.messageEdittingId = ""
-      this.message = "";
-    }
-  }
-
-
-  submitEdit() {
-    this.chatService.editMessage(this.messageEdittingId, this.message).subscribe((data: any) => {
-      this.chatService.getMessageHistory(this.conversationId).subscribe((data: any) => {
-        this.messages = data;
-      });
-    });
-    this.messageEdittingId = "";
-    this.message = "";
-
-  }
-
-
-  delete(id: string) {
-    this.chatService.deleteMessage(id).subscribe((data: any) => {
-      this.chatService.getMessageHistory(this.conversationId).subscribe((data: any) => {
-        this.messages = data;
-      });
-    });
-
-  }
 
 }
 

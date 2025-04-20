@@ -2,28 +2,15 @@
 
 <div class="d-flex">
 
-  <app-conversation-list (newItemEvent2)="choisirConversation($event)" offcanvas="false"></app-conversation-list>
+  <app-conversation-list id="conversation-list" (newItemEvent2)="choisirConversation($event)" offcanvas="false"></app-conversation-list>
 
   <div class="chat-box">
     <app-user-presentation-on-top-of-chat-prive *ngIf="conversation"
       [users]="conversation.speaker"></app-user-presentation-on-top-of-chat-prive>
 
     <div class="messages d-flexx flex-column">
-     
-
     
-      <div *ngFor="let msg of messages" class="ccc" >
-        <!-- <p > <strong>{{ msg.sender === sender ? 'Moi' : 'Lui' }}</strong> </p> -->
-        <div [ngClass]="{ 'right': msg.sender === sender}" >
-        <div (dblclick)="onRightClick()" [ngClass]="{'moi': msg.sender === sender, 'lui': msg.sender !== sender}">
-          {{ msg.text }}
-          <div *ngIf=" msg.sender === sender && displayEditDeleteButton">
-            <button class="btn btn-light" (click)="showEdit( msg.text, msg._id)">edit</button>
-            <button class="btn btn-light" (click)="delete(msg._id)">delete</button>
-          </div>
-        </div>
-      </div>
-      </div>
+      <app-message *ngFor="let msg of messages" [message]="msg" (editEvent)="messageAEditer($event)" (deleteEvent)="loadMessages()"></app-message>
 
       <div *ngIf="messages.length==0">
         <p>Dites Bonjour👋</p>
