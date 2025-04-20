@@ -5,9 +5,9 @@ const cors = require("cors");
 
 //const websocket = require("./chat")
 var corsOptions = {
-  origin: ["https://snapfaceangular.web.app",
-    "http://localhost:4200"
-  ]
+  origin: "https://snapfaceangular.web.app",
+   // "http://localhost:4200"
+  
 };
 app.use(cors(corsOptions));
 
