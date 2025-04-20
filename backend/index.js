@@ -53,7 +53,9 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origins: ["https://snapfaceangular.web.app", "http://localhost:4200"], // Autorise Angular à se connecter
+    origins: ["https://snapfaceangular.web.app",// "http://localhost:4200"
+
+    ], // Autorise Angular à se connecter
     methods: ["GET", "POST"]
   }
 });
