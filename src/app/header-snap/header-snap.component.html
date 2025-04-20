@@ -4,7 +4,7 @@
     <div *ngIf="!showEditPhotoProfil">
         <img *ngIf="!user.photos_profil" src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg"  />
         <img id="imgpp" *ngIf="user.photos_profil"  [src]="UserPhotoProfil" alt="Photo de profil de {{ UserName }}" />
-        <button type="button" id="btn-open-edit" class="btn btn-light" (click)="showEditPhotoProfil=true">
+        <button  *ngIf="isMe" type="button" id="btn-open-edit" class="btn btn-light" (click)="showEditPhotoProfil=true">
             Modifier</button>
     </div>
     <div *ngIf="showEditPhotoProfil">
@@ -22,7 +22,7 @@
         <img *ngIf="user.photos_background" id="imgpb" [src]='UserPhotoBackground' alt="Photo background de {{ UserName }}" />
         <img *ngIf="!user.photos_background" src="../../../assets/violet.png"  />
     
-        <button type="button" id="btn-open-edit" class="btn btn-light" (click)="showEditPhotoBackground=true">
+        <button *ngIf="isMe" type="button" id="btn-open-edit" class="btn btn-light" (click)="showEditPhotoBackground=true">
             Modifier</button>
     </div>
     <div *ngIf="showEditPhotoBackground">
@@ -37,11 +37,9 @@
 <img id="photo-background" *ngIf="user.photos_background" [src]="UserPhotoBackground" (click)="showPhotoViewerBackground()" />
 <img id="photo-background" *ngIf="!user.photos_background" src="../../assets/violet.png" (click)="showPhotoViewerBackground()" />
 <div class="d-flex flex-wrap align-items-center justify-content-center">
-
     <div id="div-photo-profil">
         <img id="photo-profil" *ngIf="user.photos_profil"  [src]="UserPhotoProfil" (click)="showPhotoViewerProfil()" />
         <img id="photo-profil" *ngIf="!user.photos_profil" src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg" (click)="showPhotoViewerProfil()" />
-
     </div>
     <div>
         <h3 class="name">{{ UserName }}</h3>

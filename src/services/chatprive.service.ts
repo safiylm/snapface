@@ -12,7 +12,8 @@ import { Conversation } from 'src/models/conversation';
 export class ChatPriveService {
 
   private socket: Socket;
-url="http://localhost:4100"
+url= //"http://localhost:4100"
+'https://snapface.onrender.com'
   constructor(private http: HttpClient) {
   //  this.socket = io('http://localhost:4100');
      this.socket = io('https://snapface.onrender.com');
