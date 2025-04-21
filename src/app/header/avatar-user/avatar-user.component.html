@@ -1,0 +1,6 @@
+    <a href="mon-compte" class="d-flex align-items-center justify-content-center">
+        <img *ngIf="PhotoProfil" [src]="PhotoProfil" alt="photo de profil de {{UserName}}" />
+        <img *ngIf="!PhotoProfil"
+            src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg" />
+        <p id="username"> {{ UserName }} </p>
+    </a>

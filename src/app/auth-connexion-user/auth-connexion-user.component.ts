@@ -43,6 +43,9 @@ export class AuthConnexionUserComponent {
             if (data1) {
               localStorage.setItem('isLoggedIn', "true");
               localStorage.setItem('userId', data["_id"]);
+              localStorage.setItem("user_photo_de_profil",data["photos_profil"] )
+              localStorage.setItem("user_name",data["firstName"]+ " "+ data["lastName"])
+
               this.result = "CONNEXION REUSSI.";
               window.location.href = '/mon-compte'
 
