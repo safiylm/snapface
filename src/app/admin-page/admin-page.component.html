@@ -1,4 +1,4 @@
-<h1>Page Admin</h1>
+<!-- <h1>Page Admin</h1>
 <h2>Tests Interactions Social</h2>
 
 <div class="title d-flex align-items-center justify-content-center">
@@ -22,4 +22,21 @@
 
 <div *ngIf="users">
     <app-statistique-user-admin *ngFor="let user of users" [userId]="user._id"></app-statistique-user-admin>
+</div> -->
+
+
+<h2>Les users qui ont été signalé </h2>
+<div class="d-flex flex-wrap">
+    <div class="user-signale" *ngFor="let user of users">
+        <app-user [user]="user.user"></app-user>
+        <div class="raison">{{user["signalement"]['raison']}}</div>
+    </div>
+</div>
+
+<h2>Les publications qui ont été signalé</h2>
+<div class="d-flex flex-wrap">
+    <div class="post-signale" *ngFor="let post of posts">
+        <app-publication [publication]="post.post"></app-publication>
+        <div class="raison">{{post["signalement"]['raison']}}</div>
+    </div>
 </div>

@@ -8,14 +8,18 @@ import { NgIf, TitleCasePipe } from '@angular/common';
 import { ButtonFollowComponent } from '../button-follow/button-follow.component';
 import { EditPhotosComponent } from "../user-data-update/edit-photos/edit-photos.component";
 import { ChatPriveService } from 'src/services/chatprive.service';
+import { Signalement } from 'src/models/signalement.model';
+import { SignalementService } from 'src/services/signalement-service';
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
-  standalone:true, 
+  standalone: true,
   selector: 'app-header-snap',
   templateUrl: './header-snap.component.html',
-  styleUrls: ['./header-snap.component.scss'], 
-  imports: [StatistiqueUserComponent, NgIf, ButtonFollowComponent, TitleCasePipe, EditPhotosComponent]
+  styleUrls: ['./header-snap.component.scss'],
+  imports: [StatistiqueUserComponent, NgIf, ButtonFollowComponent, TitleCasePipe,
+    FormsModule, EditPhotosComponent]
 })
 
 
@@ -29,24 +33,24 @@ export class HeaderSnapComponent implements OnInit {
   subscription !: Subscription;
   showEditPhotoProfil = false
   showEditPhotoBackground = false
-   
-  constructor(private userService: UserService, private messageService: ChatPriveService ,
-    private router: ActivatedRoute,  private route: Router) {
-      this.user = router.snapshot.data['user'];
-   }
 
-   ngOnInit() {
+  constructor(private userService: UserService, private signalementService: SignalementService, private messageService: ChatPriveService,
+    private router: ActivatedRoute, private route: Router) {
+    this.user = router.snapshot.data['user'];
+  }
+
+  ngOnInit() {
     // this.displayUser();
-     this.isDisplayPhotoViewerProfil = false;
-     this.isDisplayPhotoViewerBackground = false;
-     
-     if (localStorage.getItem('userId') == this.id) {
-       this.isMe = true;
-     }
-     setTimeout(() => {
+    this.isDisplayPhotoViewerProfil = false;
+    this.isDisplayPhotoViewerBackground = false;
+
+    if (localStorage.getItem('userId') == this.id) {
+      this.isMe = true;
+    }
+    setTimeout(() => {
       // this.checkIfDejaAbonnee();
-     }, 400)
-   }
+    }, 400)
+  }
 
 
   hidePhotoViewerProfil() {
@@ -76,22 +80,47 @@ export class HeaderSnapComponent implements OnInit {
     return (this.user && this.user.photos_background) ? this.user.photos_background : null
   }
 
-  logout(){
-    this.userService.logout();  
+  logout() {
+    this.userService.logout();
     this.route.navigate(['/']);
   }
 
-  createConversation(){
+  createConversation() {
     this.messageService.createConversation(
       localStorage.getItem('userId')?.toString() as string, this.user._id)
       .subscribe({
         next: (data: any) => {
-         location.href='/chat/'+data.insertedId;
+          location.href = '/chat/' + data.insertedId;
         },
         error: (e) => console.error(e)
       });
-  
-}
+
+  }
+
+  signalement_raison = ""
+  res_signalement = ""
+  displayFormSignalmt = false;
+
+  signaler() {
+    let s = new Signalement("22", localStorage.getItem('userId')?.toString() as string, Date.now(),
+      this.signalement_raison, null, this.user._id);
+      s.userId=this.id
+    console.log(s)
+    this.signalementService.signalerUnUser(s).subscribe(
+      {
+        next: (data) => {
+          if (data) {
+            this.signalement_raison = ""
+            this.displayFormSignalmt = false
+            this.res_signalement = "Signaler avec succès!"
+            setTimeout(() => { this.res_signalement = "" }, 1500)
+          }
+        }, error: (e) => {
+          console.error(e)
+        }
+      })
+  }
+
 }
 
 
