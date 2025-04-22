@@ -9,15 +9,15 @@ import { AllUsersResolverService } from 'src/services/resolver/all-users-resolve
 import { UserDataResolverService } from 'src/services/resolver/user-data-resolver-service';
 import { formulaireDesactiveGuard } from './guards/formulaire-desactive.guard'
 import { AdminPageComponent } from './admin-page/admin-page.component';
-import { FormEmailComponent } from './password-oublier/form-email/form-email.component';
-import { PasswordOublierComponent } from './password-oublier/password-oublier.component';
+import { FormEmailComponent } from './user/password-oublier/form-email/form-email.component';
+import { PasswordOublierComponent } from './user/password-oublier/password-oublier.component';
 import { PourMoiComponent } from './pour-moi/pour-moi.component';
-import { ChatComponent } from './chat/chat.component';
+import { ChatComponent } from './chat_/chat/chat.component';
 
 const routes: Routes = [
   {
     path: 'user/:id',
-    loadComponent: () => import('./user-account/user-account.component')
+    loadComponent: () => import('./user/user-account/user-account.component')
       .then(mod => mod.UserAccountComponent),
     resolve: {
       publications: PublicationsByUserIdResolverService,
@@ -36,25 +36,25 @@ const routes: Routes = [
   },
   {
     path: 'connexion',
-    loadComponent: () => import('./auth-connexion-user/auth-connexion-user.component')
+    loadComponent: () => import('./auth/auth-connexion-user/auth-connexion-user.component')
       .then(mod => mod.AuthConnexionUserComponent)
   },
 
   {
     path: 'chat/:id',
-    loadComponent: () => import('./chat-prive/chat-prive.component')
+    loadComponent: () => import('./chat_/chat-prive/chat-prive.component')
       .then(mod => mod.ChatPriveComponent)
   },
   {
     path: 'inscription',
-    loadComponent: () => import('./auth-inscription-user/auth-inscription-user.component')
+    loadComponent: () => import('./auth/auth-inscription-user/auth-inscription-user.component')
       .then(mod => mod.AuthInscriptionUserComponent),
     canDeactivate: [formulaireDesactiveGuard]
 
   },
   {
     path: 'mon-compte',
-    loadComponent: () => import('./my-account/my-account.component')
+    loadComponent: () => import('./user/my-account/my-account.component')
       .then(mod => mod.MyAccountComponent),
     canActivate: [AuthGuard],
     resolve: {
@@ -72,7 +72,7 @@ const routes: Routes = [
   {
     path: 'mon-compte/edit',
     title: "Modifier mes données personnelles",
-    loadComponent: () => import('./user-data-update/user-data-update.component')
+    loadComponent: () => import('./user/user-data-update/user-data-update.component')
       .then(mod => mod.UserDataUpdateComponent),
     canDeactivate: [formulaireDesactiveGuard],
     resolve: {
@@ -82,7 +82,7 @@ const routes: Routes = [
   {
     path: 'mon-compte/create-post',
     title: "Create new post",
-    loadComponent: () => import("./publication-create/publication-create.component")
+    loadComponent: () => import("./post/publication-create/publication-create.component")
       .then(mod => mod.PublicationCreateComponent),
     canDeactivate: [formulaireDesactiveGuard],
     resolve: {
@@ -94,7 +94,7 @@ const routes: Routes = [
   {
     path: 'publication/edit/:id',
     title: "Modifier sa publication",
-    loadComponent: () => import('./publication-edit/publication-edit.component')
+    loadComponent: () => import('./post/publication-edit/publication-edit.component')
       .then(mod => mod.PublicationEditComponent),
     canDeactivate: [formulaireDesactiveGuard],
     resolve: {

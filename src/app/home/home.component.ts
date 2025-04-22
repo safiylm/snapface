@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
-import { PublicationAllListComponent } from '../publication-all-list/publication-all-list.component';
-import { UsersListComponent } from '../users-list/users-list.component';
+import { PublicationAllListComponent } from '../post/publication-all-list/publication-all-list.component';
+import { UsersListComponent } from '../user/users-list/users-list.component';
 
 
 @Component({

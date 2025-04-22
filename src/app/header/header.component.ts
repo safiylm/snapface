@@ -1,7 +1,6 @@
 import { NgIf } from '@angular/common';
 import { Component, HostListener, OnInit, signal } from '@angular/core';
-import { ConversationListComponent } from '../conversation-list/conversation-list.component';
-import { ChatPriveService } from 'src/services/chatprive.service';
+import { ConversationListComponent } from '../chat_/conversation-list/conversation-list.component';
 import { AvatarUserComponent } from "./avatar-user/avatar-user.component";
 
 @Component({

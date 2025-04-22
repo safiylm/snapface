@@ -3,7 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Abonnee } from 'src/models/abonnee.model';
 import { Publication } from 'src/models/publication.model';
 import { PublicationsService } from 'src/services/publication-service';
-import { PublicationComponent } from 'src/app/publication/publication.component';
+import { PublicationComponent } from 'src/app/post/publication/publication.component';
 
 
 @Component({

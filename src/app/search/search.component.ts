@@ -5,8 +5,8 @@ import { Publication } from 'src/models/publication.model';
 import { User } from 'src/models/user.model';
 import { PublicationsService } from 'src/services/publication-service';
 import { UserService } from 'src/services/user-service';
-import { UserComponent } from '../users-list/user/user.component';
-import { PublicationComponent } from "../publication/publication.component";
+import { UserComponent } from '../user/users-list/user/user.component';
+import { PublicationComponent } from "../post/publication/publication.component";
 import { HeaderComponent } from "../header/header.component";
 
 @Component({
@@ -15,7 +15,7 @@ import { HeaderComponent } from "../header/header.component";
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss'],
   imports: [FormsModule, NgClass, NgIf, NgFor,
-    NgStyle, UserComponent, PublicationComponent, HeaderComponent]
+     UserComponent, PublicationComponent, HeaderComponent]
 })
 export class SearchComponent {
 
