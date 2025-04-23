@@ -10,27 +10,13 @@ const Publication = new mongoose.Schema({
     userId: { type: String }, //User
     assets: [String],
     audio: String,
+    commentsCount: { type: Number },
+    likesCount : { type: Number }, 
+    pointsCount: { type: Number },
+    savesCount: { type: Number },
 
 }, { versionKey: false });
 
 mongoose.model('Publication', Publication);
 
 module.exports = Publication;
-
-
-// {
-//     "id":"ew12-res2-234e-544f",
-//     "title":"post title",
-//     "date":"2016-01-01",
-//     "body":"this is an awesome post stored on NoSQL",
-//     "createdBy":"User",
-//     "images":["https://myfirstimage.png","https://mysecondimage.png"],
-//     "videos":[
-//         {"url":"https://myfirstvideo.mp4", "title":"The first video"},
-//         {"url":"https://mysecondvideo.mp4", "title":"The second video"}
-//     ],
-//     "audios":[
-//         {"url":"https://myfirstaudio.mp3", "title":"The first audio"},
-//         {"url":"https://mysecondaudio.mp3", "title":"The second audio"}
-//     ]
-// }

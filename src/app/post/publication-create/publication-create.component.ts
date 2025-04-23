@@ -17,7 +17,7 @@ import { HeaderSnapComponent } from '../../user/header-snap/header-snap.componen
 
 export class PublicationCreateComponent implements OnInit {
 
-  post = new Publication("", "", "", [''], 0, "", "");
+  post = new Publication("", "", "", [''], 0, "", "", 0,0,0,0);
   array_assets !: string[];
   newasset !: string;
   result = ""

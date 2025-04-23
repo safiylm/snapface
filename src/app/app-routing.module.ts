@@ -13,6 +13,9 @@ import { FormEmailComponent } from './user/password-oublier/form-email/form-emai
 import { PasswordOublierComponent } from './user/password-oublier/password-oublier.component';
 import { PourMoiComponent } from './pour-moi/pour-moi.component';
 import { ChatComponent } from './chat_/chat/chat.component';
+import { LikedListComponent } from './post/liked-list/liked-list.component';
+import { PointedListComponent } from './post/pointed-list/pointed-list.component';
+import { EnregistrementListComponent } from './post/enregistrement-list/enregistrement-list.component';
 
 const routes: Routes = [
   {
@@ -132,6 +135,23 @@ const routes: Routes = [
     component: ChatComponent
   },
 
+  {
+    path: 'like-liste',
+    title: "Like",
+    component: LikedListComponent
+  },
+
+  {
+    path: 'point-liste',
+    title: "Point",
+    component: PointedListComponent
+  },
+
+  {
+    path: 'enregistrement-liste',
+    title: "Enregistrement",
+    component: EnregistrementListComponent
+  },
 
 ];
 

@@ -56,8 +56,8 @@
 
     <p id="body">{{ Body | titlecase }}</p>
 
-    <app-interaction-social (newItemEvent)="toggleDisplayListOfComments($event)"
-      [isDisplayListeOfComments]="isDisplayListOfComments" [id]="Id!" [auteurId]="UserId!"></app-interaction-social>
+    <app-interaction-social (newItemEvent)="toggleDisplayListOfComments($event)" [post]="publication"
+      [isDisplayListeOfComments]="isDisplayListOfComments"></app-interaction-social>
     <app-commentaire-list [id]="Id!" [isDisplayListOfComments]="isDisplayListOfComments"></app-commentaire-list>
   </div>
 </div>

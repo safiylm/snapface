@@ -4,7 +4,6 @@ const collection_interactionsociales = db.collection('interactionsociales');
 const collection_commentaires = db.collection('commentaires');
 const ObjectId = require('mongodb').ObjectId;
 const collection_statistiqueusers = db.collection('statistiqueusers')
-
 const cloudinary = require('cloudinary').v2;
 
 cloudinary.config({
@@ -27,13 +26,13 @@ exports.create = async (req, res) => {
 
   //const filePath = req.file.path;
   for (const file of req.files) {
-   await cloudinary.uploader.upload(file.path, {
+    await cloudinary.uploader.upload(file.path, {
       folder: 'uploads_secure',
     }, async (error, result) => {
       if (error) return res.status(500).json({ error });
       array_assets.push(result.secure_url)
     })
-  
+
   }
 
   const post = {
@@ -43,39 +42,32 @@ exports.create = async (req, res) => {
     assets: array_assets,
     audio: req.body.audio,
     date: Date,
+    commentsCount:0,
+    likesCount :0, 
+    pointsCount: 0,
+    savesCount:0 
   };
 
   // Save Tutorial in the database
- await collection_publications
+  await collection_publications
     .insertOne(post)
-    .then(data => {
-      collection_interactionsociales
-        .insertOne({
-          postId: data.insertedId.toString(),
-          comments: 0,
-          likes: 0,
-          points: 0
+    .then(data0 => {
+      if(data0)
+      collection_statistiqueusers.updateOne({ "userId": req.body.userId },
+        { $inc: { "totalPosts": 1 } }).then(data => {
+          res.send(data);
         })
-        .then(data1 => {
-
-          collection_statistiqueusers.updateOne({ "userId": req.body.userId },
-            { $inc: { "totalPosts": 1 } }).then(data => {
-              res.send(data);
-            })
-            .catch(err => {
-              res.status(500).send({
-                message:
-                  err.message || "Some error occurred while add like."
-              })
-            });
-
+        .catch(err => {
+          res.status(500).send({
+            message:
+              err.message || "Some error occurred while incremente totale post in SU."
+          })
         })
-
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the User."
+          err.message || "Some error occurred while creating a post."
       });
     });
 };
@@ -87,13 +79,14 @@ exports.edit = async (req, res) => {
   let array_assets = []
 
   for (const file of req.files) {
-   await cloudinary.uploader.upload(file.path, {
+    await cloudinary.uploader.upload(file.path, {
       folder: 'uploads_secure',
     }, async (error, result) => {
       if (error) return res.status(500).json({ error });
       array_assets.push(result.secure_url)
     })
   }
+
   const updateResult = await collection_publications.updateOne({ "_id": new ObjectId(req.body._id) },
     {
       $set: {
@@ -124,6 +117,15 @@ exports.findAllPublicationByUserId = async (req, res) => {
 
   const findResult = await collection_publications.find({ "userId": req.query.id }).sort({ date: -1 }).toArray();
   res.send(findResult);
+}
+
+
+exports.getListeLikedPostsByUserId = async (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
+
+  const findResult = await collection_publications.find({ "userId": req.query.id }).sort({ date: -1 }).toArray();
+  res.send(findResult);
+
 }
 
 
@@ -169,4 +171,21 @@ exports.delete = (req, res) => {
         })
     })
   });
+}
+
+//A Supprimer 
+exports.nexupdate =  async (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
+ 
+   const updateResult = await collection_publications.updateMany({},
+    {
+      $set: {
+        "commentsCount":1,
+        "likesCount" :1, 
+        "pointsCount":1,
+        "savesCount":1,
+
+      }
+    });
+  res.send(updateResult);
 }

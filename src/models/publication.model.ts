@@ -8,7 +8,10 @@ export class Publication {
         public date: number,
         public userId: string,
         public audio:  string ,
-        
+        public commentsCount: number,
+        public likesCount :number, 
+        public pointsCount: number,
+        public savesCount: number, 
         ) {
     }
 }

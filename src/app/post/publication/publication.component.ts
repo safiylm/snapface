@@ -91,10 +91,12 @@ export class PublicationComponent {
 
 
   audioStart() {
+    if(this.audioPlayer)
     this.audioPlayer?.nativeElement.play();
   }
 
   audioEnd() {
+    if(this.audioPlayer)
     this.audioPlayer?.nativeElement.pause();
     this.audioPlayer.nativeElement.currentTime = 0; // remet à zéro si tu veux
   }

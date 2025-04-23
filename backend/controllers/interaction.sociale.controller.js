@@ -2,231 +2,269 @@ const db = require('../config/db.config.js');
 const collection_interactionsociales = db.collection('interactionsociales');
 const ObjectId = require('mongodb').ObjectId;
 const collection_statistiqueusers = db.collection('statistiqueusers')
+const collection_publications = db.collection('publications')
 
-//create new interaction social for one post
-exports.create = (req, res) => {
+
+//add point
+exports.pointsAdd = (req, res) => {
 
   // Validate request
-  // if (!req.body.postId) {
-  //   res.status(400).send({ message: "Content can not be empty!" });
-  //   return;
-  // }
+  if (!req.body.postId && !req.body.userId) {
+    res.status(400).send({ message: "Content can not be empty!" });
+    return;
+  }
 
-  // Create a Tutorial
-  const is1 = {
+  // Create a point
+  const interaction = {
     postId: req.body.postId,
-    comments: req.body.comments,
-    likes: req.body.likes,
-    points: req.body.points,
+    userId: req.body.userId,
+    type: "point",
   };
+  res.set('Access-Control-Allow-Origin', '*');
 
-  // Save Tutorial in the database
+  // Save interaction in the database
   collection_interactionsociales
-    .insertOne(is1)
+    .insertOne(interaction)
     .then(data => {
-      res.set('Access-Control-Allow-Origin', '*');
-      res.send(data);
+      if (data)
+        collection_publications.updateOne({ "_id": new ObjectId(req.body.postId) },
+          { $inc: { "pointsCount": 1 } }).then(
+            (data1) => {
+              if (data1)
+                collection_statistiqueusers.updateOne({ "userId": req.body.userId },
+                  { $inc: { "totalPoints": 1 } }, true)
+                  .then(data2 => {
+                    if (data2) res.send(data2);
+                  })
+                  .catch(err => {
+                    res.status(500).send({
+                      message:
+                        err.message || "Some error occurred while inscremente point in statistique users."
+                    })
+                  });
+
+            }
+          )
+          .catch(err => {
+            res.status(500).send({
+              message:
+                err.message || "Some error occurred while incremente nb points."
+            })
+          });
+
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the User."
+          err.message || "Some error occurred while add point."
       });
     });
+
 };
 
 
 //Remove point
 exports.pointsRemove = (req, res) => {
-  res.set('Access-Control-Allow-Origin', '*');
-  collection_interactionsociales.updateOne({ "_id": new ObjectId(req.body._id) },
-    {
-      $set: { "pointedBy_": [""] },
-      $inc: { "points": -1 }
-    }, true
-  ).then(data => {
-    collection_statistiqueusers.updateOne({ "userId": req.body.auteurId },
-      { $inc: { "totalPoints": -1 } }, true)
-      .then(data1 => { res.send(data1); })
-      .catch(err => {
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while add like."
-        })
-      });
 
-  })
+  // Validate request
+  if  (!req.body.postId && !req.body.userId && !req.body.interactionId){
+    res.status(400).send({ message: "Content can not be empty!" });
+    return;
+  }
+  // req.body.interactionId,
+
+  res.set('Access-Control-Allow-Origin', '*');
+
+  // delete interaction in the database
+  collection_interactionsociales
+    .deleteOne({ "_id": new ObjectId(req.body.interactionId) })
+    .then(data => {
+      if (data)
+        collection_publications.updateOne({ "_id": new ObjectId(req.body.postId) },
+          { $inc: { "pointsCount": -1 } }).then(
+            (data1) => {
+              if (data1)
+                collection_statistiqueusers.updateOne({ "userId": req.body.userId },
+                  { $inc: { "totalPoints": -1 } }, true)
+                  .then(data2 => {
+                    if (data2) res.send(data2);
+                  })
+                  .catch(err => {
+                    res.status(500).send({
+                      message:
+                        err.message || "Some error occurred while decremente point in statistique users."
+                    })
+                  });
+
+            }
+          )
+          .catch(err => {
+            res.status(500).send({
+              message:
+                err.message || "Some error occurred while incremente nb points."
+            })
+          });
+
+    })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while remove point."
-      })
-    });
-
-};
-
-
-//add point
-exports.pointsAdd = (req, res) => {
-  res.set('Access-Control-Allow-Origin', '*');
-
-  collection_interactionsociales.updateOne({ "_id": new ObjectId(req.body._id) },
-    {
-      $set: { "pointedBy_": [req.body.userId] },
-      $inc: { "points": 1 }
-    }, true
-  ).then((data) => {
-    collection_statistiqueusers.updateOne({ "userId": req.body.auteurId },
-      { $inc: { "totalPoints": 1 } }, true)
-      .then(data1 => { res.send(data1); })
-      .catch(err => {
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while add like."
-        })
+          err.message || "Some error occurred while remove point"
       });
-
-  })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while add point."
-      })
     });
-
-
 
 };
 
 
 //like/ add like 
 exports.likesAdd = async (req, res) => {
+  // Validate request
+  if (!req.body.postId && !req.body.userId) {
+    res.status(400).send({ message: "Content can not be empty!" });
+    return;
+  }
 
-  if (req.body.userId != null)
+  // Create a point
+  const interaction = {
+    postId: req.body.postId,
+    userId: req.body.userId,
+    type: 'like',
+  };
+  res.set('Access-Control-Allow-Origin', '*');
 
-    await collection_interactionsociales.updateOne({ "_id": new ObjectId(req.body._id) },
-      {
-        $set: { "likedBy_": [req.body.userId] },
-        $inc: { "likes": 1 }
-      }, true
-    ).then(data => {
-      res.set('Access-Control-Allow-Origin', '*');
-      res.send(data);
+  // Save interaction in the database
+  collection_interactionsociales
+    .insertOne(interaction)
+    .then(data => {
+      if (data)
+        collection_publications.updateOne({ "_id": new ObjectId(req.body.postId) },
+          { $inc: { "likesCount": 1 } }).then(
+            (data1) => {
+              if (data1)
+                res.send(data1)
+            }
+          )
+          .catch(err => {
+            res.status(500).send({
+              message:
+                err.message || "Some error occurred while incremente nb like."
+            })
+          });
+
     })
-      .catch(err => {
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while add like."
-        })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while add like ."
       });
+    });
+
+
 
 };
 
 
 //Remove like / dislike
 exports.likesRemove = async (req, res) => {
+  // Validate request
+  if (!req.body.postId && !req.body.userId && !req.body.interactionId) {
+    res.status(400).send({ message: "Content can not be empty!" });
+    return;
+  }
 
-  const updateResult = await collection_interactionsociales.updateOne({ "_id": new ObjectId(req.body._id) },
-    {
-      $set: { "likedBy_": [""] },
-      $inc: { "likes": -1 }
-    }, true
-  )
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while remove likes."
-      })
-    });
-  res.set('Access-Control-Allow-Origin', '*');
-  res.send(updateResult);
-
-};
-
-
-//Retrieve post by Id
-exports.findByPublicationId = async (req, res) => {
-
-  const id = req.query.id;
-  res.set('Access-Control-Allow-Origin', '*');
-  res.send(await collection_interactionsociales.findOne({ "postId": id }))
-};
-
-
-//Update total of comment in interaction social by post Id
-exports.updateTotalComments = async (req, res) => {
-
-  const id = req.body.id;
-  const comments = req.body.comments;
   res.set('Access-Control-Allow-Origin', '*');
 
-  if (comments != null || comments != undefined);
-
+  // Save interaction in the database
   collection_interactionsociales
-    .updateOne({ postId: id },
-      {
-        $set: { "comments": Number(comments) }
-      }, true
-    )
+    .deleteOne({ "_id": new ObjectId(req.body.interactionId) })
     .then(data => {
-      res.send('Update Total Comments successful!')
+      if (data)
+        collection_publications.updateOne({ "_id": new ObjectId(req.body.postId) },
+          { $inc: { "likesCount": -1 } }).then(
+            (data1) => {
+              if (data1)
+                res.send(data1)
+            }
+          )
+          .catch(err => {
+            res.status(500).send({
+              message:
+                err.message || "Some error occurred while decremente nb like."
+            })
+          });
+
     })
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while creating the User."
+          err.message || "Some error occurred while remove like ."
       });
     });
+
+
 };
 
-//Update total of likes in interaction social by post Id
-exports.updateTotalLikes = async (req, res) => {
 
-  const id = req.body.id;
-  const likes = req.body.likes;
+
+//Voir tous les likes d’un post	
+exports.getAllLikesByPostId = async (req, res) => {
+  const postId = req.query.postId;
   res.set('Access-Control-Allow-Origin', '*');
-
-  if (likes != null || likes != undefined);
-
-  collection_interactionsociales
-    .updateOne({ postId: id },
-      {
-        $set: { "likes": Number(likes) }
-      }, true
-    )
-    .then(data => {
-      res.send('Update Total likes successful!')
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating the User."
-      });
-    });
+  res.send(await collection_interactionsociales.find({ postId, type: 'like' }) )
 };
 
-//Update total of points in interaction social by post Id
-exports.updateTotalPoints = async (req, res) => {
 
-  const id = req.body.id;
-  const points = req.body.points;
+//Voir tous les points d’un post	
+exports.getAllPointsByPostId = async (req, res) => {
+  const postId = req.query.postId;
   res.set('Access-Control-Allow-Origin', '*');
-
-  if (points != null || points != undefined);
-
-  collection_interactionsociales
-    .updateOne({ postId: id },
-      {
-        $set: { "points": Number(points) }
-      }, true
-    )
-    .then(data => {
-      res.send('Update Total points successful!')
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating the User."
-      });
-    });
+  res.send(await collection_interactionsociales.find({ postId, type: 'point' }) )
 };
+
+
+
+//Voir tous les likes faits par un user	
+exports.getAllLikesByUserId = async (req, res) => {
+  const userId = req.query.userId;
+  res.set('Access-Control-Allow-Origin', '*');
+  res.send(await collection_interactionsociales.find({ userId, type: 'like' }).toArray() )
+};
+
+
+//Voir tous les points faits par un user	
+exports.getAllPointsByUserId = async (req, res) => {
+  const userId = req.query.userId;
+  res.set('Access-Control-Allow-Origin', '*');
+  res.send(await collection_interactionsociales.find({ userId, type: 'point' }).toArray() )
+};
+
+
+//Voir le nombre de likes d’un post	Interaction.countDocuments({ postId, type: 'like' })
+exports.getLikesCountByPostId = async (req, res) => {
+  const postId = req.query.postId;
+  res.set('Access-Control-Allow-Origin', '*');
+  res.send(await collection_interactionsociales.countDocuments({ postId, type: 'like' }) )
+};
+
+exports.getIfUserAlreadyLikePost = async (req, res) => {
+  const postId = req.query.postId;
+  const userId = req.query.userId;
+  res.set('Access-Control-Allow-Origin', '*');
+  res.send(await collection_interactionsociales.findOne({ postId, userId, type: 'like' }) )
+};
+
+exports.getIfUserAlreadyPointPost = async (req, res) => {
+  const postId = req.query.postId;
+  const userId = req.query.userId;
+  res.set('Access-Control-Allow-Origin', '*');
+  res.send(await collection_interactionsociales.findOne({ postId, userId, type: 'point' }) )
+};
+
+
+//Voir le nombre de likes d’un post	Interaction.countDocuments({ postId, type: 'like' })
+exports.getPointsCountByPostId = async (req, res) => {
+  const postId = req.query.postId;
+  res.set('Access-Control-Allow-Origin', '*');
+  res.send(await collection_interactionsociales.countDocuments({ postId, type: 'point' }) )
+};
+

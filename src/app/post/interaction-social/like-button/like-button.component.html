@@ -1,5 +1,5 @@
 <div class="d-flex ">
-  <button id="btnaddlike" *ngIf="!isLiked_" (click)="addLike()">
+  <button id="btnaddlike" *ngIf="!isLiked" (click)="addLike()">
     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-suit-heart"
       viewBox="0 0 16 16">
       <path
@@ -8,7 +8,7 @@
 
   </button>
 
-  <button id="btnremovelike"  *ngIf="!!isLiked_" (click)="removeLike()">
+  <button id="btnremovelike"  *ngIf="isLiked" (click)="removeLike()">
     <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" color="crimson"
       class="bi bi-suit-heart-fill" viewBox="0 0 16 16">
       <path
@@ -16,12 +16,12 @@
     </svg>
   </button>
   
-  <button *ngIf="interactionSociale.likes" (click)="displayListeLike()">
-    {{interactionSociale.likes}}
+  <button *ngIf="post.likesCount" (click)="displayListeLike()">
+    {{post.likesCount}}
   </button>
 </div>
 
-<div id="div-liste-like" *ngIf="displayListeLike_ && LikedBy.length">
+<div id="div-liste-like" *ngIf="displayListeLike_">
   <button type="button" class="btn-close" aria-label="Close" (click)="displayListeLike()"></button>
-  <app-users-list-vertical [liste]="LikedBy"></app-users-list-vertical>
+  <app-users-list-vertical [liste]="[]"></app-users-list-vertical>
 </div>

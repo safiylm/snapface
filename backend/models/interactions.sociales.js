@@ -5,13 +5,10 @@ var mongoose = require('mongoose');
 const InteractionSociale = new mongoose.Schema({
 
     postId: { type: String },
-    comments: { type: Number },
-    likes: { type: Number }, 
-    points: { type: Number },
-    likedBy_: [ String ],
-    pointedBy_: [ String ],
+    userId: { type: String },
+    type: 'like' | 'point' | 'share' | 'comment',
+    timestamp: { type: Date, default: Date.now },
 
-   
 }, { versionKey: false });
 
 mongoose.model('InteractionSociale', InteractionSociale);

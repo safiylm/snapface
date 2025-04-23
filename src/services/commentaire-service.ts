@@ -62,41 +62,7 @@ export class CommentaireService {
   }
 
 
-  checkTotalComments(id: string): Observable<any> | void {
-
-    this.http.get<Commentaire[]>(this.url + "/api/commentairesByPostId?id=" + id)
-      .subscribe({
-        next: (data) => {
-          this.http.get<InteractionSociale>(this.url + "/api/interactionSocialByPostId?id=" + id)
-            .subscribe({
-              next: (data1) => {
-                if (data.length != data1.comments) {
-                  console.log(data.length + " != " + data1.comments)
-                  localStorage.setItem("totalComments", String(data.length))
-                }
-              },
-              error: (e) => console.error(e)
-            })
-        },
-        error: (e) => console.error(e)
-      });
-
-    if (localStorage.getItem("totalComments") != null) {
-      this.http
-        .post<any>(this.url + '/api/checkComments'
-          , { "id": id, "comments": localStorage.getItem("totalComments") },
-          {
-            headers: new HttpHeaders({
-              'Access-Control-Allow-Origin': '*',
-            })
-          }
-        ).subscribe(data => {
-          if (data)
-
-            localStorage.removeItem('totalComments');
-        })
-    }
-  }
-
+  checkTotalComments(id: string)  {}
+  
 
 }

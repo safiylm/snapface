@@ -11,113 +11,100 @@ import { InteractionSociale } from '../models/interaction.sociale.model';
 export class InteractionSocialeService {
 
   constructor(private http: HttpClient) { }
- 
-  url="https://snapface.onrender.com"
-  // url="http://localhost:4100"
- 
 
-  getInteractionSocialeById(id: string): Observable<InteractionSociale> {
-    return this.http.get<InteractionSociale>(this.url + "/api/interactionSocialByPostId?id=" + id);
-  }
+  // url="https://snapface.onrender.com"
+  url = "http://localhost:4100"
 
 
-  addLike(_id: string) {
 
-    this.http
+  addLike(postId: string):Observable<any> {
+
+  return  this.http
       .post(
-        this.url + "/api/interaction/social/likes/add",
-        { '_id': _id, 'userId': localStorage.getItem('userId') },
-      ).subscribe(data => {
-        if (data)
-          console.log("ADD LIKE")
-      })
-  }
-
-  removeLike(_id: string) {
-    this.http
-      .post(
-        this.url + "/api/interaction/social/likes/remove",
-        { '_id': _id, 'userId': localStorage.getItem('userId') },
-      ).subscribe(data => {
-        if (data)
-          console.log("REMOVE LIKE")
-      })
-  }
-
-  addPoints(_id: string, auteurId: string) {
-    this.http
-      .post(
-        this.url + "/api/interaction/social/points/add",
-        { '_id': _id, 'userId': localStorage.getItem('userId'), 'auteurId': auteurId },
-      ).subscribe(data => {
-        if (data)
-          console.log("ADD POINT")
-      })
-  }
-
-  removePoints(_id: string, auteurId: string) {
-    this.http
-      .post(
-        this.url + "/api/interaction/social/points/remove",
-        { '_id': _id, 'userId': localStorage.getItem('userId'), 'auteurId': auteurId }
-      ).subscribe(data => {
-        if (data)
-          console.log("REMOVE POINT")
-      })
-  }
-
-  addComments(_id: string, comments: number): Observable<any> {
-    return this.http
-      .post<any>(
-        this.url + "/api/interaction/social/comments/update",
-        { '_id': _id, 'comments': comments, 'userId': localStorage.getItem('userId') }
+        this.url + "/api/interaction/likesAdd",
+        {
+          'postId': postId,
+          'userId': localStorage.getItem('userId')
+        },
       )
   }
 
-  checkTotalLikes(id: string): Observable<any> | void {
-
-    this.http.get<InteractionSociale>(this.url + "/api/interactionSocialByPostId?id=" + id)
-      .subscribe({
-        next: (data) => {
-
-          console.log(data.likedBy_.length + " " + data.likes)
-          
-          if (data.likedBy_.length  != data.likes) {
-            this.http
-              .post<any>(this.url + '/api/checkLikes',
-               { "id": id, "likes": data.likedBy_.length },
-              ).subscribe(data1 => {
-                if (data1)
-                console.log("like update successful")
-              })
-          }
+  removeLike(postId: string, interactionId: string):Observable<any>  {
+   return this.http
+      .post(
+        this.url + "/api/interaction/likesRemove",
+        {
+          'postId': postId,
+          'userId': localStorage.getItem('userId'),
+          'interactionId': interactionId
         },
-        error: (e) => console.error(e)
-      });
+      )
   }
+
+  addPoints(postId: string):Observable<any> {
+   return this.http
+      .post(
+        this.url + "/api/interaction/pointsAdd",
+        {
+          'postId': postId,
+          'userId': localStorage.getItem('userId')
+        },
+      )
+  }
+
+  removePoints(postId: string, interactionId: string):Observable<any> {
+   return this.http
+      .post(
+        this.url + "/api/interaction/pointsRemove",
+        {
+          'postId': postId,
+          'userId': localStorage.getItem('userId'),
+          'interactionId': interactionId
+        }
+      )
+  }
+
+  getAllLikesByPostId(postId: string) { 
+    return this.http.get<InteractionSociale[]>(
+      this.url + "/api/interaction/likesByPostId?postId=" + postId)
+  }
+
+  getAllPointsByPostId(postId: string) { 
+    return this.http.get<InteractionSociale[]>(
+      this.url + "/api/interaction/pointsByPostId?postId=" + postId)
+  }
+
+  getAllLikesByUserId(userId: string ) { 
+    return this.http.get<InteractionSociale[]>(
+      this.url + "/api/interaction/likesByUserId?userId=" + userId)
+  }
+
+  getAllPointsByUserId(userId: string ) {
+    return this.http.get<InteractionSociale[]>(
+      this.url + "/api/interaction/pointsByUserId?userId=" + userId)
+   }
+
+  getLikesCountByPostId(postId: string) {
+    return this.http.get<any>(
+      this.url + "/api/interaction/likesCount?postId=" + postId)
+   }
+
+  getPointsCountByPostId(postId: string) {
+    return this.http.get<any>(
+      this.url + "/api/interaction/pointsCount?postId=" + postId)
+  }
+
   
-
-  checkTotalPoints(id: string): Observable<any> | void {
-
-    this.http.get<InteractionSociale>(this.url + "/api/interactionSocialByPostId?id=" + id)
-      .subscribe({
-        next: (data) => {
-
-          console.log(data.pointedBy_.length + " " + data.points)
-          
-          if (data.pointedBy_.length  != data.points) {
-            this.http
-              .post<any>(this.url + '/api/checkPoints'
-                , { "id": id, "points": data.pointedBy_.length },
-               
-              ).subscribe(data1 => {
-                if (data1)
-                console.log("points update successful")
-              })
-          }
-        },
-        error: (e) => console.error(e)
-      });
+  getIfUserAlreadyLikePost(postId: string, userId:string) {
+    return this.http.get<InteractionSociale>(
+      this.url + "/api/interaction/getIfUserAlreadyLikePost?postId=" + postId+"&userId="+userId)
   }
+
+  
+  getIfUserAlreadyPointPost(postId: string, userId:string) {
+    return this.http.get<InteractionSociale>(
+      this.url + "/api/interaction/getIfUserAlreadyPointPost?postId=" + postId+"&userId="+userId)
+  }
+
 }
 
