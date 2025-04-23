@@ -11,12 +11,15 @@
     </svg> {{post.commentsCount}}
   </button>
 
-  <button  *ngIf="!displayFormSignalmt" class="btn btn-light" (click)="displayFormSignalmt=true">Signaler</button>
- 
+  <app-enregistrement-button [post]="post"></app-enregistrement-button>
 
-</div> <form *ngIf="displayFormSignalmt" (submit)="signaler()" autocomplete="off">
-    <input name="raison" class="form-control" [(ngModel)]="signalement_raison">
-    <button class="btn btn-primary" type="submit">Signaler</button>
-    <button class="btn btn-light" type="button" (click)="displayFormSignalmt=false">Annuler</button>
-    {{res_signalement}}
-  </form>
+  <button *ngIf="!displayFormSignalmt" class="btn btn-light" (click)="displayFormSignalmt=true">Signaler</button>
+
+
+</div>
+<form *ngIf="displayFormSignalmt" (submit)="signaler()" autocomplete="off">
+  <input name="raison" class="form-control" [(ngModel)]="signalement_raison">
+  <button class="btn btn-primary" type="submit">Signaler</button>
+  <button class="btn btn-light" type="button" (click)="displayFormSignalmt=false">Annuler</button>
+  {{res_signalement}}
+</form>

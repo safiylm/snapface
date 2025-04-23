@@ -6,13 +6,15 @@ import { SignalementService } from 'src/services/signalement-service';
 import { FormsModule } from '@angular/forms';
 import { Signalement } from 'src/models/signalement.model';
 import { Publication } from 'src/models/publication.model';
+import { InteractionSocialeService } from 'src/services/interaction-social-service';
+import { EnregistrementButtonComponent } from "./enregistrement-button/enregistrement-button.component";
 
 @Component({
   standalone: true,
   selector: 'app-interaction-social',
   templateUrl: './interaction-social.component.html',
   styleUrls: ['./interaction-social.component.scss'],
-  imports: [LikeButtonComponent, PointButtonComponent, NgIf, FormsModule]
+  imports: [LikeButtonComponent, PointButtonComponent, NgIf, FormsModule, EnregistrementButtonComponent]
 })
 
 
@@ -26,13 +28,13 @@ export class InteractionSocialComponent {
   signalement_raison = ""
   res_signalement = ""
 
-  constructor( private signalementService: SignalementService) { }
+  constructor(private signalementService: SignalementService) { }
+
 
 
   toggleDisplayListOfComments(value: boolean) {
     this.newItemEvent.emit(value as unknown as string);
   }
-
 
   signaler() {
     let s = new Signalement("22", localStorage.getItem('userId')?.toString() as string, Date.now(),

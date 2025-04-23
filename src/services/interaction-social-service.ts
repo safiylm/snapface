@@ -17,9 +17,9 @@ export class InteractionSocialeService {
 
 
 
-  addLike(postId: string):Observable<any> {
+  addLike(postId: string): Observable<any> {
 
-  return  this.http
+    return this.http
       .post(
         this.url + "/api/interaction/likesAdd",
         {
@@ -29,8 +29,8 @@ export class InteractionSocialeService {
       )
   }
 
-  removeLike(postId: string, interactionId: string):Observable<any>  {
-   return this.http
+  removeLike(postId: string, interactionId: string): Observable<any> {
+    return this.http
       .post(
         this.url + "/api/interaction/likesRemove",
         {
@@ -41,8 +41,8 @@ export class InteractionSocialeService {
       )
   }
 
-  addPoints(postId: string):Observable<any> {
-   return this.http
+  addPoints(postId: string): Observable<any> {
+    return this.http
       .post(
         this.url + "/api/interaction/pointsAdd",
         {
@@ -52,8 +52,8 @@ export class InteractionSocialeService {
       )
   }
 
-  removePoints(postId: string, interactionId: string):Observable<any> {
-   return this.http
+  removePoints(postId: string, interactionId: string): Observable<any> {
+    return this.http
       .post(
         this.url + "/api/interaction/pointsRemove",
         {
@@ -64,47 +64,84 @@ export class InteractionSocialeService {
       )
   }
 
-  getAllLikesByPostId(postId: string) { 
+  addEnregistrement(postId: string): Observable<any> {
+    return this.http
+      .post(
+        this.url + "/api/interaction/enregistrementAdd",
+        {
+          'postId': postId,
+          'userId': localStorage.getItem('userId')
+        },
+      )
+  }
+
+  removeEnregistrement(postId: string, interactionId: string): Observable<any> {
+    return this.http
+      .post(
+        this.url + "/api/interaction/enregistrementRemove",
+        {
+          'postId': postId,
+          'userId': localStorage.getItem('userId'),
+          'interactionId': interactionId
+        }
+      )
+  }
+
+
+  getAllLikesByPostId(postId: string) {
     return this.http.get<InteractionSociale[]>(
       this.url + "/api/interaction/likesByPostId?postId=" + postId)
   }
 
-  getAllPointsByPostId(postId: string) { 
+  getAllPointsByPostId(postId: string) {
     return this.http.get<InteractionSociale[]>(
       this.url + "/api/interaction/pointsByPostId?postId=" + postId)
   }
 
-  getAllLikesByUserId(userId: string ) { 
+  getAllLikesByUserId(userId: string) {
     return this.http.get<InteractionSociale[]>(
       this.url + "/api/interaction/likesByUserId?userId=" + userId)
   }
 
-  getAllPointsByUserId(userId: string ) {
+  getAllEnregistrementsByUserId(userId: string) {
+    return this.http.get<InteractionSociale[]>(
+      this.url + "/api/interaction/enregistrementsByUserId?userId=" + userId)
+  }
+  
+
+  getAllPointsByUserId(userId: string) {
     return this.http.get<InteractionSociale[]>(
       this.url + "/api/interaction/pointsByUserId?userId=" + userId)
-   }
+  }
 
   getLikesCountByPostId(postId: string) {
     return this.http.get<any>(
       this.url + "/api/interaction/likesCount?postId=" + postId)
-   }
+  }
 
   getPointsCountByPostId(postId: string) {
     return this.http.get<any>(
       this.url + "/api/interaction/pointsCount?postId=" + postId)
   }
 
-  
-  getIfUserAlreadyLikePost(postId: string, userId:string) {
+
+  getIfUserAlreadyLikePost(postId: string, userId: string) {
     return this.http.get<InteractionSociale>(
-      this.url + "/api/interaction/getIfUserAlreadyLikePost?postId=" + postId+"&userId="+userId)
+      this.url + "/api/interaction/getIfUserAlreadyLikePost?postId=" + postId + "&userId=" + userId)
   }
 
-  
-  getIfUserAlreadyPointPost(postId: string, userId:string) {
+
+  getIfUserAlreadyPointPost(postId: string, userId: string) {
     return this.http.get<InteractionSociale>(
-      this.url + "/api/interaction/getIfUserAlreadyPointPost?postId=" + postId+"&userId="+userId)
+      this.url + "/api/interaction/getIfUserAlreadyPointPost?postId=" + postId + "&userId=" + userId)
   }
+
+  getIfUserAlreadySavePost
+    (postId: string, userId: string) {
+    return this.http.get<InteractionSociale>(
+      this.url + "/api/interaction/getIfUserAlreadySavePost?postId=" + postId + "&userId=" + userId)
+  }
+
 
 }
 
