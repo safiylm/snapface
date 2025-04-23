@@ -1,0 +1,4 @@
+<h2>❤️❤️Like Liste❤️❤️</h2>
+<div *ngIf="posts" class="d-flex flex-wrap align-items-center justify-content-center">
+    <app-publication  *ngFor="let publication of posts" [publication]="publication" ></app-publication>
+</div>

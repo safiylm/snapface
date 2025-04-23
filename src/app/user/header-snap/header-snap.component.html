@@ -2,15 +2,16 @@
     <button type="button" class="btn-close" aria-label="Close" (click)="hidePhotoViewerProfil()"></button>
     <br />
     <div *ngIf="!showEditPhotoProfil">
-        <img *ngIf="!user.photos_profil" src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg"  />
-        <img id="imgpp" *ngIf="user.photos_profil"  [src]="UserPhotoProfil" alt="Photo de profil de {{ UserName }}" />
-        <button  *ngIf="isMe" type="button" id="btn-open-edit" class="btn btn-light" (click)="showEditPhotoProfil=true">
+        <img *ngIf="!user.photos_profil"
+            src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg" />
+        <img id="imgpp" *ngIf="user.photos_profil" [src]="UserPhotoProfil" alt="Photo de profil de {{ UserName }}" />
+        <button *ngIf="isMe" type="button" id="btn-open-edit" class="btn btn-light" (click)="showEditPhotoProfil=true">
             Modifier</button>
     </div>
     <div *ngIf="showEditPhotoProfil">
-    <app-edit-photos *ngIf="showEditPhotoProfil" nom="photos_profil" [photo]="user.photos_profil"></app-edit-photos>
-    <button type="button" class="btn btn-dark" (click)="showEditPhotoProfil=false">
-        Fermer </button>
+        <app-edit-photos *ngIf="showEditPhotoProfil" nom="photos_profil" [photo]="user.photos_profil"></app-edit-photos>
+        <button type="button" class="btn btn-dark" (click)="showEditPhotoProfil=false">
+            Fermer </button>
     </div>
 
 </div>
@@ -19,45 +20,51 @@
     <button type="button" class="btn-close" aria-label="Close" (click)="hidePhotoViewerBackground()"></button>
     <br />
     <div *ngIf="!showEditPhotoBackground">
-        <img *ngIf="user.photos_background" id="imgpb" [src]='UserPhotoBackground' alt="Photo background de {{ UserName }}" />
-        <img *ngIf="!user.photos_background" src="../../../assets/violet.png"  />
-    
-        <button *ngIf="isMe" type="button" id="btn-open-edit" class="btn btn-light" (click)="showEditPhotoBackground=true">
+        <img *ngIf="user.photos_background" id="imgpb" [src]='UserPhotoBackground'
+            alt="Photo background de {{ UserName }}" />
+        <img *ngIf="!user.photos_background" src="../../../assets/violet.png" />
+
+        <button *ngIf="isMe" type="button" id="btn-open-edit" class="btn btn-light"
+            (click)="showEditPhotoBackground=true">
             Modifier</button>
     </div>
     <div *ngIf="showEditPhotoBackground">
         <app-edit-photos nom="photos_background" [photo]="user.photos_background"></app-edit-photos>
-      
+
         <button type="button" class="btn btn-dark" (click)="showEditPhotoBackground=false">
             Fermer </button>
     </div>
 
 </div>
 
-<img id="photo-background" *ngIf="user.photos_background" [src]="UserPhotoBackground" (click)="showPhotoViewerBackground()" />
-<img id="photo-background" *ngIf="!user.photos_background" src="../../assets/violet.png" (click)="showPhotoViewerBackground()" />
+<img id="photo-background" *ngIf="user.photos_background" [src]="UserPhotoBackground"
+    (click)="showPhotoViewerBackground()" />
+<img id="photo-background" *ngIf="!user.photos_background" src="../../assets/violet.png"
+    (click)="showPhotoViewerBackground()" />
 <div class="d-flex flex-wrap align-items-center justify-content-center">
     <div id="div-photo-profil">
-        <img id="photo-profil" *ngIf="user.photos_profil"  [src]="UserPhotoProfil" (click)="showPhotoViewerProfil()" />
-        <img id="photo-profil" *ngIf="!user.photos_profil" src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg" (click)="showPhotoViewerProfil()" />
+        <img id="photo-profil" *ngIf="user.photos_profil" [src]="UserPhotoProfil" (click)="showPhotoViewerProfil()" />
+        <img id="photo-profil" *ngIf="!user.photos_profil"
+            src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg"
+            (click)="showPhotoViewerProfil()" />
     </div>
     <div>
         <h3 class="name">{{ UserName }}</h3>
 
         <app-button-follow [isMe]="isMe" [pageuserid]="id"></app-button-follow>
-       
+
         <button *ngIf="!isMe" class="btn" type="button" id="btn-ecrire" (click)="createConversation()">
             {{ "écrire" | titlecase }}</button>
 
-            <button  *ngIf="!displayFormSignalmt" class="btn btn-light" (click)="displayFormSignalmt=true">Signaler</button>
- 
+        <button *ngIf="!displayFormSignalmt" class="btn btn-light" (click)="displayFormSignalmt=true">Signaler</button>
+
 
         <form *ngIf="displayFormSignalmt" (submit)="signaler()" autocomplete="off">
             <input name="raison" class="form-control" [(ngModel)]="signalement_raison">
             <button class="btn btn-primary" type="submit">Signaler</button>
             <button class="btn btn-light" type="button" (click)="displayFormSignalmt=false">Annuler</button>
             {{res_signalement}}
-          </form>
+        </form>
 
         <div class="dropdown" *ngIf="isMe">
             <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -75,6 +82,27 @@
                         </svg>
                         Publications
                     </a></li>
+
+
+                <li><a class="dropdown-item" href="/like-liste">
+                        ❤️ Likes liste❤️
+                    </a></li>
+
+                <li><a class="dropdown-item" href="/point-liste">
+                        🤌 Points Liste 🤌
+                    </a></li>
+
+                <li><a class="dropdown-item" href="/enregistrement-liste">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-postcard-heart" viewBox="0 0 16 16">
+                            <path
+                                d="M8 4.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0zm3.5.878c1.482-1.42 4.795 1.392 0 4.622-4.795-3.23-1.482-6.043 0-4.622M2.5 5a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zm0 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zm0 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1z" />
+                            <path fill-rule="evenodd"
+                                d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1z" />
+                        </svg>
+                        Enregistrement
+                    </a></li>
+
                 <li><a class="dropdown-item" href="/mon-compte/edit">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-pencil-square" viewBox="0 0 16 16">
@@ -93,7 +121,7 @@
                                 d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
                         </svg>
                         Créer une publication</a></li>
-              
+
                 <li><button class="dropdown-item" (click)="logout()">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
