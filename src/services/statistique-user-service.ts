@@ -88,7 +88,7 @@ export class StatistiqueUserService {
 
 
   checkTotalPoints(id: string): Observable<any> | void {
-
+/*
     this.http.get<StatistiqueUser>(this.url + "/api/statistiqueUserByUserId?id=" + id)
       .subscribe({
         next: (data) => {
@@ -128,7 +128,7 @@ export class StatistiqueUserService {
 
         },
         error: (e) => console.error(e)
-      });
+      });*/
   }
 }
 

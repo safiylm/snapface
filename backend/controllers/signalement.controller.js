@@ -9,10 +9,10 @@ exports.signalerUnePublication = (req, res) => {
     res.set('Access-Control-Allow-Origin', '*');
 
     // Validate request
-    // if (!req.body.id) {
-    //     res.status(400).send({ message: "Content can not be empty!" });
-    //     return;
-    // }
+     if (!req.body.auteur && !req.body.raison ) {
+         res.status(400).send({ message: "Content can not be empty!" });
+         return;
+     }
 
 console.log(req.body )
     // Save Signalement in the database
@@ -40,11 +40,11 @@ console.log(req.body )
 exports.signalerUnUser = (req, res) => {
     res.set('Access-Control-Allow-Origin', '*');
 
-    // Validate request
-    // if (!req.body.id) {
-    //     res.status(400).send({ message: "Content can not be empty!" });
-    //     return;
-    // }
+     // Validate request
+     if (!req.body.auteur && !req.body.raison ) {
+        res.status(400).send({ message: "Content can not be empty!" });
+        return;
+    }
 
 
     // Save Signalement in the database

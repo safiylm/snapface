@@ -24,15 +24,16 @@ export class ConversationListComponent implements OnInit {
     this.me = localStorage.getItem('userId')?.toString() as string
     this.chatservice.getUsersWeHaveConversation(this.me)
       .subscribe((data: Conversation[]) => {
-        this.conversation = data;
-        this.conversationId = data[0]._id
-
+        if (data != undefined && data[0]!= undefined) {
+          this.conversation = data;
+          this.conversationId = data[0]._id
+        }
       });
   }
 
   choisirConversation(newItem: string) {
-    this.newItemEvent2.emit(newItem );
+    this.newItemEvent2.emit(newItem);
   }
 
-  
+
 }

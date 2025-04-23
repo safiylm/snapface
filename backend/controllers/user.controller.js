@@ -108,7 +108,7 @@ exports.editPhotoDeProfil= async (req, res)=>{
         }
       })
     });
-  }
+}
 
   
 exports.editPhotoBackground= async (req, res)=>{

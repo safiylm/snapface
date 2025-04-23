@@ -16,7 +16,6 @@ const io = new Server(server, {
 io.on("connection", (socket) => {
 
   socket.on("publicMessage", (msg) => {
-    console.log("Message reçu :", msg);
     io.emit("publicMessage", msg); // Diffuse le message à tous
   });
 
