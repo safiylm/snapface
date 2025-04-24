@@ -36,8 +36,13 @@
         <img id="image" [src]="publication.assets[index]!" [alt]="publication.title">
       </ng-container>
 
-      <ng-template #videoTemplate>
-        <video controls>
+      <ng-template #videoTemplate 
+    >
+        <video 
+        controls 
+        muted 
+        preload="metadata" 
+        width="100%">>
           <source [src]="publication.assets[index]!" type="video/mp4">
           Your browser does not support the video tag.
         </video>

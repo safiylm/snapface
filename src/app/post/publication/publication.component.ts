@@ -31,6 +31,26 @@ export class PublicationComponent {
 
   }
 
+  constructor( private elRef: ElementRef){}
+
+    
+  ngAfterViewInit(): void {
+    const video: HTMLVideoElement = this.elRef.nativeElement.querySelector('video');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          video.play();
+        } else {
+          video.pause();
+        }
+      });
+    }, {
+      threshold: 0.5 // déclenche la lecture à 50% de visibilité.
+    });
+
+    observer.observe(video);
+  }
 
   goToEditPost() {
     document.location.href = 'publication/edit/' + this.publication._id
