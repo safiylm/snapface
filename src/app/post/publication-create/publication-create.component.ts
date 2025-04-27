@@ -5,6 +5,7 @@ import { PublicationsService } from '../../../services/publication-service';
 import { CommonModule, NgFor } from '@angular/common';
 import { HeaderComponent } from '../../header/header.component';
 import { HeaderSnapComponent } from '../../user/header-snap/header-snap.component';
+import { AudioService } from 'src/services/audio.service';
 
 @Component({
   standalone: true,
@@ -22,8 +23,8 @@ export class PublicationCreateComponent implements OnInit {
   newasset !: string;
   result = ""
   selectedFiles: File[] = [];
-
-  constructor(private publicationsService: PublicationsService) { }
+  audioList : any;
+  constructor(private publicationsService: PublicationsService, private audioService: AudioService) { }
 
   onFilesSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -78,6 +79,7 @@ export class PublicationCreateComponent implements OnInit {
   ngOnInit() {
     this.array_assets = []
     this.post.userId = localStorage.getItem('userId')?.toString() as string;
+    this.audioList = this.audioService.getAudioList()
   }
 
   deleteImage(nb: number) {

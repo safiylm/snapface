@@ -40,33 +40,16 @@
     <input type="file" class="btn btn-light" (change)="onFilesSelected($event)" multiple accept="image/video*" />
 
     <div class="audio-list">
-        <div class="audio-item d-flex align-items-center justify-content-aroud">
-            <input type="radio" id="html" name="audio" [(ngModel)]="post.audio!"
-                value="../../assets/audio/Flint - March the Machine.mp3">
+
+        <div *ngFor="let audio of audioList" class="audio-item d-flex align-items-center justify-content-aroud">
+            <input type="radio" id="html" name="audio" [(ngModel)]="post.audio!" [value]="audio.url">
+            <img [src]="audio.cover" width="75px" height="75px" />
             <div>
-                <p>Flint - March the Machine</p>
-                <audio controls src="../../assets/audio/Flint - March the Machine.mp3"></audio>
+                <p>{{audio.title}}</p>
+                <audio controls [src]="audio.url"></audio>
             </div>
         </div>
 
-        <div class="audio-item d-flex align-items-center justify-content-aroud">
-            <input type="radio" id="html" name="audio" [(ngModel)]="post.audio!"
-                value="../../assets/audio/Litos - Coqueta.mp3">
-            <div>
-                <p>Litos - Coqueta</p>
-                <audio controls src="../../assets/audio/Litos - Coqueta.mp3"></audio>
-            </div>
-        </div>
-
-
-        <div class="audio-item d-flex align-items-center justify-content-aroud">
-            <input type="radio" id="html" name="audio" [(ngModel)]="post.audio!"
-                value="../../assets/audio/Superlative - The Wave.mp3">
-            <div>
-                <p>Superlative - The Wave</p>
-                <audio controls src="../../assets/audio/Superlative - The Wave.mp3"></audio>
-            </div>
-        </div>
 
     </div>
 

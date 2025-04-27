@@ -6,6 +6,7 @@ import { FormsModule } from "@angular/forms";
 import { Subscription } from 'rxjs';
 import { NgFor, NgIf } from '@angular/common';
 import { HeaderSnapComponent } from '../../user/header-snap/header-snap.component';
+import { AudioService } from 'src/services/audio.service';
 
 
 @Component({
@@ -25,14 +26,17 @@ export class PublicationEditComponent {
   resultatOfEdit = "";
   array_assets !: string[];
   selectedFiles: File[] = [];
+  audioList : any;
 
 
   constructor(private publicationService: PublicationsService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,  private audioService: AudioService) { }
   
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id')!;
     this.getDataPost();
+    this.audioList = this.audioService.getAudioList()
+
   }
 
   onFilesSelected(event: Event): void {
@@ -62,6 +66,7 @@ export class PublicationEditComponent {
         },
         error: (e) => console.error(e)
       });
+      
   }
 
 
