@@ -1,8 +1,9 @@
-<div class="d-flex app-conversation-list">
-    <div>
-        <div *ngFor="let c of conversation" >
-            <app-item-user-with-last-message (newItemEvent)="choisirConversation($event)"
-              [conversationId]="c._id"  [users]="c.speaker" [offcanvas]="offcanvas" ></app-item-user-with-last-message>
+<div class="app-conversation-list">
+    <h2>Discussions</h2>
+    <div class="d-flex">
+        <div *ngFor="let c of conversation">
+            <app-item-user-with-last-message (newItemEvent)="choisirConversation($event)" [conversationId]="c._id"
+                [users]="c.speaker" [offcanvas]="offcanvas"></app-item-user-with-last-message>
         </div>
     </div>
 </div>

@@ -1,38 +1,43 @@
-<app-header></app-header>
+<div class="d-flex flex-wrap flex-row align-items-start justify-content-between">
 
-<div class="d-flex">
+  <app-header></app-header>
 
-  <app-conversation-list id="conversation-list" (newItemEvent2)="choisirConversation($event)" offcanvas="false"></app-conversation-list>
+  <div class="d-flex chat-container">
 
-  <div class="chat-box">
-    <app-user-presentation-on-top-of-chat-prive *ngIf="conversation"
-      [users]="conversation.speaker"></app-user-presentation-on-top-of-chat-prive>
+    <app-conversation-list id="conversation-list" (newItemEvent2)="choisirConversation($event)"
+      offcanvas="false"></app-conversation-list>
 
-    <div class="messages d-flexx flex-column">
-    
-      <app-message *ngFor="let msg of messages" [message]="msg" (editEvent)="messageAEditer($event)" (deleteEvent)="loadMessages()"></app-message>
+    <div class="chat-box">
+      <app-user-presentation-on-top-of-chat-prive *ngIf="conversation"
+        [users]="conversation.speaker"></app-user-presentation-on-top-of-chat-prive>
 
-      <div *ngIf="messages.length==0">
-        <p>Dites Bonjour👋</p>
-      </div>
-    </div>
+      <div class="messages d-flexx flex-column">
 
-    <div class="d-flex" *ngIf="messageEdittingId==''">
-      <input class="form-control" [(ngModel)]="message" placeholder="Tapez un message..."
-        (keyup.enter)="sendMessagePrivee()" />
-      <button class="btn btn-light" (click)="sendMessagePrivee()">Envoyer</button>
-    </div>
+        <app-message *ngFor="let msg of messages" [message]="msg" (editEvent)="messageAEditer($event)"
+          (deleteEvent)="loadMessages()"></app-message>
 
-    <div class="d-flex" *ngIf="messageEdittingId!=''">
-
-      <div class="form-floating">
-        <input id="floatingInputGrid" class="form-control" [(ngModel)]="message" placeholder=""
-          (keyup.enter)="submitEdit()" />
-        <label for="floatingInputGrid">Modifier son message</label>
+        <div *ngIf="messages.length==0">
+          <p>Dites Bonjour👋</p>
+        </div>
       </div>
 
-      <button class="btn btn-light" (click)="submitEdit()">Enregistrer les modifications</button>
-    </div>
+      <div class="d-flex" *ngIf="messageEdittingId==''">
+        <input class="form-control" [(ngModel)]="message" placeholder="Tapez un message..."
+          (keyup.enter)="sendMessagePrivee()" />
+        <button class="btn btn-light" (click)="sendMessagePrivee()">Envoyer</button>
+      </div>
 
+      <div class="d-flex" *ngIf="messageEdittingId!=''">
+
+        <div class="form-floating">
+          <input id="floatingInputGrid" class="form-control" [(ngModel)]="message" placeholder=""
+            (keyup.enter)="submitEdit()" />
+          <label for="floatingInputGrid">Modifier son message</label>
+        </div>
+
+        <button class="btn btn-light" (click)="submitEdit()">Enregistrer les modifications</button>
+      </div>
+
+    </div>
   </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, ElementRef, Input } from '@angular/core';
 import { Publication } from '../../../models/publication.model';
 import { ActivatedRoute } from '@angular/router';
 import { PublicationComponent } from '../publication/publication.component';
@@ -18,6 +18,12 @@ export class PublicationListComponent {
   publications!: Publication[];
   constructor(route: ActivatedRoute) {
     this.publications = route.snapshot.data['publications']
+  }
+
+  post: Publication | undefined ;
+
+  voirPost(post: Publication){
+    this.post=post;
   }
 
 }

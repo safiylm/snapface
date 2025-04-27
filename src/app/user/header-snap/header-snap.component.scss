@@ -2,12 +2,11 @@
     width: 100% !important;
     height: 200px;
     object-fit: cover;
-    padding-top: 65px;
 }
 
 #div-photo-profil {
     text-align: center;
-
+    width: 100%;
     #photo-profil {
         margin: -125px;
         margin-bottom: 10px;
@@ -91,13 +90,11 @@
 #btn-ecrire {
     border-radius: 15px !important;
     padding: 7px 14px !important;
-    ;
     font-size: small !important;
-    ;
     background-color: dodgerblue !important;
     color: #fff !important;
     margin-left: 15px !important;
-    ;
+    
 }
 
 .dropdown {
@@ -129,4 +126,12 @@
     height: 60px;
     object-fit: cover;
     border-radius: 50%;
+}
+
+@media(max-width:899px) {
+    #photo-profil {
+        margin: -95px;
+        width: 150px !important;
+        height: 150px !important;
+    }
 }

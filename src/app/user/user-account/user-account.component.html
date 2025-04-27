@@ -1,3 +1,10 @@
-<app-header></app-header>
-<app-header-snap [id]='id' ></app-header-snap>
-<app-publication-list [id]='id' ></app-publication-list>
+<div class="d-flex flex-wrap flex-row align-items-start justify-content-between">
+    <app-header></app-header>
+    <div class="user-account-page">
+        <app-header-snap [id]='id'></app-header-snap>
+        <app-publication-list [id]='id'></app-publication-list>
+        <!-- <app-publication-list-scroll [id]='id'></app-publication-list-scroll> -->
+
+    </div>
+
+</div>

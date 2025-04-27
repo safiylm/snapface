@@ -1,10 +1,18 @@
 <div class="listofposts" *ngIf="publications">
-    <app-publication  *ngFor="let publication of publications" [publication]="publication" >
-    </app-publication>
+    <div  class="liste-images d-flex flex-wrap align-items-center justify-content-start">
+        <img *ngFor="let publication of publications" [src]="publication.assets[0]" (click)="post=publication"/>
+    </div>
 
     <div *ngIf="publications.length == 0">
         <p>Aucune publication pour le moment </p>
-        <br/>
+        <br />
         <app-users-list></app-users-list>
+    </div>
+
+    <div id="post-viewer" *ngIf="post">
+        <button class="btn btn-dark" (click)="post=undefined">X</button>
+        <div class="div-post">
+            <app-publication [publication]="post"></app-publication>
+        </div>
     </div>
 </div>

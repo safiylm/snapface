@@ -1,0 +1,13 @@
+.user-account-page{
+     width: 100%;
+     margin-left: 200px;
+ }
+
+ @media(max-width:769px) {
+   
+     .user-account-page{
+         width: 100vw;
+         margin-top: 130px;
+         margin-left: 0;
+     }
+ }

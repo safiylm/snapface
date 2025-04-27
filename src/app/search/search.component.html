@@ -1,34 +1,36 @@
-<ng-container>
-
+<div class="home d-flex flex-wrap flex-row align-items-start justify-content-between">
     <app-header></app-header>
-    <div class="div-search-input-btn d-flex flex-column align-items-center justify-content-center">
-        <h2>Chercher</h2>
-        <div *ngIf="filtre=='user'" class="d-flex flex-wrap align-items-center justify-content-center">
-            <input name="fname" [(ngModel)]="fname" (keyup.enter)="researchUser()" class="form-control"
-                placeholder="Enter First name">
-            <input name="lname" [(ngModel)]="lname" (keyup.enter)="researchUser()" class="form-control"
-                placeholder="Enter Last name">
+    <div class="search-container">
 
-        </div>
-        <input *ngIf="filtre=='post'" name="search" [(ngModel)]="search" (keyup.enter)="research()"
-            placeholder="Search posts" class="form-control">
+        <div class="div-search-input-btn d-flex flex-column align-items-center justify-content-center">
+            <h2>Chercher</h2>
+            <div *ngIf="filtre=='user'" class="d-flex flex-wrap align-items-center justify-content-center">
+                <input name="fname" [(ngModel)]="fname" (keyup.enter)="researchUser()" class="form-control"
+                    placeholder="Enter First name">
+                <input name="lname" [(ngModel)]="lname" (keyup.enter)="researchUser()" class="form-control"
+                    placeholder="Enter Last name">
 
-        <div class="d-flex  flex-wrap align-items-center justify-content-center">
-            <button [ngClass]="{'btn-activee': filtre=='user'}" (click)="filtre='user'">User</button>
-            <button [ngClass]="{'btn-activee': filtre=='post'}" (click)="filtre='post'">Post</button>
+            </div>
+            <input *ngIf="filtre=='post'" name="search" [(ngModel)]="search" (keyup.enter)="research()"
+                placeholder="Search posts" class="form-control">
+
+            <div class="d-flex  flex-wrap align-items-center justify-content-center">
+                <button [ngClass]="{'btn-activee': filtre=='user'}" (click)="filtre='user'">User</button>
+                <button [ngClass]="{'btn-activee': filtre=='post'}" (click)="filtre='post'">Post</button>
+            </div>
         </div>
+        <div class="d-flex flex-wrap align-items-center justify-content-center">
+
+            <div *ngFor="let user of listeUser">
+                <app-user [user]="user"></app-user>
+            </div>
+        </div>
+        <div class="d-flex flex-column align-items-center justify-content-center">
+
+            <div *ngFor="let post of listePost">
+                <app-publication [publication]="post"></app-publication>
+            </div>
+        </div>
+
     </div>
-    <div class="d-flex align-items-center justify-content-center">
-
-        <div *ngFor="let user of listeUser">
-            <app-user [user]="user"></app-user>
-        </div>
-    </div>
-    <div class="d-flex flex-column align-items-center justify-content-center">
-
-        <div *ngFor="let post of listePost">
-            <app-publication [publication]="post"></app-publication>
-        </div>
-    </div>
-
-</ng-container>
+</div>

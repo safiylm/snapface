@@ -4,6 +4,7 @@ import { AuteurInPostOrCommentaireComponent } from '../../user/auteur-in-post-or
 import { InteractionSocialComponent } from '../interaction-social/interaction-social.component';
 import { CommentaireListComponent } from '../../comment/commentaire-list/commentaire-list.component';
 import { NgIf, TitleCasePipe } from '@angular/common';
+import { AudioService } from 'src/services/audio.service';
 
 @Component({
   standalone: true,
@@ -23,6 +24,8 @@ export class PublicationComponent {
   index: number = 0;
   isMyPost: boolean = false;
   @ViewChild('audioPlayer') audioPlayer!: ElementRef<HTMLAudioElement>;
+  audiotitle= "";
+  audiourl= "";
 
   ngAfterContentChecked() {
     if (this.UserId == localStorage.getItem('userId')) {
@@ -31,7 +34,12 @@ export class PublicationComponent {
 
   }
 
-  constructor( private elRef: ElementRef){}
+  ngOnInit(){
+    this.audiotitle= this.audioService.getAudioById( this.publication.audio)[0].title
+    this.audiourl= this.audioService.getAudioById(this.publication.audio)[0].url
+  }
+
+  constructor( private elRef: ElementRef, private audioService: AudioService){}
 
     
   ngAfterViewInit(): void {
@@ -50,6 +58,7 @@ export class PublicationComponent {
     });
 
     observer.observe(video);
+
   }
 
   goToEditPost() {

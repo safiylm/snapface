@@ -9,8 +9,8 @@
       <path fill-rule="evenodd" d="M9 3v10H8V3z" />
       <path d="M8 2.82a1 1 0 0 1 .804-.98l3-.6A1 1 0 0 1 13 2.22V4L8 5z" />
     </svg>
-    <audio *ngIf="Audio" #audioPlayer [src]="Audio"></audio>
-
+    <audio *ngIf="Audio" #audioPlayer [src]="audiourl"></audio>
+    {{audiotitle}}
 
     <div *ngIf="isMyPost" style="text-align:right;">
       <button type="button" class="btn btn-light" id="btn-edit-post" (click)="goToEditPost()"> <svg
@@ -21,7 +21,6 @@
         </svg> Modifier</button>
     </div>
 
-    <br />
     <div class="div-images" *ngIf="Assets?.length">
 
       <button *ngIf="publication.assets.length! > 1 && index>0" (click)="displayImagePrecedent()">
@@ -57,12 +56,12 @@
       </button>
     </div>
 
-    <h2>{{ Title | titlecase }}</h2>
+    <!-- <h2>{{ Title | titlecase }}</h2> -->
 
-    <p id="body">{{ Body | titlecase }}</p>
+    <p id="body">{{ Body?.slice(0, 50) | titlecase }}</p>
 
     <app-interaction-social (newItemEvent)="toggleDisplayListOfComments($event)" [post]="publication"
       [isDisplayListeOfComments]="isDisplayListOfComments"></app-interaction-social>
-    <app-commentaire-list [id]="Id!" [isDisplayListOfComments]="isDisplayListOfComments"></app-commentaire-list>
+    <!-- <app-commentaire-list [id]="Id!" [isDisplayListOfComments]="isDisplayListOfComments"></app-commentaire-list> -->
   </div>
 </div>

@@ -1,30 +1,24 @@
-.home {
-    padding-top: 100px;
-}
 
 #div-list-post{
-    width: 100vw;
+    margin-left: 200px;
 }
 
 @media(max-width:930px) {
 
     .home {
-
         flex-direction: column !important;
-        width: 100vw;
         justify-content: center !important;
         
     }
-
-
-    #div-list-users {
-        width: 100vw;
-        overflow-x: scroll;
-    }
 }
 
-@media(max-width:899px) {
+@media(max-width:769px) {
     .home {
         align-items: center !important;
+    }
+    #div-list-post{
+        margin-top: 130px;
+        margin-left: 0;
+
     }
 }

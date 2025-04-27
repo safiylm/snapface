@@ -4,7 +4,7 @@ h1 {
     margin: 20px auto;
 }
 
-.display-resultat{
+.display-resultat {
     display: none;
     margin: 15px auto;
 }
@@ -16,7 +16,7 @@ form {
     .col {
         padding: 15px;
 
-        img{
+        img {
             width: 150px;
             height: 150px;
             object-fit: cover;
@@ -59,10 +59,10 @@ form {
     background-color: rgba(0, 0, 0, 0.4);
     /* Black w/ opacity */
 
-    .modal-header{
+    .modal-header {
         justify-content: space-between !important;
     }
-    
+
     /* Modal Content/Box */
     .modal-content {
         background-color: #fefefe;
@@ -99,13 +99,18 @@ form {
 
 @media(max-width:850px) {
 
+    app-header-snap {
+        margin-top: 160px;
+    }
+
     form {
 
         width: 80vw;
         padding: 30px;
         box-sizing: border-box;
         margin: 20px auto;
-
+        width: 90vw;
+        padding: 10px;
     }
 
     .d-flex {
@@ -117,12 +122,9 @@ form {
         padding: 0 15px;
     }
 
-
-}
-
-@media(max-width:850px) {
-    form {
-        width: 100vw;
-        padding: 10px;
+    .modal-content {
+        margin-top: 150px;
+        width: 80% !important;
     }
+
 }

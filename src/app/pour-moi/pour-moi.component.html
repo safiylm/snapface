@@ -1,7 +1,9 @@
-<app-header></app-header>
-
-<div *ngIf="abonnement">
-    <app-publications-list *ngFor="let user of abonnement" [userId]="user.follows">
-    </app-publications-list>
-</div>
-
+<div class="d-flex flex-wrap flex-row align-items-start justify-content-between">
+    <app-header></app-header>
+    
+    <div *ngIf="abonnement" class="pour-moi-container">
+        <app-publications-list *ngFor="let user of abonnement" [userId]="user.follows">
+        </app-publications-list>
+    </div>
+ 
+ </div>

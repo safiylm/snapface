@@ -1,3 +1,8 @@
+
+*{
+  box-sizing: border-box;
+}
+
 .face-snap-card {
   min-width: 250px;
   box-sizing: border-box;
@@ -5,13 +10,21 @@
   //  margin: 20px auto;
   padding: 20px;
   box-shadow: #d3d3d3 4px 4px 20px;
-  margin: 10px;
+  margin: 50px;
   max-width: 90vw;
+  max-height: 90vh;
+  background-color: #fff;
+
+
+  @media(max-width:899px) {
+    margin: 5px;
+  }
+
 
   video,
   img {
     width: 460px;
-    height: 580px;
+    height: 50vh;
     object-fit: cover;
     max-width: 85vw;
   }
@@ -25,14 +38,14 @@
 
   h2 {
     margin: 15px 0;
-    font-size: 19px;
+    font-size: 17px;
     font-weight: 400;
   }
 
   p {
     font-weight: 300;
-    font-size: 16px;
-    margin: 15px 0;
+    font-size: 15px;
+    margin: 10px 0;
   }
 
   button {
@@ -50,7 +63,7 @@
   justify-content: center;
   position: relative;
   width: 460px;
-  height: 580px;
+  height: 55vh;
 
   button {
     position: absolute;
@@ -72,15 +85,18 @@
   .face-snap-card {
     min-width: 90vw;
     width: 95vw;
+height: auto;
+    .div-images {
 
     img {
       width: 100%;
-      height: auto;
+      height: 380px;
     }
+  }
   }
 
   .div-images {
     width: 100%;
-    margin: 25px 0;
+    margin: 10px 0;
   }
 }

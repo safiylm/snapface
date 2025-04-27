@@ -1,0 +1,14 @@
+.pour-moi-container {
+    width: 100%;
+    margin-left: 200px;
+}
+
+
+@media(max-width:767px) {
+
+    .pour-moi-container {
+        width: 100vw;
+        margin-top: 130px;
+        margin-left: 0;
+    }
+}

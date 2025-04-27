@@ -30,8 +30,8 @@ describe('PublicationComponent', () => {
             "Beautiful orange cat",
             "Beautiful orange cat...................",
             ["https://images.pexels.com/photos/1741205/pexels-photo-1741205.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"],
-            555, "66e9219abe68cdd15907399e"
-        )
+            555, "66e9219abe68cdd15907399e", "", 0,0,0,
+0        )
         fixture.detectChanges();
         image = fixture.nativeElement.querySelector("#image")
         body = fixture.nativeElement.querySelector('#body')

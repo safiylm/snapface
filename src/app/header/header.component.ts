@@ -29,18 +29,12 @@ export class HeaderComponent implements OnInit {
 
   }
 
-  isAffix = false;
-  isMenuActive = false;
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
     const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-    this.isAffix = scrollTop > 50;
    
   }
 
-  toggleMenu() {
-    this.isMenuActive = !this.isMenuActive;
-    console.log('Clicked menu');
-  }
+
 }
