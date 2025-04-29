@@ -8,7 +8,7 @@
   margin: 10px auto;
 
   .liste-images {
-    width: auto ;
+    width: auto;
   }
 
   video,
@@ -33,6 +33,10 @@
   }
 }
 
+app-publication {
+  box-shadow: none;
+}
+
 #post-viewer {
   position: fixed;
   background-color: rgba(65, 65, 65, 0.351);
@@ -45,12 +49,13 @@
   height: 100vh;
   overflow: auto;
   text-align: center;
+
   .btn {
     float: right;
     margin: 5px;
   }
 
-  .div-post{
+  .div-post {
     margin: 20px auto;
     width: 500px;
   }

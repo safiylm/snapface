@@ -3,7 +3,7 @@ import { Publication } from '../../../models/publication.model';
 import { AuteurInPostOrCommentaireComponent } from '../../user/auteur-in-post-or-commentaire/auteur-in-post-or-commentaire.component';
 import { InteractionSocialComponent } from '../interaction-social/interaction-social.component';
 import { CommentaireListComponent } from '../../comment/commentaire-list/commentaire-list.component';
-import { NgIf, TitleCasePipe } from '@angular/common';
+import { NgClass, NgIf, TitleCasePipe } from '@angular/common';
 import { AudioService } from 'src/services/audio.service';
 
 @Component({
@@ -13,35 +13,41 @@ import { AudioService } from 'src/services/audio.service';
   styleUrls: ['./publication.component.scss'],
   imports: [AuteurInPostOrCommentaireComponent,
     InteractionSocialComponent, CommentaireListComponent, TitleCasePipe,
-    NgIf]
+    NgIf, NgClass]
 })
 
 export class PublicationComponent {
 
   @Input() publication!: Publication;
-  isDisplayListOfComments: boolean = false;
+  isDisplayComments: boolean = false;
   // constructor() { }
   index: number = 0;
   isMyPost: boolean = false;
   @ViewChild('audioPlayer') audioPlayer!: ElementRef<HTMLAudioElement>;
-  audiotitle= "";
-  audiourl= "";
+  audiotitle = "";
+  audiourl = "";
+  isMobile !: boolean; // pour gérer l'affichage du post
 
   ngAfterContentChecked() {
     if (this.UserId == localStorage.getItem('userId')) {
       this.isMyPost = true;
     }
-
   }
 
-  ngOnInit(){
-    this.audiotitle= this.audioService.getAudioById( this.publication.audio)[0].title
-    this.audiourl= this.audioService.getAudioById(this.publication.audio)[0].url
+  ngOnInit() {
+    this.audiotitle = this.audioService.getAudioById(this.publication.audio)[0].title
+    this.audiourl = this.audioService.getAudioById(this.publication.audio)[0].url;
+    if (window.innerWidth <= 1050) { // Si on est sur mobile
+      this.isMobile = true; // Si on veut afficher les commentaires, on cache le post
+    } else {
+      this.isMobile = false; // Sur PC/tablette, le post reste affiché
+    }
+    console.log(this.isMobile)
   }
 
-  constructor( private elRef: ElementRef, private audioService: AudioService){}
+  constructor(private elRef: ElementRef, private audioService: AudioService) { }
 
-    
+
   ngAfterViewInit(): void {
     const video: HTMLVideoElement = this.elRef.nativeElement.querySelector('video');
 
@@ -66,7 +72,8 @@ export class PublicationComponent {
   }
 
   toggleDisplayListOfComments(event: string) {
-    this.isDisplayListOfComments = event as unknown as boolean;
+    this.isDisplayComments = event as unknown as boolean;
+  
   }
 
   displayImageNext() {
@@ -120,14 +127,15 @@ export class PublicationComponent {
 
 
   audioStart() {
-    if(this.audioPlayer)
-    this.audioPlayer?.nativeElement.play();
+    if (this.audioPlayer)
+      this.audioPlayer?.nativeElement.play();
   }
 
   audioEnd() {
-    if(this.audioPlayer)
-    this.audioPlayer?.nativeElement.pause();
-    this.audioPlayer.nativeElement.currentTime = 0; // remet à zéro si tu veux
+    if (this.audioPlayer) {
+      this.audioPlayer?.nativeElement.pause();
+      this.audioPlayer.nativeElement.currentTime = 0; // remet à zéro si tu veux
+    }
   }
 
 }

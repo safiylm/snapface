@@ -22,7 +22,7 @@ export class CommentaireComponent //implements AfterViewInit
   isMyComment: boolean = false;
   result = "";
   @Input() id !: string;
-  @Input() isDisplayListOfComments !: boolean;
+  @Input() isDisplayComments !: boolean;
   @Input() commentaire !: Commentaire;
 
 

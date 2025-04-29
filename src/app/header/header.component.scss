@@ -19,12 +19,9 @@ body {
 /* --> https://codepen.io/abdosteif/pen/bRoyMb?editors=1100*/
 
 nav {
-    padding: 0 10px;
-    background-color: rgba(91, 50, 182, 0.39);
+  //  background-color: rgba(91, 50, 182, 0.39);
     z-index: 2;
-    line-height: 65px;
     text-align: center;
-    padding: 10px 0;
     -webkit-transition: all 0.4s ease;
     transition: all 0.4s ease;
   
@@ -39,9 +36,8 @@ nav {
         font-weight: 300;
     }
 
-    button,
-    .navbar-brand {
-        padding: 25px !important;
+    .navbar-nav{
+      line-height: 65px;
     }
 
     .navbar-brand {

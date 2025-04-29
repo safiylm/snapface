@@ -1,6 +1,12 @@
-<ng-container *ngIf="isDisplayListOfComments">
-    <div *ngFor="let com of commentaires" class="div-un-commentaire">
-        <app-commentaire [commentaire]="com" [isDisplayListOfComments]="isDisplayListOfComments"></app-commentaire>
+<ng-container *ngIf="isDisplayComments">
+  
+    <div *ngIf="commentaires.length==0">
+        Aucun commentaire pour le moment 
     </div>
+    
+    <div *ngFor="let com of commentaires" class="div-un-commentaire">
+        <app-commentaire [commentaire]="com" [isDisplayComments]="isDisplayComments"></app-commentaire>
+    </div>
+
 </ng-container>
 <app-commentaire-create [id]="id"></app-commentaire-create>

@@ -7,19 +7,19 @@ import { NgFor, NgIf } from '@angular/common';
 import { CommentaireCreateComponent } from '../commentaire-create/commentaire-create.component';
 
 @Component({
-  standalone:true, 
+  standalone: true,
   selector: 'app-commentaire-list',
   templateUrl: './commentaire-list.component.html',
-  styleUrls: ['./commentaire-list.component.scss'], 
-  imports:[ CommentaireComponent,
-    NgIf , NgFor, CommentaireCreateComponent
+  styleUrls: ['./commentaire-list.component.scss'],
+  imports: [CommentaireComponent,
+    NgIf, NgFor, CommentaireCreateComponent
   ]
 })
 export class CommentaireListComponent implements OnInit {
 
   commentaires !: Commentaire[];
   @Input() id !: string;
-  @Input() isDisplayListOfComments !: boolean;
+  @Input() isDisplayComments !: boolean;
   subscription!: Subscription;
 
   constructor(protected commentaireService: CommentaireService) { }
@@ -32,15 +32,18 @@ export class CommentaireListComponent implements OnInit {
     this.subscription = this.commentaireService.getCommentaireByPostId(this.id)
       .subscribe({
         next: (data) => {
-          this.commentaires = data;
+          this.commentaires = data;    
+           console.log( this.commentaires)
         },
         error: (e) => console.error(e)
       });
   }
 
-  ngOnInit() {
+  ngOnInit() {   
+
     this.display();
-    this.isDisplayListOfComments = false;
+    this.isDisplayComments = true;
+
   }
 
   ngOnDestroy() {

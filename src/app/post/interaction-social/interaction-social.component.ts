@@ -6,7 +6,6 @@ import { SignalementService } from 'src/services/signalement-service';
 import { FormsModule } from '@angular/forms';
 import { Signalement } from 'src/models/signalement.model';
 import { Publication } from 'src/models/publication.model';
-import { InteractionSocialeService } from 'src/services/interaction-social-service';
 import { EnregistrementButtonComponent } from "./enregistrement-button/enregistrement-button.component";
 
 @Component({
@@ -27,10 +26,17 @@ export class InteractionSocialComponent {
   displayFormSignalmt = false;
   signalement_raison = ""
   res_signalement = ""
+  isMobile !: boolean;
 
   constructor(private signalementService: SignalementService) { }
 
-
+  ngOnInit(){
+    if (window.innerWidth <= 1050) { // Si on est sur mobile
+      this.isMobile = true; // Si on veut afficher les commentaires, on cache le post
+    } else {
+      this.isMobile = false; // Sur PC/tablette, le post reste affiché
+    }
+  }
 
   toggleDisplayListOfComments(value: boolean) {
     this.newItemEvent.emit(value as unknown as string);

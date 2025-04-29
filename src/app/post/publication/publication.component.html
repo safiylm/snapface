@@ -1,10 +1,11 @@
-<div class="face-snap-card" *ngIf="publication">
-  <div  (mouseenter)="audioStart()" (mouseleave)="audioEnd()">
+<div class="face-snap-card d-flex" *ngIf="publication">
+  <div class="post"
+  (mouseenter)="audioStart()" (mouseleave)="audioEnd()">
     <app-auteur-in-post-or-commentaire [id]="UserId!"></app-auteur-in-post-or-commentaire>
 
 
-    <svg *ngIf="Audio" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-music-note"
-      viewBox="0 0 16 16">
+    <svg *ngIf="Audio" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+      class="bi bi-music-note" viewBox="0 0 16 16">
       <path d="M9 13c0 1.105-1.12 2-2.5 2S4 14.105 4 13s1.12-2 2.5-2 2.5.895 2.5 2" />
       <path fill-rule="evenodd" d="M9 3v10H8V3z" />
       <path d="M8 2.82a1 1 0 0 1 .804-.98l3-.6A1 1 0 0 1 13 2.22V4L8 5z" />
@@ -35,13 +36,8 @@
         <img id="image" [src]="publication.assets[index]!" [alt]="publication.title">
       </ng-container>
 
-      <ng-template #videoTemplate 
-    >
-        <video 
-        controls 
-        muted 
-        preload="metadata" 
-        width="100%">>
+      <ng-template #videoTemplate>
+        <video controls muted preload="metadata" width="100%">>
           <source [src]="publication.assets[index]!" type="video/mp4">
           Your browser does not support the video tag.
         </video>
@@ -61,7 +57,25 @@
     <p id="body">{{ Body?.slice(0, 50) | titlecase }}</p>
 
     <app-interaction-social (newItemEvent)="toggleDisplayListOfComments($event)" [post]="publication"
-      [isDisplayListeOfComments]="isDisplayListOfComments"></app-interaction-social>
-    <!-- <app-commentaire-list [id]="Id!" [isDisplayListOfComments]="isDisplayListOfComments"></app-commentaire-list> -->
+      [isDisplayListeOfComments]="isDisplayComments"></app-interaction-social>
+  </div>
+
+  <div class="comment" *ngIf="isDisplayComments && !isMobile">
+    <app-commentaire-list [id]="Id!" [isDisplayComments]="isDisplayComments"></app-commentaire-list>
+  </div>
+
+
+</div>
+
+<!-- Mobile & isDisplayComments -->
+<div class="offcanvas offcanvas-bottom" *ngIf="isMobile"
+data-bs-scroll="true" tabindex="-1" id="offcanvasComment{{Id}}" 
+aria-labelledby="offcanvasWithBothOptionsLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Les commentaires</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body">
+      <app-commentaire-list [id]="Id!" [isDisplayComments]="isDisplayComments" ></app-commentaire-list>
   </div>
 </div>
