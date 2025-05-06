@@ -53,9 +53,9 @@ export class ChatPriveComponent implements OnInit {
   sendMessagePrivee() {
     if (this.message.trim() && this.conversationId.trim()) {
       if (localStorage.getItem("userId") == this.conversation.speaker[0])
-        this.chatService.sendMessagePrivee(this.sender, this.conversation.speaker[1], this.conversationId, this.message)
+        this.chatService.sendMessagePrivee(this.sender, this.conversation.speaker[1], this.conversationId, this.message, "")
       else
-        this.chatService.sendMessagePrivee(this.sender, this.conversation.speaker[0], this.conversationId, this.message)
+        this.chatService.sendMessagePrivee(this.sender, this.conversation.speaker[0], this.conversationId, this.message, "")
       this.message = '';
     }
   }

@@ -3,6 +3,7 @@ const db = require('../config/db.config.js');
 const collection_messages = db.collection('messages');
 const collection_conversations = db.collection('conversations');
 const ObjectId = require('mongodb').ObjectId;
+const collection_publications = db.collection('publications');
 
 
 //create Message 
@@ -11,13 +12,26 @@ exports.createMessage = async (req, res) => {
   const sender = req.body.sender;
   const conversationId = req.body.conversationId;
   const text = req.body.text
+  const postId = req.body.postId
+  console.log(postId);
 
   collection_messages
-    .insertOne({ sender, conversationId, text, 
-      "time_" : new Date(Date.now()),  "seen": false })
+    .insertOne({
+      sender, conversationId, text, postId,
+      "time_": new Date(Date.now()), "seen": false
+    })
     .then(data => {
       res.set('Access-Control-Allow-Origin', '*');
-      res.send(data);
+      if (postId != "" && data) {
+       
+        collection_publications.
+          updateOne({ "_id": new ObjectId(postId) },
+            { $inc: { "sharesCount": 1 } })
+          .then(x => {
+            res.set('Access-Control-Allow-Origin', '*');
+            res.send(x);
+          })
+      }
     })
     .catch(err => {
       res.status(500).send({
@@ -38,21 +52,21 @@ exports.createConversation = async (req, res) => {
     .then((data) => {
       res.set('Access-Control-Allow-Origin', '*');
       console.log(data.insertedId)
-    
+
       if (data)
         res.send(data);
-       /* collection_messages
-          .insertOne({ sender, conversationId: data.insertedId, text: "text" })
-          .then(data1 => {
-            res.set('Access-Control-Allow-Origin', '*');
-            res.send(data1);
-          })
-          .catch(err => {
-            res.status(500).send({
-              message:
-                err.message || "Error while creating the message."
-            });
-          });*/
+      /* collection_messages
+         .insertOne({ sender, conversationId: data.insertedId, text: "text" })
+         .then(data1 => {
+           res.set('Access-Control-Allow-Origin', '*');
+           res.send(data1);
+         })
+         .catch(err => {
+           res.status(500).send({
+             message:
+               err.message || "Error while creating the message."
+           });
+         });*/
 
     })
     .catch(err => {
@@ -73,7 +87,7 @@ exports.getMessages = async (req, res) => {
     const messages = await collection_messages.find({
       "conversationId": conversationId
 
-    }).sort({'time_': 1}).toArray();
+    }).sort({ 'time_': 1 }).toArray();
     res.json(messages);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -81,16 +95,16 @@ exports.getMessages = async (req, res) => {
 };
 
 //Get Last Message
-exports.getLastMessage =  async (req, res) => {
+exports.getLastMessage = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
   const conversationId = req.query.conversationId;
 
   try {
     const messages = await collection_messages.find({
       "conversationId": conversationId
-    }).sort({'time_': -1}).toArray()
+    }).sort({ 'time_': -1 }).toArray()
     res.json(messages[0]);//.sort({'timestamp': -1}).limit(1)
-    
+
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -114,17 +128,17 @@ exports.editMessage = async (req, res) => {
 exports.deleteMessage = (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
   collection_messages.deleteOne({ "_id": new ObjectId(req.body.id) })
-  .then(data => {
-    res.send(data)
-  })
+    .then(data => {
+      res.send(data)
+    })
 }
 
 exports.deleteConversation = (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
   collection_messages.deleteMany({ "_id": new ObjectId(req.body.conversationId) })
-  .then(data => {
-    res.send(data)
-  })
+    .then(data => {
+      res.send(data)
+    })
 }
 
 

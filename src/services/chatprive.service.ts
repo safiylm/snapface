@@ -9,14 +9,15 @@ import { Conversation } from 'src/models/conversation';
 @Injectable({
   providedIn: 'root'
 })
+
 export class ChatPriveService {
 
   private socket: Socket;
-  url = //"http://localhost:4100"
-  'https://snapface.onrender.com'
+  url =  "http://localhost:4100"
+ //'https://snapface.onrender.com'
   constructor(private http: HttpClient) {
-    // this.socket = io('http://localhost:4100');
-    this.socket = io('https://snapface.onrender.com');
+     this.socket = io('http://localhost:4100');
+  //  this.socket = io('https://snapface.onrender.com');
   }
 
 
@@ -35,9 +36,9 @@ export class ChatPriveService {
   }
 
 
-  sendMessagePrivee(sender: string, receiver: string, conversationId: string, text: string) {
+  sendMessagePrivee(sender: string, receiver: string, conversationId: string, text: string, postId: string ) {
 
-    this.socket.emit('privateMessage', { sender, receiver, conversationId, text })
+    this.socket.emit('privateMessage', { sender, receiver, conversationId, text, postId })
     this.socket.emit("joinRoom", "662eb361c2fd9ad3238d752a");  // Register this client with a user ID
     this.joinRoom(sender)
     this.joinRoom(receiver)

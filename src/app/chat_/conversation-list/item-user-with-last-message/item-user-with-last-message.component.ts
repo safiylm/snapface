@@ -41,7 +41,7 @@ export class ItemUserWithLastMessageComponent {
     this.chatservice.getLastMessage(this.conversationId).subscribe(
       (data: Message ) => {
         if(data)
-        this.lastMessage= data.text
+        this.lastMessage= data.text!
       }
     )
 

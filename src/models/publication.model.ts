@@ -12,6 +12,7 @@ export class Publication {
         public likesCount :number, 
         public pointsCount: number,
         public savesCount: number, 
+        public sharesCount: number, 
         ) {
     }
 }

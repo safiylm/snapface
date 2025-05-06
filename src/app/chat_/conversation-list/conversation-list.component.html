@@ -1,9 +1,10 @@
-<div class="app-conversation-list">
-    <h2>Discussions</h2>
-    <div class="d-flex">
+<div class="app-conversation-list" [ngClass]="{'outOffcanvas': inOffCanvas==='false'}" >
+    <h2 *ngIf="inOffCanvas=='false'">Discussions</h2>
+    <div class="d-flex flex-column ">
         <div *ngFor="let c of conversation">
             <app-item-user-with-last-message (newItemEvent)="choisirConversation($event)" [conversationId]="c._id"
                 [users]="c.speaker" [offcanvas]="offcanvas"></app-item-user-with-last-message>
         </div>
     </div>
 </div>
+

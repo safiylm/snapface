@@ -1,4 +1,4 @@
-import { NgFor, NgIf } from '@angular/common';
+import { NgClass, NgFor, NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Conversation } from 'src/models/conversation';
 import { ChatPriveService } from 'src/services/chatprive.service';
@@ -9,7 +9,7 @@ import { ItemUserWithLastMessageComponent } from "./item-user-with-last-message/
   selector: 'app-conversation-list',
   templateUrl: './conversation-list.component.html',
   styleUrls: ['./conversation-list.component.scss'],
-  imports: [NgFor, ItemUserWithLastMessageComponent,]
+  imports: [NgFor, NgIf, NgClass, ItemUserWithLastMessageComponent,]
 })
 export class ConversationListComponent implements OnInit {
 
@@ -19,6 +19,7 @@ export class ConversationListComponent implements OnInit {
   me !: string;
   conversationId !: string;
   @Input() offcanvas !: string;
+  @Input() inOffCanvas !: string;
 
   ngOnInit() {
     this.me = localStorage.getItem('userId')?.toString() as string

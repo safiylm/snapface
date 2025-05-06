@@ -18,7 +18,7 @@ import { AudioService } from 'src/services/audio.service';
 
 export class PublicationCreateComponent implements OnInit {
 
-  post = new Publication("", "", "", [''], 0, "", "", 0,0,0,0);
+  post = new Publication("", "", "", [''], 0, "", "", 0,0,0,0,0);
   array_assets !: string[];
   newasset !: string;
   result = ""

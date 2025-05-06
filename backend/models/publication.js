@@ -14,6 +14,7 @@ const Publication = new mongoose.Schema({
     likesCount : { type: Number }, 
     pointsCount: { type: Number },
     savesCount: { type: Number },
+    sharesCount: { type: Number },
 
 }, { versionKey: false });
 

@@ -84,8 +84,10 @@ io.on("connection", (socket) => {
       const response = await axios.post('http://localhost:4100/message/create', {
         sender: data['sender'],
         conversationId: data['conversationId'],
-        text: data['text']
+        text: data['text'],
+        postId: data['postId']
       })
+      console.log(response.data)
       const savedMessage = response.data;
 
       if (savedMessage['acknowledged'] == true)

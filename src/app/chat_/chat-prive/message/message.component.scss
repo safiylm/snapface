@@ -1,3 +1,4 @@
+*{box-sizing:border-box;}
 .lui {
   text-align: left;
   border-radius: 9px;
@@ -32,4 +33,11 @@
   text-transform: capitalize;
   font-size: small;
 
+}
+
+img{
+  width: 260px;
+  height: 300px;
+  object-fit: cover;
+  margin: 5px 0;
 }
