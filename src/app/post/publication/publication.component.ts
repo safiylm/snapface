@@ -1,9 +1,9 @@
-import { Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, QueryList, ViewChildren } from '@angular/core';
 import { Publication } from '../../../models/publication.model';
 import { AuteurInPostOrCommentaireComponent } from '../../user/auteur-in-post-or-commentaire/auteur-in-post-or-commentaire.component';
 import { InteractionSocialComponent } from '../interaction-social/interaction-social.component';
 import { CommentaireListComponent } from '../../comment/commentaire-list/commentaire-list.component';
-import { NgClass, NgIf, TitleCasePipe } from '@angular/common';
+import { NgIf, TitleCasePipe } from '@angular/common';
 import { AudioService } from 'src/services/audio.service';
 
 @Component({
@@ -13,19 +13,19 @@ import { AudioService } from 'src/services/audio.service';
   styleUrls: ['./publication.component.scss'],
   imports: [AuteurInPostOrCommentaireComponent,
     InteractionSocialComponent, CommentaireListComponent, TitleCasePipe,
-    NgIf, NgClass]
+    NgIf]
 })
 
 export class PublicationComponent {
 
   @Input() publication!: Publication;
   isDisplayComments: boolean = false;
-  // constructor() { }
   index: number = 0;
   isMyPost: boolean = false;
-  @ViewChild('audioPlayer') audioPlayer!: ElementRef<HTMLAudioElement>;
-  audiotitle = "";
-  audiourl = "";
+  @ViewChildren('autoAudio') audioElements!: QueryList<ElementRef<HTMLAudioElement>>;
+  @ViewChildren('autoVideo') videoElements!: QueryList<ElementRef<HTMLVideoElement>>;
+  audiotitle !: string;
+  audiourl!: string;
   isMobile !: boolean; // pour gérer l'affichage du post
 
   ngAfterContentChecked() {
@@ -35,35 +35,59 @@ export class PublicationComponent {
   }
 
   ngOnInit() {
-    this.audiotitle = this.audioService.getAudioById(this.publication.audio)[0].title
-    this.audiourl = this.audioService.getAudioById(this.publication.audio)[0].url;
-    if (window.innerWidth <= 1050) { // Si on est sur mobile
-      this.isMobile = true; // Si on veut afficher les commentaires, on cache le post
-    } else {
-      this.isMobile = false; // Sur PC/tablette, le post reste affiché
+    if (this.publication != null || this.publication != undefined) {
+
+      this.audiotitle = this.audioService.getAudioById(this.publication.audio)[0].title as string
+      // "Eldar Kedem - Walking Around"
+      this.audiourl = this.audioService.getAudioById(this.publication.audio)[0].url as string
+      // "../../../assets/audio/Eldar Kedem - Walking Around.mp3" 
+      if (window.innerWidth <= 1050) { // Si on est sur mobile
+        this.isMobile = true; // Si on veut afficher les commentaires, on cache le post
+      } else {
+        this.isMobile = false; // Sur PC/tablette, le post reste affiché
+      }
     }
-    console.log(this.isMobile)
   }
 
   constructor(private elRef: ElementRef, private audioService: AudioService) { }
 
 
   ngAfterViewInit(): void {
-    const video: HTMLVideoElement = this.elRef.nativeElement.querySelector('video');
-
-    const observer = new IntersectionObserver((entries) => {
+    const audioObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
+        const audio = entry.target as HTMLAudioElement;
         if (entry.isIntersecting) {
-          video.play();
+          audio.play().catch(() => { });
+        } else {
+          audio.pause();
+        }
+      });
+    }, {
+      threshold: 0.5
+    });
+
+    const videoObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const video = entry.target as HTMLVideoElement;
+        if (entry.isIntersecting) {
+          video.play().catch(() => { });
         } else {
           video.pause();
         }
       });
     }, {
-      threshold: 0.5 // déclenche la lecture à 50% de visibilité.
+      threshold: 0.5
     });
 
-    observer.observe(video);
+    // Observer tous les audios
+    this.audioElements.forEach(audioRef => {
+      audioObserver.observe(audioRef.nativeElement);
+    });
+
+    // Observer toutes les vidéos
+    this.videoElements.forEach(videoRef => {
+      videoObserver.observe(videoRef.nativeElement);
+    });
 
   }
 
@@ -73,7 +97,6 @@ export class PublicationComponent {
 
   toggleDisplayListOfComments(event: string) {
     this.isDisplayComments = event as unknown as boolean;
-  
   }
 
   displayImageNext() {
@@ -125,17 +148,5 @@ export class PublicationComponent {
     return (this.publication && this.publication.audio) ? this.publication.audio : null
   }
 
-
-  audioStart() {
-    if (this.audioPlayer)
-      this.audioPlayer?.nativeElement.play();
-  }
-
-  audioEnd() {
-    if (this.audioPlayer) {
-      this.audioPlayer?.nativeElement.pause();
-      this.audioPlayer.nativeElement.currentTime = 0; // remet à zéro si tu veux
-    }
-  }
 
 }

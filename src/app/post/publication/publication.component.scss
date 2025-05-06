@@ -89,7 +89,23 @@
   }
 
 }
+.custom-audio {
+  width: 100%;
+  max-width: 300px;
+  height: 40px;
 
+  background-color: #f5f5f5;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  padding: 4px;
+  box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
+}
+
+/* Supprimer l'apparence native (Firefox uniquement) */
+.custom-audio::-webkit-media-controls-panel {
+  background-color: #f5f5f5;
+  border-radius: 10px;
+}
 .offcanvas 
 {
   height: 80vh !important;
