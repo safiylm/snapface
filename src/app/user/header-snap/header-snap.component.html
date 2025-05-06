@@ -41,6 +41,7 @@
     (click)="showPhotoViewerBackground()" />
 <img id="photo-background" *ngIf="!user.photos_background" src="../../assets/violet.png"
     (click)="showPhotoViewerBackground()" />
+
 <div class="d-flex flex-wrap align-items-center justify-content-center">
     <div id="div-photo-profil">
         <img id="photo-profil" *ngIf="user.photos_profil" [src]="UserPhotoProfil" (click)="showPhotoViewerProfil()" />
@@ -51,12 +52,12 @@
     <div>
         <h3 class="name">{{ UserName }}</h3>
 
-        <app-button-follow [isMe]="isMe" [pageuserid]="id"></app-button-follow>
+        <app-button-follow [isMe]="isMe" [isAbonnee]="isAbonnee" [user]="user"></app-button-follow>
 
         <button *ngIf="!isMe" class="btn" type="button" id="btn-ecrire" (click)="createConversation()">
             {{ "écrire" | titlecase }}</button>
 
-        <button *ngIf="!displayFormSignalmt" class="btn btn-light" (click)="displayFormSignalmt=true">Signaler</button>
+        <button *ngIf="!displayFormSignalmt && !isMe" class="btn btn-light" (click)="displayFormSignalmt=true">Signaler</button>
 
 
         <form *ngIf="displayFormSignalmt" (submit)="signaler()" autocomplete="off">

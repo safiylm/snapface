@@ -1,0 +1,8 @@
+<div *ngIf="listUsers">
+    <app-follow-request *ngFor="let user of listUsers" [user]="user">
+    </app-follow-request>
+
+    <div *ngIf="listUsers.length==0">
+        Vous n'avez pas de demande de suivie, pour le moment.
+    </div>
+</div>

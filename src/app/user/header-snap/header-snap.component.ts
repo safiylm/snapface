@@ -11,6 +11,7 @@ import { ChatPriveService } from 'src/services/chatprive.service';
 import { Signalement } from 'src/models/signalement.model';
 import { SignalementService } from 'src/services/signalement-service';
 import { FormsModule } from '@angular/forms';
+import { ListFollowRequestComponent } from "../list-follow-request/list-follow-request.component";
 
 
 @Component({
@@ -26,6 +27,8 @@ import { FormsModule } from '@angular/forms';
 export class HeaderSnapComponent implements OnInit {
 
   @Input() id !: string;
+  @Input() isAbonnee !: boolean;
+  
   isMe: boolean = false;
   user !: User;
   isDisplayPhotoViewerProfil !: boolean;

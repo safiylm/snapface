@@ -5,8 +5,8 @@ const cors = require("cors");
 
 //const websocket = require("./chat")
 var corsOptions = {
-  origin: "https://snapfaceangular.web.app",
-  //  "http://localhost:4200"
+  origin:// "https://snapfaceangular.web.app",
+    "http://localhost:4200"
   
 };
 app.use(cors(corsOptions));
@@ -21,6 +21,7 @@ const router_commentaires = require("./routes/commentaire.route")
 const router_abonnees = require("./routes/abonnee.route")
 const router_messages = require("./routes/message.route")
 const router_signalement = require("./routes/signalement.route")
+const router_followrequest = require("./routes/followrequest.route")
 
 
 app.use(bodyParser.json());
@@ -34,6 +35,7 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(router_followrequest)
 app.use(router_signalement)
 app.use(router_user)
 app.use(router_publication)
@@ -55,9 +57,10 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origins: ["https://snapfaceangular.web.app", "http://localhost:4200"
+    origin:// ["https://snapfaceangular.web.app",
+       "http://localhost:4200",
 
-    ], // Autorise Angular à se connecter
+  //  ], // Autorise Angular à se connecter
     methods: ["GET", "POST"]
   }
 });

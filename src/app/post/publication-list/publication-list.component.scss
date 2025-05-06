@@ -19,7 +19,8 @@
     margin: 5px;
   }
 
-  p {
+  #textWidthBorder,
+.compte-private {
     border-top: 0.2px solid gray;
     border-bottom: 0.2px solid gray;
     text-align: center;
@@ -31,8 +32,16 @@
     max-width: 90vw;
 
   }
-}
 
+  .compte-private .div-svg{
+    border: 1px solid black;
+    border-radius: 50%;
+    margin: 10px;
+  svg{
+    padding: 10px;
+  }
+  }
+}
 app-publication {
   box-shadow: none;
 }

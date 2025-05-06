@@ -2,6 +2,7 @@ import { NgIf } from '@angular/common';
 import { Component, HostListener, OnInit, signal } from '@angular/core';
 import { ConversationListComponent } from '../chat_/conversation-list/conversation-list.component';
 import { AvatarUserComponent } from "./avatar-user/avatar-user.component";
+import { ListFollowRequestComponent } from "../user/list-follow-request/list-follow-request.component";
 
 @Component({
   standalone: true, 
@@ -10,7 +11,8 @@ import { AvatarUserComponent } from "./avatar-user/avatar-user.component";
   styleUrls: ['./header.component.scss'], 
   imports: [
     NgIf, ConversationListComponent,
-    AvatarUserComponent, AvatarUserComponent
+    AvatarUserComponent, AvatarUserComponent,
+    ListFollowRequestComponent
 ]
 })
 

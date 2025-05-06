@@ -9,6 +9,7 @@ export class User {
         public phoneNo: number,
         public photos_profil: string,
         public photos_background:string,
+        public isPrivate : boolean,
     ) {
     }
 }

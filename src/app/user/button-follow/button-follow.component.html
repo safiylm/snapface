@@ -1,2 +1,3 @@
-<button *ngIf="!isAbonnee && !isMe" (click)="sabonner()" id="sabonner"> S'abonner </button>
-<button *ngIf="isAbonnee && !isMe" (click)="sedesabonner()" id="sedesabonner"> Se désabonner </button>
+<button *ngIf="!isAbonnee && !isMe && !enAttente" (click)="sabonner()" id="sabonner"> S'abonner </button>
+<button *ngIf="isAbonnee && !isMe && !enAttente" (click)="sedesabonner()" id="sedesabonner"> Se désabonner </button>
+<button *ngIf="enAttente" class="btn btn-light" (click)="renoncer()"> en attente  </button>

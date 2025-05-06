@@ -1,6 +1,7 @@
 import { NgIf } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { Abonnee } from 'src/models/abonnee.model';
+import { User } from 'src/models/user.model';
 import { AbonneeService } from 'src/services/abonnee-service';
 
 @Component({
@@ -12,54 +13,72 @@ import { AbonneeService } from 'src/services/abonnee-service';
 })
 export class ButtonFollowComponent {
 
-  isAbonnee: boolean = false;
+ // isAbonnee: boolean = false;
   constructor(private abonneeService: AbonneeService) { }
   abonnee!: Abonnee[];
   @Input() isMe !: boolean;
-  @Input() pageuserid !: string;
-
-  // get Sabonner() { return (this.abonnee && !this.isAbonnee && !this.isMe) ? "" : null }
-  // get Sedesabonner() { return (this.abonnee && this.isAbonnee && !this.isMe) ? "" : null }
-  
-  ngOnInit() {
-    this.checkAbonnement();
-  }
-
-  checkAbonnement() {
-    this.abonneeService.checkabonnement(localStorage.getItem("userId")?.toString() as string, this.pageuserid)
-      .subscribe({
-        next: (data) => {
-          if (data)
-            this.isAbonnee = true;
-
-        }, error: (e) => console.error("erreur,check abonnemnt ")
-
-      })
-  }
+  @Input() user !: User;
+  enAttente: boolean = false;
+  @Input() isAbonnee !: boolean;
 
 
   sabonner() {
-    this.abonneeService.create(localStorage.getItem("userId")?.toString() as string, this.pageuserid)
-      .subscribe({
-        next: (data) => {
-          if (data)
-            this.isAbonnee = true;
+    if (!this.user.isPrivate)
+      this.abonneeService.create(localStorage.getItem("userId")?.toString() as string, this.user._id)
+        .subscribe({
+          next: (data) => {
+            if (data)
+              this.isAbonnee = true;
+          }, error: (e) => console.error("erreur lorsque le user veut s'abonner")
+        })
 
-        }, error: (e) => console.error("erreur lorsque le user veut s'abonner")
-      })
+    else {
+      this.abonneeService.createFollowRequest(localStorage.getItem("userId")?.toString() as string,
+        this.user._id)
+        .subscribe({
+          next: (data) => {
+            if (data)
+              this.enAttente = true;
+          }, error: (e) => console.error("erreur lorsque le user veut s'abonner")
+        })
+    }
   }
 
+  ngOnInit(){
+    this.abonneeService.getIfDejaEnAttente(localStorage.getItem("userId")?.toString() as string, this.user._id)
+    .subscribe({
+      next: (data) => {
+        if (data.length!= 0){
+        
+          console.log(data)
+          this.enAttente = true;}
+      }, error: (e) => console.error("erreur, getIfDejaEnAttente")
+    })
+
+  } 
 
   sedesabonner() {
-    this.abonneeService.remove(localStorage.getItem("userId")?.toString() as string, this.pageuserid)
+    this.abonneeService.remove(localStorage.getItem("userId")?.toString() as string, this.user._id)
       .subscribe({
         next: (data) => {
           if (data)
             this.isAbonnee = false;
-
         }, error: (e) => console.error("erreur lorsque le user veut se desabonner")
       })
   }
 
+  renoncer() {
+    this.abonneeService.renoncerFollowRequest(this.user._id).subscribe({
+      next: (data: any) => {
+        if (data) {
+         // this.resultat = 'Demande de suivi est recjectée.'
+         console.log('Rejecte')
+        }
+      }, error: e => {
+        console.error(e)
+      }
+    })
+
+  }
 
 }

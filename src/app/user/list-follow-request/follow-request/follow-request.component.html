@@ -1,0 +1,14 @@
+<div class="d-flex flex-row align-items-center justify-content-start">
+
+    <img [src]="user.photos_profil" width="70px" height="70px">
+    <div>
+        <div>
+            {{user.firstName }} {{user.lastName}}
+        </div>
+        <div *ngIf="resultat==''">
+            <button class="btn btn-light" (click)="accepted(user._id)">Accepter</button>
+            <button class="btn btn-primary" (click)="rejected(user._id)">Refuser</button>
+        </div>
+        {{resultat}}
+    </div>
+</div>

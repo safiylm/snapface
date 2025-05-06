@@ -11,6 +11,7 @@ const User = new mongoose.Schema({
   email: { type: String },
   password: { type: String },
   phoneNo: { type: String },
+  isPrivate: { type: Boolean, default: false},
 
 }, { versionKey: false });
 mongoose.model('User', User);
