@@ -12,8 +12,8 @@ export class SignalementService {
 
   constructor(private http: HttpClient) { }
  
- //url="https://snapface.onrender.com"
-  url="http://localhost:4100"
+url="https://snapface.onrender.com"
+  // url="http://localhost:4100"
 
   signalerUnePublication(signalement: Signalement): Observable<any> {
     return this.http.post( this.url+`/create/signalement/post`,
