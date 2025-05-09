@@ -73,7 +73,8 @@
             </button>
             <ul class="dropdown-menu">
 
-                <li><a class="dropdown-item" href="/mon-compte">
+                <li><a class="dropdown-item" (click)="choix('')"
+                    >
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-postcard-heart" viewBox="0 0 16 16">
                             <path
@@ -85,22 +86,23 @@
                     </a></li>
 
 
-                <li><a class="dropdown-item" href="/like-liste">
+                <li><a class="dropdown-item" (click)="choix('like')"
+                    >
                         ❤️ Likes liste❤️
                     </a></li>
 
-                <li><a class="dropdown-item" href="/point-liste">
+                <li><a class="dropdown-item" (click)="choix('point')">
                         🤌 Points Liste 🤌
                     </a></li>
 
-                <li><a class="dropdown-item" href="/enregistrement-liste">
+                <li><a class="dropdown-item" (click)="choix('save')">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16">
                         <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z"/>
                       </svg>
                         Enregistrement
                     </a></li>
 
-                <li><a class="dropdown-item" href="/mon-compte/edit">
+                <li><a class="dropdown-item" (click)="choix('u-edit')">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-pencil-square" viewBox="0 0 16 16">
                             <path
@@ -109,7 +111,7 @@
                                 d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
                         </svg>
                         Données personnelles</a></li>
-                <li><a class="dropdown-item" href="/mon-compte/create-post">
+                <li><a class="dropdown-item" (click)="choix('p-create')">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-pencil-square" viewBox="0 0 16 16">
                             <path

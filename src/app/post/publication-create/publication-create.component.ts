@@ -12,7 +12,7 @@ import { AudioService } from 'src/services/audio.service';
   selector: 'app-publication-create',
   templateUrl: './publication-create.component.html',
   styleUrls: ['./publication-create.component.scss'],
-  imports: [FormsModule, NgFor, HeaderComponent, HeaderSnapComponent, CommonModule]
+  imports: [FormsModule, NgFor, CommonModule]
 })
 
 

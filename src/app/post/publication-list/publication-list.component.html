@@ -30,7 +30,7 @@
         <app-users-list></app-users-list>
     </div>
 
-    <div id="post-viewer" *ngIf="post">
+    <div id="post-viewer" *ngIf="post"  (click)="post=undefined">
         <button class="btn btn-dark" (click)="post=undefined">X</button>
         <div class="div-post">
             <app-publication [publication]="post"></app-publication>

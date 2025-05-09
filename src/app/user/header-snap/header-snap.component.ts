@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { UserService } from '../../../services/user-service'
 import { User } from '../../../models/user.model'
 import { ActivatedRoute, Router } from '@angular/router';
@@ -11,7 +11,6 @@ import { ChatPriveService } from 'src/services/chatprive.service';
 import { Signalement } from 'src/models/signalement.model';
 import { SignalementService } from 'src/services/signalement-service';
 import { FormsModule } from '@angular/forms';
-import { ListFollowRequestComponent } from "../list-follow-request/list-follow-request.component";
 
 
 @Component({
@@ -28,7 +27,7 @@ export class HeaderSnapComponent implements OnInit {
 
   @Input() id !: string;
   @Input() isAbonnee !: boolean;
-  
+
   isMe: boolean = false;
   user !: User;
   isDisplayPhotoViewerProfil !: boolean;
@@ -36,6 +35,11 @@ export class HeaderSnapComponent implements OnInit {
   subscription !: Subscription;
   showEditPhotoProfil = false
   showEditPhotoBackground = false
+  @Output() choixAffichageEvent = new EventEmitter<string>();
+
+  choix(choix: string) {
+    this.choixAffichageEvent.emit(choix)
+  }
 
   constructor(private userService: UserService, private signalementService: SignalementService, private messageService: ChatPriveService,
     private router: ActivatedRoute, private route: Router) {
@@ -107,7 +111,7 @@ export class HeaderSnapComponent implements OnInit {
   signaler() {
     let s = new Signalement("22", localStorage.getItem('userId')?.toString() as string, Date.now(),
       this.signalement_raison, null, this.user._id);
-      s.userId=this.id
+    s.userId = this.id
     console.log(s)
     this.signalementService.signalerUnUser(s).subscribe(
       {

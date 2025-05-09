@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { NgFor, NgIf } from '@angular/common';
 import { HeaderSnapComponent } from '../../user/header-snap/header-snap.component';
 import { AudioService } from 'src/services/audio.service';
+import { HeaderComponent } from "../../header/header.component";
 
 
 @Component({
@@ -14,7 +15,7 @@ import { AudioService } from 'src/services/audio.service';
   selector: 'app-publication-edit',
   templateUrl: './publication-edit.component.html',
   styleUrls: ['./publication-edit.component.scss'],
-  imports: [NgFor, FormsModule, NgIf, HeaderSnapComponent]
+  imports: [NgFor, FormsModule, NgIf, HeaderSnapComponent, HeaderComponent]
 })
 
 

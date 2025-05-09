@@ -3,23 +3,32 @@
     src: url('../../../assets/Mango.otf');
 }
 
-h1{
+h1 {
     font-family: mango, sans-serif;
 }
 
 
 .page-connexion {
-    background-image: url('https://images.pexels.com/photos/7245258/pexels-photo-7245258.jpeg?auto=compress&amp;cs=tinysrgb&amp;fit=crop&amp;fp-y=0.699999988079071&amp;h=500&amp;w=1400&amp;dpr=1');
+    background-image: url('https://images.pexels.com/photos/72161/pexels-photo-72161.jpeg');
     background-size: 100% 100%;
     background-repeat: no-repeat;
     background-position-x: center;
-    height: calc(100vh - 50px);
+
+ 
+    background: linear-gradient(-45deg,  #23a6d5, rgb(115, 8, 136));
+    background-size: 150% 150%;
+    animation: gradient 15s ease infinite;
+
+    height: 100vh;
+    margin-left: 200px;
+
 
     form {
         padding: 10px 30px;
-        background-color: rgb(255, 255, 255);
+        background-color: rgba(255, 255, 255, 0.589);
         width: 400px;
         border-radius: 15px;
+        margin-top: 50px;
 
         h1 {
             text-align: center;
@@ -47,15 +56,18 @@ h1{
 
         button[type="submit"] {
             border: none;
-            margin: 18px 10px;
+            margin: 14px 7px;
             color: white;
             background-color: #1e1731;
             padding: 7px 14px;
             border-radius: 5px;
+            font-size: 15px;
+
         }
 
         a {
-        margin: 10px 0;
+            font-size: 15px;
+            margin: 10px 0;
             color: #1e1731;
         }
 
@@ -66,6 +78,13 @@ h1{
     }
 }
 
+@media(max-width:767px) {
+    .page-connexion {
+        margin-top: 80px;
+        margin-left: 0;
+
+    }
+}
 
 @media(max-width:480px) {
     .page-connexion {

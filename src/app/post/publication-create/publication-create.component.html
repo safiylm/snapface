@@ -1,6 +1,3 @@
-<app-header></app-header>
-
-<app-header-snap [id]="post.userId"></app-header-snap>
 <h1>Créer une publication </h1>
 
 <form (ngSubmit)="onSubmit()" autocomplete="off">
@@ -41,7 +38,7 @@
 
     <div class="audio-list">
 
-        <div *ngFor="let audio of audioList" class="audio-item d-flex align-items-center justify-content-aroud">
+        <div *ngFor="let audio of audioList" class="audio-item d-flex flex-wrap align-items-center justify-content-aroud">
             <input type="radio" id="html" name="audio" [(ngModel)]="post.audio!" [value]="audio.url">
             <img [src]="audio.cover" width="75px" height="75px" />
             <div>

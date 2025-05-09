@@ -15,9 +15,8 @@ import { PasswordEditComponent } from "../password-edit/password-edit.component"
   selector: 'app-user-data-update',
   templateUrl: './user-data-update.component.html',
   styleUrls: ['./user-data-update.component.scss'],
-  imports: [CommonModule, HeaderComponent, FormsModule,
-    EditEmailComponent, EditPhonenumberComponent,
-     HeaderSnapComponent, PasswordEditComponent],
+  imports: [CommonModule, FormsModule,
+    EditEmailComponent, EditPhonenumberComponent, PasswordEditComponent],
 })
 
 export class UserDataUpdateComponent implements OnInit {

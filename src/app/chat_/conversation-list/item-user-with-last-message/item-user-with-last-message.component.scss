@@ -2,7 +2,7 @@
     width: 100%;
     border-bottom: 0.2px solid rgb(124, 119, 119);
     padding: 15px 8px;
-
+    min-width: 270px;
     img {
         width: 60px;
         height: 60px;
@@ -14,6 +14,10 @@
     button {
         background-color: transparent;
         border: none;
+    }
+
+    a {
+        text-decoration: none;
     }
 
     div {
@@ -30,6 +34,7 @@
             font-size: 16px;
             margin: 5px;
         }
+
 
     }
 
