@@ -28,7 +28,7 @@ export class UserDataUpdateComponent implements OnInit {
   resultatOfEdit = "";
   isSubmit = false;
   id = localStorage.getItem("userId")?.toString() as string;
-  isVisibleEditEmail= false;
+  onAffiche = "";
   isVisibleEditPassword =false;
   isVisibleEditNbPhone =false;
   retrieveUser(): void {

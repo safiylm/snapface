@@ -4,12 +4,7 @@ h1 {
     margin: 20px auto;
 }
 
-.display-resultat {
-    display: none;
-    margin: 15px auto;
-}
-
-form {
+form , .form-edit {
     margin: 35px auto;
     width: 45vw;
 
@@ -41,60 +36,6 @@ form {
     }
 }
 
-.modal- {
-    position: fixed;
-    /* Stay in place */
-    z-index: 1;
-    /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%;
-    /* Full width */
-    height: 100%;
-    /* Full height */
-    overflow: auto;
-    /* Enable scroll if needed */
-    background-color: rgb(0, 0, 0);
-    /* Fallback color */
-    background-color: rgba(0, 0, 0, 0.4);
-    /* Black w/ opacity */
-
-    .modal-header {
-        justify-content: space-between !important;
-    }
-
-    /* Modal Content/Box */
-    .modal-content {
-        background-color: #fefefe;
-        margin: 15% auto;
-        /* 15% from the top and centered */
-        padding: 20px;
-        border: 1px solid #888;
-        width: 50%;
-        border-radius: 8px !important;
-
-        /* Could be more or less, depending on screen size */
-    }
-
-    /* The Close Button */
-    .close {
-        color: #aaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-
-        :hover,
-        :focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-    }
-
-}
-
-
 
 
 @media(max-width:850px) {
@@ -103,7 +44,7 @@ form {
         margin-top: 160px;
     }
 
-    form {
+    form, .form-edit {
 
         width: 80vw;
         padding: 30px;
@@ -122,9 +63,5 @@ form {
         padding: 0 15px;
     }
 
-    .modal-content {
-        margin-top: 150px;
-        width: 80% !important;
-    }
 
 }

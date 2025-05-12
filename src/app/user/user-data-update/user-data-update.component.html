@@ -2,7 +2,7 @@
 
     <div class="d-flex flex-wrap align-items-center justify-content-center">
 
-        <form (ngSubmit)="onSubmit()" autocomplete="off" *ngIf="user">
+        <form *ngIf="onAffiche=='' && user " (ngSubmit)="onSubmit()" autocomplete="off">
             <div class="div-input">
                 <label>Modifiez votre prénom:</label>
                 <input type="text" class="form-control" name="firstName" [(ngModel)]="user.firstName" />
@@ -19,72 +19,38 @@
                 {{resultatOfEdit}}
             </div>
         </form>
+        <div class="form-edit" *ngIf="onAffiche=='email'">
+            <app-edit-email></app-edit-email>
+        </div>
+
+        <div class="form-edit"  *ngIf="onAffiche=='phone'">
+            <app-edit-phonenumber></app-edit-phonenumber>
+        </div>
+
+        <div class="form-edit"  *ngIf="onAffiche=='password'">
+            <app-password-edit></app-password-edit>
+        </div>
 
         <div class="list-group list-group-flush">
 
-            <button type="button" class="list-group-item list-group-item-action" (click)="isVisibleEditEmail=true">
+            <button type="button" class="list-group-item list-group-item-action" (click)="onAffiche=''">
+                Modifier votre nom
+            </button>
+
+            <button type="button" class="list-group-item list-group-item-action" (click)="onAffiche='email'">
                 Modifier votre email
             </button>
 
-            <button type="button" class="list-group-item list-group-item-action" (click)="isVisibleEditNbPhone=true">
+            <button type="button" class="list-group-item list-group-item-action" (click)="onAffiche='phone'">
                 Modifier votre numéro de téléphone
             </button>
 
-            <button type="button" class="list-group-item list-group-item-action" (click)="isVisibleEditPassword=true">
+            <button type="button" class="list-group-item list-group-item-action" (click)="onAffiche='password'">
                 Modifier votre mot de passe
             </button>
 
         </div>
     </div>
 
-
-    <div *ngIf="isVisibleEditEmail" class="modal-">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Modifier son adresse email</h5>
-                    <button type="button" class="close btn btn-light" (click)="isVisibleEditEmail=false">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <app-edit-email></app-edit-email>
-
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div *ngIf="isVisibleEditNbPhone" class="modal-">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Modifier votre numéro de téléphone</h5>
-                    <button type="button" class="close btn btn-light" (click)="isVisibleEditNbPhone=false">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <app-edit-phonenumber></app-edit-phonenumber>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div *ngIf="isVisibleEditPassword" class="modal-">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">Modifier votre mot de passe</h5>
-                    <button type="button" class="close btn btn-light" (click)="isVisibleEditPassword=false">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <app-password-edit></app-password-edit>
-                </div>
-            </div>
-        </div>
-    </div>
 
 </div>
