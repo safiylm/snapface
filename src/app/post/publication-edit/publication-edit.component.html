@@ -19,7 +19,6 @@
     <div class="div-images">
 
         <div class="imgg" *ngFor="let assets of array_assets ; let i = index">
-            <!-- <img width='300px' height='auto' [src]="assets" alt="Nouvelle image n°{{+ i}}" /> -->
 
             <ng-container *ngIf="isImage(assets); else videoTemplate">
                 <img id="image" [src]="assets!" [alt]="post.title">
@@ -39,7 +38,7 @@
 
     <div>
         <label for="photo">Choisir une photo :</label>
-        <input type="file" id="photo" (change)="onFilesSelected($event)" multiple accept="image/video*" />
+        <input type="file" id="photo" (change)="onFilesSelected($event)" multiple accept="image/*" />
     </div>
 
     <div class="audio-list">
@@ -64,4 +63,4 @@
     <br />
     <button class="btn btn-danger" type="button" (click)="deletePost()">Supprimer la publication </button>
 
-</form>
+</form> 

@@ -28,7 +28,6 @@ export class LikedListComponent {
             this.postService.getPublicationById(x.postId).subscribe({
               next: (dataa) => {
                 this.posts.push(dataa);
-                console.log( this.posts)
               },
               error: (e) => {
                 console.error(e)

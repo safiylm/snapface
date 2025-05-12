@@ -9,13 +9,13 @@ import { HeaderSnapComponent } from '../../user/header-snap/header-snap.componen
 import { AudioService } from 'src/services/audio.service';
 import { HeaderComponent } from "../../header/header.component";
 
-
 @Component({
   standalone: true,
   selector: 'app-publication-edit',
   templateUrl: './publication-edit.component.html',
   styleUrls: ['./publication-edit.component.scss'],
-  imports: [NgFor, FormsModule, NgIf, HeaderSnapComponent, HeaderComponent]
+  imports: [NgFor, FormsModule, NgIf, HeaderSnapComponent, HeaderComponent],
+
 })
 
 
@@ -28,7 +28,6 @@ export class PublicationEditComponent {
   array_assets !: string[];
   selectedFiles: File[] = [];
   audioList : any;
-
 
   constructor(private publicationService: PublicationsService,
     private route: ActivatedRoute,  private audioService: AudioService) { }

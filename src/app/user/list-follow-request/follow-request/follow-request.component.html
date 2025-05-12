@@ -1,10 +1,11 @@
 <div class="d-flex flex-row align-items-center justify-content-start">
 
-    <img [src]="user.photos_profil" width="70px" height="70px">
+    <a href="user/{{user._id}}" > <img [src]="user.photos_profil" width="70px" height="70px"></a>
+    
     <div>
-        <div>
+       <a href="user/{{user._id}}" >
             {{user.firstName }} {{user.lastName}}
-        </div>
+       </a>
         <div *ngIf="resultat==''">
             <button class="btn btn-light" (click)="accepted(user._id)">Accepter</button>
             <button class="btn btn-primary" (click)="rejected(user._id)">Refuser</button>
