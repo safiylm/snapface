@@ -15,6 +15,10 @@ router_interactionsociales.post("/api/interaction/enregistrementRemove", interac
 router_interactionsociales.get("/api/interaction/pointsByUserId",
      interactionsociales.getAllPointsByUserId);
 
+     
+router_interactionsociales.get("/api/interaction/likesByUserId",
+     interactionsociales.getAllLikesByUserId);
+
 router_interactionsociales.get("/api/interaction/enregistrementsByUserId",
      interactionsociales.getAllEnregistrementsByUserId);
 
