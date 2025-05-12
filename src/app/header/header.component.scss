@@ -24,7 +24,7 @@ nav {
     text-align: center;
     -webkit-transition: all 0.4s ease;
     transition: all 0.4s ease;
-  
+    
     a,
     button {
         font-size: 17px;
@@ -53,6 +53,9 @@ nav {
 
 }
 
+.container-fluid{
+  background-color: #212529 !important;
+}
 
 
 .offcanvas-stard {

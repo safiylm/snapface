@@ -21,11 +21,14 @@
         </div>
       </div>
 
+      <!-- Envoyer un MESSAGE  -->
       <div class="d-flex" *ngIf="messageEdittingId==''">
         <input class="form-control" [(ngModel)]="message" placeholder="Tapez un message..."
           (keyup.enter)="sendMessagePrivee()" />
         <button class="btn btn-light" (click)="sendMessagePrivee()">Envoyer</button>
       </div>
+
+      <!-- Modifier un MESSAGE  -->
 
       <div class="d-flex" *ngIf="messageEdittingId!=''">
 

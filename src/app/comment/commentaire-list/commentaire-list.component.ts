@@ -33,7 +33,6 @@ export class CommentaireListComponent implements OnInit {
       .subscribe({
         next: (data) => {
           this.commentaires = data;    
-           console.log( this.commentaires)
         },
         error: (e) => console.error(e)
       });
