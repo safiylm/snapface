@@ -8,6 +8,8 @@ const Abonee = new mongoose.Schema({
     follows : {type: String }, // la personne suivie
 }, { versionKey: false });
 
+Abonee.index({ usedId: 1, follows: 1 }, { unique: true });
+
 mongoose.model('Abonee', Abonee);
 
 module.exports = Abonee;

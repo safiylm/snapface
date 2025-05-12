@@ -11,6 +11,8 @@ const InteractionSociale = new mongoose.Schema({
 
 }, { versionKey: false });
 
+InteractionSociale.index({ postId: 1, userId: 1 , type: 1}, { unique: true });
+
 mongoose.model('InteractionSociale', InteractionSociale);
 
 module.exports = InteractionSociale;

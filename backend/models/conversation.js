@@ -5,4 +5,6 @@ const ConversationSchema = new mongoose.Schema({
 
 });
 
+ConversationSchema.index({ speaker : 1 }, { unique: true });
+
 module.exports = mongoose.model('Conversation', ConversationSchema);

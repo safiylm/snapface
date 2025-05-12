@@ -11,6 +11,7 @@ const Signalement = new mongoose.Schema({
     userId: String, //Signale un user 
 
 }, { versionKey: false });
+Signalement.index({ auteur : 1, raison: 1, postId: 1, userId:1}, { unique: true });
 
 mongoose.model('Signalement', Signalement);
 

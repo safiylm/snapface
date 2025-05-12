@@ -10,6 +10,7 @@ const FollowRequest = new mongoose.Schema({
     createdAt : {type: Date, default: Date.now }, 
 
 }, { versionKey: false });
+FollowRequest.index({ to : 1, from :1, status:1 }, { unique: true });
 
 mongoose.model('FollowRequest', FollowRequest);
 

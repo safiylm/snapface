@@ -14,6 +14,8 @@ const User = new mongoose.Schema({
   isPrivate: { type: Boolean, default: false},
 
 }, { versionKey: false });
+User.index({ email : 1}, { unique: true });
+
 mongoose.model('User', User);
 
 module.exports = User;

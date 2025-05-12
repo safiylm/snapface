@@ -10,6 +10,7 @@ const StatistiqueUser = new mongoose.Schema({
     totalPoints: { type: Number },
 
 }, { versionKey: false });
+StatistiqueUser.index({ userId : 1}, { unique: true });
 
 mongoose.model('StatistiqueUser', StatistiqueUser);
 

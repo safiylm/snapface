@@ -11,6 +11,8 @@ const Commentaire = new mongoose.Schema({
    
 }, { versionKey: false });
 
+Commentaire.index({ title: 1, userId: 1, postId: 1 }, { unique: true });
+
 mongoose.model('Commentaire', Commentaire);
 
 module.exports = Commentaire;
