@@ -5,6 +5,7 @@ import { InteractionSocialComponent } from '../interaction-social/interaction-so
 import { CommentaireListComponent } from '../../comment/commentaire-list/commentaire-list.component';
 import { NgIf, TitleCasePipe } from '@angular/common';
 import { AudioService } from 'src/services/audio.service';
+import { ImagesVideoComponent } from "./images-video/images-video.component";
 
 @Component({
   standalone: true,
@@ -13,14 +14,13 @@ import { AudioService } from 'src/services/audio.service';
   styleUrls: ['./publication.component.scss'],
   imports: [AuteurInPostOrCommentaireComponent,
     InteractionSocialComponent, CommentaireListComponent, TitleCasePipe,
-    NgIf]
+    NgIf, ImagesVideoComponent]
 })
 
 export class PublicationComponent {
 
   @Input() publication!: Publication;
   isDisplayComments: boolean = false;
-  index: number = 0;
   isMyPost: boolean = false;
   @ViewChildren('autoAudio') audioElements!: QueryList<ElementRef<HTMLAudioElement>>;
   @ViewChildren('autoVideo') videoElements!: QueryList<ElementRef<HTMLVideoElement>>;
@@ -99,25 +99,6 @@ export class PublicationComponent {
     this.isDisplayComments = event as unknown as boolean;
   }
 
-  displayImageNext() {
-    if (this.index < this.publication.assets.length - 1) {
-      this.index += 1;
-    }
-  }
-
-  displayImagePrecedent() {
-    if (this.index > 0)
-      this.index -= 1;
-  }
-
-  isImage(url: string): boolean {
-    return url.match(/\.(jpeg|jpg|gif|png|webp|svg)$/i) !== null;
-  }
-
-  isVideo(url: string): boolean {
-    return url.match(/\.(mp4|webm|ogg|mov|avi|mkv)$/i) !== null;
-  }
-
   get Id() {
     return (this.publication && this.publication._id) ? this.publication._id : null
 
@@ -133,10 +114,6 @@ export class PublicationComponent {
 
   get Body() {
     return (this.publication && this.publication.body) ? this.publication.body : null
-  }
-
-  get Assets() {
-    return (this.publication && this.publication.assets) ? this.publication.assets : null
   }
 
 
