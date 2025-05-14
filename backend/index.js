@@ -81,7 +81,7 @@ io.on("connection", (socket) => {
   socket.on('privateMessage', async (data) => {
 
     try {
-      const response = await axios.post('https://snapfaceangular.web.app/message/create', {
+      const response = await axios.post('https://snapface.onrender.com/message/create', {
         sender: data['sender'],
         conversationId: data['conversationId'],
         text: data['text'],
