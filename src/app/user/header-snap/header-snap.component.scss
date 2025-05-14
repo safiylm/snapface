@@ -7,6 +7,7 @@
 #div-photo-profil {
     text-align: center;
     width: 100%;
+
     #photo-profil {
         margin: -125px;
         margin-bottom: 10px;
@@ -62,7 +63,8 @@
         bottom: 28px;
         right: 23px;
     }
-    .btn-dark{
+
+    .btn-dark {
         margin-bottom: 20px;
     }
 
@@ -83,10 +85,9 @@
     text-align: center;
     font-size: large;
     margin: 20px 0;
-
-
 }
 
+#btn-signaler,
 #btn-ecrire {
     border-radius: 15px !important;
     padding: 7px 14px !important;
@@ -94,7 +95,11 @@
     background-color: dodgerblue !important;
     color: #fff !important;
     margin-left: 15px !important;
-    
+}
+
+#btn-signaler{
+    background-color: #f2f2f2 !important;
+    color: black !important;
 }
 
 .dropdown {
@@ -121,6 +126,60 @@
     }
 }
 
+.modal- {
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+
+    .modal-header {
+        justify-content: space-between !important;
+    }
+
+    /* Modal Content/Box */
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        /* 15% from the top and centered */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 50%;
+        border-radius: 8px !important;
+
+        /* Could be more or less, depending on screen size */
+    }
+
+    /* The Close Button */
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+
+        :hover,
+        :focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+    }
+
+}
+
+
 #photo-profil-message-blox {
     width: 60px;
     height: 60px;
@@ -138,6 +197,6 @@
 
 @media(max-width:767px) {
     #photo-background {
-    margin-top: -45px;
+        margin-top: -45px;
     }
 }

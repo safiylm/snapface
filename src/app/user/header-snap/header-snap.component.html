@@ -57,24 +57,40 @@
         <button *ngIf="!isMe" class="btn" type="button" id="btn-ecrire" (click)="createConversation()">
             {{ "écrire" | titlecase }}</button>
 
-        <button *ngIf="!displayFormSignalmt && !isMe" class="btn btn-light" (click)="displayFormSignalmt=true">Signaler</button>
+        <button *ngIf="!displayFormSignalmt && !isMe" class="btn btn-light" id="btn-signaler"
+            (click)="displayFormSignalmt=true">Signaler</button>
 
 
-        <form *ngIf="displayFormSignalmt" (submit)="signaler()" autocomplete="off">
-            <input name="raison" class="form-control" [(ngModel)]="signalement_raison">
-            <button class="btn btn-primary" type="submit">Signaler</button>
-            <button class="btn btn-light" type="button" (click)="displayFormSignalmt=false">Annuler</button>
-            {{res_signalement}}
-        </form>
-
+        <div *ngIf="displayFormSignalmt" class="modal-">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Signaler {{ UserName }}</h5>
+                        <button type="button" class="close btn btn-light" (click)="displayFormSignalmt=false">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form (submit)="signaler()" autocomplete="off">
+                            <label> La raison :
+                                <input name="raison" class="form-control" [(ngModel)]="signalement_raison">
+                            </label>
+                            <button class="btn btn-primary" type="submit">Signaler</button>
+                            <button class="btn btn-light" type="button"
+                                (click)="displayFormSignalmt=false">Annuler</button>
+                            {{res_signalement}}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="dropdown" *ngIf="isMe">
             <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 +
             </button>
             <ul class="dropdown-menu">
 
-                <li><a class="dropdown-item" (click)="choix('')"
-                    >
+                <li><a class="dropdown-item" (click)="choix('')">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                             class="bi bi-postcard-heart" viewBox="0 0 16 16">
                             <path
@@ -86,8 +102,7 @@
                     </a></li>
 
 
-                <li><a class="dropdown-item" (click)="choix('like')"
-                    >
+                <li><a class="dropdown-item" (click)="choix('like')">
                         ❤️ Likes liste❤️
                     </a></li>
 
@@ -96,9 +111,11 @@
                     </a></li>
 
                 <li><a class="dropdown-item" (click)="choix('save')">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16">
-                        <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z"/>
-                      </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-bookmark" viewBox="0 0 16 16">
+                            <path
+                                d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z" />
+                        </svg>
                         Enregistrement
                     </a></li>
 
