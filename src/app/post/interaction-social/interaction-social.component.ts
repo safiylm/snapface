@@ -17,9 +17,9 @@ import { User } from 'src/models/user.model';
   selector: 'app-interaction-social',
   templateUrl: './interaction-social.component.html',
   styleUrls: ['./interaction-social.component.scss'],
-  imports: [LikeButtonComponent, PointButtonComponent, 
+  imports: [LikeButtonComponent, PointButtonComponent,
     NgIf, FormsModule, EnregistrementButtonComponent,
-  NgFor]
+    NgFor]
 })
 
 
@@ -30,14 +30,14 @@ export class InteractionSocialComponent {
   @Input() isDisplayListeOfComments !: boolean;
 
   displayFormSignalmt = false;
-  displayListeConversations=false;
+  displayListeConversations = false;
   signalement_raison = ""
   res_signalement = ""
   isMobile !: boolean;
-  users :any[] =[ ]
+  users: any[] = []
 
   constructor(private signalementService: SignalementService,
-    private chatService: ChatPriveService,private userService : UserService ) { }
+    private chatService: ChatPriveService, private userService: UserService) { }
 
   ngOnInit() {
     if (window.innerWidth <= 1050) { // Si on est sur mobile
@@ -45,11 +45,30 @@ export class InteractionSocialComponent {
     } else {
       this.isMobile = false; // Sur PC/tablette, le post reste affiché
     }
-   
+    this.chatService.getUsersWeHaveConversation(localStorage.getItem('userId')?.toString() as string)
+      .subscribe((data: Conversation[]) => {
+        if (data) {
+          for (let c of data) {
+            if (this.users[0] == localStorage.getItem("userId")?.toString() as string)
+              this.userService.getUser(c.speaker[1]).subscribe(
+                (dataa: User) => {
+                  this.users.push([dataa, c._id])
+                }
+              )
+            else
+              this.userService.getUser(c.speaker[0]).subscribe(
+                (dataa: User) => {
+                  this.users.push([dataa, c._id])
+                }
+              )
+          }
+        }
+      });
+
   }
 
   //SEND MESSAGE 
-  sendMessagePrivee(receiver:string, conversationId:string ) {
+  sendPostByMesssagePrivee(receiver: string, conversationId: string) {
     //(sender: string, receiver: string, conversationId: string, text: string, postId: string ) {
 
     this.chatService.sendMessagePrivee(
@@ -59,24 +78,7 @@ export class InteractionSocialComponent {
       "", this.post._id)
   }
 
-  openConversationListe(){
-    this.displayListeConversations=true;
 
-     this.chatService.getUsersWeHaveConversation(localStorage.getItem('userId')?.toString() as string )
-          .subscribe((data: Conversation[]) => {
-            if (data) {
-              console.log(data)
-              for(let c of data){
-                this.userService.getUser(c.speaker[0]).subscribe(
-                  (dataa: User)=>{
-                    this.users.push([dataa,c._id])
-                  }
-                )
-              }
-            }
-          });
-  }
-  
   toggleDisplayListOfComments(value: boolean) {
     this.newItemEvent.emit(value as unknown as string);
   }
@@ -84,7 +86,6 @@ export class InteractionSocialComponent {
   signaler() {
     let s = new Signalement("22", localStorage.getItem('userId')?.toString() as string, Date.now(),
       this.signalement_raison, this.post._id, null);
-    console.log(s)
     this.signalementService.signalerUnePublication(s).subscribe(
       {
         next: (data) => {
