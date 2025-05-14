@@ -4,7 +4,13 @@
 
         <div class="div-search-input-btn d-flex flex-column align-items-center justify-content-center">
             <h2>Chercher</h2>
-            <div *ngIf="filtre=='user'" class="d-flex flex-wrap align-items-center justify-content-center">
+            
+            <div class="d-flex  flex-wrap align-items-center justify-content-center">
+                <button [ngClass]="{'btn-activee': filtre=='user'}" (click)="filtre='user'">User</button>
+                <button [ngClass]="{'btn-activee': filtre=='post'}" (click)="filtre='post'">Post</button>
+            </div>
+            
+            <div *ngIf="filtre=='user'" class="div-user-search d-flex flex-wrap align-items-center justify-content-center">
                 <input name="fname" [(ngModel)]="fname" (keyup.enter)="researchUser()" class="form-control"
                     placeholder="Enter First name">
                 <input name="lname" [(ngModel)]="lname" (keyup.enter)="researchUser()" class="form-control"
@@ -17,13 +23,10 @@
                     class="form-control">
                 <button class="btn btn-light" (click)="research()">Chercher</button>
             </div>
-
-
-            <div class="d-flex  flex-wrap align-items-center justify-content-center">
-                <button [ngClass]="{'btn-activee': filtre=='user'}" (click)="filtre='user'">User</button>
-                <button [ngClass]="{'btn-activee': filtre=='post'}" (click)="filtre='post'">Post</button>
-            </div>
+        
         </div>
+
+
         <div class="d-flex flex-wrap align-items-center justify-content-center">
 
             <div *ngFor="let user of listeUser">

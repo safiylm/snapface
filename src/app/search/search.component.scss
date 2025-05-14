@@ -44,21 +44,28 @@
             /* Pour enlever la bordure bleu */
         }
 
-        .btn-activee {
+     
+
+    }
+   .btn-activee {
             border-bottom: 1px solid black;
             border-radius: 0 !important;
         }
 
     }
 
-
-}
-
-@media(max-width:767px) {
+    @media(max-width:767px) {
   
     .search-container{
         width: 100vw;
         margin-top: 130px;
         margin-left: 0;
+        .div-user-search{
+            button{
+                width: 100%;
+            }
+        }
+
+       
     }
 }
