@@ -5,9 +5,9 @@ const cors = require("cors");
 
 //const websocket = require("./chat")
 var corsOptions = {
-  origin: "https://snapfaceangular.web.app",
+  origin: "*"
+   //"https://snapfaceangular.web.app",
    // "http://localhost:4200"
-  
 };
 app.use(cors(corsOptions));
 
@@ -57,10 +57,10 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "https://snapfaceangular.web.app",
-      // "http://localhost:4200",
+    origin:  "*",// "https://snapfaceangular.web.app",
+      //"http://localhost:4200",
 
-  //  ], // Autorise Angular à se connecter
+    //  ], // Autorise Angular à se connecter
     methods: ["GET", "POST"]
   }
 });
@@ -81,17 +81,18 @@ io.on("connection", (socket) => {
   socket.on('privateMessage', async (data) => {
 
     try {
-      const response = await axios.post('https://snapface.onrender.com/message/create', {
+     // const response = await axios.post('http://localhost:4100/message/create', {
+          const response = await axios.post('https://snapface.onrender.com/message/create', {
         sender: data['sender'],
         conversationId: data['conversationId'],
         text: data['text'],
         postId: data['postId']
       })
-      console.log(response.data)
+
       const savedMessage = response.data;
 
-      if (savedMessage['acknowledged'] == true)
-        io.emit('newMessage', data); // broadcast to all
+      if (savedMessage != null)
+      io.emit('newMessage', data); // broadcast to all
     } catch (error) {
       console.error('Erreur lors de l’enregistrement du message', error);
     }
