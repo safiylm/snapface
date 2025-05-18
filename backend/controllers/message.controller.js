@@ -13,24 +13,25 @@ exports.createMessage = async (req, res) => {
   const conversationId = req.body.conversationId;
   const text = req.body.text
   const postId = req.body.postId
-  console.log(postId);
 
+  res.set('Access-Control-Allow-Origin', '*');
   collection_messages
     .insertOne({
       sender, conversationId, text, postId,
       "time_": new Date(Date.now()), "seen": false
     })
     .then(data => {
-      res.set('Access-Control-Allow-Origin', '*');
-      if (postId != "" && data) {
-       
-        collection_publications.
-          updateOne({ "_id": new ObjectId(postId) },
-            { $inc: { "sharesCount": 1 } })
-          .then(x => {
-            res.set('Access-Control-Allow-Origin', '*');
-            res.send(x);
-          })
+      if (data) {
+        if (postId != "") {
+          collection_publications.
+            updateOne({ "_id": new ObjectId(postId) },
+              { $inc: { "sharesCount": 1 } })
+            .then(x => {
+              if (x)
+              res.send(data);
+            })
+        }else
+        res.send(data)
       }
     })
     .catch(err => {

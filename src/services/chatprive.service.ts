@@ -13,11 +13,11 @@ import { Conversation } from 'src/models/conversation';
 export class ChatPriveService {
 
   private socket: Socket;
-  url = // "http://localhost:4100"
- 'https://snapface.onrender.com'
-  constructor(private http: HttpClient) {
-  //   this.socket = io('http://localhost:4100');
-    this.socket = io('https://snapface.onrender.com');
+  url="https://snapface.onrender.com"
+ // url = "http://localhost:4100"
+ constructor(private http: HttpClient) {
+   //  this.socket = io('http://localhost:4100');
+     this.socket = io('https://snapface.onrender.com');
   }
 
 
@@ -36,22 +36,21 @@ export class ChatPriveService {
   }
 
 
-  sendMessagePrivee(sender: string, receiver: string, conversationId: string, text: string, postId: string ) {
+  sendMessagePrivee(sender: string, receiver: string, conversationId: string, text: string, postId: string) {
+    this.joinRoom(sender);
+    this.joinRoom(receiver);
 
-    this.socket.emit('privateMessage', { sender, receiver, conversationId, text, postId })
-    this.socket.emit("joinRoom", "662eb361c2fd9ad3238d752a");  // Register this client with a user ID
-    this.joinRoom(sender)
-    this.joinRoom(receiver)
-
+    this.socket.emit('privateMessage',
+      { sender, receiver, conversationId, text, postId })
   }
 
 
   getMessageHistory(conversationId: string) {
-    return this.http.get(this.url + `/messages/?conversationId=${conversationId}`);
+    return this.http.get(this.url + `/messages?conversationId=${conversationId}`);
   }
 
   getLastMessage(conversationId: string) {
-    return this.http.get<Message>(this.url + `/last-message/?conversationId=${conversationId}`);
+    return this.http.get<Message>(this.url + `/last-message?conversationId=${conversationId}`);
   }
 
 

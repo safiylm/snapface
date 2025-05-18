@@ -90,12 +90,13 @@ export class ChatPriveComponent implements OnInit {
     this.chatService.getConversationById(this.conversationId).subscribe((data: any) => {
       this.conversation = data;
     });
+    
     this.chatService.getMessageHistory(this.conversationId).subscribe((data: any) => {
       this.messages = data;
     });
 
     this.chatService.markAsSeen(this.conversationId).subscribe(
-      (data) => { if (data) console.log(data); })
+      (data) => { if (data) data })
 
   }
 

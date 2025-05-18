@@ -37,10 +37,10 @@ export class PublicationComponent {
   ngOnInit() {
     if (this.publication != null || this.publication != undefined) {
 
-      this.audiotitle = this.audioService.getAudioById(this.publication.audio)[0].title as string
-      // "Eldar Kedem - Walking Around"
-      this.audiourl = this.audioService.getAudioById(this.publication.audio)[0].url as string
-      // "../../../assets/audio/Eldar Kedem - Walking Around.mp3" 
+      this.audiotitle =// this.audioService.getAudioById(this.publication.audio)[0].title as string
+       "Eldar Kedem - Walking Around"
+      this.audiourl = //this.audioService.getAudioById(this.publication.audio)[0].url as string
+     "../../../assets/audio/Eldar Kedem - Walking Around.mp3" 
       if (window.innerWidth <= 1050) { // Si on est sur mobile
         this.isMobile = true; // Si on veut afficher les commentaires, on cache le post
       } else {

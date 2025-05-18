@@ -133,7 +133,13 @@ exports.getListeLikedPostsByUserId = async (req, res) => {
 exports.findOneById = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
   const id = req.query.id;
-  res.send(await collection_publications.findOne({ "_id": new ObjectId(id) }))
+
+  if(id != null || id!='' )
+      res.send( await collection_publications.findOne({ "_id": 
+ new ObjectId( id )
+}))
+else
+  res.send("No Post!")
 };
 
 
