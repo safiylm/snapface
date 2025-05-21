@@ -28,13 +28,12 @@ export class MessageComponent {
   constructor(private chatService: ChatPriveService, private postService: PublicationsService
   ) { }
 
+  
   ngOnInit() {
     this.sender = localStorage.getItem("userId")?.toString() as string;  // ChatPublicServiceRemplace par l'ID réel de l'utilisateur
-   if( //this.message.postId!= "" || 
-    this.message.postId!= undefined
-   //   || this.message.postId!= null
-    ){
-      console.log("fcvgbhnj")
+
+    if( this.message.postId != "" ){ //important sinon backend failed 
+
       this.postService.getPublicationById(this.message.postId as string).subscribe(
         {
           next: (data) => {

@@ -1,20 +1,30 @@
-
 .chat-container {
   width: auto;
-  height: 99vh !important;
+  height: 100vh !important;
   margin-left: 200px;
   min-height: 85vh;
+
+  app-header {
+    position: absolute;
+    height: 100%;
+    background-color: blue;
+    top: 0;
+    left: 0;
+    width: 200px;
+  }
 
   .chat-box {
     width: 100%;
     right: 0;
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-    text-align: center;
-    // border-left: 1px solid #363636;
-   // max-height: 90vh;
+    background-color: rgba(247, 252, 252, 0.826);
     height: 100%;
+    overflow: clip;
+    display: grid;
+    // height: 80vh;
+    grid-template-columns: [first] 100% [end];
+    grid-template-rows: [row1-start] 100px [row1-end] auto [third-line] 70px [last-line];
+    grid-template-areas: 'user' "messages" 'form';
+
     .messages {
 
       flex: 1;
@@ -24,7 +34,7 @@
     }
 
     .form-floating {
-     // width: calc(100% - 80px);
+      // width: calc(100% - 80px);
       padding: 5px;
 
     }
@@ -33,11 +43,9 @@
       width: auto;
     }
 
+    //form creation
     .d-flex {
-      display: -webkit-flex;
-      margin: 5px;
-      bottom: 0;
-      right: 0;
+      margin: 13px 3px;
       width: 100% !important;
     }
   }
@@ -45,6 +53,7 @@
 
   @media (max-width:1020px) {
     height: 100%;
+
     #conversation-list {
       display: none;
     }
@@ -52,15 +61,28 @@
 
   @media (max-width:767px) {
     margin-left: 0px;
+    height: 100dvh !important;
+      overflow: hidden;
+    app-header {
+      min-height: 50px !important;
+      position: absolute;
+      height: 90px;
+      background-color: blue;
+      top: 0;
+      right: 0;
+      width: 100%;
+    }
+
 
     .chat-box {
-      margin-top: 80px;
-      min-height: calc(100vh - 100px) !important;
-      max-height: calc(100vh - 100px) !important;
-      height: calc(100vh - 100px) !important;
+      margin-top: 90px !important;
+    
       min-width: 100vw !important;
       max-width: 100vw !important;
       width: 100% !important;
+      max-height: 100dvh;
+      height: calc(100dvh - 90px) !important;
+
     }
 
   }
