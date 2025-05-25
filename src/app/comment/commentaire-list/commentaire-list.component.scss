@@ -1,6 +1,21 @@
-.div-un-commentaire {
-    margin: 10px 0;
-    padding: 7px 0;
-    border-top: 0.5px solid rgb(212, 211, 211);
+.list-comments {
+    overflow-y: auto;
+    margin-bottom: 60px;
+    padding: 15px 0 ;
+    .div-un-commentaire {
+        margin: 10px 0;
+        padding: 7px 0;
+        border-bottom: 0.5px solid rgb(212, 211, 211);
+        box-sizing: border-box;
+    }
+}
+
+app-commentaire-create {
+    height: auto;
+    display: block;
     box-sizing: border-box;
+    position: fixed;
+    bottom: 0;
+    width: 95%;
+    margin: 20px auto;
 }

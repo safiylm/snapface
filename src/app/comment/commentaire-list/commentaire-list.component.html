@@ -1,4 +1,4 @@
-<ng-container *ngIf="isDisplayComments && commentaires">
+<div class="list-comments" *ngIf="isDisplayComments && commentaires">
   
     <div *ngIf="commentaires.length==0">
         Aucun commentaire pour le moment 
@@ -8,5 +8,5 @@
         <app-commentaire [commentaire]="com" [isDisplayComments]="isDisplayComments"></app-commentaire>
     </div>
 
-</ng-container>
+</div>
 <app-commentaire-create [id]="id"></app-commentaire-create>

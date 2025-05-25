@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, inject } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, inject, SimpleChanges } from '@angular/core';
 import { LikeButtonComponent } from "./like-button/like-button.component";
 import { PointButtonComponent } from "./point-button/point-button.component";
 import { NgFor, NgIf } from '@angular/common';
@@ -11,6 +11,8 @@ import { ChatPriveService } from 'src/services/chatprive.service';
 import { Conversation } from 'src/models/conversation';
 import { UserService } from 'src/services/user-service';
 import { User } from 'src/models/user.model';
+import { CommentaireListComponent } from "../../comment/commentaire-list/commentaire-list.component";
+import { AuteurInPostOrCommentaireComponent } from "../../user/auteur-in-post-or-commentaire/auteur-in-post-or-commentaire.component";
 
 @Component({
   standalone: true,
@@ -19,15 +21,14 @@ import { User } from 'src/models/user.model';
   styleUrls: ['./interaction-social.component.scss'],
   imports: [LikeButtonComponent, PointButtonComponent,
     NgIf, FormsModule, EnregistrementButtonComponent,
-    NgFor]
+    NgFor, CommentaireListComponent]
 })
 
 
 export class InteractionSocialComponent {
 
   @Input() post !: Publication;
-  @Output() newItemEvent = new EventEmitter<string>();
-  @Input() isDisplayListeOfComments !: boolean;
+  @Input() isMyPost !: boolean;
 
   displayFormSignalmt = false;
   displayListeConversations = false;
@@ -45,6 +46,7 @@ export class InteractionSocialComponent {
     } else {
       this.isMobile = false; // Sur PC/tablette, le post reste affiché
     }
+
     this.chatService.getUsersWeHaveConversation(localStorage.getItem('userId')?.toString() as string)
       .subscribe((data: Conversation[]) => {
         if (data) {
@@ -67,6 +69,11 @@ export class InteractionSocialComponent {
 
   }
 
+
+  goToEditPost() {
+    document.location.href = 'publication/edit/' + this.post._id
+  }
+
   //SEND MESSAGE 
   sendPostByMesssagePrivee(receiver: string, conversationId: string) {
     //(sender: string, receiver: string, conversationId: string, text: string, postId: string ) {
@@ -78,10 +85,6 @@ export class InteractionSocialComponent {
       "", this.post._id)
   }
 
-
-  toggleDisplayListOfComments(value: boolean) {
-    this.newItemEvent.emit(value as unknown as string);
-  }
 
   signaler() {
     let s = new Signalement("22", localStorage.getItem('userId')?.toString() as string, Date.now(),

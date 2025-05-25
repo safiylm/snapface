@@ -8,29 +8,21 @@
   height: auto;
   margin: 20px;
   width: min-content;
-  
-  .comment {
-    min-width: 250px;
-    box-sizing: border-box;
-    width: 320px;
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-start;
-  }
+
 
   .post {
-    min-width: 250px;
-    box-sizing: border-box;
-    width: 60vw;
-    max-width: 550px;
-    padding: 20px;
+
 
     @media(max-width:899px) {
       margin: 5px;
     }
 
+    a {
+      text-decoration: none;
+      color: black;
+        overflow: clip;
+    }
 
-  
 
     h2 {
       margin: 15px 0;
@@ -53,27 +45,46 @@
   }
 
 }
-.custom-audio {
-  width: 100%;
-  max-width: 300px;
-  height: 40px;
 
-  background-color: #f5f5f5;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  padding: 4px;
-  box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
+.div-audio {
+  .custom-audio {
+    width: 100%;
+    max-width: 300px;
+    height: 40px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    padding: 4px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Supprimer l'apparence native (Firefox uniquement) */
+  .custom-audio::-webkit-media-controls-panel {
+    background-color: #f5f5f5;
+    border-radius: 10px;
+  }
 }
 
-/* Supprimer l'apparence native (Firefox uniquement) */
-.custom-audio::-webkit-media-controls-panel {
-  background-color: #f5f5f5;
-  border-radius: 10px;
+.post {
+  min-width: 250px;
+  width: 60vw;
+  max-width: 550px;
+  padding: 20px;
+  display: grid;
+  height: 80vh;
+  grid-template-columns: [first] 100% [end];
+  grid-template-rows: [row1-start] 60px [row1-end] auto [third-line] auto [thrid-line-end] 70px [row4-start] 50px [last-line];
+  grid-template-areas: 'user' 'audio' 'assets' 'text' 'interactions';
+
+  app-images-video{
+    height: 40vh;
+  }
+  app-interaction-social{
+    padding-top: 17px ;
+  }
 }
-.offcanvas 
-{
-  height: 80vh !important;
-}
+
+
 
 @media(max-width:1050px) {
   .face-snap-card {
@@ -90,7 +101,7 @@
   .face-snap-card {
     min-width: 90vw;
     margin: 2px;
-    
+
     .post {
       width: 90vw;
     }
@@ -99,7 +110,11 @@
       width: 100vw;
       height: 80vh;
     }
-  
+
+  }
+
+  .offcanvas {
+    height: 80vh !important;
   }
 
 }
