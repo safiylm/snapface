@@ -19,6 +19,7 @@ router_user.get("/api/user", user.findAll);
 
 router_user.get("/api/userid", user.findOneById);
 router_user.get("/api/username", user.findByName);
+router_user.get("/logout", user.logout);
 
 router_user.post("/api/user/create", user.create);
 router_user.post("/api/user/connexion", user.connexion);
@@ -32,6 +33,9 @@ router_user.post("/api/user/email", user.getIfEmailExist);
 router_user.post("/api/user/reinitialise/password", user.reinitialisePassword);
 router_user.post("/api/user/edit/photodeprofil",upload.single('image'),  user.editPhotoDeProfil);
 router_user.post("/api/user/edit/photobackground",upload.single('image'),  user.editPhotoBackground);
+
+router_user.post("/api/user/edit/online", user.updateIsOnline);
+router_user.post("/api/user/edit/notonline", user.updateIsNotOnline);
 
 // /:id
 module.exports = router_user;

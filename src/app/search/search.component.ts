@@ -28,13 +28,21 @@ export class SearchComponent {
   listePost !: Publication[];
   constructor(protected userService: UserService, protected publicationService : PublicationsService) { }
 
+  ngOnInit(){
+    this.userService.getAllUsers().subscribe({
+        next: (data) => {
+          this.listeUser=data
+        },
+        error: (e) => console.error(e)
+      })
+  }
+  
   researchUser() {
     this.listePost=[]
     if (this.lname.trim() != "" || this.fname.trim() !="")
       this.userService.searchByName(this.fname, this.lname ).subscribe({
         next: (data) => {
           this.listeUser=data
-          console.log(this.listeUser)
         },
         error: (e) => console.error(e)
       })

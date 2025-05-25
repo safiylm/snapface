@@ -19,9 +19,10 @@ export class AuthConnexionUserComponent {
 
   constructor(private userService: UserService) { }
   result = "";
-  password = "";
-  email = "";
+  password = "Snapface123*";
+  email = "travelblog@gmail.com"
   isDisplayPassword = false;
+
 
   toggleDisplayPassword() {
     this.isDisplayPassword = !this.isDisplayPassword;
@@ -32,19 +33,19 @@ export class AuthConnexionUserComponent {
 
     this.userService.connexion(this.email).subscribe(
       (data: any) => {
+        console.log(data)
 
         if (data != null) {
-
-          bcrypt.compare(this.password, data.password, (err, data1) => {
+          bcrypt.compare(this.password, data.user.password, (err, data1) => {
             //if error than throw error
-            if (err) throw err
+          //  if (err) throw err
 
             //if both match than you can do anything
             if (data1) {
               localStorage.setItem('isLoggedIn', "true");
-              localStorage.setItem('userId', data["_id"]);
-              localStorage.setItem("user_photo_de_profil",data["photos_profil"] )
-              localStorage.setItem("user_name",data["firstName"]+ " "+ data["lastName"])
+              localStorage.setItem('userId', data.user["_id"]);
+              localStorage.setItem("user_photo_de_profil",data.user["photos_profil"])
+              localStorage.setItem("user_name", data.user["firstName"] + " " + data.user["lastName"])
 
               this.result = "CONNEXION REUSSI.";
               window.location.href = '/mon-compte'
@@ -56,8 +57,6 @@ export class AuthConnexionUserComponent {
         }
         else
           this.result = "Votre email est incorrecte.";
-
-
       }
     );
   }

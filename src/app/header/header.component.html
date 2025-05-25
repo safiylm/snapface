@@ -15,17 +15,16 @@
         <li class="nav-item">
           <a class="nav-link" *ngIf="!isLoggedIn" href="/connexion">Connexion</a>
         </li>
-        <li class="nav-item">
+         <li class="nav-item">
           <a class="nav-link" *ngIf="isLoggedIn" href="/pour-moi">Pour Moi </a>
-
-        </li>
+        </li> 
         <li class="nav-item">
           <a class="nav-link" *ngIf="isLoggedIn" href="/mon-compte">
             <app-avatar-user *ngIf="isLoggedIn"></app-avatar-user>
             Mon compte </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" *ngIf="isLoggedIn" href="/search">Chercher</a>
+          <a class="nav-link" href="/search">Chercher</a>
         </li>
 
         <li class="nav-item">
@@ -58,7 +57,7 @@
 </nav>
 
 
-<div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions"
+<div *ngIf="isLoggedIn" class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions"
   aria-labelledby="offcanvasWithBothOptionsLabel">
   <div class="offcanvas-header">
     <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">
@@ -77,7 +76,7 @@
 
 
 
-<div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasFollowRequest"
+<div *ngIf="isLoggedIn" class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasFollowRequest"
   aria-labelledby="offcanvasWithBothOptionsLabel">
   <div class="offcanvas-header">
     <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, } from 'rxjs';
 import { User } from '../models/user.model';
 import { Router } from '@angular/router';
@@ -14,15 +14,12 @@ export class UserService {
 
   constructor(private http: HttpClient, public router: Router) { }
 
- url = "https://snapface.onrender.com"
- // url="http://localhost:4100"
+  //   url="https://snapface.onrender.com"
+  url = "http://localhost:4100"
 
 
-  logout(): void {
-    localStorage.setItem('isLoggedIn', 'false');
-    localStorage.setItem('userId', '');
-    localStorage.removeItem('userId')
-    localStorage.removeItem('token');
+  logout(): Observable<any> {
+    return this.http.get(this.url + "/logout")
   }
 
   getAllUsers(): Observable<User[]> {
@@ -44,17 +41,13 @@ export class UserService {
 
 
   public connexion(email: string): Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Access-Control-Allow-Origin': '*',
-      })
-    };
 
     return this.http
       .post(
         this.url + `/api/user/connexion`,
-        { "email": email },
-        //  httpOptions, 
+        { "email": email},
+          {  withCredentials: true
+         },
       )
   }
 
@@ -150,25 +143,25 @@ export class UserService {
       { 'password': pwd, 'token': token, })
   }
 
-/*
-
-  editPhotoDeProfilViaLink(id: string, photo: string): Observable<any> {
-    return this.http
-      .post(
-        this.url +
-        `/api/user/edit/photodeprofilwithLink`,
-        { "_id": id, "photo": photo },
-      );
-  }
-
-  editPhotoDeBackgroundViaLink(id: string, photo: string): Observable<any> {
-    return this.http
-      .post(
-        this.url +
-        `/api/user/edit/photobackgroundwithLink`,
-        { "_id": id, "photo": photo },
-      );
-  }
-
-*/
+  /*
+  
+    editPhotoDeProfilViaLink(id: string, photo: string): Observable<any> {
+      return this.http
+        .post(
+          this.url +
+          `/api/user/edit/photodeprofilwithLink`,
+          { "_id": id, "photo": photo },
+        );
+    }
+  
+    editPhotoDeBackgroundViaLink(id: string, photo: string): Observable<any> {
+      return this.http
+        .post(
+          this.url +
+          `/api/user/edit/photobackgroundwithLink`,
+          { "_id": id, "photo": photo },
+        );
+    }
+  
+  */
 }

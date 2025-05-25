@@ -12,6 +12,7 @@ const User = new mongoose.Schema({
   password: { type: String },
   phoneNo: { type: String },
   isPrivate: { type: Boolean, default: false},
+  isOnline: { type: Boolean},
 
 }, { versionKey: false });
 User.index({ email : 1}, { unique: true });

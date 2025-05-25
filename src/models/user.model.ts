@@ -10,6 +10,8 @@ export class User {
         public photos_profil: string,
         public photos_background:string,
         public isPrivate : boolean,
+        public isOnline : boolean,
+        
     ) {
     }
 }

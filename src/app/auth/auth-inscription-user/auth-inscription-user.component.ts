@@ -30,7 +30,7 @@ export class AuthInscriptionUserComponent implements OnInit {
 
   user = new User("", "", "",
     "example@gmail.com", "",
-    0, "", "", false);
+    0, "", "", false, false);
 
   password2 = "";
 

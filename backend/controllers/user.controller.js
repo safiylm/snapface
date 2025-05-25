@@ -5,13 +5,14 @@ const collection_statistiqueusers = db.collection('statistiqueusers');
 const collection_abonnees = db.collection('abonnees');
 const nodemailer = require('nodemailer');
 const ObjectId = require('mongodb').ObjectId;
-const jwt = require('../jwt.js')
+const jwt_ = require('../jwt.js')
+const jwt = require('jsonwebtoken');
 
 const cloudinary = require('cloudinary').v2;
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
-  api_key:    process.env.API_KEY,
+  api_key: process.env.API_KEY,
   api_secret: process.env.API_SECRET
 });
 
@@ -88,15 +89,52 @@ exports.update = async (req, res) => {
   res.send(updateResult);
 }
 
-exports.editPhotoDeProfil= async (req, res)=>{
-    const filePath = req.file.path;
-    res.set('Access-Control-Allow-Origin', '*');
 
-    cloudinary.uploader.upload(filePath, {
-      folder: 'uploads_secure',
-    }, async (error, result) => {
-      if (error) return res.status(500).json({ error });
-      await collection_user.updateOne({ "_id": new ObjectId(req.body.userId) },
+
+//edit Online
+exports.updateIsOnline = async (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
+  if (req.body._id == '' || req.body._id == null || req.body._id == undefined)
+    res.send("User Id is null");
+  const updateResult = await collection_user.updateOne({ "_id": new ObjectId(req.body._id) },
+    {
+      $set: {
+        "isOnline": true,
+      }
+    });
+  console.log("online ", updateResult)
+  res.send(updateResult);
+}
+
+
+
+
+//edit not Online
+exports.updateIsNotOnline = async (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
+  if (req.body._id == '' || req.body._id == null || req.body._id == undefined)
+    res.send("User Id is null");
+
+  const updateResult = await collection_user.updateOne({ "_id": new ObjectId(req.body._id) },
+    {
+      $set: {
+        "isOnline": false,
+      }
+    });
+  console.log("not online ", updateResult)
+
+  res.send(updateResult);
+}
+
+exports.editPhotoDeProfil = async (req, res) => {
+  const filePath = req.file.path;
+  res.set('Access-Control-Allow-Origin', '*');
+
+  cloudinary.uploader.upload(filePath, {
+    folder: 'uploads_secure',
+  }, async (error, result) => {
+    if (error) return res.status(500).json({ error });
+    await collection_user.updateOne({ "_id": new ObjectId(req.body.userId) },
       {
         $set: {
           "photos_profil": result.secure_url,
@@ -107,11 +145,11 @@ exports.editPhotoDeProfil= async (req, res)=>{
 
         }
       })
-    });
+  });
 }
 
-  
-exports.editPhotoBackground= async (req, res)=>{
+
+exports.editPhotoBackground = async (req, res) => {
   const filePath = req.file.path;
   res.set('Access-Control-Allow-Origin', '*');
 
@@ -120,15 +158,15 @@ exports.editPhotoBackground= async (req, res)=>{
   }, async (error, result) => {
     if (error) return res.status(500).json({ error });
     await collection_user.updateOne({ "_id": new ObjectId(req.body.userId) },
-    {
-      $set: {
-        "photos_background": result.secure_url,
-      }
-    }).then(data => {
-      if (data) {
-        res.json({ url: result.secure_url, data: "Modification de photo background reussi" });
-      }
-    })
+      {
+        $set: {
+          "photos_background": result.secure_url,
+        }
+      }).then(data => {
+        if (data) {
+          res.json({ url: result.secure_url, data: "Modification de photo background reussi" });
+        }
+      })
   });
 }
 
@@ -198,7 +236,7 @@ exports.editPassword = async function (req, res) {
 exports.delete = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
 
- // const deleteResult = await collection_user.deleteOne({ "_id": new ObjectId(req.body.id) });
+  // const deleteResult = await collection_user.deleteOne({ "_id": new ObjectId(req.body.id) });
   const deleteResult = await collection_user.updateOne({ "_id": new ObjectId(req.body._id) },
     {
       $set: {
@@ -238,35 +276,63 @@ exports.findByName = async (req, res) => {
   let resultat = "error find user"
   res.set('Access-Control-Allow-Origin', '*');
   //if (lname.trim() != "" && lname != undefined && lname != null) {
-    resultat = await collection_user.find({
+  resultat = await collection_user.find({
 
-      //$or: [
-         "lastName": { $options: 'i', "$regex": lname } ,
-         "firstName": { $options: 'i', "$regex": fname } 
-     // ],
-    },
+    //$or: [
+    "lastName": { $options: 'i', "$regex": lname },
+    "firstName": { $options: 'i', "$regex": fname }
+    // ],
+  },
 
-    ).toArray()
+  ).toArray()
   //}
   res.json(resultat)
 
 }
 
+function cookies 
+(id, res ){
+  // Créer le cookie
+  res.cookie('token', id, {
+    httpOnly: true,
+    secure: false,      // ⚠️ mettre true en prod avec HTTPS
+    sameSite: 'Lax',
+    maxAge: 24 * 60 * 60 * 1000,
+  });  
+}
 
 //connexion
-exports.connexion = async function (req, res) {
-  res.set('Access-Control-Allow-Origin', '*');
-  res.set('Access-Control-Allow-Credentials', 'true');
-  res.set('Access-Control-Allow-Methods', 'GET, POST,  OPTIONS');
-  res.set('Access-Control-Allow-Headers', 'Content-Type')
-  res.send(await collection_user.findOne({ "email": req.body.email }));
+exports.connexion = async function (req, res, next) {
+
+const resultat = await collection_user.findOne(
+  { email: req.body.email });
+
+if (resultat != null) {
+  const id = resultat['_id'].toString();
+  
+  cookies(id, res)
+
+  // Répondre une seule fois
+  return res.json({ message: 'Connexion réussie', user: resultat });
+}
+
+// Sinon : utilisateur non trouvé
+  res.status(401).json({ error: 'Utilisateur non trouvé' });
+
 };
 
+exports.logout = async function (req, res) {
+  res.set('Access-Control-Allow-Origin', '*');
+  
+  res.clearCookie("token");
+
+  res.json("ok")
+};
 
 exports.sendLinkForPasswordOublie = async function (req, res) {
 
   const userEmail = req.body.email;
-  const resetLink = jwt.generateResetLink(userEmail);
+  const resetLink = jwt_.generateResetLink(userEmail);
 
 
   const mailOptions = {
@@ -301,7 +367,7 @@ exports.getIfEmailExist = async function (req, res) {
 exports.reinitialisePassword = async function (req, res) {
   res.set('Access-Control-Allow-Origin', '*');
 
-  const token = jwt.verifyResetLink(req.body.token);
+  const token = jwt_.verifyResetLink(req.body.token);
 
   await collection_user.updateOne({ "email": token },
     {

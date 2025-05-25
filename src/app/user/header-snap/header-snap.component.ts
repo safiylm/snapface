@@ -88,8 +88,16 @@ export class HeaderSnapComponent implements OnInit {
   }
 
   logout() {
-    this.userService.logout();
-    this.route.navigate(['/']);
+    this.userService.logout().subscribe(
+      (data: any) => {
+        if (data == "ok") {
+          localStorage.setItem('isLoggedIn', 'false');
+          localStorage.setItem('userId', '');
+          localStorage.removeItem('userId')
+          localStorage.removeItem('token');
+          this.route.navigate(['/']);
+        }
+      })
   }
 
   createConversation() {

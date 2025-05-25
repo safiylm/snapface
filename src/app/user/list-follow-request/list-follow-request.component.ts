@@ -42,8 +42,6 @@ export class ListFollowRequestComponent {
         console.error(e)
       }
     })
-    console.log(localStorage.getItem("userId")?.toString() as string)
-
 
   }
 
