@@ -91,13 +91,7 @@ export class PublicationComponent {
 
   }
 
-  goToEditPost() {
-    document.location.href = 'publication/edit/' + this.publication._id
-  }
 
-  toggleDisplayListOfComments(event: string) {
-    this.isDisplayComments = event as unknown as boolean;
-  }
 
   get Id() {
     return (this.publication && this.publication._id) ? this.publication._id : null

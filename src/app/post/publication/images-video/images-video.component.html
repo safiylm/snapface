@@ -8,7 +8,7 @@
     </svg>
   </button>
 
-  <ng-container *ngIf="isImage(assets[index]); else videoTemplate" @fadeImage>
+  <ng-container *ngIf="isImage(assets[index]); else videoTemplate" >
     <div *ngIf="assets[index]" @fadeImage>
     <img id="image" [src]="assets[index]!" alt='photos'>
 
@@ -17,7 +17,7 @@
 
 
   <ng-template #videoTemplate>
-    <video #autoVideo muted preload="metadata" width="100%">
+    <video #autoVideo muted preload="metadata" width="100%"  autoplay loop  webkit-playsinline playsinline>
       <source [src]="assets[index]!" type="video/mp4">
     </video>
   </ng-template>

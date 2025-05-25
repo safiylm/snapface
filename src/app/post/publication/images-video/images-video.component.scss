@@ -1,21 +1,3 @@
-video,
-img {
-    width: 100%;
-    height: 50vh;
-    object-fit: cover;
-    max-width: 85vw;
-    max-height: 50vw;
-
-}
-
-video {
-    height: auto;
-    object-fit: cover;
-    width: 100%;
-    height: 100%;
-}
-
-
 .div-images {
     display: flex;
     flex-direction: row;
@@ -23,36 +5,40 @@ video {
     justify-content: center;
     position: relative;
     width: auto;
-    height: 55vh;
+    height: 40vh;
+
+    video,
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        max-width: 85vw;
+        max-height: 40vh;
+
+    }
+
+    video {
+        width: 100%;
+        height: 100%;
+    }
 
     button {
         position: absolute;
-    }
+        height: 100%;
+        background-color: transparent;
+        border: none;
 
-    button:first-child {
-        left: 0;
+        :first-child {
+            left: 0;
+        }
 
-    }
-
-    button:last-child {
-        right: 0;
-
-    }
-}
-
-
-@media(max-width:1050px) {
-
-    .div-images {
-        max-height: 60vh;
-
-        img,
-        video {
-            max-width: 90vw;
-            max-height: 90vw;
+        :last-child {
+            right: 0;
         }
     }
+
 }
+
 
 @media(max-width:600px) {
     .face-snap-card {
@@ -66,7 +52,6 @@ video {
 
             img {
                 width: 100%;
-                height: 380px;
                 margin: 10px 0;
             }
         }

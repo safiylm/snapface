@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import {
   trigger,
@@ -13,7 +13,7 @@ import {
   selector: 'app-images-video',
   templateUrl: './images-video.component.html',
   styleUrls: ['./images-video.component.scss'],
-  imports: [NgIf],
+  imports: [NgIf, CommonModule],
      animations: [
       trigger('fadeImage', [
       transition(':enter', [
