@@ -5,6 +5,8 @@ const collection_commentaires = db.collection('commentaires');
 const ObjectId = require('mongodb').ObjectId;
 const collection_statistiqueusers = db.collection('statistiqueusers')
 const cloudinary = require('cloudinary').v2;
+const collection_user = db.collection('users');
+const collection_abonnees = db.collection('abonnees');
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -42,27 +44,27 @@ exports.create = async (req, res) => {
     assets: array_assets,
     audio: req.body.audio,
     date: Date,
-    commentsCount:0,
-    likesCount :0, 
+    commentsCount: 0,
+    likesCount: 0,
     pointsCount: 0,
-    savesCount:0 
+    savesCount: 0
   };
 
   // Save Tutorial in the database
   await collection_publications
     .insertOne(post)
     .then(data0 => {
-      if(data0)
-      collection_statistiqueusers.updateOne({ "userId": req.body.userId },
-        { $inc: { "totalPosts": 1 } }).then(data => {
-          res.send(data);
-        })
-        .catch(err => {
-          res.status(500).send({
-            message:
-              err.message || "Some error occurred while incremente totale post in SU."
+      if (data0)
+        collection_statistiqueusers.updateOne({ "userId": req.body.userId },
+          { $inc: { "totalPosts": 1 } }).then(data => {
+            res.send(data);
           })
-        })
+          .catch(err => {
+            res.status(500).send({
+              message:
+                err.message || "Some error occurred while incremente totale post in SU."
+            })
+          })
     })
     .catch(err => {
       res.status(500).send({
@@ -105,10 +107,57 @@ exports.edit = async (req, res) => {
 exports.findAll = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
 
-  const findResult = await collection_publications.find({}).sort({ date: -1 }).toArray();
+  const users = await collection_user
+    .find({ "$or": [{ isPrivate: false }, { isPrivate: null }] })
+    .toArray();
+
+  const userIds = users.map(user => user._id.toString());
+
+  const findResult = await collection_publications.find(
+{    $or: [
+      // 1. Utilisateurs publics
+      {
+        userId: { $in: userIds }
+      },
+      // 2. Utilisateurs suivis
+      {
+        userId: { $in: [] }
+      }
+    ]
+  }).sort({ date: -1 }).toArray();
   res.send(findResult);
 }
 
+
+// Retrieve all Posts from the database.
+exports.findAllPourMoi = async (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
+  const abonnes = await collection_abonnees.find({ "userId": req.query.userId }).toArray()
+  const followsIds = abonnes.map(ab => ab.follows);
+
+
+  const users = await collection_user
+    .find({ "$or": [{ isPrivate: false }, { isPrivate: null }] })
+    .toArray();
+
+  const userIds = users.map(user => user._id.toString());
+
+  const findResult = await collection_publications.find({
+    $or: [
+      // 1. Utilisateurs publics
+      {
+        userId: {
+          $in: userIds
+        }
+      },
+      // 2. Utilisateurs suivis
+      {
+        userId: { $in: followsIds }
+      }
+    ]
+  }).sort({ date: -1 }).toArray();
+  res.send(findResult);
+}
 
 // Retrieve all Posts by userID from the database.
 exports.findAllPublicationByUserId = async (req, res) => {
@@ -134,12 +183,13 @@ exports.findOneById = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
   const id = req.query.id;
 
-  if(id != null || id!='' )
-      res.send( await collection_publications.findOne({ "_id": 
- new ObjectId( id )
-}))
-else
-  res.send("No Post!")
+  if (id != null || id != '')
+    res.send(await collection_publications.findOne({
+      "_id":
+        new ObjectId(id)
+    }))
+  else
+    res.send("No Post!")
 };
 
 
@@ -180,16 +230,16 @@ exports.delete = (req, res) => {
 }
 
 //A Supprimer 
-exports.nexupdate =  async (req, res) => {
+exports.nexupdate = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
- 
-   const updateResult = await collection_publications.updateMany({},
+
+  const updateResult = await collection_publications.updateMany({},
     {
       $set: {
-        "commentsCount":1,
-        "likesCount" :1, 
-        "pointsCount":1,
-        "savesCount":1,
+        "commentsCount": 1,
+        "likesCount": 1,
+        "pointsCount": 1,
+        "savesCount": 1,
 
       }
     });

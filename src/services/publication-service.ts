@@ -11,9 +11,9 @@ export class PublicationsService {
 
   constructor(private http: HttpClient) { }
 
- url="https://snapface.onrender.com"
-//  url="http://localhost:4100"
- 
+ //  url="https://snapface.onrender.com"
+ url = "http://localhost:4100"
+
   getAllPublications(): Promise<Publication[]> {
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -34,6 +34,12 @@ export class PublicationsService {
   getAllPublications_(): Observable<Publication[]> {   
       return this.http.get<Publication[]>(this.url + "/api/publication")  
   }
+
+  
+  getAllPublicationsPourMoi(): Observable<Publication[]> {   
+      return this.http.get<Publication[]>(this.url + "/api/pour-moi/publication?userId="+localStorage.getItem('userId')?.toString())  
+  }
+  
 
   getAllPublicationsByUserId(id: string): Observable<Publication[]> {
     return this.http.get<Publication[]>(this.url + "/api/publicationByUserId?id=" + id);

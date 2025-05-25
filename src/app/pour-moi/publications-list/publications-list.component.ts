@@ -13,23 +13,12 @@ import { PublicationComponent } from 'src/app/post/publication/publication.compo
   styleUrls: ['./publications-list.component.scss'],
   imports: [PublicationComponent, NgFor, NgIf]
 })
-export class PublicationsListComponent implements OnInit {
+export class PublicationsListComponent{
 
   constructor(
     private publicationService: PublicationsService) { }
 
-  abonnement !: Abonnee;
-  publication !: Publication[];
-  @Input() userId !: string;
 
-  ngOnInit() {
-    this.publicationService.getAllPublicationsByUserId(this.userId)
-      .subscribe({
-        next: (data) => {
-          if (data) {
-            this.publication = data;
-          }
-        }, error: (e) => console.error(e)
-      })
-  }
+
+
 }

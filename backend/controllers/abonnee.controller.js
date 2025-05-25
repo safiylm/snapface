@@ -8,8 +8,8 @@ exports.create = async (req, res) => {
 
   collection_abonnees
     .insertOne({
-      userId: req.body.userId,
-      follows: req.body.follows,
+      userId: req.body.userId, // user qui suit 
+      follows: req.body.follows, //user qui est suivi 
     })
     .then((data) => {
       collection_statistiqueusers.updateOne({ "userId": req.body.follows },

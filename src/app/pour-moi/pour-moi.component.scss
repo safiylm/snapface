@@ -3,6 +3,23 @@
     margin-left: 200px;
 }
 
+.d-flex{
+    padding-top: 100px;
+}
+
+:host {
+    display: block;
+    height: 90vh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+}
+
+app-publication {
+    display: block;
+    scroll-snap-align: start;
+    height: 90vh;
+    margin-top: 50px;
+}
 
 @media(max-width:767px) {
 

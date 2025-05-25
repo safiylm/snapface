@@ -40,7 +40,6 @@ describe('Pour moi Component', () => {
      // Arrange
      const data : Abonnee[] =[];
  
-     component.abonnement = data;
  
      spyOn(service, 'getAbonnementByUserId').and
        .returnValue(of(data));
