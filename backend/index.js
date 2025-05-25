@@ -76,13 +76,11 @@ io.on("connection", async (socket) => {
 
   const rawCookies = socket.handshake.headers.cookie;
   let token;
-    console.log(rawCookies)
 
   if (rawCookies) {
     const parsedCookies = cookie.parse(rawCookies);
     token = parsedCookies.token;
 
-    console.log(token)
     if (token) {
       const response = await axios.post('http://localhost:4100/api/user/edit/online', {
         //     const response = await axios.post('https://snapface.onrender.com/api/user/edit/online', {

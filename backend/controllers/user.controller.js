@@ -102,7 +102,6 @@ exports.updateIsOnline = async (req, res) => {
         "isOnline": true,
       }
     });
-  console.log("online ", updateResult)
   res.send(updateResult);
 }
 
@@ -121,7 +120,6 @@ exports.updateIsNotOnline = async (req, res) => {
         "isOnline": false,
       }
     });
-  console.log("not online ", updateResult)
 
   res.send(updateResult);
 }

@@ -45,6 +45,7 @@ export class ButtonFollowComponent {
   }
 
   ngOnInit(){
+    if(this.user)
     this.abonneeService.getIfDejaEnAttente(localStorage.getItem("userId")?.toString() as string, this.user._id)
     .subscribe({
       next: (data) => {
