@@ -9,19 +9,19 @@ export class AudioService {
     audioList = [
         {
             id: "a001",
-            url: "../../assets/audio/Flint - March the Machine.mp3",
+            url: "Flint - March the Machine.mp3",
             title: "Flint - March the Machine",
             cover: "https://i1.sndcdn.com/artworks-000249294066-uow7s0-t500x500.jpg"
         },
         {
             id: "a002",
-            url: "../../assets/audio/Superlative - The Wave.mp3",
+            url: "Superlative - The Wave.mp3",
             title: "Superlative - The Wave",
             cover: "https://i1.sndcdn.com/artworks-000249294066-uow7s0-t500x500.jpg"
         },
         {
             id: "a003",
-            url: "../../assets/audio/Litos - Coqueta.mp3",
+            url: "Litos - Coqueta.mp3",
             title: "Litos - Coqueta",
             cover: "https://i1.sndcdn.com/artworks-000249294066-uow7s0-t500x500.jpg"
         }
