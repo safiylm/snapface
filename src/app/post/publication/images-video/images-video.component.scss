@@ -23,7 +23,7 @@
     }
 
     button {
-        position: absolute;
+       // position: absolute;
         height: 100%;
         background-color: transparent;
         border: none;
@@ -60,4 +60,54 @@
 
     }
 
+}
+
+.video-wrapper {
+    position: relative;
+    width: 640px;
+    max-width: 100%;
+    margin: auto;
+    background: #000;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.custom-video {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.controls {
+    padding: 3px 12px;
+  //  background-color: #1c1c1c;
+    color: white;
+    text-align: center;
+
+    button {
+        background-color: #007bff;
+        border: none;
+        color: white;
+        padding: 8px 16px;
+        margin-bottom: 10px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 16px;
+
+        :hover {
+            background-color: #0056b3;
+        }
+    }
+
+    input[type="range"] {
+        width: 100%;
+        margin: 8px 0;
+        cursor: pointer;
+    }
+}
+
+.time-info {
+    font-size: 14px;
+    color: #ccc;
 }

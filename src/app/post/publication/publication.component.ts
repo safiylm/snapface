@@ -4,8 +4,8 @@ import { AuteurInPostOrCommentaireComponent } from '../../user/auteur-in-post-or
 import { InteractionSocialComponent } from '../interaction-social/interaction-social.component';
 import { CommentaireListComponent } from '../../comment/commentaire-list/commentaire-list.component';
 import { NgIf, TitleCasePipe } from '@angular/common';
-import { AudioService } from 'src/services/audio.service';
 import { ImagesVideoComponent } from "./images-video/images-video.component";
+import { AudioComponent } from "./audio/audio.component";
 
 @Component({
   standalone: true,
@@ -14,7 +14,7 @@ import { ImagesVideoComponent } from "./images-video/images-video.component";
   styleUrls: ['./publication.component.scss'],
   imports: [AuteurInPostOrCommentaireComponent,
     InteractionSocialComponent, CommentaireListComponent, TitleCasePipe,
-    NgIf, ImagesVideoComponent]
+    NgIf, ImagesVideoComponent, AudioComponent]
 })
 
 export class PublicationComponent {
@@ -22,11 +22,8 @@ export class PublicationComponent {
   @Input() publication!: Publication;
   isDisplayComments: boolean = false;
   isMyPost: boolean = false;
-  @ViewChildren('autoAudio') audioElements!: QueryList<ElementRef<HTMLAudioElement>>;
-  @ViewChildren('autoVideo') videoElements!: QueryList<ElementRef<HTMLVideoElement>>;
-  audiotitle !: string;
-  audiourl!: string;
-  isMobile !: boolean; // pour gérer l'affichage du post
+    @ViewChildren('autoVideo') videoElements!: QueryList<ElementRef<HTMLVideoElement>>;
+
 
   ngAfterContentChecked() {
     if (this.UserId == localStorage.getItem('userId')) {
@@ -34,37 +31,9 @@ export class PublicationComponent {
     }
   }
 
-  ngOnInit() {
-    if (this.publication != null || this.publication != undefined) {
-
-      this.audiotitle =// this.audioService.getAudioById(this.publication.audio)[0].title as string
-       "Eldar Kedem - Walking Around"
-      this.audiourl = //this.audioService.getAudioById(this.publication.audio)[0].url as string
-     "../../../assets/audio/Eldar Kedem - Walking Around.mp3" 
-      if (window.innerWidth <= 1050) { // Si on est sur mobile
-        this.isMobile = true; // Si on veut afficher les commentaires, on cache le post
-      } else {
-        this.isMobile = false; // Sur PC/tablette, le post reste affiché
-      }
-    }
-  }
-
-  constructor(private elRef: ElementRef, private audioService: AudioService) { }
-
 
   ngAfterViewInit(): void {
-    const audioObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        const audio = entry.target as HTMLAudioElement;
-        if (entry.isIntersecting) {
-          audio.play().catch(() => { });
-        } else {
-          audio.pause();
-        }
-      });
-    }, {
-      threshold: 0.5
-    });
+  
 
     const videoObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -79,10 +48,6 @@ export class PublicationComponent {
       threshold: 0.5
     });
 
-    // Observer tous les audios
-    this.audioElements.forEach(audioRef => {
-      audioObserver.observe(audioRef.nativeElement);
-    });
 
     // Observer toutes les vidéos
     this.videoElements.forEach(videoRef => {
@@ -90,7 +55,6 @@ export class PublicationComponent {
     });
 
   }
-
 
 
   get Id() {
@@ -113,10 +77,6 @@ export class PublicationComponent {
 
   get Publicationn() {
     return (this.publication) ? this.publication : null
-  }
-
-  get Audio() {
-    return (this.publication && this.publication.audio) ? this.publication.audio : null
   }
 
 
