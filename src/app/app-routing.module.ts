@@ -29,14 +29,14 @@ const routes: Routes = [
     }
   },
   {
-    path: '',
+    path: "",
     loadComponent: () => import('./home/home.component')
       .then(mod => mod.HomeComponent),
     resolve: {
       publications: AllPublicationsResolverService,
       users: AllUsersResolverService
     }
-  },
+  }, 
   {
     path: 'connexion',
     loadComponent: () => import('./auth/auth-connexion-user/auth-connexion-user.component')

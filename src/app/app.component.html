@@ -1,4 +1,4 @@
-<div *ngIf="loading" class="spinner-border" role="status">
+<!--<div *ngIf="loadingg" class="spinner-border" role="status">
     <span class="sr-only"></span>
 </div>
 
@@ -46,6 +46,7 @@
         </div>
     </div>
 </div>
-
+-->
+<app-loading-spinner [isVisible]="(loading$ | async)!"></app-loading-spinner>
 
 <router-outlet></router-outlet>
