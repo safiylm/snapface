@@ -13,7 +13,10 @@ const User = new mongoose.Schema({
   phoneNo: { type: String },
   isPrivate: { type: Boolean, default: false},
   isOnline: { type: Boolean},
-
+    createdAt: { type: Date, default: Date.now },
+    isEdited: { type: Boolean, default: false },
+    isDeleted: { type: Boolean, default: false },
+    updatedAt: Date
 }, { versionKey: false });
 User.index({ email : 1}, { unique: true });
 

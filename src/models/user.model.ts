@@ -11,7 +11,7 @@ export class User {
         public photos_background:string,
         public isPrivate : boolean,
         public isOnline : boolean,
-        
+        public createdAt: Date | null,
     ) {
     }
 }

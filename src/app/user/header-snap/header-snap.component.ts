@@ -118,7 +118,7 @@ export class HeaderSnapComponent implements OnInit {
 
   signaler() {
     let s = new Signalement("22", localStorage.getItem('userId')?.toString() as string, Date.now(),
-      this.signalement_raison, null, this.user._id);
+      this.signalement_raison, null, this.user._id, null);
     s.userId = this.id
     console.log(s)
     this.signalementService.signalerUnUser(s).subscribe(

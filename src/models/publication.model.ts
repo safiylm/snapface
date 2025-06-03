@@ -1,18 +1,23 @@
 //MODEL PUBLICATION 
 export class Publication {
     constructor(
-        public _id:string,
+        public _id: string,
         public title: string,
         public body: string,
-        public assets: [ string ],
-        public date: number,
+        public assets: [string],
         public userId: string,
-        public audio:  string ,
+        public audio: string,
+
         public commentsCount: number,
-        public likesCount :number, 
+        public likesCount: number,
         public pointsCount: number,
-        public savesCount: number, 
-        public sharesCount: number, 
-        ) {
+        public savesCount: number,
+        public sharesCount: number,
+        
+        public isEdited: boolean |null,
+        public isDeleted: boolean |null,
+        public createdAt: Date|null, 
+        public updatedAt: Date |null
+    ) {
     }
 }

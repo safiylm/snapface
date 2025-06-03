@@ -88,7 +88,7 @@ export class InteractionSocialComponent {
 
   signaler() {
     let s = new Signalement("22", localStorage.getItem('userId')?.toString() as string, Date.now(),
-      this.signalement_raison, this.post._id, null);
+      this.signalement_raison, this.post._id, null, null);
     this.signalementService.signalerUnePublication(s).subscribe(
       {
         next: (data) => {

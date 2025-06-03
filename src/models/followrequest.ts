@@ -7,7 +7,7 @@ export class FollowRequest {
         public to: string,
         public from: string,
         public status: 'pending' | 'accepted' | 'rejected',
-        public createdAt: DatePipe
+        public createdAt: DatePipe,
     ) {
     }
 }

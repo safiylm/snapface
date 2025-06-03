@@ -5,6 +5,6 @@ export class InteractionSociale {
         public postId: string,
         public userId: string,
         public type: 'like' | 'point' | 'enregistrement',
-        public timestamp: Date,
+        public createdAt: Date,
     ) { }
 }

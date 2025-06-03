@@ -4,11 +4,12 @@ var mongoose = require('mongoose');
 
 const Commentaire = new mongoose.Schema({
 
-    title: { type: String },
+    text: { type: String },
     date: { type: Date },
-    userId: { type: String }, 
+    userId: { type: String },
     postId: { type: String },
-   
+    createdAt: Date,
+    updatedAt: Date
 }, { versionKey: false });
 
 Commentaire.index({ title: 1, userId: 1, postId: 1 }, { unique: true });

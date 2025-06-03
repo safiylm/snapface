@@ -7,7 +7,11 @@ export class Message {
         public text:  string|null ,
         public postId: string|null,
         public timestamp: number,
-        public seen : boolean
+        public seen : boolean,
+        public isEdited : boolean,
+        public isDeleted : boolean,
+        public createdAt: Date,
+        public updatedAt: Date
         ) {
     }
 }

@@ -5,8 +5,11 @@ const MessageSchema = new mongoose.Schema({
   conversationId: String,
   text: String,
   postId: String,
-  time_: { type: Date, default: Date.now },
-  seen: { type: Boolean, default: false},
+  createdAt: { type: Date, default: Date.now },
+  seen: { type: Boolean, default: false },
+  isEdited: { type: Boolean, default: false },
+  isDeleted: { type: Boolean, default: false },
+  updatedAt: Date
 });
 
 module.exports = mongoose.model('Message', MessageSchema);

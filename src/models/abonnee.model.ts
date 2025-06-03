@@ -4,5 +4,7 @@ export class Abonnee {
         public _id: number,
         public userId: string,
         public follows: string, // la personne suivie
+        public createdAt: Date,
+
     ) { }
 }

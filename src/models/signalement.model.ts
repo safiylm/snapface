@@ -7,5 +7,6 @@ export class Signalement {
         public raison: string,
         public postId: string|null, //Signale un post 
         public userId: string|null, //Signale un user 
+        public createdAt: Date|null,
     ) { }
 }

@@ -3,5 +3,6 @@ export class Conversation {
     constructor(
         public _id:string ,
         public speaker: string[  ],
+        public createdAt: Date,
     ){}
 }

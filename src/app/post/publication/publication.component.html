@@ -3,7 +3,7 @@
     <div class="post">
       <app-auteur-in-post-or-commentaire [id]="UserId!"></app-auteur-in-post-or-commentaire>
 
-      <app-audio [publication]="publication"></app-audio>
+      <app-audio *ngIf="publication.audio!=''" [publication]="publication"></app-audio>
  
       <app-images-video [assets]="publication.assets"></app-images-video>
 

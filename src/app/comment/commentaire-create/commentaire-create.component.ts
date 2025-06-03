@@ -14,26 +14,28 @@ import { CommentaireService } from 'src/services/commentaire-service';
 export class CommentaireCreateComponent {
 
   @Input() id !: string;
-  commentaire = new Commentaire("", "", Date.now(), localStorage.getItem('userId')?.toString() as string, '');
+  commentaire = new Commentaire("", "",
+    localStorage.getItem('userId')?.toString() as string, '', null, null, null, null);
   result = "";
+
   constructor(private commentaireService: CommentaireService) { }
 
   createNewComment() {
     this.commentaire.postId = this.id;
     if (localStorage.getItem('userId')) {
-      if (this.commentaire.title.trim() != "")
+      if (this.commentaire.text.trim() != "")
         this.commentaireService.addNewCommentaire(this.commentaire).subscribe(
           {
             next: (data) => {
               if (data) {
-                this.commentaire.title = ""
+                this.commentaire.text = ""
                 this.result = "Votre commentaire a été crée avec succès"
                 setTimeout(() => {
                   this.result = ""
                 }, 1000)
               }
             }, error: (e) => {
-              this.commentaire.title = ""
+              this.commentaire.text = ""
               this.result = "Une erreur s'est produite veuillez recommencer."
               setTimeout(() => {
                 this.result = ""

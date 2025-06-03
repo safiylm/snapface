@@ -1,7 +1,7 @@
  <app-auteur-in-post-or-commentaire [id]="UserId!"></app-auteur-in-post-or-commentaire>
 
 <div class="d-flex flex-row align-items-center justify-content-between">
-    <p *ngIf="!isDisplayingForm" id="p-commentaire">{{ Titre}}</p>
+    <p *ngIf="!isDisplayingForm" id="p-commentaire">{{ Texte}}</p>
     
     <div *ngIf="isMyComment" >
         <button *ngIf="!isDisplayingForm" class="btn btn-light" (click)="showFormEditComment()">
@@ -23,7 +23,7 @@
 
 
 <form *ngIf="isMyComment && isDisplayingForm" autocomplete="off" (ngSubmit)="editComment()">
-    <input type="text" class="form-control" [(ngModel)]="commentaire.title" name="title" />
+    <input type="text" class="form-control" [(ngModel)]="commentaire.text" name="title" />
     <button class="btn btn-primary" type="submit">Modifier</button>
     <button class="btn btn-light" type="button" (click)="hideFormEditComment()">Annuler</button>
 </form>

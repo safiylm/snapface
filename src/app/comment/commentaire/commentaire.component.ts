@@ -99,8 +99,8 @@ export class CommentaireComponent //implements AfterViewInit
    // }
   }
 
-  get Titre() {
-    return (this.commentaire && this.commentaire.title) ? this.commentaire.title : null
+  get Texte() {
+    return (this.commentaire && this.commentaire.text) ? this.commentaire.text : null
   }
 
   get UserId() {

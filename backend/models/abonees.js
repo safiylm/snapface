@@ -6,6 +6,8 @@ const Abonee = new mongoose.Schema({
 
     usedId: { type: String },
     follows : {type: String }, // la personne suivie
+     createdAt: Date,
+
 }, { versionKey: false });
 
 Abonee.index({ usedId: 1, follows: 1 }, { unique: true });

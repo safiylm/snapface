@@ -3,7 +3,7 @@ import { UserService } from '../../../services/user-service'
 import { User } from '../../../models/user.model'
 import * as bcrypt from "bcryptjs";
 import { FormsModule } from "@angular/forms";
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { HeaderComponent } from '../../header/header.component';
 import { interval, scan, takeWhile } from 'rxjs';
 
@@ -30,7 +30,7 @@ export class AuthInscriptionUserComponent implements OnInit {
 
   user = new User("", "", "",
     "example@gmail.com", "",
-    0, "", "", false, false);
+    0, "", "", false, false, null);
 
   password2 = "";
 
