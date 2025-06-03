@@ -42,17 +42,35 @@ Contexte: J'adore instagram, je me suis lancée le défi de créer un similaire.
 
 ## Fonctionnalités
 
-    Liste des fonctionnalités principales de l'application
+    Authentification des utilisateurs (inscription / connexion) -- se déconnecter 
 
-    Tu peux utiliser des bullet points ou des sous-sections
+    Voir publications des utilisateurs public et ceux qu'ont suit
 
-    Exemple :
+    Compte public || private 
 
-        Authentification des utilisateurs (inscription / connexion)
+    S'abonner et se désabonner
 
-        Envoi et réception de messages en temps réel
+    compte privé -- accepter ou refuser une requete d'abonnement 
 
-        Affichage de l'état en ligne des utilisateurs
+    Interagir sur les publications -- liker, ajouter un point, enregistrer ou commenter -- 
+
+    Voir sa Liste des publications likées, pointed, enregistré 
+
+    Création de publications avec photos, videos & audio
+
+    Modification et suppression de publications
+
+    Envoi et réception de messages en temps réel
+
+    Envoi et réception de publications en temps réel
+
+    Affichage de l'état en ligne des utilisateurs
+
+    Rechercher un utilisateur ou une publication
+
+    Signaler un utilisateur ou une publication 
+
+    un utilisateur peut modifier ses données -- sa photo de profil et sa photo de background 
 
 
 ## Technologies utilisées
