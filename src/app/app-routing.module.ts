@@ -16,6 +16,7 @@ import { ChatComponent } from './chat_/chat/chat.component';
 import { LikedListComponent } from './post/liked-list/liked-list.component';
 import { PointedListComponent } from './post/pointed-list/pointed-list.component';
 import { EnregistrementListComponent } from './post/enregistrement-list/enregistrement-list.component';
+import { DocTechniqueComponent } from './doc-technique/doc-technique.component';
 
 const routes: Routes = [
   {
@@ -72,27 +73,6 @@ const routes: Routes = [
       .then(mod => mod.SearchComponent),
   },
 
-  {
-    path: 'mon-compte/edit',
-    title: "Modifier mes données personnelles",
-    loadComponent: () => import('./user/user-data-update/user-data-update.component')
-      .then(mod => mod.UserDataUpdateComponent),
-    canDeactivate: [formulaireDesactiveGuard],
-    resolve: {
-      user: MyUserDataResolverService
-    },
-  },
-  {
-    path: 'mon-compte/create-post',
-    title: "Create new post",
-    loadComponent: () => import("./post/publication-create/publication-create.component")
-      .then(mod => mod.PublicationCreateComponent),
-    canDeactivate: [formulaireDesactiveGuard],
-    resolve: {
-      user: MyUserDataResolverService
-    },
-  },
-
 
   {
     path: 'publication/edit/:id',
@@ -136,22 +116,11 @@ const routes: Routes = [
   },
 
   {
-    path: 'like-liste',
-    title: "Like",
-    component: LikedListComponent
+    path: 'doctech',
+    title: "Doc",
+    component: DocTechniqueComponent
   },
 
-  {
-    path: 'point-liste',
-    title: "Point",
-    component: PointedListComponent
-  },
-
-  {
-    path: 'enregistrement-liste',
-    title: "Enregistrement",
-    component: EnregistrementListComponent
-  },
 
 ];
 
