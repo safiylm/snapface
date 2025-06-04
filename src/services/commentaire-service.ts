@@ -7,6 +7,7 @@ import { Commentaire } from '../models/commentaire.model';
 import { User } from '../models/user.model';
 import { InteractionSociale } from '../models/interaction.sociale.model';
 import { LocalizedString } from '@angular/compiler';
+import { url } from './url'
 
 @Injectable({
   providedIn: 'root'
@@ -16,15 +17,12 @@ export class CommentaireService {
 
   constructor(private http: HttpClient) { }
 
-  url="https://snapface.onrender.com"
-  // url="http://localhost:4100"
- 
   getCommentaireByPostId(id: string): Observable<Commentaire[]> {
-    return this.http.get<Commentaire[]>( this.url + "/api/commentairesByPostId?id=" + id);
+    return this.http.get<Commentaire[]>( url + "/api/commentairesByPostId?id=" + id);
   }
 
   getUserByUserId(id: string): Observable<User> {
-    return this.http.get<User>(this.url + "/api/userid?id=" + id);
+    return this.http.get<User>(url + "/api/userid?id=" + id);
   }
 
   addNewCommentaire(formData: Commentaire): Observable<Commentaire> {
@@ -37,18 +35,18 @@ export class CommentaireService {
 
     return this.http
       .post<Commentaire>(
-        this.url + `/api/commentaire/create`,
+        url + `/api/commentaire/create`,
         formData,
         httpOptions
       )
   }
   
 
-  deleteCommentaire(commentId: string) : Observable<Commentaire> {
+  deleteCommentaire(commentId: string, postId: string ) : Observable<Commentaire> {
    return this.http
       .post<any>(
-        this.url + "/api/commentaire/delete",
-        { "id": commentId }
+        url + "/api/commentaire/delete",
+        { "id": commentId , "postId": postId}
       )
   }
 
@@ -56,7 +54,7 @@ export class CommentaireService {
 
     return this.http
       .post<Commentaire>(
-        this.url + "/api/commentaire/update",
+        url + "/api/commentaire/update",
         form
       )
   }

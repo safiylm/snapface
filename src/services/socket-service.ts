@@ -2,6 +2,7 @@
 import { Injectable } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
 import { Observable } from 'rxjs';
+import { url } from './url'
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,7 @@ export class SocketService {
   constructor() {
     const userId = localStorage.getItem('userId')?.toString() as string ; // remplace par l'ID réel
     this.socket = io(
-       // 'https://snapface.onrender.com', {
-        'http://localhost:4100', {
+       url, {
     //  query: { userId }, 
        withCredentials: true
     });

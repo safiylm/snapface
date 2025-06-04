@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Publication } from '../models/publication.model'
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { url } from './url'
 
 
 @Injectable({
@@ -11,13 +12,11 @@ export class PublicationsService {
 
   constructor(private http: HttpClient) { }
 
- //  url="https://snapface.onrender.com"
- url = "http://localhost:4100"
 
   getAllPublications(): Promise<Publication[]> {
     return new Promise((resolve) => {
       setTimeout(() => {
-        return this.http.get<Publication[]>(this.url + "/api/publication")
+        return this.http.get<Publication[]>(url + "/api/publication")
           .subscribe(response => {
             resolve(response)
           }, err => {
@@ -32,28 +31,28 @@ export class PublicationsService {
 
 
   getAllPublications_(): Observable<Publication[]> {   
-      return this.http.get<Publication[]>(this.url + "/api/publication")  
+      return this.http.get<Publication[]>(url + "/api/publication")  
   }
 
   
   getAllPublicationsPourMoi(): Observable<Publication[]> {   
-      return this.http.get<Publication[]>(this.url + "/api/pour-moi/publication?userId="+localStorage.getItem('userId')?.toString())  
+      return this.http.get<Publication[]>(url + "/api/pour-moi/publication?userId="+localStorage.getItem('userId')?.toString())  
   }
   
 
   getAllPublicationsByUserId(id: string): Observable<Publication[]> {
-    return this.http.get<Publication[]>(this.url + "/api/publicationByUserId?id=" + id);
+    return this.http.get<Publication[]>(url + "/api/publicationByUserId?id=" + id);
   }
 
   getMyPublications(): Observable<Publication[]> {
-    return this.http.get<Publication[]>(this.url + "/api/publicationByUserId?id=" + localStorage.getItem('userId')?.toString());
+    return this.http.get<Publication[]>(url + "/api/publicationByUserId?id=" + localStorage.getItem('userId')?.toString());
   }
 
   public createNewPublication(formData: any): Observable<any> {
    
     return this.http
       .post(
-        this.url + `/api/publication/create`,
+        url + `/api/publication/create`,
         formData,
       )
   }
@@ -62,7 +61,7 @@ export class PublicationsService {
   editPost(formData: any): Observable<any> {
     return this.http
       .post(
-        this.url + `/api/publication/edit`,
+        url + `/api/publication/edit`,
         formData,
       )
   }
@@ -70,18 +69,18 @@ export class PublicationsService {
   deletePost(id: string): Observable<any> {
     return this.http
       .post<any>(
-        this.url + `/api/publication/delete`,
+        url + `/api/publication/delete`,
         { "id": id },
       )
   }
 
   getPublicationById(PublicationId: string): Observable<Publication> {
-    return this.http.get<Publication>(this.url + "/api/publicationid?id=" + PublicationId);
+    return this.http.get<Publication>(url + "/api/publicationid?id=" + PublicationId);
 
   }
 
   searchByTitle(name : string): Observable<Publication[]> {
-    return this.http.get<Publication[]>(this.url + "/api/publication/search?name=" + name);
+    return this.http.get<Publication[]>(url + "/api/publication/search?name=" + name);
 
   }
 

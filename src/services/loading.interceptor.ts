@@ -9,21 +9,21 @@ import { Observable } from 'rxjs';
 // loading.interceptor.ts
 import { finalize } from 'rxjs/operators';
 import { LoadingService } from './loading-service';
+import { url } from './url'
 
 @Injectable()
 
 export class LoadingInterceptor implements HttpInterceptor {
 
-  private url = 'http://localhost:4100'
   constructor(private loadingService: LoadingService) { }
   private excludedUrls = [
-    this.url + '/api/interaction/enregistrementAdd',
-    this.url + '/api/interaction/enregistrementRemove',
-    this.url + '/api/interaction/pointsAdd',
-    this.url + '/api/interaction/pointsRemove',
-    this.url + '/api/interaction/likesAdd',
-    this.url + '/api/interaction/likesRemove',
-    this.url + '/api/publication',
+    url + '/api/interaction/enregistrementAdd',
+    url + '/api/interaction/enregistrementRemove',
+    url + '/api/interaction/pointsAdd',
+    url + '/api/interaction/pointsRemove',
+    url + '/api/interaction/likesAdd',
+    url + '/api/interaction/likesRemove',
+    url + '/api/publication',
   ];
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {

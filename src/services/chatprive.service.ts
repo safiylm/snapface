@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Message } from 'src/models/message.model';
 import { Conversation } from 'src/models/conversation';
+import { url } from './url'
 
 
 @Injectable({
@@ -13,11 +14,11 @@ import { Conversation } from 'src/models/conversation';
 export class ChatPriveService {
 
   private socket: Socket;
-  url="https://snapface.onrender.com"
- // url = "http://localhost:4100"
- constructor(private http: HttpClient) {
-   //  this.socket = io('http://localhost:4100');
-     this.socket = io('https://snapface.onrender.com');
+
+  constructor(private http: HttpClient) {
+    this.socket = io(url ,{
+      withCredentials: true
+    });
   }
 
 
@@ -46,42 +47,42 @@ export class ChatPriveService {
 
 
   getMessageHistory(conversationId: string) {
-    return this.http.get(this.url + `/messages?conversationId=${conversationId}`);
+    return this.http.get(url + `/messages?conversationId=${conversationId}`);
   }
 
   getLastMessage(conversationId: string) {
-    return this.http.get<Message>(this.url + `/last-message?conversationId=${conversationId}`);
+    return this.http.get<Message>(url + `/last-message?conversationId=${conversationId}`);
   }
 
 
   editMessage(id: string, text: string) {
-    return this.http.post(this.url + `/message/edit`, { "id": id, "text": text });
+    return this.http.post(url + `/message/edit`, { "id": id, "text": text });
   }
 
   deleteMessage(id: string) {
-    return this.http.post(this.url + `/message/delete`, { "id": id });
+    return this.http.post(url + `/message/delete`, { "id": id });
   }
 
   deleteConversation(conversationId: string) {
-    return this.http.post(this.url + `/conversation/delete`, { "conversationId": conversationId });
+    return this.http.post(url + `/conversation/delete`, { "conversationId": conversationId });
   }
 
   getUsersWeHaveConversation(userId: string): Observable<Conversation[]> {
     this.getNumberOfNewMessagesByUserId(userId)
-    return this.http.get<Conversation[]>(this.url + `/conversations/?userId=${userId}`);
+    return this.http.get<Conversation[]>(url + `/conversations/?userId=${userId}`);
   }
 
   getConversationById(id: string): Observable<Conversation> {
-    return this.http.get<Conversation>(this.url + `/conversation/?id=${id}`);
+    return this.http.get<Conversation>(url + `/conversation/?id=${id}`);
   }
   numberofmessage: number = 0;
 
   getNumberOfNewMessagesByUserId(userid: string) {
-    this.http.get<Conversation[]>(this.url + `/conversations/?userId=${userid}`)
+    this.http.get<Conversation[]>(url + `/conversations/?userId=${userid}`)
       .subscribe(
         (data: Conversation[]) => {
           for (let d of data) {
-            this.http.get<Conversation[]>(this.url + "/conversation/nbnewmsj?id=" + d._id)
+            this.http.get<Conversation[]>(url + "/conversation/nbnewmsj?id=" + d._id)
               .subscribe(
                 (dataa) => {
                   if (dataa.length > 0) {
@@ -101,21 +102,21 @@ export class ChatPriveService {
   createConversation(sender: string, receiver: string): Observable<Conversation> {
     return this.http
       .post<any>(
-        this.url + `/conversation/create`,
+        url + `/conversation/create`,
         { "sender": sender, "receiver": receiver })
   }
 
   markAsSeen(conversationId: string): Observable<any> {
     return this.http
       .post<any>(
-        this.url + `/message/markasseen`,
+        url + `/message/markasseen`,
         { "conversationId": conversationId })
   }
 
   getNewMessagesByConversationId(conversationId: string) {
     return this.http
       .get<Message[]>(
-        this.url + "/conversation/nbnewmsj?id=" + conversationId)
+        url + "/conversation/nbnewmsj?id=" + conversationId)
   }
 
 
