@@ -77,7 +77,7 @@ export class CommentaireComponent //implements AfterViewInit
 
       let text = "Êtes-vous sûre de supprimer votre commentaire!\n OK or Cancel.";
     //  if (confirm(text) == true) {
-        this.commentaireService.deleteCommentaire(this.commentaire._id)
+        this.commentaireService.deleteCommentaire(this.commentaire._id, this.commentaire.postId)
         .subscribe(
           {
             next: (data) => {
