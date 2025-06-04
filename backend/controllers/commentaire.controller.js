@@ -2,71 +2,66 @@ const db = require('../config/db.config.js');
 const collection_commentaires = db.collection('commentaires');
 const collection_interactionsociales = db.collection('interactionsociales');
 const ObjectId = require('mongodb').ObjectId;
+const collection_publications = db.collection('publications');
 
 
 //create new comments
 exports.create = (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
 
-  collection_interactionsociales.findOne({ "postId": req.body.postId }).then(i => {
+  collection_commentaires
+    .insertOne({
+      text: req.body.text,
+      date: Date.now(),
+      userId: req.body.userId,
+      postId: req.body.postId
 
-    collection_commentaires
-      .insertOne({
-        title: req.body.title,
-        date: Date.now(),
-        userId: req.body.userId,
-        postId: req.body.postId
-
-      })
-      .then(data => {
-        const updateResult = collection_interactionsociales.updateOne({ "postId": req.body.postId },
-          { $inc: { "comments": 1 } }).then(x => {
-            res.set('Access-Control-Allow-Origin', '*');
-            res.send(updateResult);
+    })
+    .then(data => {
+      if (data)
+        collection_publications.updateOne({ "_id": new ObjectId(req.body.postId) },
+          {
+            $inc: { "commentsCount": 1, }
+          }).then(data1 => {
+            res.send(data);
           })
 
-      })
-      .catch(err => {
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while creating the User."
-        });
+    })
+    .catch(err => {
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while creating the comment."
       });
-
-  })
+    });
 
 };
 
 
 //delete comment with id
 exports.delete = async (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
 
   collection_commentaires.
-    findOne({ "_id": new ObjectId(req.body.id) }).then(c => {
-
-      collection_interactionsociales.
-        findOne({ "postId": c.postId }).then(i => {
-
-          collection_commentaires.
-            deleteOne({ "_id": new ObjectId(req.body.id) }).then(k => {
-
-              collection_interactionsociales.
-                updateOne({ "postId": c.postId },
-                  { $inc: { "comments": - 1 } }).then(x => {
-                    res.set('Access-Control-Allow-Origin', '*');
-                    res.send(x);
-                  })
-            })
-        })
+    deleteOne({ "_id": new ObjectId(req.body.id) })
+    .then(data => {
+      if (data)
+        collection_publications.updateOne({ "_id": new ObjectId(req.body.postId) },
+          {
+            $inc: { "commentsCount": -1, }
+          }).then(data1 => {
+            console.log(data1)
+            res.json(data);
+          })
     })
+
 }
 
 
 //update comment with id 
 exports.update = async (req, res) => {
 
-  console.log(req.body._id);
   const updateResult = await collection_commentaires.updateOne({ "_id": new ObjectId(req.body._id) },
-    { $set: { "title": req.body.title } });
+    { $set: { "text": req.body.text } });
   res.set('Access-Control-Allow-Origin', '*');
   res.send(updateResult);
 
@@ -83,22 +78,5 @@ exports.findByPublicationId = async (req, res) => {
 
 
 exports.checkTotalComments = async (req, res) => {
-  const id = req.query.id;
-  const total = req.query.comments;
-  res.set('Access-Control-Allow-Origin', '*');
-
- collection_interactionsociales
-      .updateOne({ postId: id },
-        {  $set: { "comments":  total }
-        }, true
-      )
-      .then(data => {
-          res.send('Update successful!')
-      })
-  .catch(err => {
-    res.status(500).send({
-      message:
-        err.message || "Some error occurred while creating the User."
-    });
-  });
+  res.json('a coder ')
 }
