@@ -132,3 +132,177 @@ Corps de la requête :
 { "email": "...", "password": "..." }
 Réponse :
 { "token": "..." }
+
+
+## API ABONNEMENTS
+
+POST /api/abonnees/create
+Corps de la requête :
+{ "userId": "...", "follows": "..." }
+Réponse :
+{ "acknowledged": "...",	modifiedCount : "...",}
+
+POST /api/abonnees/remove
+Corps de la requête :
+{ "userId": "...", "follows": "..." }
+Réponse :
+{ "acknowledged": "...",	modifiedCount : "...",}
+
+
+GET /api/abonnement
+Corps de la requête :
+{ "id": "...", }
+Réponse :
+{ array of abonnement } 
+
+GET /api/followers
+Corps de la requête :
+{ "id": "...", }
+Réponse :
+{ array of abonnement } 
+
+GET /api/checkabonnement
+
+
+
+## API COMMENTAIRES
+
+GET /api/commentairesByPostId
+Corps de la requête :
+{ "userId": "...", "follows": "..." }
+Réponse :
+{ array of comments  }
+
+POST /api/commentaire/create
+Corps de la requête :
+{ "text": "...", "userId": "...", "postId": "..." }
+Réponse :
+{ "acknowledged": "...", "insertedId": "...", }
+
+POST /api/commentaire/delete
+Corps de la requête :
+{ "id": "...", "postId": "..." }
+Réponse :
+{ "acknowledged": "...",	"modifiedCount" : "...",}
+
+POST /api/commentaire/update
+Corps de la requête :
+{ "_id": "...", "text": "..." }
+Réponse :
+{ "acknowledged": "...",	"modifiedCount" : "...",}
+
+## API FOLLOW REQUEST 
+
+POST /api/followrequest/create
+POST /api/followrequest/accept
+POST /api/followrequest/reject
+
+GET /api/listOfFollowRequest
+GET /api/dejaEnAttente 
+
+
+## API INTERACTION SOCIAL 
+
+
+POST /api/interaction/pointsAdd
+POST /api/interaction/pointsRemove
+POST /api/interaction/likesAdd
+POST /api/interaction/likesRemove
+POST /api/interaction/enregistrementAdd
+POST /api/interaction/enregistrementRemove
+
+
+GET /api/interaction/pointsByUserId
+GET /api/interaction/likesByUserId
+GET /api/interaction/enregistrementsByUserId
+GET /api/interaction/pointsByPostId
+GET /api/interaction/likesByPostId
+GET /api/interaction/likesCount
+GET /api/interaction/pointsCount
+GET /api/interaction/getIfUserAlreadyLikePost
+GET /api/interaction/getIfUserAlreadyPointPost
+GET /api/interaction/getIfUserAlreadySavePost
+
+
+## API MESSAGE
+
+
+POST /message/create
+POST /conversation/create
+POST /message/edit
+POST /message/delete
+POST /conversation/delete
+POST /message/markasseen
+
+GET /messages
+GET /last-message
+GET /conversations
+GET /conversation
+GET /conversation/nbnewmsj
+
+
+## API PUBLICATION 
+
+POST /api/publication/create
+POST /api/publication/edit
+POST /api/publication/delete
+
+
+GET /api/publication
+GET /api/pour-moi/publication
+GET /api/publicationByUserId
+GET /api/publicationid
+GET /api/publication/search
+
+
+
+
+## API SIGNALEMENT 
+
+POST /create/signalement/user
+POST /create/signalement/post
+
+GET /signalement/allpost
+GET /signalement/alluser
+GET /signalement/allpostByAuteur
+GET /signalement/alluserByAuteur
+
+
+
+
+## API STATISTIQUE USER 
+
+POST /api/statistique/user/create
+POST /api/checkFollowers
+POST /api/checkPublications
+POST /api/checkPoints
+
+GET /api/statistiqueUserByUserId
+
+
+
+## API USER 
+
+
+GET /api/user
+GET /api/userid
+GET /api/username
+GET /logout
+
+POST /api/user/create
+POST /api/user/connexion
+POST /api/user/update
+POST /api/user/edit/password
+POST /api/user/edit/email
+POST /api/user/edit/phonenumber
+POST /api/user/delete
+POST /password-oublie/email
+POST /api/user/email
+POST /api/user/reinitialise/password
+POST /api/user/edit/photodeprofil
+POST /api/user/edit/photobackground
+
+POST /api/user/edit/online
+POST /api/user/edit/notonline
+
+
