@@ -11,13 +11,14 @@ import { HeaderComponent } from '../../header/header.component';
   templateUrl: './auth-connexion-user.component.html',
   styleUrls: ['./auth-connexion-user.component.scss'],
   imports: [FormsModule, HeaderComponent, CommonModule],
+
 })
 
 @Injectable({ providedIn: 'root' })
 
 export class AuthConnexionUserComponent {
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, ) {  }
   result = "";
   password = "Snapface123*";
   email = "travelblog@gmail.com"
@@ -30,7 +31,6 @@ export class AuthConnexionUserComponent {
 
 
   onSubmit() {
-
     this.userService.connexion(this.email).subscribe(
       (data: any) => {
         console.log(data)
@@ -59,5 +59,6 @@ export class AuthConnexionUserComponent {
           this.result = "Votre email est incorrecte.";
       }
     );
+    
   }
 }

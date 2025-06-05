@@ -31,8 +31,9 @@ export class AudioComponent {
 
 
     if (this.publication.audio != null
-      || this.publication.audio != undefined) {
-
+      && this.publication.audio != undefined
+      && this.audioService.getAudioById(this.publication.audio).length != 0) {
+ 
       this.audiotitle = this.audioService.getAudioById(this.publication.audio)[0].title as string
       this.audiourl = '../../../../assets/audio/' + this.audioService.getAudioById(this.publication.audio)[0].url as string
 
@@ -60,7 +61,7 @@ export class AudioComponent {
         if (entry.isIntersecting) {
           audio.play().catch(() => { });
         } else {
-          this.isPlaying=false;
+          this.isPlaying = false;
           audio.pause();
         }
       });

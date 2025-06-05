@@ -11,18 +11,18 @@
   <ng-container *ngIf="isImage(assets[index]); else videoTemplate">
     <div *ngIf="assets[index]" @fadeImage>
       <img id="image" [src]="assets[index]!" alt='photos'>
-
     </div>
   </ng-container>
 
 
   <ng-template #videoTemplate>
-    <div class="video-wrapper">
-      <video #videoPlayer class="custom-video" [src]="link" (click)="togglePlay()"></video>
+    <div class="video-wrapper" *ngIf="isVideo( assets[index])">
+      <video #videoPlayer class="custom-video" [src]="assets[index]!" (click)="togglePlay()"></video>
       <div class="controls d-flex align-items-center justify-content-center">
         <input type="range" [value]="currentTime" [max]="duration" (input)="onSeek($event)" min="0" [max]="duration" />
+        <span>{{ formatTime(currentTime) }} / {{ formatTime(duration) }}</span>
+
       </div>
-      <span>{{ formatTime(currentTime) }} / {{ formatTime(duration) }}</span>
     </div>
   </ng-template>
 
