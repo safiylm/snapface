@@ -7,7 +7,7 @@ const nodemailer = require('nodemailer');
 const ObjectId = require('mongodb').ObjectId;
 const jwt_ = require('../jwt.js')
 const jwt = require('jsonwebtoken');
-
+const bcrypt = require('bcrypt-nodejs')
 const cloudinary = require('cloudinary').v2;
 
 cloudinary.config({
@@ -45,6 +45,7 @@ exports.create = (req, res) => {
   collection_user
     .insertOne(user)
     .then(data => {
+
       collection_statistiqueusers
         .insertOne({
           userId: data.insertedId.toString(),
@@ -53,15 +54,7 @@ exports.create = (req, res) => {
           totalPoints: 0,
         })
         .then(data1 => {
-          collection_abonnees
-            .insertOne({
-
-              userId: data.insertedId.toString(),
-              followers: []
-            })
-            .then(data3 => {
-              res.send(data3);
-            })
+          res.send(data1);
         })
     })
     .catch(err => {
@@ -234,15 +227,21 @@ exports.editPassword = async function (req, res) {
 exports.delete = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
 
-  // const deleteResult = await collection_user.deleteOne({ "_id": new ObjectId(req.body.id) });
-  const deleteResult = await collection_user.updateOne({ "_id": new ObjectId(req.body._id) },
+  collection_user.updateOne({ "_id": new ObjectId(req.body._id) },
     {
       $set: {
         "firstName": "Utilisateur",
         "lastName": "Introuvable",
       }
-    });
-  res.send(deleteResult);
+    }).then((data) => {
+      if (data)
+        collection_statistiqueusers.deleteOne({ "userId": req.body._id }).then(
+          (x) => {
+            if (x)
+              res.send(data);
+          }
+        );
+    })
 
 }
 
@@ -288,40 +287,50 @@ exports.findByName = async (req, res) => {
 
 }
 
-function cookies 
-(id, res ){
+function cookies
+  (id, res) {
   // Créer le cookie
   res.cookie('token', id, {
     httpOnly: true,
     secure: false,      // ⚠️ mettre true en prod avec HTTPS
     sameSite: 'Lax',
     maxAge: 24 * 60 * 60 * 1000,
-  });  
+  });
 }
 
 //connexion
 exports.connexion = async function (req, res, next) {
 
-const resultat = await collection_user.findOne(
-  { email: req.body.email });
+  const resultat = await collection_user.findOne(
+    { email: req.body.email });
 
-if (resultat != null) {
-  const id = resultat['_id'].toString();
-  
-  cookies(id, res)
+  if (resultat != null) {
 
-  // Répondre une seule fois
-  return res.json({ message: 'Connexion réussie', user: resultat });
-}
+    bcrypt.compare(req.body.password, resultat['password'], function (err, ress) {
+      if (ress == true) {
+        const id = resultat['_id'].toString();
 
-// Sinon : utilisateur non trouvé
-  res.status(401).json({ error: 'Utilisateur non trouvé' });
+        cookies(id, res)
+
+        // Répondre une seule fois
+        return res.json({ message: 'Connexion réussie', user: resultat });
+      }
+      else{
+        res.json({ message : "Votre votre mot de passe est incorrecte." }); 
+      }
+    });
+  } else {
+    // Sinon : utilisateur non trouvé
+    res.json({ message: 'Votre email est incorrecte.' });
+  }
+
+
 
 };
 
 exports.logout = async function (req, res) {
   res.set('Access-Control-Allow-Origin', '*');
-  
+
   res.clearCookie("token");
 
   res.json("ok")

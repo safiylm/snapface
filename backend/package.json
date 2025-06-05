@@ -16,6 +16,7 @@
     "@types/node": "^20.12.7",
     "axios": "^1.8.2",
     "bcrypt": "^5.1.1",
+    "bcrypt-nodejs": "^0.0.3",
     "cloudinary": "^2.6.0",
     "cookie": "^1.0.2",
     "cookie-parser": "^1.4.7",

@@ -37,12 +37,12 @@ export class UserService {
   }
 
 
-  public connexion(email: string): Observable<any> {
+  public connexion(email: string, password:string ): Observable<any> {
 
     return this.http
       .post(
         url + `/api/user/connexion`,
-        { "email": email},
+        { "email": email, "password": password },
           {  withCredentials: true
          },
       )

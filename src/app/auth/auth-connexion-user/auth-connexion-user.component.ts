@@ -18,7 +18,7 @@ import { HeaderComponent } from '../../header/header.component';
 
 export class AuthConnexionUserComponent {
 
-  constructor(private userService: UserService, ) {  }
+  constructor(private userService: UserService,) { }
   result = "";
   password = "Snapface123*";
   email = "travelblog@gmail.com"
@@ -31,34 +31,25 @@ export class AuthConnexionUserComponent {
 
 
   onSubmit() {
-    this.userService.connexion(this.email).subscribe(
+    this.userService.connexion(this.email, this.password).subscribe(
       (data: any) => {
-        console.log(data)
 
-        if (data != null) {
-          bcrypt.compare(this.password, data.user.password, (err, data1) => {
-            //if error than throw error
-          //  if (err) throw err
+        if (data.user != null) {
 
-            //if both match than you can do anything
-            if (data1) {
-              localStorage.setItem('isLoggedIn', "true");
-              localStorage.setItem('userId', data.user["_id"]);
-              localStorage.setItem("user_photo_de_profil",data.user["photos_profil"])
-              localStorage.setItem("user_name", data.user["firstName"] + " " + data.user["lastName"])
+          localStorage.setItem('isLoggedIn', "true");
+          localStorage.setItem('userId', data.user["_id"]);
+          localStorage.setItem("user_photo_de_profil", data.user["photos_profil"])
+          localStorage.setItem("user_name", data.user["firstName"] + " " + data.user["lastName"])
 
-              this.result = "CONNEXION REUSSI.";
-              window.location.href = '/mon-compte'
-
-            } else {
-              this.result = "Votre votre mot de passe est incorrecte.";
-            }
-          })
+          this.result = "CONNEXION REUSSI.";
+          window.location.href = '/mon-compte'
         }
-        else
-          this.result = "Votre email est incorrecte.";
+
+        if (data.message != null)
+          this.result = data.message
+
       }
     );
-    
+
   }
 }
