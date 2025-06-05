@@ -1,4 +1,4 @@
-<div id="photo-viewer-photo-profil" *ngIf="isDisplayPhotoViewerProfil">
+<div id="photo-viewer-photo-profil"@fadeIn @fadeOut *ngIf="isDisplayPhotoViewerProfil">
     <button type="button" class="btn-close" aria-label="Close" (click)="hidePhotoViewerProfil()"></button>
     <br />
     <div *ngIf="!showEditPhotoProfil">
@@ -16,7 +16,7 @@
 
 </div>
 
-<div id="photo-viewer-photo-background" *ngIf="isDisplayPhotoViewerBackground">
+<div id="photo-viewer-photo-background" @fadeIn @fadeOut *ngIf="isDisplayPhotoViewerBackground">
     <button type="button" class="btn-close" aria-label="Close" (click)="hidePhotoViewerBackground()"></button>
     <br />
     <div *ngIf="!showEditPhotoBackground">
@@ -61,7 +61,7 @@
             (click)="displayFormSignalmt=true">Signaler</button>
 
 
-        <div *ngIf="displayFormSignalmt" class="modal-">
+        <div *ngIf="displayFormSignalmt" class="modal-" @fadeIn @fadeOut>
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">

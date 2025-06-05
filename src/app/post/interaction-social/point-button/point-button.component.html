@@ -22,7 +22,7 @@
 
 </div>
 
-<div id="div-liste-point" *ngIf="displayListePoint_ && PointedBy.length">
+<div id="div-liste-point" *ngIf="displayListePoint_ && PointedBy.length"  @fadeIn @fadeOut>
     <button type="button" class="btn-close" aria-label="Close" (click)="displayListePoint()"></button>
     <app-users-list-vertical [liste]="PointedBy"></app-users-list-vertical>
 </div>

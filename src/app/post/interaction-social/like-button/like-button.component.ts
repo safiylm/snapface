@@ -1,17 +1,48 @@
 import { Component, Input } from '@angular/core';
 import { InteractionSocialeService } from 'src/services/interaction-social-service';
 import { UsersListVerticalComponent } from "../../../user/users-list-vertical/users-list-vertical.component";
-import { NgIf } from '@angular/common';
+import { NgClass, NgIf } from '@angular/common';
 import { Publication } from 'src/models/publication.model';
+import { transition, style, animate, trigger } from '@angular/animations';
+
+const enterTransition = transition(':enter', [
+  style({
+    opacity: 0
+  }),
+  animate('0.5s ease-in', style({
+    opacity: 1
+  }))
+]);
+
+const leaveTrans = transition(':leave', [
+  style({
+    opacity: 1
+  }),
+  animate('0.5s ease-out', style({
+    opacity: 0
+  }))
+])
+
+const fadeIn = trigger('fadeIn', [
+  enterTransition
+]);
+
+const fadeOut = trigger('fadeOut', [
+  leaveTrans
+]);
 
 @Component({
   standalone: true,
   selector: 'app-like-button',
   templateUrl: './like-button.component.html',
   styleUrls: ['./like-button.component.scss'],
-  imports: [NgIf, UsersListVerticalComponent]
-
+  imports: [NgIf, UsersListVerticalComponent],
+    animations: [
+    fadeIn,
+    fadeOut
+  ]
 })
+
 export class LikeButtonComponent {
 
   displayListeLike_: boolean = false;
@@ -20,7 +51,8 @@ export class LikeButtonComponent {
   interactionId = ""
   constructor(private interactionSocialeService: InteractionSocialeService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
+  
     this.interactionSocialeService.getIfUserAlreadyLikePost(this.post._id,
       localStorage.getItem("userId")?.toString() as string).subscribe({
         next: (data) => {

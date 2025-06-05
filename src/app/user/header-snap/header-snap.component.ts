@@ -11,6 +11,33 @@ import { ChatPriveService } from 'src/services/chatprive.service';
 import { Signalement } from 'src/models/signalement.model';
 import { SignalementService } from 'src/services/signalement-service';
 import { FormsModule } from '@angular/forms';
+import { transition, style, animate, trigger } from '@angular/animations';
+
+const enterTransition = transition(':enter', [
+  style({
+    opacity: 0
+  }),
+  animate('0.5s ease-in', style({
+    opacity: 1
+  }))
+]);
+
+const leaveTrans = transition(':leave', [
+  style({
+    opacity: 1
+  }),
+  animate('0.5s ease-out', style({
+    opacity: 0
+  }))
+])
+
+const fadeIn = trigger('fadeIn', [
+  enterTransition
+]);
+
+const fadeOut = trigger('fadeOut', [
+  leaveTrans
+]);
 
 
 @Component({
@@ -19,7 +46,11 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './header-snap.component.html',
   styleUrls: ['./header-snap.component.scss'],
   imports: [StatistiqueUserComponent, NgIf, ButtonFollowComponent, TitleCasePipe,
-    FormsModule, EditPhotosComponent]
+    FormsModule, EditPhotosComponent],
+     animations: [
+    fadeIn,
+    fadeOut
+  ]
 })
 
 

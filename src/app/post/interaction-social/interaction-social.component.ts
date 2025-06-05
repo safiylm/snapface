@@ -13,6 +13,33 @@ import { UserService } from 'src/services/user-service';
 import { User } from 'src/models/user.model';
 import { CommentaireListComponent } from "../../comment/commentaire-list/commentaire-list.component";
 import { AuteurInPostOrCommentaireComponent } from "../../user/auteur-in-post-or-commentaire/auteur-in-post-or-commentaire.component";
+import { transition, style, animate, trigger } from '@angular/animations';
+
+const enterTransition = transition(':enter', [
+  style({
+    opacity: 0
+  }),
+  animate('0.5s ease-in', style({
+    opacity: 1
+  }))
+]);
+
+const leaveTrans = transition(':leave', [
+  style({
+    opacity: 1
+  }),
+  animate('0.5s ease-out', style({
+    opacity: 0
+  }))
+])
+
+const fadeIn = trigger('fadeIn', [
+  enterTransition
+]);
+
+const fadeOut = trigger('fadeOut', [
+  leaveTrans
+]);
 
 @Component({
   standalone: true,
@@ -21,7 +48,11 @@ import { AuteurInPostOrCommentaireComponent } from "../../user/auteur-in-post-or
   styleUrls: ['./interaction-social.component.scss'],
   imports: [LikeButtonComponent, PointButtonComponent,
     NgIf, FormsModule, EnregistrementButtonComponent,
-    NgFor, CommentaireListComponent]
+    NgFor, CommentaireListComponent],
+      animations: [
+    fadeIn,
+    fadeOut
+  ]
 })
 
 

@@ -3,13 +3,45 @@ import { InteractionSocialeService } from 'src/services/interaction-social-servi
 import { UsersListVerticalComponent } from "../../../user/users-list-vertical/users-list-vertical.component";
 import { NgIf } from '@angular/common';
 import { Publication } from 'src/models/publication.model';
+import { transition, style, animate, trigger } from '@angular/animations';
+
+const enterTransition = transition(':enter', [
+  style({
+    opacity: 0
+  }),
+  animate('0.5s ease-in', style({
+    opacity: 1
+  }))
+]);
+
+const leaveTrans = transition(':leave', [
+  style({
+    opacity: 1
+  }),
+  animate('0.5s ease-out', style({
+    opacity: 0
+  }))
+])
+
+const fadeIn = trigger('fadeIn', [
+  enterTransition
+]);
+
+const fadeOut = trigger('fadeOut', [
+  leaveTrans
+]);
+
 
 @Component({
   standalone: true,
   selector: 'app-point-button',
   templateUrl: './point-button.component.html',
   styleUrls: ['./point-button.component.scss'],
-  imports: [UsersListVerticalComponent, NgIf]
+  imports: [UsersListVerticalComponent, NgIf],
+   animations: [
+    fadeIn,
+    fadeOut
+  ]
 })
 export class PointButtonComponent {
 
