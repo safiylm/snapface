@@ -10,12 +10,12 @@
             <div class="row">
                 <div class="div-input">
                     <label>Saisissez votre prénom:</label>
-                    <input type="text" name="firstName" class="form-control" [(ngModel)]="user.firstName" />
+                    <input type="text" name="firstName" class="form-control" [(ngModel)]="user.firstName" required/>
                 </div>
 
                 <div class="div-input">
                     <label>Saisissez votre nom de famille:</label>
-                    <input type="text" name="lastName" class="form-control" [(ngModel)]="user.lastName" />
+                    <input type="text" name="lastName" class="form-control" [(ngModel)]="user.lastName" required/>
                 </div>
 
                 <div class="div-input">
@@ -46,11 +46,11 @@
                         </button>
                     </div>
                 </div>
-                <div *ngIf="!(reglePasswordRespected) && ! isSubmited">
+                <div *ngIf="!(reglePasswordRespected) && user.password.length!=0">
                     Le mot de passe doit contenir minimum: <br />
                     une majuscule, une minuscule, un chiffre et un caractère special.</div>
 
-                <div *ngIf="reglePasswordRespected  && ! isSubmited" [ngStyle]="{'color': 'green'}">
+                <div *ngIf="reglePasswordRespected " [ngStyle]="{'color': 'green'}">
                     Le mot de passe contient
                     une majuscule, une minuscule, un chiffre et un caractère special.
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -83,9 +83,9 @@
                     </div>
                 </div>
 
-                <div *ngIf="!(this.user.password === this.password2) && !isSubmited " [ngStyle]="{'color': 'red'}">Les
+                <div *ngIf="!(this.user.password === this.password2) && this.password2!=''" [ngStyle]="{'color': 'red'}">Les
                     mots de passe ne sont pas identique </div>
-                <div *ngIf="this.user.password === this.password2 && user.password.length!=0 && !isSubmited"
+                <div *ngIf="this.user.password === this.password2 && user.password.length!=0"
                     [ngStyle]="{'color': 'green'}">Les mots de passe sont
                     identique </div>
 
@@ -102,18 +102,16 @@
                 S'inscrire
             </button>
 
-            <button type="submit" *ngIf="reglePasswordRespected && user.password === password2">
+            <button type="submit" *ngIf="reglePasswordRespected && user.password === password2 && user.email!='' &&  user.lastName!='' &&  user.firstName">
                 S'inscrire
             </button>
 
             <a href='/connexion'>Se connecter</a>
-
         </div>
+        
         <div class="resultat">
             {{res}}
         </div>
-      
-
 
     </form>
 </div>

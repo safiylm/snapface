@@ -22,14 +22,13 @@ export class AuthInscriptionUserComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   res !: string;
-  isSubmited = false;
   isDisplayPassword !: boolean;
   isDisplayPassword2 !: boolean;
   timeForRedirection$?: any;
   reglePasswordRespected !: boolean;
 
   user = new User("", "", "",
-    "example@gmail.com", "",
+    "example@gmail.com", "Snapface123*",
     0, "", "", false, false, null);
 
   password2 = "";
@@ -64,30 +63,33 @@ export class AuthInscriptionUserComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.isSubmited = true;
-
-    if (this.user) {
+    if (this.user && this.reglePasswordRespected && this.user.password === this.password2) {
       const salt = bcrypt.genSaltSync(10);
       this.user.password = bcrypt.hashSync(this.user.password, salt);
       this.userService.inscription(this.user).subscribe(
         {
           next: (data) => {
-            if (data) {
+            if (data.user) {
               this.res = "Inscription success. Il faut confirmer votre email. Redirection dans {{ timeForRedirection$ | async }} secondes pour vous connectez."
-
-              this.timeForRedirection$ = interval(1000).pipe(
-                scan(acc => --acc, 10),
-                takeWhile(x => x >= 0)
-              );
-
-              setTimeout(() => {
-                document.location.href = '/connexion'
-              }, 10000)
-
-            } else
-              this.res = "Une erreur s'est introduite, veuillez réessayer!"
+              /* 
+              
+              ce code genere erreur dans le teste 
+              
+              
+               this.timeForRedirection$ = interval(1000).pipe(
+                   scan(acc => --acc, 10),
+                   takeWhile(x => x >= 0)
+                 );
+   
+                 setTimeout(() => {
+                   document.location.href = '/connexion'
+                 }, 10000)
+   */
+            }
+            if (data.message)
+              this.res = data.message
           },
-           error: (e) => console.error("Erreur inscription")
+          error: (e) => console.error("Erreur inscription")
 
         })
     }

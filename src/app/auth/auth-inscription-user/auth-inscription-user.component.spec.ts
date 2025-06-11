@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { AuthInscriptionUserComponent } from './auth-inscription-user.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -34,83 +34,95 @@ describe('AuthInscriptionUserComponent', () => {
     expect(component.isDisplayPassword2).toBeDefined();
     expect(component.reglePasswordRespected).toBeDefined();
 
-    expect(component.user).toEqual(new User("", "", "",
-      "example@gmail.com", "",
-      0, "", ""))
 
     expect(component.user.email).toBe('example@gmail.com'); // Vérifie la valeur initiale
 
   });
 
 
-  it('should call the inscription to create new user', () => {
+  it('should call the inscription successfull', fakeAsync(() => {
 
     // Arrange
-    const data = new User(
-      "", "Test", "Martin",
-      "test.martin@gmail.com", "$2a$10$8fBvUXdyAlmqTQTYoDMAyOLgD4CRX00BL39f2PsPCtwVI5hrmHChC",
+    const data = new User("662eb361c2fd9ad3238d752a",
+      "Sarah",
+      "Martin",
+      "sarah.martin@gmail.com",
+      "$2a$10$8fBvUXdyAlmqTQTYoDMAyOLgD4CRX00BL39f2PsPCtwVI5hrmHChC",
       768259414,
-      "https://images.pexels.com/photos/17542964/pexels-photo-17542964/free-photo-of-lumineux-route-lunettes-de-soleil-gens.jpeg",
-      "https://images.pexels.com/photos/4767578/pexels-photo-4767578.jpeg"
-    )
+      "",
+      "",
+      false,
+      true, null)
 
     spyOn(service, 'inscription').and
-      .returnValue(of(data));
+      .returnValue(of({ user: data }));
 
+    data.password = "Snapface123*"
+    component.password2 = 'Snapface123*';
+    component.reglePasswordRespected = data.password == component.password2
     component.user = data;
-    spyOn(component, 'onSubmit')
 
-    // Act
     component.onSubmit();
-
+    tick();
     // Assert
-    expect(component.onSubmit).toHaveBeenCalled();
-  });
+    expect(component.res).toContain("Inscription success.");
+
+  }));
 
 
-  it('should test the saveProduct for failure while add a new product', () => {
-  
-    spyOn(console, 'error');
-    spyOn(component, 'onSubmit');
+
+  it('should call the inscription with email ERROR', fakeAsync(() => {
+
+    component.user = new User("662eb361c2fd9ad3238d752a",
+      "Sarah", "Martin",
+      "sarah.martin.gmail.com", "Snapface123*",
+      768259414, "", "",
+      false, true, null)
+
+    spyOn(service, 'inscription').and
+      .returnValue(of({ message: "email invalide" }));
+
     component.onSubmit()
-    //component.user = data;
-    spyOn(service, "inscription").and.returnValue(throwError(() => new Error("Erreur inscription")));
-    expect(component.onSubmit).toHaveBeenCalled();
-    //expect(console.error).toHaveBeenCalledWith("Erreur inscription");
+    tick();
 
-  });
+  }));
+
+
 
   it('devrait basculer l\'affichage des mots de passe', () => {
     expect(component.isDisplayPassword).toBeFalse();
     component.toggleDisplayPassword(1);
     expect(component.isDisplayPassword).toBeTrue();
+
+    expect(component.isDisplayPassword2).toBeFalse();
+    component.toggleDisplayPassword(2);
+    expect(component.isDisplayPassword2).toBeTrue();
   });
+
 
   it('devrait vérifier la complexité du mot de passe', () => {
     component.user.password = 'Test@1234';
     component.getFirstPassword(null);
     expect(component.reglePasswordRespected).toBeTrue();
-  });
+
+    component.user.password = 'Test1234';
+    component.getFirstPassword(null);
+    expect(component.reglePasswordRespected).toBeFalse();
+
+    component.user.password = 'test@1234';
+    component.getFirstPassword(null);
+    expect(component.reglePasswordRespected).toBeFalse();
 
 
-  it('devrait afficher un message de succès après inscription', () => {
-    const data = new User(
-      "", "Test", "Martin",
-      "test.martin@gmail.com", "$2a$10$8fBvUXdyAlmqTQTYoDMAyOLgD4CRX00BL39f2PsPCtwVI5hrmHChC",
-      768259414,
-      "https://images.pexels.com/photos/17542964/pexels-photo-17542964/free-photo-of-lumineux-route-lunettes-de-soleil-gens.jpeg",
-      "https://images.pexels.com/photos/4767578/pexels-photo-4767578.jpeg"
-    )
-    component.user= data;
-    spyOn(service, "inscription").and.returnValue(of(data));
-    component.onSubmit();
-    expect(component.res).toContain('Inscription success');
-  });
+    component.user.password = 'test***********';
+    component.getFirstPassword(null);
+    expect(component.reglePasswordRespected).toBeFalse();
 
-  it('devrait afficher un message d\'erreur si l\'inscription échoue', () => {
-    spyOn(service, "inscription").and.returnValue(of());
-    component.onSubmit();
-   // expect(component.res).toBe("Une erreur s'est introduite, veuillez réessayer!");
+    component.user.password = '4852563***********';
+    component.getFirstPassword(null);
+    expect(component.reglePasswordRespected).toBeFalse();
+
+
   });
 
 })

@@ -38,24 +38,28 @@ exports.create = (req, res) => {
     email: req.body.email,
     phoneNo: req.body.phoneNo,
   }
-
   res.set('Access-Control-Allow-Origin', '*');
+
+  const emailRegexp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
+  if (!emailRegexp.test(req.body.email))
+    res.send({ "message": "email invalide" });
 
   // Save Tutorial in the database
   collection_user
     .insertOne(user)
     .then(data => {
-
-      collection_statistiqueusers
-        .insertOne({
-          userId: data.insertedId.toString(),
-          followers: 0,
-          totalPosts: 0,
-          totalPoints: 0,
-        })
-        .then(data1 => {
-          res.send(data1);
-        })
+      if (data)
+        collection_statistiqueusers
+          .insertOne({
+            userId: data.insertedId.toString(),
+            followers: 0,
+            totalPosts: 0,
+            totalPoints: 0,
+          })
+          .then(data1 => {
+            if (data1)
+              res.send({ "user": data });
+          })
     })
     .catch(err => {
       res.status(500).send({
@@ -315,8 +319,8 @@ exports.connexion = async function (req, res, next) {
         // Répondre une seule fois
         return res.json({ message: 'Connexion réussie', user: resultat });
       }
-      else{
-        res.json({ message : "Votre votre mot de passe est incorrecte." }); 
+      else {
+        res.json({ message: "Votre mot de passe est incorrecte." });
       }
     });
   } else {

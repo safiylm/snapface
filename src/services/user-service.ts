@@ -48,10 +48,10 @@ export class UserService {
       )
   }
 
-  public inscription(formData: User): Observable<User> {
+  public inscription(formData: User): Observable<any> {
 
     return this.http
-      .post<User>(
+      .post<any>(
         url + `/api/user/create`,
         formData,
       )
