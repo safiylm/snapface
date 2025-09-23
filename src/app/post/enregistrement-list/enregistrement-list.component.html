@@ -1,4 +1,6 @@
-<h2>🤌🤌 Enregistrement Liste 🤌🤌</h2>
-<div *ngIf="posts" class="d-flex flex-column flex-wrap align-items-center justify-content-center">
-    <app-publication  *ngFor="let publication of posts" [publication]="publication" ></app-publication>
+<h2>🤌 Liste</h2>
+<div *ngIf="posts" class="d-flex flex-wrap align-items-center justify-content-center">
+    <!-- <app-publication  *ngFor="let publication of posts" [publication]="publication" ></app-publication> -->
+        <img *ngFor="let publication of posts" [src]="publication.assets[0]"  />
+
 </div>
