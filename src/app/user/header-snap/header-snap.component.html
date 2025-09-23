@@ -1,4 +1,4 @@
-<div id="photo-viewer-photo-profil"@fadeIn @fadeOut *ngIf="isDisplayPhotoViewerProfil">
+<div id="photo-viewer-photo-profil" @fadeIn @fadeOut *ngIf="isDisplayPhotoViewerProfil">
     <button type="button" class="btn-close" aria-label="Close" (click)="hidePhotoViewerProfil()"></button>
     <br />
     <div *ngIf="!showEditPhotoProfil">
@@ -39,119 +39,127 @@
 
 <img id="photo-background" *ngIf="user.photos_background" [src]="UserPhotoBackground"
     (click)="showPhotoViewerBackground()" />
-<img id="photo-background" *ngIf="!user.photos_background" src="../../assets/violet.png"
-    (click)="showPhotoViewerBackground()" />
+   <img id="photo-background" *ngIf="!user.photos_background" src="../../assets/violet.png"
+        (click)="showPhotoViewerBackground()" />
 
-<div class="d-flex flex-wrap align-items-center justify-content-center">
-    <div id="div-photo-profil">
-        <img id="photo-profil" *ngIf="user.photos_profil" [src]="UserPhotoProfil" (click)="showPhotoViewerProfil()" />
-        <img id="photo-profil" *ngIf="!user.photos_profil"
-            src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg"
-            (click)="showPhotoViewerProfil()" />
-    </div>
-    <div>
-        <h3 class="name">{{ UserName }}</h3>
+<div class="container-photo-infos d-flex align-items-center justify-content-center">
 
-        <app-button-follow [isMe]="isMe" [isAbonnee]="isAbonnee" [user]="user"></app-button-follow>
+    <div class="d-flex flex-wrap align-items-center justify-content-center">
+        <div id="div-photo-profil">
+            <img id="photo-profil" *ngIf="user.photos_profil" [src]="UserPhotoProfil"
+                (click)="showPhotoViewerProfil()" />
+            <img id="photo-profil" *ngIf="!user.photos_profil"
+                src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg"
+                (click)="showPhotoViewerProfil()" />
+        </div>
+        <div class="div-nom-buttons-stats-user">
+            <div class="div-nom-buttons d-flex flex-wrap align-items-center justify-content-center">
 
-        <button *ngIf="!isMe" class="btn" type="button" id="btn-ecrire" (click)="createConversation()">
-            {{ "écrire" | titlecase }}</button>
+                <h3 class="name">{{ UserName }}</h3>
 
-        <button *ngIf="!displayFormSignalmt && !isMe" class="btn btn-light" id="btn-signaler"
-            (click)="displayFormSignalmt=true">Signaler</button>
+                <app-button-follow [isMe]="isMe" [isAbonnee]="isAbonnee" [user]="user"></app-button-follow>
+
+                <button *ngIf="!isMe" class="btn" type="button" id="btn-ecrire" (click)="createConversation()">
+                    {{ "écrire" | titlecase }}</button>
+
+                <button *ngIf="!displayFormSignalmt && !isMe" class="btn btn-primary" id="btn-signaler"
+                    (click)="displayFormSignalmt=true">Signaler</button>
 
 
-        <div *ngIf="displayFormSignalmt" class="modal-" @fadeIn @fadeOut>
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Signaler {{ UserName }}</h5>
-                        <button type="button" class="close btn btn-light" (click)="displayFormSignalmt=false">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form (submit)="signaler()" autocomplete="off">
-                            <label> La raison :
-                                <input name="raison" class="form-control" [(ngModel)]="signalement_raison">
-                            </label>
-                            <button class="btn btn-primary" type="submit">Signaler</button>
-                            <button class="btn btn-light" type="button"
-                                (click)="displayFormSignalmt=false">Annuler</button>
-                            {{res_signalement}}
-                        </form>
+                <div *ngIf="displayFormSignalmt" class="modal-" @fadeIn @fadeOut>
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Signaler {{ UserName }}</h5>
+                                <button type="button" class="close btn btn-light" (click)="displayFormSignalmt=false">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form (submit)="signaler()" autocomplete="off">
+                                    <label> La raison :
+                                        <input name="raison" class="form-control" [(ngModel)]="signalement_raison">
+                                    </label>
+                                    <button class="btn btn-primary" type="submit">Signaler</button>
+                                    <button class="btn btn-light" type="button"
+                                        (click)="displayFormSignalmt=false">Annuler</button>
+                                    {{res_signalement}}
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+                <div class="dropdown" *ngIf="isMe">
+                    <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        +
+                    </button>
+                    <ul class="dropdown-menu">
+
+                        <li><a class="dropdown-item" (click)="choix('')">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-postcard-heart" viewBox="0 0 16 16">
+                                    <path
+                                        d="M8 4.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0zm3.5.878c1.482-1.42 4.795 1.392 0 4.622-4.795-3.23-1.482-6.043 0-4.622M2.5 5a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zm0 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zm0 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1z" />
+                                    <path fill-rule="evenodd"
+                                        d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1z" />
+                                </svg>
+                                Publications
+                            </a></li>
+
+
+                        <li><a class="dropdown-item" (click)="choix('like')">
+                                ❤️ Likes liste❤️
+                            </a></li>
+
+                        <li><a class="dropdown-item" (click)="choix('point')">
+                                🤌 Points Liste 🤌
+                            </a></li>
+
+                        <li><a class="dropdown-item" (click)="choix('save')">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-bookmark" viewBox="0 0 16 16">
+                                    <path
+                                        d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z" />
+                                </svg>
+                                Enregistrement
+                            </a></li>
+
+                        <li><a class="dropdown-item" (click)="choix('u-edit')">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                    <path
+                                        d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                    <path fill-rule="evenodd"
+                                        d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+                                </svg>
+                                Données personnelles</a></li>
+                        <li><a class="dropdown-item" (click)="choix('p-create')">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                    <path
+                                        d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                    <path fill-rule="evenodd"
+                                        d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+                                </svg>
+                                Créer une publication</a></li>
+
+                        <li><button class="dropdown-item" (click)="logout()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                    class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                        d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z" />
+                                    <path fill-rule="evenodd"
+                                        d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
+                                </svg>
+                                Deconnexion</button></li>
+                    </ul>
+                </div>
+
             </div>
+            <app-statistique-user [id]="id"></app-statistique-user>
+
         </div>
-        <div class="dropdown" *ngIf="isMe">
-            <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                +
-            </button>
-            <ul class="dropdown-menu">
-
-                <li><a class="dropdown-item" (click)="choix('')">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-postcard-heart" viewBox="0 0 16 16">
-                            <path
-                                d="M8 4.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0zm3.5.878c1.482-1.42 4.795 1.392 0 4.622-4.795-3.23-1.482-6.043 0-4.622M2.5 5a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zm0 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zm0 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1z" />
-                            <path fill-rule="evenodd"
-                                d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1z" />
-                        </svg>
-                        Publications
-                    </a></li>
-
-
-                <li><a class="dropdown-item" (click)="choix('like')">
-                        ❤️ Likes liste❤️
-                    </a></li>
-
-                <li><a class="dropdown-item" (click)="choix('point')">
-                        🤌 Points Liste 🤌
-                    </a></li>
-
-                <li><a class="dropdown-item" (click)="choix('save')">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-bookmark" viewBox="0 0 16 16">
-                            <path
-                                d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z" />
-                        </svg>
-                        Enregistrement
-                    </a></li>
-
-                <li><a class="dropdown-item" (click)="choix('u-edit')">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-pencil-square" viewBox="0 0 16 16">
-                            <path
-                                d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                            <path fill-rule="evenodd"
-                                d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
-                        </svg>
-                        Données personnelles</a></li>
-                <li><a class="dropdown-item" (click)="choix('p-create')">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-pencil-square" viewBox="0 0 16 16">
-                            <path
-                                d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                            <path fill-rule="evenodd"
-                                d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
-                        </svg>
-                        Créer une publication</a></li>
-
-                <li><button class="dropdown-item" (click)="logout()">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                            class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z" />
-                            <path fill-rule="evenodd"
-                                d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
-                        </svg>
-                        Deconnexion</button></li>
-            </ul>
-        </div>
-
-        <app-statistique-user [id]="id"></app-statistique-user>
 
     </div>
-
 </div>
