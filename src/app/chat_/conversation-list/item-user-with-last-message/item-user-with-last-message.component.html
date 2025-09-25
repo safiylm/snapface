@@ -11,7 +11,9 @@
       </div> 
     </button>
     <a *ngIf="offcanvas=='true_'" class="d-flex flex-row align-items-center" href="/chat/{{conversationId}}"> 
-      <img [src]='PhotoProfil' id="photos-profil" alt="photo de profil de {{UserName}}"  />
+      <img *ngIf="PhotoProfil" [src]='PhotoProfil' id="photos-profil" alt="photo de profil de {{UserName}}"  />
+      <img *ngIf="!PhotoProfil" id="photos-profil"  src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg"  />
+     
       <div>
          <p id="username">{{ UserName }} </p> 
          <p *ngIf="nbNewMessage==0">{{LastMessage.slice(0,50)}}</p>

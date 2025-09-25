@@ -96,7 +96,7 @@ export class ChatPriveComponent implements OnInit {
     });
 
     this.chatService.markAsSeen(this.conversationId).subscribe(
-      (data) => { if (data) data })
+     (data) => { if (data) data })
 
   }
 
