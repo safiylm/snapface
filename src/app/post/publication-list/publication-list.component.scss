@@ -3,8 +3,7 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  border-top: 0.1px solid rgb(201, 199, 199);
- // max-width: 80vw;
+  // max-width: 80vw;
   margin: 10px auto;
 
   .liste-images {
@@ -20,7 +19,7 @@
   }
 
   #textWidthBorder,
-.compte-private {
+  .compte-private {
     border-top: 0.2px solid gray;
     border-bottom: 0.2px solid gray;
     text-align: center;
@@ -33,15 +32,17 @@
 
   }
 
-  .compte-private .div-svg{
+  .compte-private .div-svg {
     border: 1px solid black;
     border-radius: 50%;
     margin: 10px;
-  svg{
-    padding: 10px;
-  }
+
+    svg {
+      padding: 10px;
+    }
   }
 }
+
 app-publication {
   box-shadow: none;
 }
@@ -56,18 +57,22 @@ app-publication {
   transform: translate(-50%, -50%);
   width: 100vw;
   height: 100vh;
-  overflow: auto;
   text-align: center;
 
-  .btn {
-    float: right;
-    margin: 5px;
-  }
+
 
   .div-post {
     margin: 20px auto;
     width: 500px;
   }
+}
+
+.btn-close {
+  top: 0;
+  right: 0;
+  position: fixed;
+  margin: 20px;
+  background-color: cornsilk;
 }
 
 

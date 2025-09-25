@@ -1,17 +1,17 @@
 import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
-import { PublicationComponent } from "../publication/publication.component";
 import { Publication } from 'src/models/publication.model';
 import { InteractionSociale } from 'src/models/interaction.sociale.model';
 import { PublicationsService } from 'src/services/publication-service';
 import { InteractionSocialeService } from 'src/services/interaction-social-service';
+import { PublicationListComponent } from '../publication-list/publication-list.component';
 
 @Component({
   standalone: true,
   selector: 'app-enregistrement-list',
   templateUrl: './enregistrement-list.component.html',
   styleUrls: ['./enregistrement-list.component.scss'], 
-  imports: [NgFor, NgIf, PublicationComponent]
+  imports: [ NgIf, PublicationListComponent]
 })
 export class EnregistrementListComponent {
 

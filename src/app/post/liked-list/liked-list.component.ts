@@ -3,15 +3,15 @@ import { InteractionSociale } from 'src/models/interaction.sociale.model';
 import { Publication } from 'src/models/publication.model';
 import { InteractionSocialeService } from 'src/services/interaction-social-service';
 import { PublicationsService } from 'src/services/publication-service';
-import { PublicationComponent } from "../publication/publication.component";
 import { NgFor, NgIf } from '@angular/common';
+import { PublicationListComponent } from "../publication-list/publication-list.component";
 
 @Component({
   standalone: true,
   selector: 'app-liked-list',
   templateUrl: './liked-list.component.html',
   styleUrls: ['./liked-list.component.scss'],
-  imports: [PublicationComponent, NgFor, NgIf]
+  imports: [ NgIf, PublicationListComponent]
 })
 export class LikedListComponent {
   constructor(private interactionSocialeService: InteractionSocialeService,

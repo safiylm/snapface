@@ -1,9 +1,8 @@
 <div class="listofposts" *ngIf="publications">
+    <!-- && (!user.isPrivate || isDisplay; else compteprivee) -->
     <!-- Non prive  -->
-    <div *ngIf="!user.isPrivate || isDisplay; else compteprivee"
-        class="liste-images d-flex flex-wrap align-items-center justify-content-start">
-        <img *ngFor="let publication of publications" [src]="publication.assets[0]" (click)="post=publication" />
-    </div>
+    <img *ngFor="let publication of publications" [src]="publication.assets[0]"
+        (click)="post=publication; toggleMenu(); preventCloseOnClick()" />
 
     <ng-template #compteprivee>
 
@@ -23,17 +22,19 @@
         </div>
     </ng-template>
 
-
     <div *ngIf="publications.length == 0">
         <p id="textWidthBorder">Aucune publication pour le moment </p>
         <br />
         <app-users-list></app-users-list>
     </div>
 
-    <div id="post-viewer" *ngIf="post"  (click)="post=undefined">
-        <button class="btn btn-dark" (click)="post=undefined">X</button>
-        <div class="div-post">
+    <button class="btn btn-close" (click)="hidePost();" *ngIf="menuOpen"></button>
+
+    <div id="post-viewer" *ngIf="menuOpen">
+        <div class="div-post" *ngIf="post" (click)="preventCloseOnClick()">
             <app-publication [publication]="post"></app-publication>
         </div>
     </div>
+
+
 </div>

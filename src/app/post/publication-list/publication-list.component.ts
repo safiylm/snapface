@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input } from '@angular/core';
+import { Component, ElementRef, Input, Renderer2 } from '@angular/core';
 import { Publication } from '../../../models/publication.model';
 import { ActivatedRoute } from '@angular/router';
 import { PublicationComponent } from '../publication/publication.component';
@@ -12,23 +12,54 @@ import { User } from 'src/models/user.model';
   templateUrl: './publication-list.component.html',
   styleUrls: ['./publication-list.component.scss'],
   imports: [PublicationComponent, NgFor, NgIf, UsersListComponent]
+
 })
 
 export class PublicationListComponent {
 
-  publications!: Publication[];
+
+  @Input() publications!: Publication[];
   user !: User;
-  post: Publication | undefined ;  
+  post: Publication | undefined;
   @Input() isDisplay !: boolean;
-  
+  menuBtnClick: boolean = false;
 
-  constructor(route: ActivatedRoute) {
+
+  constructor(route: ActivatedRoute, private renderer: Renderer2) {
     this.publications = route.snapshot.data['publications']
-        this.user = route.snapshot.data['user'];
+    this.user = route.snapshot.data['user'];
   }
 
-  voirPost(post: Publication){
-    this.post=post;
+
+  ngAfterViewInit() {
+    this.renderer.listen('window', 'click', (e: Event) => {
+      if (!this.menuBtnClick) {
+        this.post = undefined;
+        this.menuOpen = false;
+
+      }
+      this.menuBtnClick = false;
+    });
   }
+
+  voirPost(post: Publication) {
+    this.post = post;
+  }
+
+
+  hidePost() {
+    this.post = undefined;
+  }
+  preventCloseOnClick() {
+    this.menuBtnClick = true;
+  }
+
+  menuOpen: boolean = false;
+
+
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
+  }
+
 
 }
