@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, Renderer2 } from '@angular/core';
 import { UserService } from '../../../services/user-service'
 import { User } from '../../../models/user.model'
 import { ActivatedRoute, Router } from '@angular/router';
@@ -47,7 +47,7 @@ const fadeOut = trigger('fadeOut', [
   styleUrls: ['./header-snap.component.scss'],
   imports: [StatistiqueUserComponent, NgIf, ButtonFollowComponent, TitleCasePipe,
     FormsModule, EditPhotosComponent],
-     animations: [
+  animations: [
     fadeIn,
     fadeOut
   ]
@@ -73,7 +73,9 @@ export class HeaderSnapComponent implements OnInit {
   }
 
   constructor(private userService: UserService, private signalementService: SignalementService, private messageService: ChatPriveService,
-    private router: ActivatedRoute, private route: Router) {
+
+    private router: ActivatedRoute, private route: Router, private renderer: Renderer2) {
+
     this.user = router.snapshot.data['user'];
   }
 
@@ -90,6 +92,16 @@ export class HeaderSnapComponent implements OnInit {
     }, 400)
   }
 
+  ngAfterViewInit() {
+    this.renderer.listen('window', 'click', (e: Event) => {
+      if (!this.menuBtnClick) {
+        this.menuOpen = false;
+        this.hidePhotoViewerProfil();
+        this.hidePhotoViewerBackground();
+      }
+      this.menuBtnClick = false;
+    });
+  }
 
   hidePhotoViewerProfil() {
     this.isDisplayPhotoViewerProfil = false;
@@ -165,6 +177,19 @@ export class HeaderSnapComponent implements OnInit {
           console.error(e)
         }
       })
+  }
+
+  menuBtnClick: boolean = false;
+
+  preventCloseOnClick() {
+    this.menuBtnClick = true;
+  }
+
+  menuOpen: boolean = false;
+
+
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
   }
 
 }

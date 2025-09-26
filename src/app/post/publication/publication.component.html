@@ -1,10 +1,9 @@
-<div class="d-flex align-items-center justify-content-center h-100">
-  <div class="face-snap-card d-flex align-items-center" *ngIf="publication">
+<div class="d-flex align-items-center justify-content-center h-100"  >
+  <div class="face-snap-card d-flex align-items-center" *ngIf="publication" [ngClass]="{'boxshadow': shadow ===true}">
     <div class="post">
-      <app-auteur-in-post-or-commentaire [id]="UserId!"></app-auteur-in-post-or-commentaire>
+      <app-auteur-in-post-or-commentaire [id]="UserId!" [audio]="publication.audio"></app-auteur-in-post-or-commentaire>
 
-      <app-audio *ngIf="publication.audio!=''" [publication]="publication"></app-audio>
- 
+      
       <app-images-video [assets]="publication.assets"></app-images-video>
 
       <a data-bs-toggle="offcanvas" [href]="'#offcanvasComment'+ publication._id" role="button"

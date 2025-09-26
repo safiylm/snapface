@@ -45,6 +45,7 @@ nav {
   }
   .navbar-nav {
     line-height: 45px;
+        z-index: 1;
   }
 
   .navbar-brand {
@@ -102,13 +103,15 @@ nav {
     align-items: start;
     justify-content: start;
     padding-top: 1rem;
+        z-index: 1;
   }
 }
 
 /* Sur mobile, navbar classique en haut */
 @media (max-width: 767px) {
   .navbar {
-    width: 100%;
+    width: 97% ;
+    margin: 10px auto;
     height: auto;
     min-height: 50px;
   }

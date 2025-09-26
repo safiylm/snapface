@@ -1,9 +1,10 @@
 * {
   box-sizing: border-box;
 }
-
-.face-snap-card {
+.boxshadow{
   box-shadow: #d3d3d3 4px 4px 20px;
+}
+.face-snap-card {
   background-color: #fff;
   height: auto;
   margin: 20px;
@@ -19,7 +20,7 @@
     display: grid;
     height: 80vh;
     grid-template-columns: [first] 100% [end];
-    grid-template-rows: [row1-start] 60px [row1-end] auto [third-line] auto [thrid-line-end] 70px [row4-start] 50px [last-line];
+    grid-template-rows: [row1-start] 80px [row1-end] 355px [third-line] 100px [thrid-line-end]  50px [last-line];
     grid-template-areas: 'user' 'audio' 'assets' 'text' 'interactions';
 
     app-images-video {

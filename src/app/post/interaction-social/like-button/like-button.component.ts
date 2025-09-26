@@ -45,7 +45,6 @@ const fadeOut = trigger('fadeOut', [
 
 export class LikeButtonComponent {
 
-  displayListeLike_: boolean = false;
   isLiked: boolean = false;
   @Input() post !: Publication;
   interactionId = ""
@@ -83,10 +82,6 @@ export class LikeButtonComponent {
             this.post.likesCount--
           }
         })
-  }
-
-  displayListeLike() {
-    this.displayListeLike_ = !this.displayListeLike_
   }
 
 

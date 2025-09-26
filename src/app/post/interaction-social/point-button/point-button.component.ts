@@ -47,7 +47,6 @@ export class PointButtonComponent {
 
   isPointed: boolean = false;
   @Input() post !: Publication;
-  displayListePoint_: boolean = false;
   interactionId = ""
 
   constructor(private interactionSocialeService: InteractionSocialeService) { }
@@ -65,9 +64,6 @@ export class PointButtonComponent {
       })
   }
 
-  displayListePoint() {
-    this.displayListePoint_ = !this.displayListePoint_
-  }
 
   addPoints() {
     this.interactionSocialeService.addPoints

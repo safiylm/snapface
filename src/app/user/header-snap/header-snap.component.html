@@ -1,165 +1,188 @@
-<div id="photo-viewer-photo-profil" @fadeIn @fadeOut *ngIf="isDisplayPhotoViewerProfil">
+<div class="background-viewer" *ngIf="isDisplayPhotoViewerProfil">
     <button type="button" class="btn-close" aria-label="Close" (click)="hidePhotoViewerProfil()"></button>
-    <br />
-    <div *ngIf="!showEditPhotoProfil">
-        <img *ngIf="!user.photos_profil"
-            src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg" />
-        <img id="imgpp" *ngIf="user.photos_profil" [src]="UserPhotoProfil" alt="Photo de profil de {{ UserName }}" />
-        <button *ngIf="isMe" type="button" id="btn-open-edit" class="btn btn-light" (click)="showEditPhotoProfil=true">
-            Modifier</button>
-    </div>
-    <div *ngIf="showEditPhotoProfil">
-        <app-edit-photos *ngIf="showEditPhotoProfil" nom="photos_profil" [photo]="user.photos_profil"></app-edit-photos>
-        <button type="button" class="btn btn-dark" (click)="showEditPhotoProfil=false">
-            Fermer </button>
-    </div>
-
-</div>
-
-<div id="photo-viewer-photo-background" @fadeIn @fadeOut *ngIf="isDisplayPhotoViewerBackground">
-    <button type="button" class="btn-close" aria-label="Close" (click)="hidePhotoViewerBackground()"></button>
-    <br />
-    <div *ngIf="!showEditPhotoBackground">
-        <img *ngIf="user.photos_background" id="imgpb" [src]='UserPhotoBackground'
-            alt="Photo background de {{ UserName }}" />
-        <img *ngIf="!user.photos_background" src="../../../assets/violet.png" />
-
-        <button *ngIf="isMe" type="button" id="btn-open-edit" class="btn btn-light"
-            (click)="showEditPhotoBackground=true">
-            Modifier</button>
-    </div>
-    <div *ngIf="showEditPhotoBackground">
-        <app-edit-photos nom="photos_background" [photo]="user.photos_background"></app-edit-photos>
-
-        <button type="button" class="btn btn-dark" (click)="showEditPhotoBackground=false">
-            Fermer </button>
-    </div>
-
-</div>
-
-<img id="photo-background" *ngIf="user.photos_background" [src]="UserPhotoBackground"
-    (click)="showPhotoViewerBackground()" />
-   <img id="photo-background" *ngIf="!user.photos_background" src="../../assets/violet.png"
-        (click)="showPhotoViewerBackground()" />
-
-<div class="container-photo-infos d-flex align-items-center justify-content-center">
-
-    <div class="d-flex flex-wrap align-items-center justify-content-center">
-        <div id="div-photo-profil">
-            <img id="photo-profil" *ngIf="user.photos_profil" [src]="UserPhotoProfil"
-                (click)="showPhotoViewerProfil()" />
-            <img id="photo-profil" *ngIf="!user.photos_profil"
-                src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg"
-                (click)="showPhotoViewerProfil()" />
+    <div id="photo-viewer-photo-profil" @fadeIn @fadeOut *ngIf="isDisplayPhotoViewerProfil"
+        (click)="preventCloseOnClick()">
+        <br />
+        <div *ngIf="!showEditPhotoProfil">
+            <img *ngIf="!user.photos_profil"
+                src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg" />
+            <img id="imgpp" *ngIf="user.photos_profil" [src]="UserPhotoProfil"
+                alt="Photo de profil de {{ UserName }}" />
+            <button *ngIf="isMe" type="button" id="btn-open-edit" class="btn btn-light"
+                (click)="showEditPhotoProfil=true">
+                Modifier</button>
         </div>
-        <div class="div-nom-buttons-stats-user">
-            <div class="div-nom-buttons d-flex flex-wrap align-items-center justify-content-center">
+        <div *ngIf="showEditPhotoProfil">
+            <app-edit-photos *ngIf="showEditPhotoProfil" nom="photos_profil"
+                [photo]="user.photos_profil"></app-edit-photos>
+            <button type="button" class="btn btn-dark" (click)="showEditPhotoProfil=false">
+                Fermer </button>
+        </div>
+    </div>
+</div>
 
-                <h3 class="name">{{ UserName }}</h3>
+<div class="background-viewer" *ngIf="isDisplayPhotoViewerBackground">
+    <button type="button" class="btn-close" aria-label="Close" (click)="hidePhotoViewerBackground()"></button>
 
-                <app-button-follow [isMe]="isMe" [isAbonnee]="isAbonnee" [user]="user"></app-button-follow>
+    <div id="photo-viewer-photo-background" @fadeIn @fadeOut *ngIf="isDisplayPhotoViewerBackground"
+        (click)="preventCloseOnClick()">
+        <br />
+        <div *ngIf="!showEditPhotoBackground">
+            <img *ngIf="user.photos_background" id="imgpb" [src]='UserPhotoBackground'
+                alt="Photo background de {{ UserName }}" />
+            <img *ngIf="!user.photos_background" src="../../../assets/violet.png" />
 
-                <button *ngIf="!isMe" class="btn" type="button" id="btn-ecrire" (click)="createConversation()">
-                    {{ "écrire" | titlecase }}</button>
+            <button *ngIf="isMe" type="button" id="btn-open-edit" class="btn btn-light"
+                (click)="showEditPhotoBackground=true">
+                Modifier</button>
+        </div>
+        <div *ngIf="showEditPhotoBackground">
+            <app-edit-photos nom="photos_background" [photo]="user.photos_background"></app-edit-photos>
 
-                <button *ngIf="!displayFormSignalmt && !isMe" class="btn btn-primary" id="btn-signaler"
-                    (click)="displayFormSignalmt=true">Signaler</button>
+            <button type="button" class="btn btn-dark" (click)="showEditPhotoBackground=false">
+                Fermer </button>
+        </div>
+
+    </div>
+</div>
+
+<div style="height: auto; margin-bottom: 20px;">
+    <img id="photo-background" *ngIf="user.photos_background" [src]="UserPhotoBackground"
+        (click)="showPhotoViewerBackground(); toggleMenu(); preventCloseOnClick()" />
+    <img id="photo-background" *ngIf="!user.photos_background" src="../../assets/violet.png"
+        (click)="showPhotoViewerBackground(); toggleMenu(); preventCloseOnClick()" />
+
+    <div class="container-photo-infos d-flex align-items-center justify-content-center" style="width: calc(100% - 20px) !important">
+
+        <div class="d-flex flex-wrap align-items-center justify-content-center">
+            <div id="div-photo-profil">
+                <img id="photo-profil" *ngIf="user.photos_profil" [src]="UserPhotoProfil"
+                    (click)="showPhotoViewerProfil(); toggleMenu(); preventCloseOnClick()" />
+
+                <img id="photo-profil" *ngIf="!user.photos_profil"
+                    src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg"
+                    (click)="showPhotoViewerProfil(); toggleMenu(); preventCloseOnClick()" />
+            </div>
+            <div class="div-nom-buttons-stats-user">
+                <div class="div-nom-buttons d-flex flex-wrap align-items-center justify-content-center">
+
+                    <h3 class="name">{{ UserName }}</h3>
+
+                    <app-button-follow [isMe]="isMe" [isAbonnee]="isAbonnee" [user]="user"></app-button-follow>
+
+                    <button *ngIf="!isMe" class="btn" type="button" id="btn-ecrire" (click)="createConversation()">
+                        {{ "écrire" | titlecase }}</button>
+
+                    <button *ngIf="!displayFormSignalmt && !isMe" class="btn btn-primary" id="btn-signaler"
+                        (click)="displayFormSignalmt=true">Signaler</button>
 
 
-                <div *ngIf="displayFormSignalmt" class="modal-" @fadeIn @fadeOut>
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLongTitle">Signaler {{ UserName }}</h5>
-                                <button type="button" class="close btn btn-light" (click)="displayFormSignalmt=false">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <form (submit)="signaler()" autocomplete="off">
-                                    <label> La raison :
-                                        <input name="raison" class="form-control" [(ngModel)]="signalement_raison">
-                                    </label>
-                                    <button class="btn btn-primary" type="submit">Signaler</button>
-                                    <button class="btn btn-light" type="button"
-                                        (click)="displayFormSignalmt=false">Annuler</button>
-                                    {{res_signalement}}
-                                </form>
+                    <div *ngIf="displayFormSignalmt" class="modal-" @fadeIn @fadeOut>
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Signaler {{ UserName }}</h5>
+                                    <button type="button" class="close btn btn-light"
+                                        (click)="displayFormSignalmt=false">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <form (submit)="signaler()" autocomplete="off">
+                                        <label> La raison :
+                                            <input name="raison" class="form-control" [(ngModel)]="signalement_raison">
+                                        </label>
+                                        <button class="btn btn-primary" type="submit">Signaler</button>
+                                        <button class="btn btn-light" type="button"
+                                            (click)="displayFormSignalmt=false">Annuler</button>
+                                        {{res_signalement}}
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
+
+                    <div class="dropdown" *ngIf="isMe">
+                        <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            +
+                        </button>
+                        <ul class="dropdown-menu">
+
+                            <li><a class="dropdown-item" (click)="choix('')">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-postcard-heart" viewBox="0 0 16 16">
+                                        <path
+                                            d="M8 4.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0zm3.5.878c1.482-1.42 4.795 1.392 0 4.622-4.795-3.23-1.482-6.043 0-4.622M2.5 5a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zm0 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zm0 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1z" />
+                                        <path fill-rule="evenodd"
+                                            d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1z" />
+                                    </svg>
+                                    Publications
+                                </a></li>
+
+
+                            <li><a class="dropdown-item" (click)="choix('like')">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-balloon-heart" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                            d="m8 2.42-.717-.737c-1.13-1.161-3.243-.777-4.01.72-.35.685-.451 1.707.236 3.062C4.16 6.753 5.52 8.32 8 10.042c2.479-1.723 3.839-3.29 4.491-4.577.687-1.355.587-2.377.236-3.061-.767-1.498-2.88-1.882-4.01-.721zm-.49 8.5c-10.78-7.44-3-13.155.359-10.063q.068.062.132.129.065-.067.132-.129c3.36-3.092 11.137 2.624.357 10.063l.235.468a.25.25 0 1 1-.448.224l-.008-.017c.008.11.02.202.037.29.054.27.161.488.419 1.003.288.578.235 1.15.076 1.629-.157.469-.422.867-.588 1.115l-.004.007a.25.25 0 1 1-.416-.278c.168-.252.4-.6.533-1.003.133-.396.163-.824-.049-1.246l-.013-.028c-.24-.48-.38-.758-.448-1.102a3 3 0 0 1-.052-.45l-.04.08a.25.25 0 1 1-.447-.224l.235-.468ZM6.013 2.06c-.649-.18-1.483.083-1.85.798-.131.258-.245.689-.08 1.335.063.244.414.198.487-.043.21-.697.627-1.447 1.359-1.692.217-.073.304-.337.084-.398" />
+                                    </svg> Liste
+
+                                </a></li>
+
+                            <li><a class="dropdown-item" (click)="choix('point')">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-hand-thumbs-up" viewBox="0 0 16 16">
+                                        <path
+                                            d="M8.864.046C7.908-.193 7.02.53 6.956 1.466c-.072 1.051-.23 2.016-.428 2.59-.125.36-.479 1.013-1.04 1.639-.557.623-1.282 1.178-2.131 1.41C2.685 7.288 2 7.87 2 8.72v4.001c0 .845.682 1.464 1.448 1.545 1.07.114 1.564.415 2.068.723l.048.03c.272.165.578.348.97.484.397.136.861.217 1.466.217h3.5c.937 0 1.599-.477 1.934-1.064a1.86 1.86 0 0 0 .254-.912c0-.152-.023-.312-.077-.464.201-.263.38-.578.488-.901.11-.33.172-.762.004-1.149.069-.13.12-.269.159-.403.077-.27.113-.568.113-.857 0-.288-.036-.585-.113-.856a2 2 0 0 0-.138-.362 1.9 1.9 0 0 0 .234-1.734c-.206-.592-.682-1.1-1.2-1.272-.847-.282-1.803-.276-2.516-.211a10 10 0 0 0-.443.05 9.4 9.4 0 0 0-.062-4.509A1.38 1.38 0 0 0 9.125.111zM11.5 14.721H8c-.51 0-.863-.069-1.14-.164-.281-.097-.506-.228-.776-.393l-.04-.024c-.555-.339-1.198-.731-2.49-.868-.333-.036-.554-.29-.554-.55V8.72c0-.254.226-.543.62-.65 1.095-.3 1.977-.996 2.614-1.708.635-.71 1.064-1.475 1.238-1.978.243-.7.407-1.768.482-2.85.025-.362.36-.594.667-.518l.262.066c.16.04.258.143.288.255a8.34 8.34 0 0 1-.145 4.725.5.5 0 0 0 .595.644l.003-.001.014-.003.058-.014a9 9 0 0 1 1.036-.157c.663-.06 1.457-.054 2.11.164.175.058.45.3.57.65.107.308.087.67-.266 1.022l-.353.353.353.354c.043.043.105.141.154.315.048.167.075.37.075.581 0 .212-.027.414-.075.582-.05.174-.111.272-.154.315l-.353.353.353.354c.047.047.109.177.005.488a2.2 2.2 0 0 1-.505.805l-.353.353.353.354c.006.005.041.05.041.17a.9.9 0 0 1-.121.416c-.165.288-.503.56-1.066.56z" />
+                                    </svg> Liste
+                                </a></li>
+
+                            <li><a class="dropdown-item" (click)="choix('save')">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-bookmark-star" viewBox="0 0 16 16">
+                                        <path
+                                            d="M7.84 4.1a.178.178 0 0 1 .32 0l.634 1.285a.18.18 0 0 0 .134.098l1.42.206c.145.021.204.2.098.303L9.42 6.993a.18.18 0 0 0-.051.158l.242 1.414a.178.178 0 0 1-.258.187l-1.27-.668a.18.18 0 0 0-.165 0l-1.27.668a.178.178 0 0 1-.257-.187l.242-1.414a.18.18 0 0 0-.05-.158l-1.03-1.001a.178.178 0 0 1 .098-.303l1.42-.206a.18.18 0 0 0 .134-.098z" />
+                                        <path
+                                            d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z" />
+                                    </svg>
+                                    Enregistrement
+                                </a></li>
+
+                            <li><a class="dropdown-item" (click)="choix('u-edit')">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-pencil-square" viewBox="0 0 16 16">
+                                        <path
+                                            d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
+                                        <path fill-rule="evenodd"
+                                            d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
+                                    </svg>
+                                    Données personnelles</a></li>
+                            <li><a class="dropdown-item" (click)="choix('p-create')">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-plus-lg" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                            d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2" />
+                                    </svg>
+                                    Créer une publication</a></li>
+
+                            <li><button class="dropdown-item" (click)="logout()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                        class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                            d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z" />
+                                        <path fill-rule="evenodd"
+                                            d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
+                                    </svg>
+                                    Deconnexion</button></li>
+                        </ul>
+                    </div>
+
                 </div>
-
-                <div class="dropdown" *ngIf="isMe">
-                    <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        +
-                    </button>
-                    <ul class="dropdown-menu">
-
-                        <li><a class="dropdown-item" (click)="choix('')">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-postcard-heart" viewBox="0 0 16 16">
-                                    <path
-                                        d="M8 4.5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0zm3.5.878c1.482-1.42 4.795 1.392 0 4.622-4.795-3.23-1.482-6.043 0-4.622M2.5 5a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zm0 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1zm0 2a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1z" />
-                                    <path fill-rule="evenodd"
-                                        d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1z" />
-                                </svg>
-                                Publications
-                            </a></li>
-
-
-                        <li><a class="dropdown-item" (click)="choix('like')">
-                                ❤️ Likes liste❤️
-                            </a></li>
-
-                        <li><a class="dropdown-item" (click)="choix('point')">
-                                🤌 Points Liste 🤌
-                            </a></li>
-
-                        <li><a class="dropdown-item" (click)="choix('save')">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-bookmark" viewBox="0 0 16 16">
-                                    <path
-                                        d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1z" />
-                                </svg>
-                                Enregistrement
-                            </a></li>
-
-                        <li><a class="dropdown-item" (click)="choix('u-edit')">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                    <path
-                                        d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                                    <path fill-rule="evenodd"
-                                        d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
-                                </svg>
-                                Données personnelles</a></li>
-                        <li><a class="dropdown-item" (click)="choix('p-create')">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-pencil-square" viewBox="0 0 16 16">
-                                    <path
-                                        d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" />
-                                    <path fill-rule="evenodd"
-                                        d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
-                                </svg>
-                                Créer une publication</a></li>
-
-                        <li><button class="dropdown-item" (click)="logout()">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                    class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
-                                    <path fill-rule="evenodd"
-                                        d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0z" />
-                                    <path fill-rule="evenodd"
-                                        d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z" />
-                                </svg>
-                                Deconnexion</button></li>
-                    </ul>
-                </div>
+                <app-statistique-user [id]="id"></app-statistique-user>
 
             </div>
-            <app-statistique-user [id]="id"></app-statistique-user>
 
         </div>
-
     </div>
 </div>

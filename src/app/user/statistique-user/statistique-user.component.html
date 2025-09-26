@@ -1,20 +1,34 @@
 <div class="div-statistiqueUser" *ngIf="statistiqueUser">
     <div>
-        <button id="btn-followers" (click)="displayFollowers()">
+
+        <button id="btn-followers" class="btn" type="button" data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasNumberofFollowers" aria-controls="offcanvasNumberofFollowers">
             Followers <br /> <strong>{{ Followers }}</strong>
         </button>
     </div>
 
-    <div id="pointsTotal" >
-        Points totales <br /> <strong>{{ TotalPoints }}</strong>
+    <div id="pointsTotal">
+        Points <br /> <strong>{{ TotalPoints }}</strong>
     </div>
 
-    <div id="postsTotal" >
-        Post totales <br /><strong>{{ TotalPosts}}</strong>
+    <div id="postsTotal">
+        Posts <br /><strong>{{ TotalPosts}}</strong>
     </div>
 </div>
 
-<div id="div-liste-followers" *ngIf="isVisibleListFollowers && Followers">
-    <button type="button" class="btn-close" aria-label="Close" (click)="hideListFollowers()"></button>
-    <app-list-followers [id]='id'></app-list-followers>
+
+
+
+
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasNumberofFollowers"
+    aria-labelledby="offcanvasWithBothOptionsLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">
+            Followers
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body" *ngIf="Followers">
+        <app-list-followers [id]='id'></app-list-followers>
+    </div>
 </div>

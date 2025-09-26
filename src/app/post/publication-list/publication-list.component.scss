@@ -4,8 +4,8 @@
   align-items: center;
   justify-content: center;
   // max-width: 80vw;
-  margin: 10px auto;
-
+  margin: 30px auto;
+  
   .liste-images {
     width: auto;
   }
@@ -62,8 +62,9 @@ app-publication {
 
 
   .div-post {
-    margin: 20px auto;
     width: 500px;
+    margin: 50px auto;
+
   }
 }
 
@@ -78,7 +79,12 @@ app-publication {
 
 @media(max-width:599px) {
 
+  
   .liste-images {
     justify-content: center !important;
+  }
+    .div-post {
+    width: 80vw !important;
+    height: 95vh;
   }
 }

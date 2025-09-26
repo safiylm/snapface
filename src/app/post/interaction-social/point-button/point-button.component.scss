@@ -12,32 +12,8 @@
     flex-direction: row;
     justify-content: center;
     svg{
-       
         color: black;
     }
 }
-   
-}
-
-#div-liste-point{    
-    position: fixed;
-    background-color: rgb(255, 255, 255);
-    margin: 10px auto;
-    text-align: center;
-  //  box-shadow: 5px 44px 77px 1px rgb(192, 192, 192);
-    padding: 30px;
-    padding-bottom: 5px;
-    z-index: 2;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 500px;
-    border: 0.2px solid grey;
-    box-shadow: #a8a2a2 4px 4px 20px;
-
-    button{
-        float: right;
-        margin: 15px
-    }
    
 }
