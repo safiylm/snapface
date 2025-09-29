@@ -1,4 +1,14 @@
-# Snapface
+### Snapface
+
+## 1. Résumé du projet
+
+Snapface est un réseau social de partage visuel inspiré d’Instagram.
+Objectif : permettre aux utilisateurs de créer un compte, publier des photos/vidéos avec légendes, suivre d’autres comptes, interagir (like/comment), voir un fil d’actualité personnalisé et publier des stories éphémères.
+
+Public cible : développeurs/UX for learning, prototype MVP ou petit service social.
+
+
+
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.7.
 
@@ -27,50 +37,52 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
 
-## #################################################### ##
 
 
-## Introduction
+## 2. Principales fonctionnalités
 
-Nom: SnapFace un réseau social 
+Utilisateur
 
-Objectif: Voir le contenu des autres, partager du contenu, communiquer.
+Inscription / connexion (email + mot de passe / OAuth optionnel)
 
-Contexte: J'adore instagram, je me suis lancée le défi de créer un similaire.
+Profil utilisateur (bio, avatar, nombre d’abonnés/abonnements)
+
+Publier un post (image/vidéo + légende + emplacement optionnel + hashtags)
+
+Fil d’actualité (posts des utilisateurs suivis, tri par date / algorithme simple)
+
+Like / Commentaire / Partage (URL)
+
+Suivre / Se désabonner
+
+Stories (image/vidéo, visibles 24h)
+
+Rechercher utilisateurs / hashtags
+
+Notifications basiques (nouveau like, commentaire, nouveau follower)
+
+Paramètres (privé/public, suppression de compte)
+
+Envoi et réception de messages/publications en temps réel
+
+Affichage de l'état en ligne des utilisateurs
+
+Signaler un utilisateur ou une publication 
+
+
+Administrateur
+
+Gestion des utilisateurs (bannir, modérer contenu)
+
+Statistiques (nombres d’utilisateurs, posts, activité)
+
+Modération des signalements
 
 
 
-## Fonctionnalités
 
-    Authentification des utilisateurs (inscription / connexion) -- se déconnecter 
 
-    Voir publications des utilisateurs public et ceux qu'ont suit
 
-    Compte public || private 
-
-    S'abonner et se désabonner
-
-    compte privé -- accepter ou refuser une requete d'abonnement 
-
-    Interagir sur les publications -- liker, ajouter un point, enregistrer ou commenter -- 
-
-    Voir sa Liste des publications likées, pointed, enregistré 
-
-    Création de publications avec photos, videos & audio
-
-    Modification et suppression de publications
-
-    Envoi et réception de messages en temps réel
-
-    Envoi et réception de publications en temps réel
-
-    Affichage de l'état en ligne des utilisateurs
-
-    Rechercher un utilisateur ou une publication
-
-    Signaler un utilisateur ou une publication 
-
-    un utilisateur peut modifier ses données -- sa photo de profil et sa photo de background 
 
 
 ## Technologies utilisées
@@ -128,38 +140,17 @@ Fournis un aperçu de l’organisation des fichiers et répertoires.
 ## API 
 
 POST /api/login
-Corps de la requête :
-{ "email": "...", "password": "..." }
-Réponse :
-{ "token": "..." }
 
 
 ## API ABONNEMENTS
 
 POST /api/abonnees/create
-Corps de la requête :
-{ "userId": "...", "follows": "..." }
-Réponse :
-{ "acknowledged": "...",	modifiedCount : "...",}
 
 POST /api/abonnees/remove
-Corps de la requête :
-{ "userId": "...", "follows": "..." }
-Réponse :
-{ "acknowledged": "...",	modifiedCount : "...",}
-
 
 GET /api/abonnement
-Corps de la requête :
-{ "id": "...", }
-Réponse :
-{ array of abonnement } 
 
 GET /api/followers
-Corps de la requête :
-{ "id": "...", }
-Réponse :
-{ array of abonnement } 
 
 GET /api/checkabonnement
 
@@ -168,36 +159,23 @@ GET /api/checkabonnement
 ## API COMMENTAIRES
 
 GET /api/commentairesByPostId
-Corps de la requête :
-{ "userId": "...", "follows": "..." }
-Réponse :
-{ array of comments  }
 
 POST /api/commentaire/create
-Corps de la requête :
-{ "text": "...", "userId": "...", "postId": "..." }
-Réponse :
-{ "acknowledged": "...", "insertedId": "...", }
 
 POST /api/commentaire/delete
-Corps de la requête :
-{ "id": "...", "postId": "..." }
-Réponse :
-{ "acknowledged": "...",	"modifiedCount" : "...",}
 
 POST /api/commentaire/update
-Corps de la requête :
-{ "_id": "...", "text": "..." }
-Réponse :
-{ "acknowledged": "...",	"modifiedCount" : "...",}
 
 ## API FOLLOW REQUEST 
 
 POST /api/followrequest/create
+
 POST /api/followrequest/accept
+
 POST /api/followrequest/reject
 
 GET /api/listOfFollowRequest
+
 GET /api/dejaEnAttente 
 
 
@@ -205,22 +183,36 @@ GET /api/dejaEnAttente
 
 
 POST /api/interaction/pointsAdd
+
 POST /api/interaction/pointsRemove
+
 POST /api/interaction/likesAdd
+
 POST /api/interaction/likesRemove
+
 POST /api/interaction/enregistrementAdd
+
 POST /api/interaction/enregistrementRemove
 
 
 GET /api/interaction/pointsByUserId
+
 GET /api/interaction/likesByUserId
+
 GET /api/interaction/enregistrementsByUserId
+
 GET /api/interaction/pointsByPostId
+
 GET /api/interaction/likesByPostId
+
 GET /api/interaction/likesCount
+
 GET /api/interaction/pointsCount
+
 GET /api/interaction/getIfUserAlreadyLikePost
+
 GET /api/interaction/getIfUserAlreadyPointPost
+
 GET /api/interaction/getIfUserAlreadySavePost
 
 
@@ -228,30 +220,45 @@ GET /api/interaction/getIfUserAlreadySavePost
 
 
 POST /message/create
+
 POST /conversation/create
+
 POST /message/edit
+
 POST /message/delete
+
 POST /conversation/delete
+
 POST /message/markasseen
 
 GET /messages
+
 GET /last-message
+
 GET /conversations
+
 GET /conversation
+
 GET /conversation/nbnewmsj
 
 
 ## API PUBLICATION 
 
 POST /api/publication/create
+
 POST /api/publication/edit
+
 POST /api/publication/delete
 
 
 GET /api/publication
+
 GET /api/pour-moi/publication
+
 GET /api/publicationByUserId
+
 GET /api/publicationid
+
 GET /api/publication/search
 
 
@@ -260,11 +267,15 @@ GET /api/publication/search
 ## API SIGNALEMENT 
 
 POST /create/signalement/user
+
 POST /create/signalement/post
 
 GET /signalement/allpost
+
 GET /signalement/alluser
+
 GET /signalement/allpostByAuteur
+
 GET /signalement/alluserByAuteur
 
 
@@ -273,8 +284,11 @@ GET /signalement/alluserByAuteur
 ## API STATISTIQUE USER 
 
 POST /api/statistique/user/create
+
 POST /api/checkFollowers
+
 POST /api/checkPublications
+
 POST /api/checkPoints
 
 GET /api/statistiqueUserByUserId
@@ -285,24 +299,42 @@ GET /api/statistiqueUserByUserId
 
 
 GET /api/user
+
 GET /api/userid
+
 GET /api/username
+
 GET /logout
 
+
+
 POST /api/user/create
+
 POST /api/user/connexion
+
 POST /api/user/update
+
 POST /api/user/edit/password
+
 POST /api/user/edit/email
+
 POST /api/user/edit/phonenumber
+
 POST /api/user/delete
+
 POST /password-oublie/email
+
 POST /api/user/email
+
 POST /api/user/reinitialise/password
+
 POST /api/user/edit/photodeprofil
+
 POST /api/user/edit/photobackground
 
+
 POST /api/user/edit/online
+
 POST /api/user/edit/notonline
 
 
