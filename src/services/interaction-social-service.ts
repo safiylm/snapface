@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { InteractionSociale } from '../models/interaction.sociale.model';
 import { url } from './url'
 
+import { io, Socket } from 'socket.io-client';
 
 @Injectable({
   providedIn: 'root'
@@ -11,77 +12,152 @@ import { url } from './url'
 
 export class InteractionSocialeService {
 
-  constructor(private http: HttpClient) { }
+  private socket: Socket;
 
-  addLike(postId: string): Observable<any> {
-
-    return this.http
-      .post(
-        url + "/api/interaction/likesAdd",
-        {
-          'postId': postId,
-          'userId': localStorage.getItem('userId')
-        },
-      )
+  constructor(private http: HttpClient) {
+    this.socket = io(url, {
+      withCredentials: true
+    });
   }
 
-  removeLike(postId: string, interactionId: string): Observable<any> {
-    return this.http
-      .post(
-        url + "/api/interaction/likesRemove",
-        {
-          'postId': postId,
-          'userId': localStorage.getItem('userId'),
-          'interactionId': interactionId
-        },
-      )
+  joinRoom(userId: string) {
+    this.socket.emit('joinRoom', userId);
   }
 
-  addPoints(postId: string): Observable<any> {
-    return this.http
-      .post(
-        url + "/api/interaction/pointsAdd",
-        {
-          'postId': postId,
-          'userId': localStorage.getItem('userId')
-        },
-      )
+  /*************************************************************************** */
+
+
+  addLike(postId: string)//: Observable<any>
+  {
+
+    this.joinRoom(postId);
+    this.joinRoom(localStorage.getItem('userId')?.toString() as string);
+
+    this.socket.emit('newLike',
+      {
+        'postId': postId,
+        'userId': localStorage.getItem('userId'),
+      },)
   }
 
-  removePoints(postId: string, interactionId: string): Observable<any> {
-    return this.http
-      .post(
-        url + "/api/interaction/pointsRemove",
-        {
-          'postId': postId,
-          'userId': localStorage.getItem('userId'),
-          'interactionId': interactionId
-        }
-      )
+  removeLike(postId: string, interactionId: string) {
+    this.joinRoom(postId);
+    this.joinRoom(localStorage.getItem('userId')?.toString() as string);
+
+    this.socket.emit('disLike', {
+      'postId': postId,
+      'userId': localStorage.getItem('userId'),
+      'interactionId': interactionId
+    },
+    )
   }
 
-  addEnregistrement(postId: string): Observable<any> {
-    return this.http
-      .post(
-        url + "/api/interaction/enregistrementAdd",
-        {
-          'postId': postId,
-          'userId': localStorage.getItem('userId')
-        },
-      )
+  getNewLikeWithSocket() {
+    return new Observable(observer => {
+      this.socket.on('newLike_', (msg) => {
+        observer.next(msg)
+      });
+    });
   }
 
-  removeEnregistrement(postId: string, interactionId: string): Observable<any> {
-    return this.http
-      .post(
-        url + "/api/interaction/enregistrementRemove",
-        {
-          'postId': postId,
-          'userId': localStorage.getItem('userId'),
-          'interactionId': interactionId
-        }
-      )
+
+  getDisLikeWithSocket() {
+
+    return new Observable(observer => {
+      this.socket.on('disLike_', (msg) => {
+        observer.next(msg)
+      });
+    });
   }
+
+  /*************************************************************************** */
+
+  addPoint(postId: string) {
+    
+      //  url + "/api/interaction/pointsAdd",
+       
+    this.socket.emit('point',
+      {
+        'postId': postId,
+        'userId': localStorage.getItem('userId')
+      },
+    )
+
+  }
+
+  removePoints(postId: string, interactionId: string) {
+ // pointsRemove 
+       this.socket.emit("dispoint",
+      {
+        'postId': postId,
+        'userId': localStorage.getItem('userId'),
+        'interactionId': interactionId
+      }
+    )
+  }
+
+
+  getNewPointWithSocket() {
+
+    return new Observable(observer => {
+      this.socket.on('point_', (msg) => {
+        observer.next(msg)
+      });
+    });
+  }
+
+
+  getUnPointWithSocket() {
+
+    return new Observable(observer => {
+      this.socket.on('dispoint_', (msg) => {
+        observer.next(msg)
+      });
+    });
+  }
+
+
+  /*************************************************************************** */
+
+  addEnregistrement(postId: string) {
+
+    this.socket.emit('save',
+      {
+        'postId': postId,
+        'userId': localStorage.getItem('userId')
+      },
+    )
+  }
+
+  removeEnregistrement(postId: string, interactionId: string) {
+    this.socket.emit("unsave",
+      {
+        'postId': postId,
+        'userId': localStorage.getItem('userId'),
+        'interactionId': interactionId
+      }
+    )
+  }
+
+  getNewSaveWithSocket() {
+    return new Observable(observer => {
+      this.socket.on('save_', (msg) => {
+        observer.next(msg)
+      });
+    });
+  }
+
+
+  getUnSavedWithSocket() {
+
+    return new Observable(observer => {
+      this.socket.on('unsave_', (msg) => {
+        observer.next(msg)
+      });
+    });
+  }
+
+  /*************************************************************************** */
 
 
   getAllLikesByPostId(postId: string) {
@@ -89,21 +165,23 @@ export class InteractionSocialeService {
       url + "/api/interaction/likesByPostId?postId=" + postId)
   }
 
-  getAllPointsByPostId(postId: string) {
-    return this.http.get<InteractionSociale[]>(
-      url + "/api/interaction/pointsByPostId?postId=" + postId)
-  }
-
   getAllLikesByUserId(userId: string) {
     return this.http.get<InteractionSociale[]>(
       url + "/api/interaction/likesByUserId?userId=" + userId)
   }
 
+  getAllPointsByPostId(postId: string) {
+    return this.http.get<InteractionSociale[]>(
+      url + "/api/interaction/pointsByPostId?postId=" + postId)
+  }
+
+
+
   getAllEnregistrementsByUserId(userId: string) {
     return this.http.get<InteractionSociale[]>(
       url + "/api/interaction/enregistrementsByUserId?userId=" + userId)
   }
-  
+
 
   getAllPointsByUserId(userId: string) {
     return this.http.get<InteractionSociale[]>(

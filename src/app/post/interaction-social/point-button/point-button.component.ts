@@ -62,36 +62,40 @@ export class PointButtonComponent {
           }
         }, error: e => console.error(e)
       })
+
+          this.interactionSocialeService.getNewPointWithSocket().subscribe((point: any) => {
+      if (point['postId'] == this.post._id) {
+        this.isPointed = true
+        this.post.pointsCount++
+          this.interactionId = point._id
+
+      }
+    });
+
+    this.interactionSocialeService.getUnPointWithSocket().subscribe((dispoint: any) => {
+      if (dispoint['postId'] == this.post._id) {
+        this.isPointed = false
+        this.post.pointsCount--
+          this.interactionId = ""
+
+      }
+    });
   }
 
 
-  addPoints() {
-    this.interactionSocialeService.addPoints
-      (this.post._id).subscribe(data => {
-        if (data) {
-          this.interactionId = data._id
-          this.isPointed = true
-          this.post.pointsCount++
-        }
-      })
-  }
-
-
-  removePoints() {
-    if (this.isPointed && this.interactionId != "")
-      this.interactionSocialeService.removePoints(this.post._id, this.interactionId)
-        .subscribe(data => {
-          if (data) {
-            this.isPointed = false
-            this.post.pointsCount--
-          }
-        })
+  point() {
+    if (!this.isPointed)
+      this.interactionSocialeService.addPoint(this.post._id)
+    else
+      if (this.isPointed && this.interactionId != "")
+        this.interactionSocialeService.removePoints(this.post._id, this.interactionId)
+   
   }
 
 
   get PointedBy() {
     // return (this.interactionSociale.pointedBy_ && this.interactionSociale) ? this.interactionSociale.pointedBy_ : []
-    return []
+    return this.interactionSocialeService.getAllPointsByPostId(this.post._id)
   }
 
 }

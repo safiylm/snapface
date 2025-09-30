@@ -29,26 +29,29 @@ export class EnregistrementButtonComponent {
           }
         }, error: e => console.error(e)
       })
+
+    this.interactionService.getNewSaveWithSocket().subscribe((save: any) => {
+      if (save['postId'] == this.post._id) {
+        this.isSaved = true
+          this.interactionId = save.insertId
+      }
+    });
+
+    this.interactionService.getUnSavedWithSocket().subscribe((unsave: any) => {
+      if (unsave['postId'] == this.post._id) {
+        this.isSaved = false
+          this.interactionId = ""
+      }
+    });
+
   }
 
   save() {
-    this.interactionService.addEnregistrement(this.post._id)
-      .subscribe(data => {
-        if (data) {
-          this.isSaved = true;
-          this.interactionId = data.insertId
-        }
-      })
-  }
+    if (!this.isSaved)
+      this.interactionService.addEnregistrement(this.post._id)
+    else
+      if (this.interactionId != "")
+        this.interactionService.removeEnregistrement(this.post._id, this.interactionId)
 
-  unsave() {
-    if (this.interactionId != "")
-      this.interactionService.removeEnregistrement(this.post._id, this.interactionId)
-        .subscribe(data => {
-          if (data) {
-            this.isSaved = false;
-            this.interactionId = ""
-          }
-        })
   }
 }

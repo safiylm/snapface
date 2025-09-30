@@ -7,19 +7,25 @@ import { transition, style, animate, trigger } from '@angular/animations';
 
 const enterTransition = transition(':enter', [
   style({
-    opacity: 0
+    opacity: 0, 
+    zindex:0
   }),
-  animate('0.5s ease-in', style({
-    opacity: 1
+  animate('0.1s ease-in', style({
+    opacity: 1,
+    zindex:0
   }))
 ]);
 
 const leaveTrans = transition(':leave', [
   style({
-    opacity: 1
+    opacity: 1,
+    zindex:0
+
   }),
-  animate('0.5s ease-out', style({
-    opacity: 0
+  animate('0.1s ease-out', style({
+    opacity: 0,
+    zindex:0
+
   }))
 ])
 
@@ -37,7 +43,7 @@ const fadeOut = trigger('fadeOut', [
   templateUrl: './like-button.component.html',
   styleUrls: ['./like-button.component.scss'],
   imports: [NgIf, UsersListVerticalComponent],
-    animations: [
+  animations: [
     fadeIn,
     fadeOut
   ]
@@ -51,7 +57,7 @@ export class LikeButtonComponent {
   constructor(private interactionSocialeService: InteractionSocialeService) { }
 
   ngOnInit(): void {
-  
+
     this.interactionSocialeService.getIfUserAlreadyLikePost(this.post._id,
       localStorage.getItem("userId")?.toString() as string).subscribe({
         next: (data) => {
@@ -61,32 +67,34 @@ export class LikeButtonComponent {
           }
         }, error: e => console.error(e)
       })
-  }
 
-  addLike(): void {
-    this.interactionSocialeService.addLike(this.post._id).subscribe(data => {
-      if (data) {
-        this.interactionId = data._id
-        this.post.likesCount++
+    this.interactionSocialeService.getNewLikeWithSocket().subscribe((like: any) => {
+      if (like['postId'] == this.post._id) {
         this.isLiked = true
+        this.post.likesCount++
       }
-    })
+    });
+
+    this.interactionSocialeService.getDisLikeWithSocket().subscribe((dislike: any) => {
+      if (dislike['postId'] == this.post._id) {
+        this.isLiked = false
+        this.post.likesCount--
+      }
+    });
+
+
   }
 
-  removeLike() {
-    if (this.isLiked && this.interactionId != "")
-      this.interactionSocialeService.removeLike(this.post._id, this.interactionId)
-        .subscribe(data => {
-          if (data) {
-            this.isLiked = false
-            this.post.likesCount--
-          }
-        })
+  like(): void {
+    if (!this.isLiked)
+      this.interactionSocialeService.addLike(this.post._id)
+    else
+      if (this.isLiked && this.interactionId != "")
+        this.interactionSocialeService.removeLike(this.post._id, this.interactionId)
   }
 
 
   get LikedBy() {
-    // return (this.interactionSociale.likedBy_ && this.interactionSociale) ? this.interactionSociale.likedBy_ : []
     return this.interactionSocialeService.getAllLikesByPostId(this.post._id)
   }
 

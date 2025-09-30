@@ -133,6 +133,105 @@ io.on("connection", async (socket) => {
 
   });
 
+
+  socket.on('newLike', async (data) => {
+    try {
+      const response = await axios.post('http://localhost:4100/api/interaction/likesAdd', {
+        'postId':data['postId'] ,
+        'userId': data['userId'] , 
+      })
+      if (response.data['acknowledged'] == true) {
+        // Envoie notif à l'auteur du post 
+        io.to(data['userId'] ).emit('newLike_', data);
+      }
+    } catch (error) {
+      console.error('Erreur lors de l’enregistrement du like', error);
+    }
+  });
+
+    socket.on('disLike', async (data) => {
+    try {
+      const response = await axios.post('http://localhost:4100/api/interaction/likesRemove', {
+        'postId':data['postId'] ,
+        'userId': data['userId'] , 
+        'interactionId': data['interactionId']
+
+      })
+      if (response.data['acknowledged'] == true) {
+        // Envoie notif à l'auteur du post 
+        io.to(data['userId'] ).emit('disLike_', data);
+      }
+    } catch (error) {
+      console.error('Erreur lors de l’enregistrement du like', error);
+    }
+  });
+
+
+    socket.on('point', async (data) => {
+    try {
+      const response = await axios.post('http://localhost:4100/api/interaction/pointsAdd', {
+        'postId':data['postId'] ,
+        'userId': data['userId'] , 
+      })
+      if (response.data['acknowledged'] == true) {
+        // Envoie notif à l'auteur du post 
+        io.to(data['userId'] ).emit('point_', data);
+      }
+    } catch (error) {
+      console.error('Erreur lors de l’enregistrement du like', error);
+    }
+  });
+
+    socket.on('dispoint', async (data) => {
+    try {
+      const response = await axios.post('http://localhost:4100/api/interaction/pointsRemove', {
+        'postId':data['postId'] ,
+        'userId': data['userId'] , 
+        'interactionId': data['interactionId']
+
+      })
+      if (response.data['acknowledged'] == true) {
+        // Envoie notif à l'auteur du post 
+        io.to(data['userId'] ).emit('dispoint_', data);
+      }
+    } catch (error) {
+      console.error('Erreur lors de l’enregistrement du like', error);
+    }
+  });
+  
+  socket.on('save', async (data) => {
+    try {
+      const response = await axios.post('http://localhost:4100/api/interaction/enregistrementAdd', {
+        'postId':data['postId'] ,
+        'userId': data['userId'] , 
+      })
+      if (response.data['acknowledged'] == true) {
+        // Envoie notif à l'auteur du post 
+        io.to(data['userId'] ).emit('save_', data);
+      }
+    } catch (error) {
+      console.error('Erreur lors de l’enregistrement du like', error);
+    }
+  });
+
+    socket.on('unsave', async (data) => {
+    try {
+      const response = await axios.post('http://localhost:4100/api/interaction/enregistrementRemove', {
+        'postId':data['postId'] ,
+        'userId': data['userId'] , 
+        'interactionId': data['interactionId']
+
+      })
+      if (response.data['acknowledged'] == true) {
+        // Envoie notif à l'auteur du post 
+        io.to(data['userId'] ).emit('unsave_', data);
+      }
+    } catch (error) {
+      console.error('Erreur lors de l’enregistrement du like', error);
+    }
+  });
+
+
   socket.on('joinRoom', (userId) => {
     socket.join(userId);
   });
