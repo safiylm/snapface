@@ -12,7 +12,7 @@
                 (click)="showEditPhotoProfil=true">
                 Modifier</button>
         </div>
-        <div *ngIf="showEditPhotoProfil">
+        <div *ngIf="showEditPhotoProfil" id="editphotos">
             <app-edit-photos *ngIf="showEditPhotoProfil" nom="photos_profil"
                 [photo]="user.photos_profil"></app-edit-photos>
             <button type="button" class="btn btn-dark" (click)="showEditPhotoProfil=false">
@@ -36,7 +36,7 @@
                 (click)="showEditPhotoBackground=true">
                 Modifier</button>
         </div>
-        <div *ngIf="showEditPhotoBackground">
+        <div *ngIf="showEditPhotoBackground" id="editphotos">
             <app-edit-photos nom="photos_background" [photo]="user.photos_background"></app-edit-photos>
 
             <button type="button" class="btn btn-dark" (click)="showEditPhotoBackground=false">
@@ -52,7 +52,8 @@
     <img id="photo-background" *ngIf="!user.photos_background" src="../../assets/violet.png"
         (click)="showPhotoViewerBackground(); toggleMenu(); preventCloseOnClick()" />
 
-    <div class="container-photo-infos d-flex align-items-center justify-content-center" style="width: calc(100% - 20px) !important">
+    <div class="container-photo-infos d-flex align-items-center justify-content-center"
+        style="width: calc(100% - 20px) !important">
 
         <div class="d-flex flex-wrap align-items-center justify-content-center">
             <div id="div-photo-profil">
@@ -73,34 +74,9 @@
                     <button *ngIf="!isMe" class="btn" type="button" id="btn-ecrire" (click)="createConversation()">
                         {{ "écrire" | titlecase }}</button>
 
-                    <button *ngIf="!displayFormSignalmt && !isMe" class="btn btn-primary" id="btn-signaler"
-                        (click)="displayFormSignalmt=true">Signaler</button>
 
-
-                    <div *ngIf="displayFormSignalmt" class="modal-" @fadeIn @fadeOut>
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLongTitle">Signaler {{ UserName }}</h5>
-                                    <button type="button" class="close btn btn-light"
-                                        (click)="displayFormSignalmt=false">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form (submit)="signaler()" autocomplete="off">
-                                        <label> La raison :
-                                            <input name="raison" class="form-control" [(ngModel)]="signalement_raison">
-                                        </label>
-                                        <button class="btn btn-primary" type="submit">Signaler</button>
-                                        <button class="btn btn-light" type="button"
-                                            (click)="displayFormSignalmt=false">Annuler</button>
-                                        {{res_signalement}}
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                
+                    <app-signaler-user *ngIf="!isMe" [userName]="user.firstName+' '+user.lastName" [userID]="user._id"></app-signaler-user>
 
                     <div class="dropdown" *ngIf="isMe">
                         <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown"
@@ -186,3 +162,7 @@
         </div>
     </div>
 </div>
+
+
+
+

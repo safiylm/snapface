@@ -1,0 +1,28 @@
+
+<button class="btn" id="btn-signaler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvaSignaler"
+    aria-controls="offcanvaSignaler">
+    Signaler
+</button>
+
+
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvaSignaler"
+    aria-labelledby="offcanvaSignaler">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvaSignaler">
+            Signaler {{userName}}
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+
+
+        <form (submit)="signaler()" autocomplete="off">
+            <label> Entrez la raison :
+                <input name="raison" class="form-control" [(ngModel)]="signalement_raison">
+            </label>
+            <button class="btn btn-danger" type="submit">Signaler</button>
+            {{res_signalement}}
+        </form>
+
+    </div>
+</div>

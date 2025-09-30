@@ -6,12 +6,13 @@ import { Subscription } from 'rxjs';
 import { StatistiqueUserComponent } from '../statistique-user/statistique-user.component';
 import { NgIf, TitleCasePipe } from '@angular/common';
 import { ButtonFollowComponent } from '../button-follow/button-follow.component';
-import { EditPhotosComponent } from "../user-data-update/edit-photos/edit-photos.component";
+import { EditPhotosComponent } from "../edit/user-data-update/edit-photos/edit-photos.component";
 import { ChatPriveService } from 'src/services/chatprive.service';
 import { Signalement } from 'src/models/signalement.model';
 import { SignalementService } from 'src/services/signalement-service';
 import { FormsModule } from '@angular/forms';
 import { transition, style, animate, trigger } from '@angular/animations';
+import { SignalerUserComponent } from "../signaler-user/signaler-user.component";
 
 const enterTransition = transition(':enter', [
   style({
@@ -46,7 +47,7 @@ const fadeOut = trigger('fadeOut', [
   templateUrl: './header-snap.component.html',
   styleUrls: ['./header-snap.component.scss'],
   imports: [StatistiqueUserComponent, NgIf, ButtonFollowComponent, TitleCasePipe,
-    FormsModule, EditPhotosComponent],
+    FormsModule, EditPhotosComponent, SignalerUserComponent],
   animations: [
     fadeIn,
     fadeOut
@@ -155,29 +156,6 @@ export class HeaderSnapComponent implements OnInit {
 
   }
 
-  signalement_raison = ""
-  res_signalement = ""
-  displayFormSignalmt = false;
-
-  signaler() {
-    let s = new Signalement("22", localStorage.getItem('userId')?.toString() as string, Date.now(),
-      this.signalement_raison, null, this.user._id, null);
-    s.userId = this.id
-    console.log(s)
-    this.signalementService.signalerUnUser(s).subscribe(
-      {
-        next: (data) => {
-          if (data) {
-            this.signalement_raison = ""
-            this.displayFormSignalmt = false
-            this.res_signalement = "Signaler avec succès!"
-            setTimeout(() => { this.res_signalement = "" }, 1500)
-          }
-        }, error: (e) => {
-          console.error(e)
-        }
-      })
-  }
 
   menuBtnClick: boolean = false;
 
