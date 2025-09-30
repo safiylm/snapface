@@ -1,9 +1,9 @@
 import { Component, ElementRef, Input, Renderer2 } from '@angular/core';
-import { Publication } from '../../../models/publication.model';
+import { Publication } from '../../../../models/publication.model';
 import { ActivatedRoute } from '@angular/router';
-import { PublicationComponent } from '../publication/publication.component';
+import { PublicationComponent } from '../../publication/publication.component';
 import { NgIf, NgFor } from '@angular/common';
-import { UsersListComponent } from "../../user/users-list/users-list.component";
+import { UsersListComponent } from "../../../user/users-list/users-list.component";
 import { User } from 'src/models/user.model';
 
 @Component({
@@ -24,13 +24,15 @@ export class PublicationListComponent {
   @Input() isDisplay !: boolean;
   menuBtnClick: boolean = false;
 
-
+  index = 0
+  
   constructor(route: ActivatedRoute, private renderer: Renderer2) {
     this.publications = route.snapshot.data['publications']
     this.user = route.snapshot.data['user'];
   }
 
 
+  
   ngAfterViewInit() {
     this.renderer.listen('window', 'click', (e: Event) => {
       if (!this.menuBtnClick) {

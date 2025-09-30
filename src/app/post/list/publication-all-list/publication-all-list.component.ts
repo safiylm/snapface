@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Publication } from '../../../models/publication.model';
+import { Publication } from '../../../../models/publication.model';
 import { ActivatedRoute } from '@angular/router';
-import { PublicationComponent } from '../../post/publication/publication.component';
+import { PublicationComponent } from '../../../post/publication/publication.component';
 import { NgFor } from '@angular/common';
 
 @Component({
