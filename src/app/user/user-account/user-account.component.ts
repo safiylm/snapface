@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { HeaderComponent } from '../../header/header.component';
 import { HeaderSnapComponent } from '../header-snap/header-snap.component';
-import { PublicationListComponent } from '../../post/publication-list/publication-list.component';
+import { PublicationListComponent } from '../../post/list/publication-list/publication-list.component';
 import { AbonneeService } from 'src/services/abonnee-service';
-import { PublicationListScrollComponent } from 'src/app/post/publication-list-scroll/publication-list-scroll.component';
+import { PublicationListScrollComponent } from 'src/app/post/list/publication-list-scroll/publication-list-scroll.component';
 
 @Component({
   standalone:true, 

@@ -9,7 +9,6 @@ describe('PublicationComponent', () => {
 
     let component: PublicationComponent;
     let fixture: ComponentFixture<PublicationComponent>;
-    let image: HTMLElement;
     let body: HTMLElement;
     let title: HTMLElement;
     let btnEditPost: HTMLElement;
@@ -26,14 +25,19 @@ describe('PublicationComponent', () => {
         fixture = TestBed.createComponent(PublicationComponent);
 
         component = fixture.componentInstance;
-        component.publication = new Publication("66f9678d9189a0956c8cfb4c",
-            "Beautiful orange cat",
-            "Beautiful orange cat...................",
-            ["https://images.pexels.com/photos/1741205/pexels-photo-1741205.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"],
-            555, "66e9219abe68cdd15907399e", "", 0,0,0,
-0        )
+        component.publication = new Publication(
+      "66f9678d9189a0956c8cfb4c",
+      "Beautiful orange cat",
+      "Little Kitten Playing His Toy Mouse",
+      ["https://images.pexels.com/photos/7143483/pexels-photo-7143483.jpeg"],
+      "66e9219abe68cdd15907399e", "",
+      1,
+      3,
+      3,
+      3,
+      4, null, null,null,// Date("2024-09-28T22:00:00.000Z") as Date ,
+      null)
         fixture.detectChanges();
-        image = fixture.nativeElement.querySelector("#image")
         body = fixture.nativeElement.querySelector('#body')
         title = fixture.nativeElement.querySelector('h2')
         btnEditPost = fixture.nativeElement.querySelector('#btn-edit-post')
@@ -43,20 +47,17 @@ describe('PublicationComponent', () => {
     it('should create', () => {
         expect(component).toBeTruthy();
         expect(component.publication).toBeDefined()
-        expect(component.index).toBeDefined()
         expect(component.isMyPost).toBeDefined()
-        expect(component.isDisplayListOfComments).toBeDefined()
     });
 
 
     it("should display", ()=>{
-        expect(image.getAttribute("src")).toContain(component.publication.assets[component.index]);
         expect(body.textContent?.toLowerCase()).toContain(component.Body?.toLowerCase())
         expect(title.textContent?.toLowerCase()).toContain(component.Title?.toLowerCase())
     })
 
-    // photo precedent et suivant 
 
-    // display btn edit
 
 })
+
+

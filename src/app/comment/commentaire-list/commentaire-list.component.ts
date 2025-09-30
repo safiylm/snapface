@@ -24,9 +24,7 @@ export class CommentaireListComponent implements OnInit {
 
   constructor(protected commentaireService: CommentaireService) { }
 
-  ngOnChanges(changes: SimpleChanges) {
-    //if (changes['isDisplayListOfComments']) //console.log("isDisplayListOfComments change ") 
-  }
+
 
   display() {
     this.subscription = this.commentaireService.getCommentaireByPostId(this.id)

@@ -9,13 +9,13 @@ import { AllUsersResolverService } from 'src/services/resolver/all-users-resolve
 import { UserDataResolverService } from 'src/services/resolver/user-data-resolver-service';
 import { formulaireDesactiveGuard } from './guards/formulaire-desactive.guard'
 import { AdminPageComponent } from './admin-page/admin-page.component';
-import { FormEmailComponent } from './user/password-oublier/form-email/form-email.component';
-import { PasswordOublierComponent } from './user/password-oublier/password-oublier.component';
+import { FormEmailComponent } from './user/edit/password-oublier/form-email/form-email.component';
+import { PasswordOublierComponent } from './user/edit/password-oublier/password-oublier.component';
 import { PourMoiComponent } from './pour-moi/pour-moi.component';
 import { ChatComponent } from './chat_/chat/chat.component';
-import { LikedListComponent } from './post/liked-list/liked-list.component';
-import { PointedListComponent } from './post/pointed-list/pointed-list.component';
-import { EnregistrementListComponent } from './post/enregistrement-list/enregistrement-list.component';
+import { LikedListComponent } from './post/list/liked-list/liked-list.component';
+import { PointedListComponent } from './post/list/pointed-list/pointed-list.component';
+import { EnregistrementListComponent } from './post/list/enregistrement-list/enregistrement-list.component';
 import { DocTechniqueComponent } from './doc-technique/doc-technique.component';
 
 const routes: Routes = [

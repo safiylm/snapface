@@ -10,7 +10,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { LoadingInterceptor } from 'src/services/loading.interceptor';
 // autres imports...
 

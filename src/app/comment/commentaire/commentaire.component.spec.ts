@@ -31,9 +31,11 @@ describe('CommentaireComponent', () => {
     component.commentaire = new Commentaire(
       "6697ffa585ac11e40dccc044",
       "La mer est un espace de rigueur et de liberté. Victor Hugo",
-      1721237413177,
       "662eb2a1c2fd9ad3238d7528",
-      "662eb417c2fd9ad3238d752e"
+      "662eb417c2fd9ad3238d752e", 
+      false, 
+      false, 
+      null, null
     );
     window.localStorage.setItem("userId", "662eb2a1c2fd9ad3238d7528")
   

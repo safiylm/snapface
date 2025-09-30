@@ -24,8 +24,8 @@ describe('Publication create Component', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
     expect(component.post).toBeDefined();
-  //  expect(component.array_image).toBeDefined();
-  //  expect(component.newimage).toBeDefined();
+    //  expect(component.array_image).toBeDefined();
+    //  expect(component.newimage).toBeDefined();
     expect(component.result).toBeDefined();
 
   });
@@ -36,11 +36,16 @@ describe('Publication create Component', () => {
     // Arrange
     const data = new Publication(
       "66f9678d9189a0956c8cfb4c",
-      "Beautiful orange cat", "Beautiful orange cat...................",
-      ["https://images.pexels.com/photos/1741205/pexels-photo-1741205.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"],
-      555, //"2024-09-28T22:00:00.000Z",
-      "66e9219abe68cdd15907399e"
-    )
+      "Beautiful orange cat",
+      "Little Kitten Playing His Toy Mouse",
+      ["https://images.pexels.com/photos/7143483/pexels-photo-7143483.jpeg"],
+      "66e9219abe68cdd15907399e", "",
+      1,
+      3,
+      3,
+      3,
+      4, null, null,null,// Date("2024-09-28T22:00:00.000Z") as Date ,
+      null)
 
     spyOn(component, 'onSubmit')
     component.post = data;
