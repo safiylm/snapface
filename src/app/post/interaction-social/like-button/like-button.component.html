@@ -18,7 +18,8 @@
 
 
   <button *ngIf="post.likesCount" id="btn-followers" class="btn" type="button" data-bs-toggle="offcanvas"
-    data-bs-target="#offcanvasNumberofLike" aria-controls="offcanvasNumberofLike">
+             [attr.data-bs-target]="'#offcanvasNumberofLike'+post._id" [attr.aria-controls]="'offcanvasNumberofLike'+post._id">
+
     {{post.likesCount}}
   </button>
 
@@ -26,7 +27,7 @@
 
 
 
-<div class="offcanvas offcanvas-bottom" data-bs-scroll="true" @fadeIn @fadeOut tabindex="-1" id="offcanvasNumberofLike"
+<div class="offcanvas offcanvas-bottom" data-bs-scroll="true" @fadeIn @fadeOut tabindex="-1" [id]="'offcanvasNumberofLike'+post._id"
   aria-labelledby="offcanvasWithBothOptionsLabel">
   <div class="offcanvas-header">
     <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">

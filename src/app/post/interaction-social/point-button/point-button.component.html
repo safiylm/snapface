@@ -17,14 +17,14 @@
     </button>
 
     <button *ngIf="post.pointsCount" id="btn-followers" class="btn" type="button" data-bs-toggle="offcanvas"
-        data-bs-target="#offcanvasNumberofPoint" aria-controls="offcanvasNumberofPoint">
+         [attr.data-bs-target]="'#offcanvasNumberofPoint'+post._id" [attr.aria-controls]="'offcanvasNumberofPoint'+post._id">
         {{post.pointsCount}}
     </button>
 
 </div>
 
 
-<div class="offcanvas offcanvas-bottom" data-bs-scroll="true" @fadeIn @fadeOut tabindex="-1" id="offcanvasNumberofPoint"
+<div class="offcanvas offcanvas-bottom" data-bs-scroll="true" @fadeIn @fadeOut tabindex="-1" [attr.id]="'offcanvasNumberofPoint'+post._id"
   aria-labelledby="offcanvasWithBothOptionsLabel">
   <div class="offcanvas-header">
     <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">

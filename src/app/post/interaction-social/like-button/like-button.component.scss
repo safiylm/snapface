@@ -1,29 +1,33 @@
-.d-flex{
+.d-flex {
     margin-right: 10px;
-   
+  //  border: 0.1px solid black;
+    border-radius: 6px;
+        background-color: whitesmoke;
+
     button {
-    background-color: transparent;
-    border: none;
-    padding: 3px ;
-    color: black;
-    margin: 0;
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    justify-content: center;
-    svg{
-       
+        background-color: whitesmoke;
+        border: none;
+        padding: 3px;
         color: black;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        flex-direction: row;
+        justify-content: center;
+
+        svg {
+
+            color: black;
+        }
     }
 }
-}
-   
-#div-liste-like{
+
+#div-liste-like {
     position: fixed;
     background-color: rgb(255, 255, 255);
     margin: 10px auto;
     text-align: center;
-  //  box-shadow: 5px 44px 77px 1px rgb(192, 192, 192);
+    //  box-shadow: 5px 44px 77px 1px rgb(192, 192, 192);
     padding: 20px;
     padding-bottom: 5px;
     z-index: 2;
@@ -34,9 +38,9 @@
     border: 0.2px solid grey;
     box-shadow: #a8a2a2 4px 4px 20px;
 
-    button{
+    button {
         float: right;
         margin: 15px
     }
-   
+
 }
