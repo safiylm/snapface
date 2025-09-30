@@ -14,6 +14,8 @@ import { User } from 'src/models/user.model';
 import { CommentaireListComponent } from "../../comment/commentaire-list/commentaire-list.component";
 import { AuteurInPostOrCommentaireComponent } from "../../user/auteur-in-post-or-commentaire/auteur-in-post-or-commentaire.component";
 import { transition, style, animate, trigger } from '@angular/animations';
+import { SignalerUserComponent } from "src/app/user/signaler-user/signaler-user.component";
+import { SignalerPostComponent } from "../signaler-post/signaler-post.component";
 
 const enterTransition = transition(':enter', [
   style({
@@ -48,7 +50,7 @@ const fadeOut = trigger('fadeOut', [
   styleUrls: ['./interaction-social.component.scss'],
   imports: [LikeButtonComponent, PointButtonComponent,
     NgIf, FormsModule, EnregistrementButtonComponent,
-    NgFor, CommentaireListComponent],
+    NgFor, CommentaireListComponent, SignalerPostComponent],
       animations: [
     fadeIn,
     fadeOut
@@ -61,10 +63,8 @@ export class InteractionSocialComponent {
   @Input() post !: Publication;
   @Input() isMyPost !: boolean;
 
-  displayFormSignalmt = false;
   displayListeConversations = false;
-  signalement_raison = ""
-  res_signalement = ""
+
   isMobile !: boolean;
   users: any[] = []
 
@@ -116,23 +116,5 @@ export class InteractionSocialComponent {
       "", this.post._id)
   }
 
-
-  signaler() {
-    let s = new Signalement("22", localStorage.getItem('userId')?.toString() as string, Date.now(),
-      this.signalement_raison, this.post._id, null, null);
-    this.signalementService.signalerUnePublication(s).subscribe(
-      {
-        next: (data) => {
-          if (data) {
-            this.signalement_raison = ""
-            this.displayFormSignalmt = false
-            this.res_signalement = "Signaler avec succès!"
-            setTimeout(() => { this.res_signalement = "" }, 1500)
-          }
-        }, error: (e) => {
-          console.error(e)
-        }
-      })
-  }
 
 }

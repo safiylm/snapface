@@ -3,7 +3,6 @@
 
   <app-point-button [post]="post"></app-point-button>
 
-
   <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas"
     [attr.aria-controls]="'offcanvasComment'+post._id" [attr.data-bs-target]="'#offcanvasComment'+ post._id">
 
@@ -14,57 +13,19 @@
     </svg> {{post.commentsCount}}
   </button>
 
-
   <app-enregistrement-button [post]="post"></app-enregistrement-button>
 
+  <app-signaler-post  [post]="post" ></app-signaler-post>
 
-  <div class="dropdown">
-    <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-      ...
-    </button>
-    <ul class="dropdown-menu">
+  <button *ngIf="isMyPost" type="button" class="dropdown-item " id="btn-edit-post" (click)="goToEditPost()"> <svg
+      xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen"
+      viewBox="0 0 16 16">
+      <path
+        d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z" />
+    </svg>
+    Modifier votre publication
+  </button>
 
-      <li>
-        <button *ngIf="!displayFormSignalmt" class="dropdown-item" (click)="displayFormSignalmt=true">Signaler</button>
-      </li>
-      <li *ngIf="isMyPost">
-        <button type="button" class="dropdown-item " id="btn-edit-post" (click)="goToEditPost()"> <svg
-            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pen"
-            viewBox="0 0 16 16">
-            <path
-              d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001m-.644.766a.5.5 0 0 0-.707 0L1.95 11.756l-.764 3.057 3.057-.764L14.44 3.854a.5.5 0 0 0 0-.708z" />
-          </svg> Modifier votre publication</button>
-      </li>
-
-    </ul>
-  </div>
-
-
-</div>
-
-
-<!--AFFICHAGE D'UN FORMULAIRE POUR SIGNALER UNE PUBLICATION -->
-<div *ngIf="displayFormSignalmt" class="modal-" @fadeIn @fadeOut>
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Signaler {{ post.title! }}</h5>
-        <button type="button" class="close btn btn-light" (click)="displayFormSignalmt=false">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form (submit)="signaler()" autocomplete="off">
-          <label> La raison :
-            <input name="raison" class="form-control" [(ngModel)]="signalement_raison">
-          </label>
-          <button class="btn btn-primary" type="submit">Signaler</button>
-          <button class="btn btn-light" type="button" (click)="displayFormSignalmt=false">Annuler</button>
-          {{res_signalement}}
-        </form>
-      </div>
-    </div>
-  </div>
 </div>
 
 

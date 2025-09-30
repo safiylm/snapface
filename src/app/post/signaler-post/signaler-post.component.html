@@ -1,0 +1,27 @@
+<button class="btn btn-primary" type="button" data-bs-toggle="offcanvas"
+    [attr.aria-controls]="'offcanvasFormSignaler'+post._id" [attr.data-bs-target]="'#offcanvasFormSignaler'+ post._id">
+    Signaler
+</button>
+
+<!-- AFFICHAGE D'UN FOMRULAIRE POUR SIGNALER  -->
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" [attr.id]="'offcanvasFormSignaler'+post._id"
+    aria-labelledby="offcanvasWithBothOptionsLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel"> {{post.title}} </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="body">
+            <img [src]="post.assets" alt="image 1 du post " width="200px" height="auto" />
+            <form (submit)="signaler()" autocomplete="off">
+                <label> Signaler, entrez la raison :</label><br>
+                <input name="raison" class="form-control" [(ngModel)]="raison">
+                <br>
+                <button class="btn btn-danger" type="submit">Signaler</button>
+                <br>
+                {{res}}
+            </form>
+        </div>
+
+    </div>
+</div>

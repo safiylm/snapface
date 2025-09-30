@@ -5,7 +5,7 @@
     align-items: center;
 
     button {
-        background-color: transparent;
+        background-color: whitesmoke;
         border: none;
         padding: 3px;
         color: black;
@@ -14,6 +14,7 @@
         align-items: center;
         flex-direction: row;
         justify-content: center;
+      //  border:0.1px solid black;
 
         svg {
             margin: 0 5px 0 0;
@@ -22,70 +23,16 @@
     }
 }
 
-.body{
-    border-bottom: 0.3px solid #888;
-    padding-bottom: 15px;
-}
 .offcanvas 
 {
   min-height: 45vh !important;
   height: auto;
 }
 
+img{
+    margin: 20px auto ;
+}
 
-.modal- {
-    position: fixed;
-    /* Stay in place */
-    z-index: 1;
-    /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%;
-    /* Full width */
-    height: 100%;
-    /* Full height */
-    overflow: auto;
-    /* Enable scroll if needed */
-    background-color: rgb(0, 0, 0);
-    /* Fallback color */
-    background-color: rgba(0, 0, 0, 0.4);
-    /* Black w/ opacity */
-
-    .modal-header {
-        justify-content: space-between !important;
-    }
-
-    /* Modal Content/Box */
-    .modal-content {
-        background-color: #fefefe;
-        margin: 15% auto;
-        /* 15% from the top and centered */
-        padding: 20px;
-        border: 1px solid #888;
-        width: 50%;
-        border-radius: 8px !important;
-
-        /* Could be more or less, depending on screen size */
-    }
-
-    /* The Close Button */
-    .close {
-        color: #aaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
-
-        :hover,
-        :focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-    }
-
-    .item-user{
-        margin: 10px;
-        border-bottom: 0.2px solid rgb(230, 230, 230);
-    }
+form{
+    text-align: left;
 }
