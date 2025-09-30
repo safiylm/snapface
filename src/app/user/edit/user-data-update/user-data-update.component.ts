@@ -1,14 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../../services/user-service'
-import { User } from '../../../models/user.model'
+import { UserService } from '../../../../services/user-service'
+import { User } from '../../../../models/user.model'
 import { FormsModule } from "@angular/forms";
 import { Subscription } from 'rxjs';
-import { HeaderComponent } from '../../header/header.component';
 import { CommonModule } from '@angular/common';
-import { EditEmailComponent } from '../edit-email/edit-email.component';
-import { EditPhonenumberComponent } from '../edit-phonenumber/edit-phonenumber.component';
-import { HeaderSnapComponent } from "../header-snap/header-snap.component";
-import { PasswordEditComponent } from "../password-edit/password-edit.component";
+import { EditEmailComponent } from '../../edit/edit-email/edit-email.component';
+import { EditPhonenumberComponent } from '../../edit/edit-phonenumber/edit-phonenumber.component';
+import { PasswordEditComponent } from "../../edit/password-edit/password-edit.component";
 
 @Component({
   standalone: true,

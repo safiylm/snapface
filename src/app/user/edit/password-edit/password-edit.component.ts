@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormControl, ReactiveFormsModule, FormsModule } from "@angular/forms";
 import { ActivatedRoute } from '@angular/router';
-import { UserService } from '../../../services/user-service'
+import { UserService } from '../../../../services/user-service'
 import * as bcrypt from "bcryptjs";
 import { NgClass, NgIf, NgStyle } from '@angular/common';
 

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { UserService } from 'src/services/user-service';
-import { HeaderComponent } from "../../../header/header.component";
+import { HeaderComponent } from "../../../../header/header.component";
 
 @Component({
   standalone: true,
