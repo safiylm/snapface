@@ -110,7 +110,7 @@ io.on("connection", async (socket) => {
 ✅ Un support en ligne (un agent parle à un client spécifique).
   */
 
-//CREATE MESSAGE 
+  //CREATE MESSAGE 
   socket.on('createPrivateMessage', async (data) => {
 
     try {
@@ -129,7 +129,7 @@ io.on("connection", async (socket) => {
       }
 
     } catch (error) {
-      console.error('Erreur lors de l’enregistrement du message', error);
+      console.error('Erreur lors de la creation du message', error);
     }
 
   });
@@ -137,8 +137,6 @@ io.on("connection", async (socket) => {
 
   //EDIT MESSAGE 
   socket.on('editPrivateMessage', async (data) => {
-      //  sender: data['sender'],
-console.log("msg id :"+ data['messageId']+" text: "+ data['text'])
     try {
       const response = await axios.post('http://localhost:4100/message/edit', {
         id: data['messageId'],
@@ -152,9 +150,30 @@ console.log("msg id :"+ data['messageId']+" text: "+ data['text'])
       }
 
     } catch (error) {
-      console.error('Erreur lors de l’enregistrement du message', error);
+      console.error('Erreur lors de la modification du message', error);
     }
+  });
 
+
+
+
+  
+  //DELETE MESSAGE 
+  socket.on('deletePrivateMessage', async (data) => {
+    try {
+      const response = await axios.post('http://localhost:4100/message/delete', {
+        id: data['messageId'],
+      })
+      console.log(response.data)
+
+      if (response.data['acknowledged'] == true) {
+        // Envoie le message uniquement aux utilisateurs concernés
+        io.to(data['receiver']).emit('messages', data);
+      }
+
+    } catch (error) {
+      console.error('Erreur lors de la suppression du message', error);
+    }
   });
 
 
@@ -164,29 +183,29 @@ console.log("msg id :"+ data['messageId']+" text: "+ data['text'])
   socket.on('newLike', async (data) => {
     try {
       const response = await axios.post('http://localhost:4100/api/interaction/likesAdd', {
-        'postId':data['postId'] ,
-        'userId': data['userId'] , 
+        'postId': data['postId'],
+        'userId': data['userId'],
       })
       if (response.data['acknowledged'] == true) {
         // Envoie notif à l'auteur du post 
-        io.to(data['userId'] ).emit('newLike_', data);
+        io.to(data['userId']).emit('newLike_', data);
       }
     } catch (error) {
       console.error('Erreur lors de l’enregistrement du like', error);
     }
   });
 
-    socket.on('disLike', async (data) => {
+  socket.on('disLike', async (data) => {
     try {
       const response = await axios.post('http://localhost:4100/api/interaction/likesRemove', {
-        'postId':data['postId'] ,
-        'userId': data['userId'] , 
+        'postId': data['postId'],
+        'userId': data['userId'],
         'interactionId': data['interactionId']
 
       })
       if (response.data['acknowledged'] == true) {
         // Envoie notif à l'auteur du post 
-        io.to(data['userId'] ).emit('disLike_', data);
+        io.to(data['userId']).emit('disLike_', data);
       }
     } catch (error) {
       console.error('Erreur lors de l’enregistrement du like', error);
@@ -194,64 +213,64 @@ console.log("msg id :"+ data['messageId']+" text: "+ data['text'])
   });
 
 
-    socket.on('point', async (data) => {
+  socket.on('point', async (data) => {
     try {
       const response = await axios.post('http://localhost:4100/api/interaction/pointsAdd', {
-        'postId':data['postId'] ,
-        'userId': data['userId'] , 
+        'postId': data['postId'],
+        'userId': data['userId'],
       })
       if (response.data['acknowledged'] == true) {
         // Envoie notif à l'auteur du post 
-        io.to(data['userId'] ).emit('point_', data);
+        io.to(data['userId']).emit('point_', data);
       }
     } catch (error) {
       console.error('Erreur lors de l’enregistrement du like', error);
     }
   });
 
-    socket.on('dispoint', async (data) => {
+  socket.on('dispoint', async (data) => {
     try {
       const response = await axios.post('http://localhost:4100/api/interaction/pointsRemove', {
-        'postId':data['postId'] ,
-        'userId': data['userId'] , 
+        'postId': data['postId'],
+        'userId': data['userId'],
         'interactionId': data['interactionId']
 
       })
       if (response.data['acknowledged'] == true) {
         // Envoie notif à l'auteur du post 
-        io.to(data['userId'] ).emit('dispoint_', data);
+        io.to(data['userId']).emit('dispoint_', data);
       }
     } catch (error) {
       console.error('Erreur lors de l’enregistrement du like', error);
     }
   });
-  
+
   socket.on('save', async (data) => {
     try {
       const response = await axios.post('http://localhost:4100/api/interaction/enregistrementAdd', {
-        'postId':data['postId'] ,
-        'userId': data['userId'] , 
+        'postId': data['postId'],
+        'userId': data['userId'],
       })
       if (response.data['acknowledged'] == true) {
         // Envoie notif à l'auteur du post 
-        io.to(data['userId'] ).emit('save_', data);
+        io.to(data['userId']).emit('save_', data);
       }
     } catch (error) {
       console.error('Erreur lors de l’enregistrement du like', error);
     }
   });
 
-    socket.on('unsave', async (data) => {
+  socket.on('unsave', async (data) => {
     try {
       const response = await axios.post('http://localhost:4100/api/interaction/enregistrementRemove', {
-        'postId':data['postId'] ,
-        'userId': data['userId'] , 
+        'postId': data['postId'],
+        'userId': data['userId'],
         'interactionId': data['interactionId']
 
       })
       if (response.data['acknowledged'] == true) {
         // Envoie notif à l'auteur du post 
-        io.to(data['userId'] ).emit('unsave_', data);
+        io.to(data['userId']).emit('unsave_', data);
       }
     } catch (error) {
       console.error('Erreur lors de l’enregistrement du like', error);

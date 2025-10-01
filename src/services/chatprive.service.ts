@@ -54,18 +54,15 @@ export class ChatPriveService {
     this.socket.emit('editPrivateMessage',
       { sender, receiver, messageId, text })
 
-    //return this.http.post(url + `/message/edit`, { "id": id, "text": text });
   }
 
   delete(sender: string, receiver: string, messageId: string) {
 
-        this.joinRoom(sender);
+    this.joinRoom(sender);
     this.joinRoom(receiver);
 
-    this.socket.emit('editPrivateMessage',
-      { sender, receiver, messageId })
-
-  //  return this.http.post(url + `/message/delete`, { "id": id });
+    this.socket.emit('deletePrivateMessage',
+      { receiver, messageId })
   }
 
   getMessageHistory(conversationId: string) {
@@ -75,8 +72,6 @@ export class ChatPriveService {
   getLastMessage(conversationId: string) {
     return this.http.get<Message>(url + `/last-message?conversationId=${conversationId}`);
   }
-
-
 
 
   deleteConversation(conversationId: string) {

@@ -11,7 +11,7 @@
     <div class="messages d-flexx flex-column">
 
       <app-message *ngFor="let msg of messages" [message]="msg" (editEvent)="getValueForEdittingMessage($event)"
-        (deleteEvent)="loadMessages()"></app-message>
+        (deleteEvent)="loadMessages()" [conversation]="conversation"></app-message>
 
       <div *ngIf="messages.length==0">
         <p>Dites Bonjour👋</p>

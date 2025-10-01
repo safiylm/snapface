@@ -1,5 +1,6 @@
 import { NgClass, NgIf } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Conversation } from 'src/models/conversation';
 import { Message } from 'src/models/message.model';
 import { Publication } from 'src/models/publication.model';
 import { ChatPriveService } from 'src/services/chatprive.service';
@@ -15,6 +16,8 @@ import { PublicationsService } from 'src/services/publication-service';
 export class MessageComponent {
 
   @Input() message!: Message;
+  @Input() conversation!: Conversation;
+  
   messageEdittingId = "";
   message_ = "";
   sender = "";
@@ -61,24 +64,14 @@ export class MessageComponent {
   }
 
 
-  delete(id: string) {
+  delete() {
     this.displayEditDeleteButton = false
+    if (localStorage.getItem("userId") == this.conversation.speaker[0])
+      this.chatService.delete(this.sender, this.conversation.speaker[1], this.message._id)
+    else
+      this.chatService.delete(this.sender, this.conversation.speaker[0], this.message._id)
+    this.deleteEvent.emit('supp')
 
-    //   if (localStorage.getItem("userId") == this.conversation.speaker[0])
-    //     this.chatService.edit(this.sender, this.conversation.speaker[1], this.messageEdittingId, this.message)
-    //   else
-    //     this.chatService.edit(this.sender, this.conversation.speaker[0], this.messageEdittingId, this.message)
-    //   this.message = '';
-    // }
-    // this.chatService.delete(id).subscribe({
-    //   next: (data) => {
-    //     if (data) {
-    //      this.deleteEvent.emit('supp')
-    //     }
-    //   }, error: e => {
-    //     console.error('erreur, delete message', e)
-    //   }
-    // })
 
   }
 }
