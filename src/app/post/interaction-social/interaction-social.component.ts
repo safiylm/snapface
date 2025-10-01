@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, inject, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, inject, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
 import { LikeButtonComponent } from "./like-button/like-button.component";
 import { PointButtonComponent } from "./point-button/point-button.component";
 import { NgFor, NgIf } from '@angular/common';
@@ -51,7 +51,7 @@ const fadeOut = trigger('fadeOut', [
   imports: [LikeButtonComponent, PointButtonComponent,
     NgIf, FormsModule, EnregistrementButtonComponent,
     NgFor, CommentaireListComponent, SignalerPostComponent],
-      animations: [
+  animations: [
     fadeIn,
     fadeOut
   ]
@@ -68,7 +68,7 @@ export class InteractionSocialComponent {
   isMobile !: boolean;
   users: any[] = []
 
-  constructor(private signalementService: SignalementService,
+  constructor(
     private chatService: ChatPriveService, private userService: UserService) { }
 
   ngOnInit() {
@@ -97,9 +97,7 @@ export class InteractionSocialComponent {
           }
         }
       });
-
   }
-
 
   goToEditPost() {
     document.location.href = 'publication/edit/' + this.post._id
@@ -107,9 +105,8 @@ export class InteractionSocialComponent {
 
   //SEND MESSAGE 
   sendPostByMesssagePrivee(receiver: string, conversationId: string) {
-    //(sender: string, receiver: string, conversationId: string, text: string, postId: string ) {
 
-    this.chatService.sendMessagePrivee(
+    this.chatService.create(
       localStorage.getItem("userId")!.toString() as string,
       receiver,// "662eb2a1c2fd9ad3238d7528",
       conversationId,// "680b8d60a105a35cfb4942e6",

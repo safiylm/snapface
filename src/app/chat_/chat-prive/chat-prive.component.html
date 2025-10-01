@@ -10,7 +10,7 @@
 
     <div class="messages d-flexx flex-column">
 
-      <app-message *ngFor="let msg of messages" [message]="msg" (editEvent)="messageAEditer($event)"
+      <app-message *ngFor="let msg of messages" [message]="msg" (editEvent)="getValueForEdittingMessage($event)"
         (deleteEvent)="loadMessages()"></app-message>
 
       <div *ngIf="messages.length==0">
@@ -19,18 +19,18 @@
     </div>
 
     <!-- Envoyer un MESSAGE  -->
-    <div class="d-flex" *ngIf="messageEdittingId==''">
+    <div class="d-flex" *ngIf="messageEdit.id==''">
       <input class="form-control" [(ngModel)]="message" placeholder="Tapez un message..."
-        (keyup.enter)="sendMessagePrivee()" />
-      <button class="btn btn-light" (click)="sendMessagePrivee()">Envoyer</button>
+        (keyup.enter)="create()" />
+      <button class="btn btn-light" (click)="create()">Envoyer</button>
     </div>
 
     <!-- Modifier un MESSAGE  -->
 
-    <div class="d-flex" *ngIf="messageEdittingId!=''">
+    <div class="d-flex" *ngIf="messageEdit.id!=''">
 
       <div class="form-floating">
-        <input id="floatingInputGrid" class="form-control" [(ngModel)]="message" placeholder=""
+        <input id="floatingInputGrid" class="form-control" [(ngModel)]="messageEdit.text" placeholder=""
           (keyup.enter)="submitEdit()" />
         <label for="floatingInputGrid">Modifier son message</label>
       </div>

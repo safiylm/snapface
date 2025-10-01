@@ -22,29 +22,51 @@ export class ChatPriveService {
   }
 
 
-  receiveMessagePrivate(): Observable<any> {
 
-    return new Observable(observer => {
-      this.socket.on('newMessage', (msg) => {
-        observer.next(msg)
-        console.log(msg)
-      });
-    });
-  }
 
   joinRoom(userId: string) {
     this.socket.emit('joinRoom', userId);
   }
 
 
-  sendMessagePrivee(sender: string, receiver: string, conversationId: string, text: string, postId: string) {
+  create(sender: string, receiver: string, conversationId: string, text: string, postId: string) {
     this.joinRoom(sender);
     this.joinRoom(receiver);
 
-    this.socket.emit('privateMessage',
+    this.socket.emit('createPrivateMessage',
       { sender, receiver, conversationId, text, postId })
   }
 
+    getPrivateMessagesWithSocket(): Observable<any> {
+    return new Observable(observer => {
+      this.socket.on('messages', (msg) => {
+        observer.next(msg)
+        console.log(msg)
+      });
+    });
+  }
+
+  edit(sender: string, receiver: string, messageId: string, text: string) {
+
+    this.joinRoom(sender);
+    this.joinRoom(receiver);
+
+    this.socket.emit('editPrivateMessage',
+      { sender, receiver, messageId, text })
+
+    //return this.http.post(url + `/message/edit`, { "id": id, "text": text });
+  }
+
+  delete(sender: string, receiver: string, messageId: string) {
+
+        this.joinRoom(sender);
+    this.joinRoom(receiver);
+
+    this.socket.emit('editPrivateMessage',
+      { sender, receiver, messageId })
+
+  //  return this.http.post(url + `/message/delete`, { "id": id });
+  }
 
   getMessageHistory(conversationId: string) {
     return this.http.get(url + `/messages?conversationId=${conversationId}`);
@@ -55,20 +77,14 @@ export class ChatPriveService {
   }
 
 
-  editMessage(id: string, text: string) {
-    return this.http.post(url + `/message/edit`, { "id": id, "text": text });
-  }
 
-  deleteMessage(id: string) {
-    return this.http.post(url + `/message/delete`, { "id": id });
-  }
 
   deleteConversation(conversationId: string) {
     return this.http.post(url + `/conversation/delete`, { "conversationId": conversationId });
   }
 
   getUsersWeHaveConversation(userId: string): Observable<Conversation[]> {
-    this.getNumberOfNewMessagesByUserId(userId)
+   // this.getNumberOfNewMessagesByUserId(userId)
     return this.http.get<Conversation[]>(url + `/conversations/?userId=${userId}`);
   }
 
@@ -76,13 +92,13 @@ export class ChatPriveService {
     return this.http.get<Conversation>(url + `/conversation/?id=${id}`);
   }
   numberofmessage: number = 0;
-
-  getNumberOfNewMessagesByUserId(userid: string) {
+/*
+  getNumberOfNewMessagesByUserI(userid: string) {
     this.http.get<Conversation[]>(url + `/conversations/?userId=${userid}`)
       .subscribe(
         (data: Conversation[]) => {
           for (let d of data) {
-            this.http.get<Conversation[]>(url + "/conversation/nbnewmsj?id=" + d._id)
+            this.http.get<Conversation[]>(url + "/conversation/nbnewmsj?id=" + d._id +"&userId="+userid)
               .subscribe(
                 (dataa) => {
                   if (dataa.length > 0) {
@@ -98,7 +114,7 @@ export class ChatPriveService {
 
   }
 
-
+*/
   createConversation(sender: string, receiver: string): Observable<Conversation> {
     return this.http
       .post<any>(
@@ -110,13 +126,13 @@ export class ChatPriveService {
     return this.http
       .post<any>(
         url + `/message/markasseen`,
-        { "conversationId": conversationId })
+        { "conversationId": conversationId, "userId": localStorage.getItem('userId')?.toString() as string  })
   }
 
   getNewMessagesByConversationId(conversationId: string) {
     return this.http
-      .get<Message[]>(
-        url + "/conversation/nbnewmsj?id=" + conversationId)
+      .get<any>(
+        url + "/conversation/nbnewmsj?id=" + conversationId  +"&userId="+localStorage.getItem('userId')?.toString() as string )
   }
 
 

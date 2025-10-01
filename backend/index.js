@@ -110,7 +110,8 @@ io.on("connection", async (socket) => {
 ✅ Un support en ligne (un agent parle à un client spécifique).
   */
 
-  socket.on('privateMessage', async (data) => {
+//CREATE MESSAGE 
+  socket.on('createPrivateMessage', async (data) => {
 
     try {
       const response = await axios.post('http://localhost:4100/message/create', {
@@ -124,7 +125,7 @@ io.on("connection", async (socket) => {
 
       if (response.data['acknowledged'] == true) {
         // Envoie le message uniquement aux utilisateurs concernés
-        io.to(data['receiver']).emit('newMessage', data);
+        io.to(data['receiver']).emit('messages', data);
       }
 
     } catch (error) {
@@ -133,6 +134,32 @@ io.on("connection", async (socket) => {
 
   });
 
+
+  //EDIT MESSAGE 
+  socket.on('editPrivateMessage', async (data) => {
+      //  sender: data['sender'],
+console.log("msg id :"+ data['messageId']+" text: "+ data['text'])
+    try {
+      const response = await axios.post('http://localhost:4100/message/edit', {
+        id: data['messageId'],
+        text: data['text'],
+      })
+      console.log(response.data)
+
+      if (response.data['acknowledged'] == true) {
+        // Envoie le message uniquement aux utilisateurs concernés
+        io.to(data['receiver']).emit('messages', data);
+      }
+
+    } catch (error) {
+      console.error('Erreur lors de l’enregistrement du message', error);
+    }
+
+  });
+
+
+
+  /***************************************************************************** */
 
   socket.on('newLike', async (data) => {
     try {

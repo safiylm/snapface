@@ -16,16 +16,16 @@ import { MessageComponent } from "./message/message.component";
   templateUrl: './chat-prive.component.html',
   styleUrls: ['./chat-prive.component.scss'],
   imports: [FormsModule, NgFor, NgIf, ConversationListComponent,
-    HeaderComponent,  UserPresentationOnTopOfChatPriveComponent, MessageComponent]
+    HeaderComponent, UserPresentationOnTopOfChatPriveComponent, MessageComponent]
 })
 
 export class ChatPriveComponent implements OnInit {
-  message = ""
+  message: string = "";
   messages: any[] = [];
   sender: string = localStorage.getItem("userId")?.toString() as string;
   conversationId !: string;
   conversation !: Conversation;
-  messageEdittingId = "";
+  messageEdit = { 'id': "", "text": "" };
 
   constructor(private chatService: ChatPriveService,
     private route: ActivatedRoute) {
@@ -41,45 +41,48 @@ export class ChatPriveComponent implements OnInit {
       this.conversation = data;
     });
 
-    this.chatService.receiveMessagePrivate().subscribe(msg => {
-      setTimeout(() => {
-        this.messages.push(msg);
-      }, 1050)
+    this.chatService.getPrivateMessagesWithSocket().subscribe(msg => {
+      this.messages.push(msg);
+      console.log(msg)
     });
   }
 
 
-//SEND MESSAGE 
-  sendMessagePrivee() {
-    if (this.message.trim() && this.conversationId.trim()) {
+  //SEND MESSAGE 
+  create() {
+    if (this.messageEdit.text.trim() && this.conversationId.trim()) {
       if (localStorage.getItem("userId") == this.conversation.speaker[0])
-        this.chatService.sendMessagePrivee(this.sender, this.conversation.speaker[1], this.conversationId, this.message, "")
+        this.chatService.create(this.sender, this.conversation.speaker[1], this.conversationId, this.message, "")
       else
-        this.chatService.sendMessagePrivee(this.sender, this.conversation.speaker[0], this.conversationId, this.message, "")
-      this.message = '';
+        this.chatService.create(this.sender, this.conversation.speaker[0], this.conversationId, this.message, "")
+      this.messageEdit.text = '';
     }
   }
 
 
-  messageAEditer(value:string ){
-    if (this.messageEdittingId == "") {
-      this.messageEdittingId = value.split('-')[0];
-      this.message =value.split('-')[1];
-    }
+
+  getValueForEdittingMessage(value: any) {
+    this.messageEdit.id = value.id
+    this.messageEdit.text = value.text
   }
 
   submitEdit() {
-    this.chatService.editMessage(this.messageEdittingId, this.message).subscribe((data: any) => {
-       this.chatService.getMessageHistory(this.conversationId).subscribe((data: any) => {
-         this.messages = data;
-       });
-    });
-    this.messageEdittingId = "";
-    this.message = "";
 
+    if (this.messageEdit.text.trim() && this.messageEdit.id != "" && this.messageEdit.id != undefined) {
+      if (localStorage.getItem("userId") == this.conversation.speaker[0])
+        this.chatService.edit(this.sender, this.conversation.speaker[1], this.messageEdit.id, this.messageEdit.text)
+      else
+        this.chatService.edit(this.sender, this.conversation.speaker[0], this.messageEdit.id, this.messageEdit.text)
+    }
+    this.message = '';
+    this.messageEdit.id = "";
+    this.messageEdit.text = "";
+    /*  this.chatService.getMessageHistory(this.conversationId).subscribe((data: any) => {
+        this.messages = data;
+     });*/
   }
 
-  loadMessages(){
+  loadMessages() {
     this.chatService.getMessageHistory(this.conversationId).subscribe((data: any) => {
       this.messages = data;
     });
@@ -90,13 +93,13 @@ export class ChatPriveComponent implements OnInit {
     this.chatService.getConversationById(this.conversationId).subscribe((data: any) => {
       this.conversation = data;
     });
-    
+
     this.chatService.getMessageHistory(this.conversationId).subscribe((data: any) => {
       this.messages = data;
     });
 
     this.chatService.markAsSeen(this.conversationId).subscribe(
-     (data) => { if (data) data })
+      (data) => { if (data) data })
 
   }
 
