@@ -1,4 +1,11 @@
-.listofposts {
+  .div-btns{
+    width: 100%;
+    button{
+      width: 40%;
+    }
+  }
+
+  .listofposts {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -9,6 +16,7 @@
   .liste-images {
     width: auto;
   }
+
 
   video,
   img {
