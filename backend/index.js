@@ -5,11 +5,12 @@ const cors = require("cors");
 const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
 
+//const url = "http://localhost:4200"
+const url =  "https://snapfaceangular.web.app"
 //const websocket = require("./chat")
 var corsOptions = {
   origin:// "*"
-    //  "https://snapfaceangular.web.app",
-    "http://localhost:4200",
+    url,
   credentials: true, // ⬅️ Permet l’envoi des cookies
 };
 app.use(cors(corsOptions));
@@ -34,7 +35,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "http://localhost:4200");
+  res.header("Access-Control-Allow-Origin", url);
   res.header("Access-Control-Allow-Credentials", "true"); // ⬅️ obligatoire pour les cookies
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
@@ -64,8 +65,7 @@ const io = new Server(server, {
   cors: {
     origin:
       // "*", 
-      // "https://snapfaceangular.web.app",
-      "http://localhost:4200",
+      url,
     credentials: true,
     methods: ["GET", "POST"]
   }
@@ -82,7 +82,7 @@ io.on("connection", async (socket) => {
     token = parsedCookies.token;
 
     if (token) {
-      const response = await axios.post('http://localhost:4100/api/user/edit/online', {
+      const response = await axios.post( url,+'/api/user/edit/online', {
         //     const response = await axios.post('https://snapface.onrender.com/api/user/edit/online', {
         _id: token,
       })
@@ -114,7 +114,7 @@ io.on("connection", async (socket) => {
   socket.on('createPrivateMessage', async (data) => {
 
     try {
-      const response = await axios.post('http://localhost:4100/message/create', {
+      const response = await axios.post(url+'/message/create', {
         //     const response = await axios.post('https://snapface.onrender.com/message/create', {
         sender: data['sender'],
         conversationId: data['conversationId'],
@@ -138,7 +138,7 @@ io.on("connection", async (socket) => {
   //EDIT MESSAGE 
   socket.on('editPrivateMessage', async (data) => {
     try {
-      const response = await axios.post('http://localhost:4100/message/edit', {
+      const response = await axios.post(url+'/message/edit', {
         id: data['messageId'],
         text: data['text'],
       })
@@ -161,7 +161,7 @@ io.on("connection", async (socket) => {
   //DELETE MESSAGE 
   socket.on('deletePrivateMessage', async (data) => {
     try {
-      const response = await axios.post('http://localhost:4100/message/delete', {
+      const response = await axios.post(url+'/message/delete', {
         id: data['messageId'],
       })
       console.log(response.data)
@@ -182,7 +182,7 @@ io.on("connection", async (socket) => {
 
   socket.on('newLike', async (data) => {
     try {
-      const response = await axios.post('http://localhost:4100/api/interaction/likesAdd', {
+      const response = await axios.post(url+'/api/interaction/likesAdd', {
         'postId': data['postId'],
         'userId': data['userId'],
       })
@@ -197,7 +197,7 @@ io.on("connection", async (socket) => {
 
   socket.on('disLike', async (data) => {
     try {
-      const response = await axios.post('http://localhost:4100/api/interaction/likesRemove', {
+      const response = await axios.post(url+'/api/interaction/likesRemove', {
         'postId': data['postId'],
         'userId': data['userId'],
         'interactionId': data['interactionId']
@@ -215,7 +215,7 @@ io.on("connection", async (socket) => {
 
   socket.on('point', async (data) => {
     try {
-      const response = await axios.post('http://localhost:4100/api/interaction/pointsAdd', {
+      const response = await axios.post(url+'/api/interaction/pointsAdd', {
         'postId': data['postId'],
         'userId': data['userId'],
       })
@@ -230,7 +230,7 @@ io.on("connection", async (socket) => {
 
   socket.on('dispoint', async (data) => {
     try {
-      const response = await axios.post('http://localhost:4100/api/interaction/pointsRemove', {
+      const response = await axios.post(url+'/api/interaction/pointsRemove', {
         'postId': data['postId'],
         'userId': data['userId'],
         'interactionId': data['interactionId']
@@ -247,7 +247,7 @@ io.on("connection", async (socket) => {
 
   socket.on('save', async (data) => {
     try {
-      const response = await axios.post('http://localhost:4100/api/interaction/enregistrementAdd', {
+      const response = await axios.post(url+'/api/interaction/enregistrementAdd', {
         'postId': data['postId'],
         'userId': data['userId'],
       })
@@ -262,7 +262,7 @@ io.on("connection", async (socket) => {
 
   socket.on('unsave', async (data) => {
     try {
-      const response = await axios.post('http://localhost:4100/api/interaction/enregistrementRemove', {
+      const response = await axios.post(url+'/api/interaction/enregistrementRemove', {
         'postId': data['postId'],
         'userId': data['userId'],
         'interactionId': data['interactionId']
@@ -288,8 +288,7 @@ io.on("connection", async (socket) => {
       this.socket.connect();
     }
     if (token) {
-      const response = await axios.post('http://localhost:4100/api/user/edit/notonline', {
-        //     const response = await axios.post('https://snapface.onrender.com/api/user/edit/notonline', {
+      const response = await axios.post(url+'/api/user/edit/notonline', {
         _id: token,
       })
       if (response.data['acknowledged'] == true)
