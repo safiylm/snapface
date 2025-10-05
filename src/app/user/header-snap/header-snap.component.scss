@@ -5,7 +5,10 @@
     margin: 10px;
     border-radius: 10px;
 }
-
+#editphotos{
+    background-color: rgba(255, 255, 255, 0.951);
+    padding: 30px 10px;
+}
 .background-viewer {
     position: fixed;
     background-color: rgba(38, 38, 38, 0.351);
@@ -145,7 +148,6 @@
         display: inline;
     }
 
-    #btn-signaler,
     #btn-ecrire {
         border-radius: 15px !important;
         padding: 7px 14px !important;

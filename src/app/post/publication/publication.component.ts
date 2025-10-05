@@ -3,7 +3,7 @@ import { Publication } from '../../../models/publication.model';
 import { AuteurInPostOrCommentaireComponent } from '../../user/auteur-in-post-or-commentaire/auteur-in-post-or-commentaire.component';
 import { InteractionSocialComponent } from '../interaction-social/interaction-social.component';
 import { CommentaireListComponent } from '../../comment/commentaire-list/commentaire-list.component';
-import { NgIf, TitleCasePipe } from '@angular/common';
+import { NgClass, NgIf, TitleCasePipe } from '@angular/common';
 import { ImagesVideoComponent } from "./images-video/images-video.component";
 import { AudioComponent } from "./audio/audio.component";
 
@@ -12,9 +12,9 @@ import { AudioComponent } from "./audio/audio.component";
   selector: 'app-publication',
   templateUrl: './publication.component.html',
   styleUrls: ['./publication.component.scss'],
-  imports: [AuteurInPostOrCommentaireComponent,
+  imports: [AuteurInPostOrCommentaireComponent, NgClass,
     InteractionSocialComponent, CommentaireListComponent, TitleCasePipe,
-    NgIf, ImagesVideoComponent, AudioComponent]
+    NgIf, ImagesVideoComponent]
 })
 
 export class PublicationComponent {
@@ -24,6 +24,7 @@ export class PublicationComponent {
   isMyPost: boolean = false;
     @ViewChildren('autoVideo') videoElements!: QueryList<ElementRef<HTMLVideoElement>>;
 
+  @Input() shadow !: boolean;
 
   ngAfterContentChecked() {
     if (this.UserId == localStorage.getItem('userId')) {
