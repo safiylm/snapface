@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component, Input, signal, SimpleChanges } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { User } from 'src/models/user.model';
 import { UserService } from 'src/services/user-service';
 import { Output, EventEmitter } from '@angular/core';
@@ -13,6 +13,8 @@ import { Message } from 'src/models/message.model';
   styleUrls: ['./item-user-with-last-message.component.scss'],
   imports: [NgIf]
 })
+
+
 export class ItemUserWithLastMessageComponent {
 
   @Input() users !: string[];
@@ -21,6 +23,7 @@ export class ItemUserWithLastMessageComponent {
   nbNewMessage !: number;
   nbConversationWithNewMessages = 0;
   lastMessage="";
+  
   constructor(private chatservice: ChatPriveService, private userService: UserService) { }
 
   @Output() newItemEvent = new EventEmitter<string>();
@@ -71,10 +74,9 @@ export class ItemUserWithLastMessageComponent {
 
   getNumberOfNewMessage() {
     this.chatservice.getNewMessagesByConversationId(this.conversationId)
-      .subscribe((data: Message[]) => {
-        this.nbNewMessage = data.length
+      .subscribe((data) => {
+        this.nbNewMessage = data.newMessagesCount
       })
-     
   }
 
 }

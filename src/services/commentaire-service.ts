@@ -25,7 +25,7 @@ export class CommentaireService {
     return this.http.get<User>(url + "/api/userid?id=" + id);
   }
 
-  addNewCommentaire(formData: Commentaire): Observable<Commentaire> {
+  addNewCommentaire(formData: Commentaire): Observable<any> {
 
     const httpOptions = {
       headers: new HttpHeaders({
@@ -34,7 +34,7 @@ export class CommentaireService {
     };
 
     return this.http
-      .post<Commentaire>(
+      .post<any>(
         url + `/api/commentaire/create`,
         formData,
         httpOptions

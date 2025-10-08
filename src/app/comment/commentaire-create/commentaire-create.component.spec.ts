@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { CommentaireCreateComponent } from './commentaire-create.component';
 import { NgIf } from '@angular/common';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
@@ -24,55 +24,123 @@ describe('Commentaire Create Component', () => {
 
     fixture = TestBed.createComponent(CommentaireCreateComponent);
     component = fixture.componentInstance;
-   
+
     httpTestingController = TestBed.inject(HttpTestingController);
     service = TestBed.inject(CommentaireService);
-    component.id = "662eb417c2fd9ad3238d752e"
-    component.commentaire = new Commentaire(
-      "6697ffa585ac11e40dccc044",
-      "La mer est un espace de rigueur et de liberté. Victor Hugo",
-      1721237413177,
-      "662eb2a1c2fd9ad3238d7528", //userId
-      "662eb417c2fd9ad3238d752e" //postId
-    );
-    window.localStorage.setItem("userId", "662eb2a1c2fd9ad3238d7528")
- fixture.detectChanges();
+    fixture.detectChanges();
   });
 
 
-  it('should create', () => {
-    expect(component.id).toBeDefined()
+  it('should init', () => {
+    // expect(component.postId).toBeDefined()
     expect(component).toBeTruthy();
     expect(component.result).toBe("");
   });
 
 
-  it('should create comment', () => {
+  it('should create comment', fakeAsync(() => {
 
-    spyOn(component, 'createNewComment').and.callThrough();
-    spyOn(service, 'addNewCommentaire').and
-      .returnValue(of(component.commentaire));
+    component.postId = "662eb417c2fd9ad3238d752e"
+    component.commentaire = new Commentaire(
+      "6697ffa585ac11e40dccc044",
+      "La mer est un espace de rigueur et de liberté. Victor Hugo",
+      "662eb2a1c2fd9ad3238d7528",
+      "662eb417c2fd9ad3238d752e",
+      false,
+      false,
+      null, null
+    );
+
+    spyOn(service, "addNewCommentaire").and.returnValue(of(
+      { "commentaire": component.commentaire, "publication": 1 }));
+    window.localStorage.setItem("userId", "662eb2a1c2fd9ad3238d7528")
     // Act
     component.createNewComment();
-    // Assert
-    expect(component.createNewComment).toHaveBeenCalled();
+
+    tick(500)
+
+    fixture.whenStable().then(() => {
+      expect(component.result).toBe("")
+    })
+
     expect(component.result).toBe("Votre commentaire a été crée avec succès")
 
-  });
+    flush(); // resout le probleme avec settimeout 
+    // Assert
+
+  }));
 
 
-  it('should erreur create comment', () => {
 
-    spyOn(component, 'createNewComment').and.callThrough();
-    spyOn(service, 'addNewCommentaire').and
-      .returnValue(throwError(() => new Error('Erreur API')));
+
+
+
+  it('should erreur create comment', fakeAsync(() => {
+
+
+    // component.postId = "662eb417c2fd9ad3238d752e"
+    component.commentaire = new Commentaire(
+      "6697ffa585ac11e40dccc044",
+      "wsxdcfvgbhnj,k;l",
+      "",
+      "",
+      false,
+      false,
+      null, null
+    );
+
+    spyOn(service, "addNewCommentaire").and.returnValue(of(
+      { "erreur": "Erreur, champs vide" }));
+    window.localStorage.setItem("userId", "662eb2a1c2fd9ad3238d7528")
     // Act
     component.createNewComment();
+
+    tick(500)
+
+    fixture.whenStable().then(() => {
+      expect(component.result).toBe("")
+    })
+
+    expect(component.result).toBe("Erreur, veuillez recommencer.")
+
+    flush(); // resout le probleme avec settimeout 
     // Assert
-    expect(component.createNewComment).toHaveBeenCalled();
-    expect(component.result).toContain("Une erreur s'est produite veuillez recommencer.")
 
-  });
+  }))
 
+
+
+  it('should erreur create comment', fakeAsync(() => {
+
+
+    // component.postId = "662eb417c2fd9ad3238d752e"
+    component.commentaire = new Commentaire(
+      "6697ffa585ac11e40dccc044",
+      "",
+      "",
+      "",
+      false,
+      false,
+      null, null
+    );
+
+    spyOn(service, "addNewCommentaire").and.returnValue(of(
+      { "erreur": "Erreur, champs vide" }));
+    window.localStorage.setItem("userId", "662eb2a1c2fd9ad3238d7528")
+    // Act
+    component.createNewComment();
+
+    tick(500)
+
+    fixture.whenStable().then(() => {
+      expect(component.result).toBe("")
+    })
+
+    expect(component.result).toBe("Saisissez votre commentaire")
+
+    flush(); // resout le probleme avec settimeout 
+    // Assert
+
+  }))
 
 })
