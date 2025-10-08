@@ -1,66 +1,69 @@
-<app-header></app-header>
-<app-header-snap [id]="post.userId"></app-header-snap>
+<div class="page d-flex flex-wrap flex-row align-items-start justify-content-between">
+    <app-header></app-header>
 
-<form (ngSubmit)="onSubmit()" *ngIf="post" enctype="multipart/form-data" autocomplete="off">
+    <form (ngSubmit)="onSubmit()" *ngIf="post" enctype="multipart/form-data" autocomplete="off">
 
-    <h1>Modifier sa publication</h1>
+        <h1>Modifier sa publication</h1>
 
-    <div class="form-floating w-100">
-        <label>Modifiez votre titre:</label>
-        <input class="form-control" type="text" name="title" [(ngModel)]="post.title" />
-    </div>
-
-    <div class="form-floating">
-        <label>Modifiez le texte de votre publication:</label>
-        <textarea class="form-control" name="body" [(ngModel)]="post.body!">{{post.body}}</textarea>
-    </div>
-
-    <h2>Les photos & les vidéos</h2>
-    <div class="div-images">
-
-        <div class="imgg" *ngFor="let assets of array_assets ; let i = index">
-
-            <ng-container *ngIf="isImage(assets); else videoTemplate">
-                <img id="image" [src]="assets!" [alt]="post.title">
-            </ng-container>
-
-            <ng-template #videoTemplate>
-                <video controls>
-                    <source [src]="assets!" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </ng-template>
-
-            <button class='btn btn-light' type='button' (click)='deleteImage(i)'>Supprimer</button><br />
-
+        <div class="form-floating w-100">
+            <label>Modifiez votre titre:</label>
+            <input class="form-control" type="text" name="title" [(ngModel)]="post.title" />
         </div>
-    </div>
 
-    <div>
-        <label for="photo">Choisir une photo :</label>
-        <input type="file" id="photo" (change)="onFilesSelected($event)" multiple accept="image/*" />
-    </div>
+        <div class="form-floating">
+            <label>Modifiez le texte de votre publication:</label>
+            <textarea class="form-control" name="body" [(ngModel)]="post.body!">{{post.body}}</textarea>
+        </div>
 
-    <div class="audio-list">
-       
-        <div *ngFor="let audio of audioList" class="audio-item d-flex flex-wrap align-items-center justify-content-aroud">
-            <input type="radio" id="html" name="audio" [(ngModel)]="post.audio!" [value]="audio.url">
-            <img [src]="audio.cover" width="75px" height="75px" />
-            <div>
-                <p>{{audio.title}}</p>
-                <audio controls [src]="audio.url"></audio>
+        <h2>Les photos & les vidéos</h2>
+        <div class="div-images">
+
+            <div class="imgg" *ngFor="let assets of array_assets ; let i = index">
+
+                <ng-container *ngIf="isImage(assets); else videoTemplate">
+                    <img id="image" [src]="assets!" [alt]="post.title">
+                </ng-container>
+
+                <ng-template #videoTemplate>
+                    <video controls>
+                        <source [src]="assets!" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </ng-template>
+
+                <button class='btn btn-light' type='button' (click)='deleteImage(i)'>Supprimer</button><br />
+
             </div>
         </div>
 
+        <div>
+            <label for="photo">Choisir une photo :</label>
+            <input type="file" id="photo" (change)="onFilesSelected($event)" multiple accept="image/*" />
+        </div>
 
-    </div>
-    <br />
-    <br />
+        <div class="audio-list">
 
-    {{resultatOfEdit}}
-    <br />
-    <button class="btn btn-light" type="submit">Enregistrer les modifications </button>
-    <br />
-    <button class="btn btn-danger" type="button" (click)="deletePost()">Supprimer la publication </button>
+            <div *ngFor="let audio of audioList"
+                class="audio-item d-flex flex-wrap align-items-center justify-content-aroud">
+                <input type="radio" id="html" name="audio" [(ngModel)]="post.audio!" [value]="audio.url">
+                <img [src]="audio.cover" width="75px" height="75px" />
+                <div>
+                    <p>{{audio.title}}</p>
+                    <audio controls [src]="audio.url"></audio>
+                </div>
+            </div>
 
-</form> 
+
+        </div>
+        <br />
+        <br />
+
+        {{resultatOfEdit}}
+        <br />
+        <button class="btn btn-light" type="submit">Enregistrer les modifications </button>
+        <br />
+        <button class="btn btn-danger" type="button" (click)="deletePost()">Supprimer la publication </button>
+
+    </form>
+
+</div>

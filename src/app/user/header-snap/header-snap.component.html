@@ -46,7 +46,7 @@
     </div>
 </div>
 
-<div style="height: auto; margin-bottom: 20px;">
+<div class="headersnap-container">
     <img id="photo-background" *ngIf="user.photos_background" [src]="UserPhotoBackground"
         (click)="showPhotoViewerBackground(); toggleMenu(); preventCloseOnClick()" />
     <img id="photo-background" *ngIf="!user.photos_background" src="../../assets/violet.png"

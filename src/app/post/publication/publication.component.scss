@@ -1,9 +1,11 @@
 * {
-  box-sizing: border-box;
+  box-sizing: border-box !important;
 }
+
 .boxshadow{
   box-shadow: #d3d3d3 4px 4px 20px;
 }
+
 .face-snap-card {
   background-color: #fff;
   height: auto;
@@ -14,13 +16,13 @@
   .post {
 
     min-width: 250px;
-    width: 60vw;
+    width: 50vw;
     max-width: 550px;
     padding: 20px;
     display: grid;
-    height: 80vh;
+    height: 70vh;
     grid-template-columns: [first] 100% [end];
-    grid-template-rows: [row1-start] 80px [row1-end] 355px [third-line] 100px [thrid-line-end]  50px [last-line];
+    grid-template-rows: [row1-start] 10vh [row1-end] auto [third-line] 10vh [thrid-line-end]  10vh [last-line];
     grid-template-areas: 'user' 'audio' 'assets' 'text' 'interactions';
 
     app-images-video {
@@ -76,7 +78,7 @@
   }
 
   .post {
-    max-height: 80vh;
+    max-height: 70vh;
   }
 
 }

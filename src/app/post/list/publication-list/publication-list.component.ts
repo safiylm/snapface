@@ -40,21 +40,21 @@ export class PublicationListComponent {
     }
   }
 
-  ngAfterViewInit() {
-    this.renderer.listen('window', 'click', (e: Event) => {
-      if (!this.menuBtnClick) {
-        this.post = undefined;
-        this.menuOpen = false;
+  // ngAfterViewInit() {
+  //   this.renderer.listen('window', 'click', (e: Event) => {
+  //     if (!this.menuBtnClick) {
+  //       this.post = undefined;
+  //       this.menuOpen = false;
 
-      }
-      this.menuBtnClick = false;
-    });
-  }
+  //     }
+  //     this.menuBtnClick = false;
+  //   });
+  // }
 
   clickImage(i: number){
     this.isMobile=true; this.index= i; 
   }
-
+/*
   voirPost(post: Publication) {
     this.post = post;
   }
@@ -72,7 +72,7 @@ export class PublicationListComponent {
 
   toggleMenu() {
     this.menuOpen = !this.menuOpen;
-  }
+  }*/
 
 
 }

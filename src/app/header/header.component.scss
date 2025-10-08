@@ -89,14 +89,6 @@ nav {
   right: 0;
 }
 
-
-/* Décale le contenu à droite de la nav sur desktop */
-@media (min-width: 768px) {
-  body {
-    margin-left: 250px;
-    /* largeur approximative de la nav */
-  }
-
   .navbar {
     width: 250px;
     height: 95vh;
@@ -105,7 +97,7 @@ nav {
     padding-top: 1rem;
         z-index: 1;
   }
-}
+
 
 /* Sur mobile, navbar classique en haut */
 @media (max-width: 767px) {

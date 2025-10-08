@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box !important;
+}
+
 .div-interactionSociale {
     display: flex;
     flex-direction: row;
@@ -7,14 +11,14 @@
     button {
         background-color: whitesmoke;
         border: none;
-        padding: 3px;
+        padding: 5px 10px;
         color: black;
         margin: 0 15px 0 0;
         display: flex;
         align-items: center;
         flex-direction: row;
         justify-content: center;
-      //  border:0.1px solid black;
+        //  border:0.1px solid black;
 
         svg {
             margin: 0 5px 0 0;
@@ -23,16 +27,23 @@
     }
 }
 
-.offcanvas 
-{
-  min-height: 45vh !important;
-  height: auto;
+.offcanvas {
+    min-height: 45vh !important;
+    height: auto;
 }
 
-img{
-    margin: 20px auto ;
+img {
+    margin: 20px auto;
 }
 
-form{
+form {
     text-align: left;
+}
+
+#btn-edit-post {
+    font-size: 13px !important;
+    display: block;
+    padding: 10px;
+    text-align: center;
+    width: 100%;
 }
