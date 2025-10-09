@@ -1,8 +1,8 @@
 .div-user {
     width: 100%;
-    border-bottom: 0.2px solid rgb(177, 177, 177);
-    padding: 15px 8px;
-    min-width: 270px;
+    border-bottom: 0.2px solid rgb(124, 119, 119);
+    padding-bottom: 15px ;
+
     img {
         width: 60px;
         height: 60px;
@@ -17,8 +17,9 @@
     }
 
     a {
-        text-decoration: none;
-        color: white;
+        color: #252525;
+        text-decoration: none !important;
+        font-size: 16px;
     }
 
     div {
@@ -28,17 +29,17 @@
 
 
         #username {
-            font-weight: 700;
+            font-weight: 200;
         }
+
+
 
         p {
             font-size: 16px;
             margin: 5px;
-            text-align: initial;
-        color: white;
+            text-decoration: none;
 
         }
-
 
     }
 

@@ -1,0 +1,9 @@
+<div class="d-flex chat-container">
+    <app-header></app-header>
+
+    <app-conversation-list id="conversation-list" inOffCanvas="false" (newItemEvent2)="choisirConversation($event)"
+        offcanvas="false"></app-conversation-list>
+
+    <app-discussion [conversationId]="conversationId"></app-discussion>
+
+</div>

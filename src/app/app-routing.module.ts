@@ -12,10 +12,6 @@ import { AdminPageComponent } from './admin-page/admin-page.component';
 import { FormEmailComponent } from './user/edit/password-oublier/form-email/form-email.component';
 import { PasswordOublierComponent } from './user/edit/password-oublier/password-oublier.component';
 import { PourMoiComponent } from './pour-moi/pour-moi.component';
-import { ChatComponent } from './chat_/chat/chat.component';
-import { LikedListComponent } from './post/list/liked-list/liked-list.component';
-import { PointedListComponent } from './post/list/pointed-list/pointed-list.component';
-import { EnregistrementListComponent } from './post/list/enregistrement-list/enregistrement-list.component';
 import { DocTechniqueComponent } from './doc-technique/doc-technique.component';
 
 const routes: Routes = [
@@ -46,8 +42,8 @@ const routes: Routes = [
 
   {
     path: 'chat/:id',
-    loadComponent: () => import('./chat_/chat-prive/chat-prive.component')
-      .then(mod => mod.ChatPriveComponent)
+    loadComponent: () => import('./chat/chat-page/chat-page.component')
+      .then(mod => mod.ChatPageComponent)
   },
   {
     path: 'inscription',
@@ -107,12 +103,6 @@ const routes: Routes = [
     path: 'pour-moi',
     title: "Pour moi",
     component: PourMoiComponent
-  },
-
-  {
-    path: 'chatpublic',
-    title: "Chat",
-    component: ChatComponent
   },
 
   {

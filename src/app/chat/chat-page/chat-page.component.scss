@@ -1,0 +1,39 @@
+.chat-container {
+  width: auto;
+  height: 100vh !important;
+  margin-left: 260px;
+  min-height: 85vh;
+
+  app-header {
+    position: absolute;
+    height: 100%;
+    top: 0;
+    left: 0;
+    width: 260px;
+  }
+
+
+    @media (max-width:1020px) {
+    height: 100%;
+
+    #conversation-list {
+      display: none;
+    }
+
+    }
+
+    @media (max-width:767px) {
+    margin-left: 0px;
+    height: 100dvh !important;
+    overflow: hidden;
+
+    app-header {
+      min-height: 50px !important;
+      position: absolute;
+      height: 100px;
+      top: 0;
+      right: 0;
+      width: 100%;
+    }
+    }
+}

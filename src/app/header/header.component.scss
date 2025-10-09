@@ -17,7 +17,6 @@ body {
 
 nav {
 
-
   margin: 10px;
   border-radius: 20px;
   width: 300px;
@@ -39,6 +38,8 @@ nav {
       margin: 0 10px;
     }
   }
+
+
   a:hover,
   button:hover {
     text-decoration:underline;
@@ -49,9 +50,9 @@ nav {
   }
 
   .navbar-brand {
-    padding: 20px !important;
+    padding: 10px !important;
     font-family: mango;
-    font-size: x-large;
+    font-size: large;
   }
 
 
@@ -103,8 +104,9 @@ nav {
 @media (max-width: 767px) {
   .navbar {
     width: 97% ;
-    margin: 10px auto;
-    height: auto;
+    margin: 5px auto;
+   height: 90px;
+  //  max-height: 90px;
     min-height: 50px;
   }
 }

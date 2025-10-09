@@ -1,17 +1,11 @@
-<div class="d-flex chat-container">
-  <app-header></app-header>
-
-  <app-conversation-list id="conversation-list" inOffCanvas="false" (newItemEvent2)="choisirConversation($event)"
-    offcanvas="false"></app-conversation-list>
-
-  <div class="chat-box">
-    <app-user-presentation-on-top-of-chat-prive *ngIf="conversation"
+  <div class="chat-box" *ngIf="conversation">
+    <app-user-presentation-on-top-of-chat-prive 
       [users]="conversation.speaker"></app-user-presentation-on-top-of-chat-prive>
 
     <div class="messages d-flexx flex-column">
 
       <app-message *ngFor="let msg of messages" [message]="msg" (editEvent)="getValueForEdittingMessage($event)"
-        (deleteEvent)="loadMessages()" [conversation]="conversation"></app-message>
+        (deleteEvent)="load()" [conversation]="conversation"></app-message>
 
       <div *ngIf="messages.length==0">
         <p>Dites Bonjour👋</p>
@@ -39,5 +33,3 @@
     </div>
 
   </div>
-  
-</div>

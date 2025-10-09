@@ -16,7 +16,7 @@ import { LoadingInterceptor } from 'src/services/loading.interceptor';
 registerLocaleData(localeFr);
 
 @NgModule({
-  declarations: [AppComponent, LoadingSpinnerComponent],
+  declarations: [AppComponent, LoadingSpinnerComponent, ],
   imports: [
     BrowserModule,
     AppRoutingModule,

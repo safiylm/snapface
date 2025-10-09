@@ -5,12 +5,13 @@ const cors = require("cors");
 const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
 
-//const url = "http://localhost:4200"
-const url =  "https://snapfaceangular.web.app"
+const url = "http://localhost:4100"
+const url_ = "http://localhost:4200"
+//const url =  "https://snapfaceangular.web.app"
 //const websocket = require("./chat")
 var corsOptions = {
   origin:// "*"
-    url,
+    url_,
   credentials: true, // ⬅️ Permet l’envoi des cookies
 };
 app.use(cors(corsOptions));
@@ -35,7 +36,7 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", url);
+  res.header("Access-Control-Allow-Origin", url_);
   res.header("Access-Control-Allow-Credentials", "true"); // ⬅️ obligatoire pour les cookies
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
@@ -65,7 +66,7 @@ const io = new Server(server, {
   cors: {
     origin:
       // "*", 
-      url,
+      url_,
     credentials: true,
     methods: ["GET", "POST"]
   }
