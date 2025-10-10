@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
 import {
-  HttpClient, HttpHeaders
+  HttpClient,
 } from '@angular/common/http';
-import { Observable, Subject, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Commentaire } from '../models/commentaire.model';
 import { User } from '../models/user.model';
-import { InteractionSociale } from '../models/interaction.sociale.model';
-import { LocalizedString } from '@angular/compiler';
 import { url } from './url'
+import { io, Socket } from 'socket.io-client';
 
 @Injectable({
   providedIn: 'root'
@@ -15,52 +14,49 @@ import { url } from './url'
 
 export class CommentaireService {
 
-  constructor(private http: HttpClient) { }
+  private socket: Socket;
+
+  constructor(private http: HttpClient) {
+    this.socket = io(url, {
+      withCredentials: true
+    });
+  }
+
+  
+  joinRoom(userId: string) {
+    this.socket.emit('joinRoom', userId);
+  }
 
   getCommentaireByPostId(id: string): Observable<Commentaire[]> {
-    return this.http.get<Commentaire[]>( url + "/api/commentairesByPostId?id=" + id);
+    return this.http.get<Commentaire[]>(url + "/api/commentairesByPostId?id=" + id);
   }
 
   getUserByUserId(id: string): Observable<User> {
     return this.http.get<User>(url + "/api/userid?id=" + id);
   }
 
-  addNewCommentaire(formData: Commentaire): Observable<any> {
 
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Access-Control-Allow-Origin': '*',
-      })
-    };
-
-    return this.http
-      .post<any>(
-        url + `/api/commentaire/create`,
-        formData,
-        httpOptions
-      )
-  }
-  
-
-  deleteCommentaire(commentId: string, postId: string ) : Observable<Commentaire> {
-   return this.http
-      .post<any>(
-        url + "/api/commentaire/delete",
-        { "id": commentId , "postId": postId}
-      )
+  create(formData: Commentaire) {
+    this.socket.emit("create_comment", formData)
   }
 
-  updateCommentaire(form: Commentaire): Observable<Commentaire> {
-
-    return this.http
-      .post<Commentaire>(
-        url + "/api/commentaire/update",
-        form
-      )
+  delete(commentId: string, postId: string) {
+    this.socket.emit("delete_comment", { "_id": commentId, "postId": postId, "userId": localStorage.getItem("userId")?.toString() })
   }
 
+  edit(form: Commentaire) {
+    this.socket.emit("edit_comment", { "_id": form._id, "postId": form.postId, "text": form.text })
+  }
 
-  checkTotalComments(id: string)  {}
-  
+  getCommentsWithSocket(): Observable<any> {
+    return new Observable(observer => {
+      this.socket.on('comments', (msg) => {
+        observer.next(msg)
+      });
+    });
+  }
+
+  checkTotalComments(id: string) { }
+
 
 }

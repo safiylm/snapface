@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Commentaire } from '../../../models/commentaire.model';
 import { CommentaireService } from '../../../services/commentaire-service';
 import { FormsModule } from '@angular/forms';
@@ -18,85 +18,39 @@ import { NgIf } from '@angular/common';
 export class CommentaireComponent //implements AfterViewInit 
 {
 
-  public isDisplayingForm = false;
   isMyComment: boolean = false;
   result = "";
   @Input() id !: string;
-  @Input() isDisplayComments !: boolean;
   @Input() commentaire !: Commentaire;
+  @Output() comment = new EventEmitter<Commentaire>();
 
 
   ngOnInit() {
-    
+
+      this.commentaireService.joinRoom(this.commentaire.postId);
     if (typeof localStorage.getItem("userId") !== undefined &&
-     localStorage.getItem("userId") !== null && this.commentaire!=null && this.commentaire!=undefined ) {
+      localStorage.getItem("userId") !== null && this.commentaire != null && this.commentaire != undefined) {
       this.isMyComment = this.commentaire.userId == (localStorage.getItem("userId")!.toString() as string)
-    } 
+    }
+    this.commentaireService.getCommentsWithSocket().subscribe(data => {
+      console.log(data)
+    });
   }
 
   constructor(private commentaireService: CommentaireService) { }
 
-  showFormEditComment() {
-    this.isDisplayingForm = true;
-  }
-
-  hideFormEditComment() {
-    this.isDisplayingForm = false;
-  }
-
-
-  editComment() {
-    if (localStorage.getItem('userId') == this.commentaire.userId) {
-
-      this.commentaireService.updateCommentaire(this.commentaire).subscribe(
-        {
-          next: (data) => {
-            if (data) {
-              this.isDisplayingForm = false;
-              this.result = "Commentaire modifié avec succes!"
-              setInterval(() => {
-                this.result = ""
-              }, 1000)
-            }
-          }, error: e => {
-            this.result = "Une erreur s'est produite veuillez réessayer!"
-            setInterval(() => {
-              this.result = ""
-            }, 1000)
-          }
-        }
-      )
-
-    }
-
-  }
 
   deleteComment() {
+    let text = "Êtes-vous sûre de supprimer votre commentaire!\n OK or Cancel.";
 
-    if (localStorage.getItem('userId') == this.commentaire.userId) {
+    if (localStorage.getItem('userId') == this.commentaire.userId)
+      if (confirm(text) == true)
+        this.commentaireService.delete(this.commentaire._id, this.commentaire.postId)
 
-      let text = "Êtes-vous sûre de supprimer votre commentaire!\n OK or Cancel.";
-    //  if (confirm(text) == true) {
-        this.commentaireService.deleteCommentaire(this.commentaire._id, this.commentaire.postId)
-        .subscribe(
-          {
-            next: (data) => {
-              if (data) {
-                this.isDisplayingForm = false;
-                this.result = "Commentaire supprimé avec succes!"
-                setInterval(() => {
-                  this.result = ""
-                }, 1000)
-              }
-            }, error: e => {
-              this.result = "Une erreur s'est produite veuillez réessayer!"
-              setInterval(() => {
-                this.result = ""
-              }, 1000)
-            }
-          })
-      } 
-   // }
+  }
+
+  sendOpenEditForm() {
+    this.comment.emit(this.commentaire)
   }
 
   get Texte() {

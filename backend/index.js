@@ -83,7 +83,7 @@ io.on("connection", async (socket) => {
     token = parsedCookies.token;
 
     if (token) {
-      const response = await axios.post( url,+'/api/user/edit/online', {
+      const response = await axios.post(url, +'/api/user/edit/online', {
         //     const response = await axios.post('https://snapface.onrender.com/api/user/edit/online', {
         _id: token,
       })
@@ -115,7 +115,7 @@ io.on("connection", async (socket) => {
   socket.on('createPrivateMessage', async (data) => {
 
     try {
-      const response = await axios.post(url+'/message/create', {
+      const response = await axios.post(url + '/message/create', {
         //     const response = await axios.post('https://snapface.onrender.com/message/create', {
         sender: data['sender'],
         conversationId: data['conversationId'],
@@ -139,7 +139,7 @@ io.on("connection", async (socket) => {
   //EDIT MESSAGE 
   socket.on('editPrivateMessage', async (data) => {
     try {
-      const response = await axios.post(url+'/message/edit', {
+      const response = await axios.post(url + '/message/edit', {
         id: data['messageId'],
         text: data['text'],
       })
@@ -158,11 +158,11 @@ io.on("connection", async (socket) => {
 
 
 
-  
+
   //DELETE MESSAGE 
   socket.on('deletePrivateMessage', async (data) => {
     try {
-      const response = await axios.post(url+'/message/delete', {
+      const response = await axios.post(url + '/message/delete', {
         id: data['messageId'],
       })
       console.log(response.data)
@@ -183,7 +183,7 @@ io.on("connection", async (socket) => {
 
   socket.on('newLike', async (data) => {
     try {
-      const response = await axios.post(url+'/api/interaction/likesAdd', {
+      const response = await axios.post(url + '/api/interaction/likesAdd', {
         'postId': data['postId'],
         'userId': data['userId'],
       })
@@ -198,7 +198,7 @@ io.on("connection", async (socket) => {
 
   socket.on('disLike', async (data) => {
     try {
-      const response = await axios.post(url+'/api/interaction/likesRemove', {
+      const response = await axios.post(url + '/api/interaction/likesRemove', {
         'postId': data['postId'],
         'userId': data['userId'],
         'interactionId': data['interactionId']
@@ -216,7 +216,7 @@ io.on("connection", async (socket) => {
 
   socket.on('point', async (data) => {
     try {
-      const response = await axios.post(url+'/api/interaction/pointsAdd', {
+      const response = await axios.post(url + '/api/interaction/pointsAdd', {
         'postId': data['postId'],
         'userId': data['userId'],
       })
@@ -231,7 +231,7 @@ io.on("connection", async (socket) => {
 
   socket.on('dispoint', async (data) => {
     try {
-      const response = await axios.post(url+'/api/interaction/pointsRemove', {
+      const response = await axios.post(url + '/api/interaction/pointsRemove', {
         'postId': data['postId'],
         'userId': data['userId'],
         'interactionId': data['interactionId']
@@ -248,7 +248,7 @@ io.on("connection", async (socket) => {
 
   socket.on('save', async (data) => {
     try {
-      const response = await axios.post(url+'/api/interaction/enregistrementAdd', {
+      const response = await axios.post(url + '/api/interaction/enregistrementAdd', {
         'postId': data['postId'],
         'userId': data['userId'],
       })
@@ -263,7 +263,7 @@ io.on("connection", async (socket) => {
 
   socket.on('unsave', async (data) => {
     try {
-      const response = await axios.post(url+'/api/interaction/enregistrementRemove', {
+      const response = await axios.post(url + '/api/interaction/enregistrementRemove', {
         'postId': data['postId'],
         'userId': data['userId'],
         'interactionId': data['interactionId']
@@ -277,6 +277,61 @@ io.on("connection", async (socket) => {
       console.error('Erreur lors de l’enregistrement du like', error);
     }
   });
+  /***************************************************************************** */
+
+  socket.on('create_comment', async (data) => {
+    try {
+      const response = await axios.post(url + '/api/commentaire/create', {
+        'postId': data['postId'],
+        'text': data['text'],
+        'userId': data['userId']
+      })
+
+      console.log(response.data['commentaire']["acknowledged"] )
+      if (response.data['commentaire']['acknowledged'] == true) {
+        // Envoie notif à l'auteur du post 
+        io.to(data['postId']).emit('comments', data);
+      }
+    } catch (error) {
+      console.error('Erreur lors de la creation du commentaire', error);
+    }
+  });
+
+
+  socket.on('edit_comment', async (data) => {
+    try {
+      const response = await axios.post(url + '/api/commentaire/update', {
+        'text': data['text'],
+        '_id': data['_id'],
+      })
+      console.log(response.data )
+      if (response.data['acknowledged'] == true) {
+        // Envoie notif à l'auteur du post 
+        io.to(data['postId']).emit('comments', data);
+      }
+    } catch (error) {
+      console.error('Erreur lors de la creation du commentaire', error);
+    }
+  });
+
+
+  socket.on('delete_comment', async (data) => {
+    try {
+      const response = await axios.post(url + '/api/commentaire/delete', {
+        'postId': data['postId'],
+        '_id': data['_id'],
+      })
+       console.log(response.data)
+      if (response.data['acknowledged'] == true) {
+        // Envoie notif à l'auteur du post 
+        io.to(data['postId']).emit('comments', data);
+      }
+    } catch (error) {
+      console.error('Erreur lors de la creation du commentaire', error);
+    }
+  });
+
+
 
 
   socket.on('joinRoom', (userId) => {
@@ -289,7 +344,7 @@ io.on("connection", async (socket) => {
       this.socket.connect();
     }
     if (token) {
-      const response = await axios.post(url+'/api/user/edit/notonline', {
+      const response = await axios.post(url + '/api/user/edit/notonline', {
         _id: token,
       })
       if (response.data['acknowledged'] == true)

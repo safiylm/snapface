@@ -1,12 +1,12 @@
-<div class="list-comments" *ngIf="isDisplayComments && commentaires">
+<div class="list-comments" *ngIf=" commentaires">
   
     <div *ngIf="commentaires.length==0">
         Aucun commentaire pour le moment 
     </div>
     
     <div *ngFor="let com of commentaires" class="div-un-commentaire">
-        <app-commentaire [commentaire]="com" [isDisplayComments]="isDisplayComments"></app-commentaire>
+        <app-commentaire [commentaire]="com" (comment)="getComment($event)"></app-commentaire>
     </div>
-
 </div>
-<app-commentaire-create [postId]="id"></app-commentaire-create>
+<app-commentaire-create [postId]="id" *ngIf="commentAEditer==undefined" ></app-commentaire-create>
+<app-commentaire-edit [postId]="id" *ngIf="commentAEditer" [commentaire]="commentAEditer" (preventEditFinish)="commentAEditer=undefined"></app-commentaire-edit>

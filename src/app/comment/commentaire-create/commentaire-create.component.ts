@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, SimpleChanges } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Commentaire } from 'src/models/commentaire.model';
 import { CommentaireService } from 'src/services/commentaire-service';
@@ -15,54 +15,26 @@ export class CommentaireCreateComponent {
 
   @Input() postId !: string;
   commentaire = new Commentaire("", "",
-    localStorage.getItem('userId')?.toString() as string, '', null, null, null, null);
+    "", '', null, null, null, null);
   result = "";
 
   constructor(private commentaireService: CommentaireService) { }
 
-  createNewComment() {
+
+  create() {
+    this.commentaireService.joinRoom(this.postId);
+    this.commentaire.userId = localStorage.getItem('userId')?.toString() as string;
     this.commentaire.postId = this.postId;
-    if (localStorage.getItem('userId')) {
-      if (this.commentaire.text.trim() != "")
-        this.commentaireService.addNewCommentaire(this.commentaire).subscribe(
-          {
-            next: (data) => {
-              if (data.commentaire) {
-                this.commentaire.text = ""
-                this.result = "Votre commentaire a été crée avec succès"
-                setTimeout(() => {
-                  this.result = ""
-                }, 1000)
-              }
+    this.commentaireService.create(this.commentaire)
+    this.commentaire.text=""
+  }
 
-              if (data.erreur) {
-  this.result = "Erreur, veuillez recommencer."
-                setTimeout(() => {
-                  this.result = ""
-                }, 1000)
-              }
-            }, error: (e) => {
-              this.commentaire.text = ""
-              this.result = "Une erreur s'est produite veuillez recommencer."
-              setTimeout(() => {
-                this.result = ""
-              }, 1000)
-              console.error(e)
-            }
-          })
-      else {
-        this.result = "Saisissez votre commentaire"
-        setTimeout(() => {
-          this.result = ""
-        }, 1000)
-      }
-    } else {
-      this.result = "Il faut se connecter!";
-      setTimeout(() => {
-        this.result = ""
-      }, 1000)
-    }
 
+  ngOnInit() {
+    this.commentaireService.joinRoom(this.postId);
+    this.commentaireService.getCommentsWithSocket().subscribe(data => {
+      console.log(data)
+    });
   }
 
 }

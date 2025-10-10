@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { CommentaireComponent } from '../commentaire/commentaire.component';
 import { NgFor, NgIf } from '@angular/common';
 import { CommentaireCreateComponent } from '../commentaire-create/commentaire-create.component';
+import { CommentaireEditComponent } from '../commentaire-edit/commentaire-edit.component';
 
 @Component({
   standalone: true,
@@ -12,35 +13,42 @@ import { CommentaireCreateComponent } from '../commentaire-create/commentaire-cr
   templateUrl: './commentaire-list.component.html',
   styleUrls: ['./commentaire-list.component.scss'],
   imports: [CommentaireComponent,
-    NgIf, NgFor, CommentaireCreateComponent
+    NgIf, NgFor, CommentaireCreateComponent, CommentaireEditComponent
   ]
 })
 export class CommentaireListComponent implements OnInit {
 
   commentaires !: Commentaire[];
   @Input() id !: string;
-  @Input() isDisplayComments !: boolean;
   subscription!: Subscription;
-
+  commentAEditer: Commentaire | undefined;
   constructor(protected commentaireService: CommentaireService) { }
 
 
 
-  display() {
+  load() {
     this.subscription = this.commentaireService.getCommentaireByPostId(this.id)
       .subscribe({
         next: (data) => {
-          this.commentaires = data;    
+          this.commentaires = data;
         },
         error: (e) => console.error(e)
       });
   }
 
-  ngOnInit() {   
+  getComment(comment: Commentaire) {
+    this.commentAEditer = comment
+  }
 
-    this.display();
-    this.isDisplayComments = true;
+  ngOnInit() {
+    this.commentaireService.joinRoom(this.id);
+    this.load();
+    this.commentaireService.getCommentsWithSocket().subscribe(data => {
 
+      console.log("comm mise à jour via socket ", data)    ;
+      this.load();
+
+    });
   }
 
   ngOnDestroy() {
