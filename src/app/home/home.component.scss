@@ -1,23 +1,25 @@
-#div-list-post{
-    margin-left: 270px;
+#div-list-post {
+    width: 100%;
 }
 
-@media(max-width:930px) {
-
-    .home {
-        flex-direction: column !important;
-        justify-content: center !important;
-        
-    }
+app-header {
+    width: 270px;
+    display: block;
+    height: 100vh;
 }
+
 
 @media(max-width:767px) {
     .home {
+        flex-direction: column !important;
+        justify-content: center !important;
         align-items: center !important;
     }
-    #div-list-post{
-        margin-top: 70px;
-        margin-left: 0;
 
+    app-header {
+        width: 97%  !important;
+        display: block;
+        height: 95px !important;
     }
+
 }

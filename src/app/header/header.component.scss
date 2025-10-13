@@ -5,108 +5,85 @@
 
 @import url('https://fonts.googleapis.com/css?family=Quicksand:400,500,700');
 
-html,
-body {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Quicksand", sans-serif;
-  font-size: 62.5%;
-  font-size: 10px;
-}
+
 
 nav {
 
-  margin: 10px;
+  margin: 5px;
   border-radius: 20px;
-  width: 300px;
-  app-avatar-user {
-    margin: 1px auto;
-  }
+  width: 250px;
+  height: calc(100vh - 10px);
 
-  a,
-  button {
-    height: 70px !important;
-      text-align: left;
+  li {
+    text-align: left;
     font-size: 17px;
     margin: 0 !important;
     text-decoration: none;
-    color: #fff;
     font-weight: 300;
-    padding: 5px ;
-    svg{
+    padding: 15px 5px;
+
+    * {
+      color: #fff;
+      font-family: "Quicksand", sans-serif;
+
+    }
+
+    svg {
       margin: 0 10px;
     }
   }
 
-
-  a:hover,
-  button:hover {
-    text-decoration:underline;
-  }
-  .navbar-nav {
-    line-height: 45px;
-        z-index: 1;
+  li:hover {
+    text-decoration: underline;
   }
 
-  .navbar-brand {
-    padding: 10px !important;
-    font-family: mango;
-    font-size: large;
+  /* Define what each icon button should look like */
+  #button_chat {
+    color: rgb(255, 255, 255);
+    display: inline-block;
+    /* Inline elements with width and height. TL;DR they make the icon buttons stack from left-to-right instead of top-to-bottom */
+    position: relative;
+    /* All 'absolute'ly positioned elements are relative to this one */
+    padding: 2px 5px;
+    /* Add some padding so it looks nice */
   }
 
+  /* Make the badge float in the top right corner of the button */
+  #button_chat_badge {
+    background-color: #fa3e3e;
+    border-radius: 2px;
+    color: white;
+
+    padding: 1px 3px;
+    font-size: 10px;
+
+    position: absolute;
+    /* Position the badge within the relatively positioned button */
+    top: 0;
+    right: 0;
+  }
 
 
 }
 
-
-.offcanvas-stard {
-  width: 60vw !important;
-}
-
-/* Define what each icon button should look like */
-#button_chat {
-  color: rgb(255, 255, 255);
-  display: inline-block;
-  /* Inline elements with width and height. TL;DR they make the icon buttons stack from left-to-right instead of top-to-bottom */
-  position: relative;
-  /* All 'absolute'ly positioned elements are relative to this one */
-  padding: 2px 5px;
-  /* Add some padding so it looks nice */
-}
-
-/* Make the badge float in the top right corner of the button */
-#button_chat_badge {
-  background-color: #fa3e3e;
-  border-radius: 2px;
-  color: white;
-
-  padding: 1px 3px;
-  font-size: 10px;
-
-  position: absolute;
-  /* Position the badge within the relatively positioned button */
-  top: 0;
-  right: 0;
-}
-
-  .navbar {
-    width: 250px;
-    height: 95vh;
-    align-items: start;
-    justify-content: start;
-    padding-top: 1rem;
-        z-index: 1;
-  }
 
 
 /* Sur mobile, navbar classique en haut */
 @media (max-width: 767px) {
-  .navbar {
-    width: 97% ;
+  nav {
+    width: 97%;
     margin: 5px auto;
-   height: 90px;
-  //  max-height: 90px;
-    min-height: 50px;
+    height: 90px;
+    min-height: 80px;
+
+    .container-fluid {
+      height: auto;
+      background-color: #212529;
+      border-radius: 20px;
+    }
+
+    .navbar-collapse {
+      padding: 15px;
+    }
   }
 }

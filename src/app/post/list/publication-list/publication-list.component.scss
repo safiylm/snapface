@@ -22,10 +22,17 @@
 
     video,
     img {
-      width: calc( 50vw - 300px);
-      height: calc( 50vw - 300px);
+      max-width: 300px;
+      max-height: 300px;
+      width: 30vw;
+      height: 30vw;
       object-fit: cover;
       margin: 5px;
+
+      @media(max-width:599px) {
+        width: 42vw;
+        height: 42vw;
+      }
     }
 
     #textWidthBorder,
