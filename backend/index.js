@@ -73,6 +73,10 @@ const io = new Server(server, {
   }
 });
 
+app.post('/', (req, res) => {
+  res.send('POST request received!');
+});
+
 io.on("connection", async (socket) => {
 
 
@@ -182,102 +186,80 @@ io.on("connection", async (socket) => {
 
   /***************************************************************************** */
 
-  socket.on('newLike', async (data) => {
-    try {
-      const response = await axios.post(url + '/api/interaction/likesAdd', {
-        'postId': data['postId'],
-        'userId': data['userId'],
-      })
-      if (response.data['acknowledged'] == true) {
-        // Envoie notif à l'auteur du post 
-        io.to(data['userId']).emit('newLike_', data);
-      }
-    } catch (error) {
-      console.error('Erreur lors de l’enregistrement du like', error);
+  socket.on('add', async (data) => {
+    let urlcomplement = "/api/interaction/likesAdd"
+    data_ = {
+      'postId': data['postId'],
+      'userId': data['userId'],
+      'interactionId': data['interactionId'],
+      'action': "add",
+      "interaction": ""
     }
-  });
 
-  socket.on('disLike', async (data) => {
-    try {
-      const response = await axios.post(url + '/api/interaction/likesRemove', {
-        'postId': data['postId'],
-        'userId': data['userId'],
-        'interactionId': data['interactionId']
+    if (data["interaction"] == "like") {
+      urlcomplement = '/api/interaction/likesAdd'
+      data_.interaction = "like"
 
-      })
-      if (response.data['acknowledged'] == true) {
-        // Envoie notif à l'auteur du post 
-        io.to(data['userId']).emit('disLike_', data);
-      }
-    } catch (error) {
-      console.error('Erreur lors de l’enregistrement du like', error);
     }
-  });
-
-
-  socket.on('point', async (data) => {
-    try {
-      const response = await axios.post(url + '/api/interaction/pointsAdd', {
-        'postId': data['postId'],
-        'userId': data['userId'],
-      })
-      if (response.data['acknowledged'] == true) {
-        // Envoie notif à l'auteur du post 
-        io.to(data['userId']).emit('point_', data);
-      }
-    } catch (error) {
-      console.error('Erreur lors de l’enregistrement du like', error);
+    if (data["interaction"] == "save") {
+      urlcomplement = '/api/interaction/enregistrementAdd'
+      data_.interaction = "save"
+    
     }
-  });
 
-  socket.on('dispoint', async (data) => {
     try {
-      const response = await axios.post(url + '/api/interaction/pointsRemove', {
+      const response = await axios.post(url + urlcomplement, {
         'postId': data['postId'],
         'userId': data['userId'],
-        'interactionId': data['interactionId']
 
       })
       if (response.data['acknowledged'] == true) {
         // Envoie notif à l'auteur du post 
-        io.to(data['userId']).emit('dispoint_', data);
+        io.to(data['postId']).emit('interactions', data_);
       }
     } catch (error) {
-      console.error('Erreur lors de l’enregistrement du like', error);
+      console.error('Erreur lors de la creation du ', data["interaction"], error);
     }
   });
 
-  socket.on('save', async (data) => {
+  socket.on('remove', async (data) => {
+
+    data_ = {
+      'postId': data['postId'],
+      'userId': data['userId'],
+      'interactionId': data['interactionId'],
+      'action': "remove",
+      "interaction": ""
+    }
+
+
+    let urlcomplement = "/api/interaction/likesRemove"
+    if (data["interaction"] == "like") {
+      urlcomplement = '/api/interaction/likesRemove'
+      data_.interaction = "like"
+    }
+    if (data["interaction"] == "save") {
+      urlcomplement = '/api/interaction/enregistrementRemove'
+      data_.interaction = "save"
+
+    }
+
     try {
-      const response = await axios.post(url + '/api/interaction/enregistrementAdd', {
+      const response = await axios.post(url + urlcomplement, {
         'postId': data['postId'],
         'userId': data['userId'],
+        'interactionId': data['interactionId'],
       })
       if (response.data['acknowledged'] == true) {
         // Envoie notif à l'auteur du post 
-        io.to(data['userId']).emit('save_', data);
+        io.to(data['postId']).emit('interactions', data_);
       }
     } catch (error) {
-      console.error('Erreur lors de l’enregistrement du like', error);
+      console.error('Erreur lors de la suppression du ', data["interaction"], error);
     }
   });
 
-  socket.on('unsave', async (data) => {
-    try {
-      const response = await axios.post(url + '/api/interaction/enregistrementRemove', {
-        'postId': data['postId'],
-        'userId': data['userId'],
-        'interactionId': data['interactionId']
 
-      })
-      if (response.data['acknowledged'] == true) {
-        // Envoie notif à l'auteur du post 
-        io.to(data['userId']).emit('unsave_', data);
-      }
-    } catch (error) {
-      console.error('Erreur lors de l’enregistrement du like', error);
-    }
-  });
   /***************************************************************************** */
 
   socket.on('create_comment', async (data) => {
@@ -288,7 +270,7 @@ io.on("connection", async (socket) => {
         'userId': data['userId']
       })
 
-      console.log(response.data['commentaire']["acknowledged"] )
+      console.log(response.data['commentaire']["acknowledged"])
       if (response.data['commentaire']['acknowledged'] == true) {
         // Envoie notif à l'auteur du post 
         io.to(data['postId']).emit('comments', data);
@@ -305,7 +287,7 @@ io.on("connection", async (socket) => {
         'text': data['text'],
         '_id': data['_id'],
       })
-      console.log(response.data )
+      console.log(response.data)
       if (response.data['acknowledged'] == true) {
         // Envoie notif à l'auteur du post 
         io.to(data['postId']).emit('comments', data);
@@ -322,7 +304,7 @@ io.on("connection", async (socket) => {
         'postId': data['postId'],
         '_id': data['_id'],
       })
-       console.log(response.data)
+      console.log(response.data)
       if (response.data['acknowledged'] == true) {
         // Envoie notif à l'auteur du post 
         io.to(data['postId']).emit('comments', data);

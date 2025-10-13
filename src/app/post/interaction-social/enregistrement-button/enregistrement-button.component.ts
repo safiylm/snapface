@@ -19,6 +19,9 @@ export class EnregistrementButtonComponent {
   constructor(private interactionService: InteractionSocialeService) { }
 
   ngOnInit() {
+
+    this.interactionService.joinRoom(this.post._id);
+
     this.interactionService.getIfUserAlreadySavePost(this.post._id,
       localStorage.getItem("userId")?.toString() as string).subscribe({
         next: (data) => {
@@ -30,19 +33,21 @@ export class EnregistrementButtonComponent {
         }, error: e => console.error(e)
       })
 
-    this.interactionService.getNewSaveWithSocket().subscribe((save: any) => {
-      if (save['postId'] == this.post._id) {
-        this.isSaved = true
-          this.interactionId = save.insertId
+    this.interactionService.getInteractionsWithSocket().subscribe((data: any) => {
+      if (data['postId'] == this.post._id && data['interaction']=="save") {
+        if (data["action"] == "remove" ) {
+          this.isSaved = false
+          this.interactionId = ""
+        } 
+         if (data["action"] == "add") {
+          this.isSaved = true
+          this.interactionId = data.interactionId
+
+        }             
       }
     });
 
-    this.interactionService.getUnSavedWithSocket().subscribe((unsave: any) => {
-      if (unsave['postId'] == this.post._id) {
-        this.isSaved = false
-          this.interactionId = ""
-      }
-    });
+
 
   }
 
@@ -50,8 +55,7 @@ export class EnregistrementButtonComponent {
     if (!this.isSaved)
       this.interactionService.addEnregistrement(this.post._id)
     else
-      if (this.interactionId != "")
-        this.interactionService.removeEnregistrement(this.post._id, this.interactionId)
+      this.interactionService.removeEnregistrement(this.post._id, this.interactionId)
 
   }
 }

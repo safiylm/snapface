@@ -3,8 +3,6 @@ const interactionsociales = require("../controllers/interaction.sociale.controll
 var router_interactionsociales = require("express").Router();
 
 //router_publication.post("/api/publication", interactionsociales.create);
-router_interactionsociales.post("/api/interaction/pointsAdd", interactionsociales.pointsAdd);
-router_interactionsociales.post("/api/interaction/pointsRemove", interactionsociales.pointsRemove);
 router_interactionsociales.post("/api/interaction/likesAdd", interactionsociales.likesAdd);
 router_interactionsociales.post("/api/interaction/likesRemove", interactionsociales.likesRemove);
 

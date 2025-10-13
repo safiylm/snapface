@@ -1,10 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, inject, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
 import { LikeButtonComponent } from "./like-button/like-button.component";
-import { PointButtonComponent } from "./point-button/point-button.component";
 import { NgFor, NgIf } from '@angular/common';
-import { SignalementService } from 'src/services/signalement-service';
 import { FormsModule } from '@angular/forms';
-import { Signalement } from 'src/models/signalement.model';
 import { Publication } from 'src/models/publication.model';
 import { EnregistrementButtonComponent } from "./enregistrement-button/enregistrement-button.component";
 import { ChatPriveService } from 'src/services/chatprive.service';
@@ -12,9 +9,7 @@ import { Conversation } from 'src/models/conversation';
 import { UserService } from 'src/services/user-service';
 import { User } from 'src/models/user.model';
 import { CommentaireListComponent } from "../../comment/commentaire-list/commentaire-list.component";
-import { AuteurInPostOrCommentaireComponent } from "../../user/auteur-in-post-or-commentaire/auteur-in-post-or-commentaire.component";
 import { transition, style, animate, trigger } from '@angular/animations';
-import { SignalerUserComponent } from "src/app/user/signaler-user/signaler-user.component";
 import { SignalerPostComponent } from "../signaler-post/signaler-post.component";
 
 const enterTransition = transition(':enter', [
@@ -48,7 +43,7 @@ const fadeOut = trigger('fadeOut', [
   selector: 'app-interaction-social',
   templateUrl: './interaction-social.component.html',
   styleUrls: ['./interaction-social.component.scss'],
-  imports: [LikeButtonComponent, PointButtonComponent,
+  imports: [LikeButtonComponent,
     NgIf, FormsModule, EnregistrementButtonComponent,
     NgFor, CommentaireListComponent, SignalerPostComponent],
   animations: [

@@ -29,133 +29,65 @@ export class InteractionSocialeService {
 
   addLike(postId: string)//: Observable<any>
   {
-
-    this.joinRoom(postId);
-    this.joinRoom(localStorage.getItem('userId')?.toString() as string);
-
-    this.socket.emit('newLike',
+    this.socket.emit('add',
       {
         'postId': postId,
         'userId': localStorage.getItem('userId'),
+        "interaction": "like"
+
       },)
   }
 
   removeLike(postId: string, interactionId: string) {
-    this.joinRoom(postId);
-    this.joinRoom(localStorage.getItem('userId')?.toString() as string);
 
-    this.socket.emit('disLike', {
+    this.socket.emit('remove', {
       'postId': postId,
       'userId': localStorage.getItem('userId'),
-      'interactionId': interactionId
+      'interactionId': interactionId,
+      "interaction": "like"
+
     },
     )
   }
 
-  getNewLikeWithSocket() {
-    return new Observable(observer => {
-      this.socket.on('newLike_', (msg) => {
-        observer.next(msg)
-      });
-    });
-  }
-
-
-  getDisLikeWithSocket() {
-
-    return new Observable(observer => {
-      this.socket.on('disLike_', (msg) => {
-        observer.next(msg)
-      });
-    });
-  }
-
-  /*************************************************************************** */
-
-  addPoint(postId: string) {
-    
-      //  url + "/api/interaction/pointsAdd",
-       
-    this.socket.emit('point',
-      {
-        'postId': postId,
-        'userId': localStorage.getItem('userId')
-      },
-    )
-
-  }
-
-  removePoints(postId: string, interactionId: string) {
- // pointsRemove 
-       this.socket.emit("dispoint",
-      {
-        'postId': postId,
-        'userId': localStorage.getItem('userId'),
-        'interactionId': interactionId
-      }
-    )
-  }
-
-
-  getNewPointWithSocket() {
-
-    return new Observable(observer => {
-      this.socket.on('point_', (msg) => {
-        observer.next(msg)
-      });
-    });
-  }
-
-
-  getUnPointWithSocket() {
-
-    return new Observable(observer => {
-      this.socket.on('dispoint_', (msg) => {
-        observer.next(msg)
-      });
-    });
-  }
 
 
   /*************************************************************************** */
 
   addEnregistrement(postId: string) {
 
-    this.socket.emit('save',
+    this.socket.emit('add',
       {
         'postId': postId,
-        'userId': localStorage.getItem('userId')
+        'userId': localStorage.getItem('userId'),
+        "interaction": "save"
       },
     )
   }
 
   removeEnregistrement(postId: string, interactionId: string) {
-    this.socket.emit("unsave",
+    this.joinRoom(postId);
+
+    this.socket.emit("remove",
       {
         'postId': postId,
         'userId': localStorage.getItem('userId'),
-        'interactionId': interactionId
+        'interactionId': interactionId,
+        "interaction": "save"
+
       }
     )
   }
 
-  getNewSaveWithSocket() {
+  getInteractionsWithSocket() {
     return new Observable(observer => {
-      this.socket.on('save_', (msg) => {
+      this.socket.on('interactions', (msg) => {
         observer.next(msg)
       });
     });
   }
 
 
-  getUnSavedWithSocket() {
-
-    return new Observable(observer => {
-      this.socket.on('unsave_', (msg) => {
-        observer.next(msg)
-      });
-    });
-  }
 
   /*************************************************************************** */
 

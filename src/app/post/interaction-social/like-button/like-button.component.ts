@@ -7,24 +7,24 @@ import { transition, style, animate, trigger } from '@angular/animations';
 
 const enterTransition = transition(':enter', [
   style({
-    opacity: 0, 
-    zindex:0
+    opacity: 0,
+    zindex: 0
   }),
   animate('0.1s ease-in', style({
     opacity: 1,
-    zindex:0
+    zindex: 0
   }))
 ]);
 
 const leaveTrans = transition(':leave', [
   style({
     opacity: 1,
-    zindex:0
+    zindex: 0
 
   }),
   animate('0.1s ease-out', style({
     opacity: 0,
-    zindex:0
+    zindex: 0
 
   }))
 ])
@@ -57,6 +57,7 @@ export class LikeButtonComponent {
   constructor(private interactionSocialeService: InteractionSocialeService) { }
 
   ngOnInit(): void {
+    this.interactionSocialeService.joinRoom(this.post._id);
 
     this.interactionSocialeService.getIfUserAlreadyLikePost(this.post._id,
       localStorage.getItem("userId")?.toString() as string).subscribe({
@@ -68,17 +69,19 @@ export class LikeButtonComponent {
         }, error: e => console.error(e)
       })
 
-    this.interactionSocialeService.getNewLikeWithSocket().subscribe((like: any) => {
-      if (like['postId'] == this.post._id) {
-        this.isLiked = true
-        this.post.likesCount++
-      }
-    });
+    this.interactionSocialeService.getInteractionsWithSocket().subscribe((data: any) => {
+      if (data['postId'] == this.post._id && data['interaction'] == "like") {
+        if (data["action"] == "remove") {
+          this.isLiked = false
+          this.interactionId = ""
+          this.post.likesCount--
 
-    this.interactionSocialeService.getDisLikeWithSocket().subscribe((dislike: any) => {
-      if (dislike['postId'] == this.post._id) {
-        this.isLiked = false
-        this.post.likesCount--
+        } if (data["action"] == "add") {
+
+          this.isLiked = true
+          this.post.likesCount++
+          this.interactionId = data.interactionId
+        }
       }
     });
 

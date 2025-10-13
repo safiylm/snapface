@@ -1,119 +1,8 @@
 const db = require('../config/db.config.js');
 const collection_interactionsociales = db.collection('interactionsociales');
 const ObjectId = require('mongodb').ObjectId;
-const collection_statistiqueusers = db.collection('statistiqueusers')
 const collection_publications = db.collection('publications')
 
-
-//add point
-exports.pointsAdd = (req, res) => {
-
-  // Validate request
-  if (!req.body.postId && !req.body.userId) {
-    res.status(400).send({ message: "Content can not be empty!" });
-    return;
-  }
-
-  // Create a point
-  const interaction = {
-    postId: req.body.postId,
-    userId: req.body.userId,
-    type: "point",
-  };
-  res.set('Access-Control-Allow-Origin', '*');
-
-  // Save interaction in the database
-  collection_interactionsociales
-    .insertOne(interaction)
-    .then(data => {
-      if (data)
-        collection_publications.updateOne({ "_id": new ObjectId(req.body.postId) },
-          { $inc: { "pointsCount": 1 } }).then(
-            (data1) => {
-              if (data1)
-                collection_statistiqueusers.updateOne({ "userId": req.body.userId },
-                  { $inc: { "totalPoints": 1 } }, true)
-                  .then(data2 => {
-                    if (data2) res.send(data2);
-                  })
-                  .catch(err => {
-                    res.status(500).send({
-                      message:
-                        err.message || "Some error occurred while inscremente point in statistique users."
-                    })
-                  });
-
-            }
-          )
-          .catch(err => {
-            res.status(500).send({
-              message:
-                err.message || "Some error occurred while incremente nb points."
-            })
-          });
-
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while add point."
-      });
-    });
-
-};
-
-
-//Remove point
-exports.pointsRemove = (req, res) => {
-
-  // Validate request
-  if  (!req.body.postId && !req.body.userId && !req.body.interactionId){
-    res.status(400).send({ message: "Content can not be empty!" });
-    return;
-  }
-  // req.body.interactionId,
-
-  res.set('Access-Control-Allow-Origin', '*');
-
-  // delete interaction in the database
-  collection_interactionsociales
-    .deleteOne({ "_id": new ObjectId(req.body.interactionId) })
-    .then(data => {
-      if (data)
-        collection_publications.updateOne({ "_id": new ObjectId(req.body.postId) },
-          { $inc: { "pointsCount": -1 } }).then(
-            (data1) => {
-              if (data1)
-                collection_statistiqueusers.updateOne({ "userId": req.body.userId },
-                  { $inc: { "totalPoints": -1 } }, true)
-                  .then(data2 => {
-                    if (data2) res.send(data2);
-                  })
-                  .catch(err => {
-                    res.status(500).send({
-                      message:
-                        err.message || "Some error occurred while decremente point in statistique users."
-                    })
-                  });
-
-            }
-          )
-          .catch(err => {
-            res.status(500).send({
-              message:
-                err.message || "Some error occurred while incremente nb points."
-            })
-          });
-
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while remove point"
-      });
-    });
-
-};
 
 
 //like/ add like 
@@ -260,6 +149,10 @@ exports.enregistrementRemove = async (req, res) => {
   }
 
   res.set('Access-Control-Allow-Origin', '*');
+
+  if (req.body.interactionId != null || req.body.interactionId != '' 
+    || req.body.postId != null || req.body.postId != '' 
+  )
 
   // Save interaction in the database
   collection_interactionsociales
