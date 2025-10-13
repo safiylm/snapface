@@ -264,10 +264,18 @@ exports.findAll = async (req, res) => {
 
 // Retrieve one User by id from the database.
 exports.findOneById = async (req, res) => {
-
   const id = req.query.id;
+  if (!id || !ObjectId.isValid(id)) {
+    return res.status(400).json({ error: 'Invalid ID format' });
+  }
   res.set('Access-Control-Allow-Origin', '*');
-  res.send(await collection_user.findOne({ "_id": new ObjectId(id) }))
+  const resultat = await collection_user.findOne({ "_id": new ObjectId(id) })
+
+  if (!resultat) {
+    return res.status(404).json({ error: 'User not found' });
+  }
+
+  res.json(resultat)
 };
 
 
