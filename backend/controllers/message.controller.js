@@ -28,10 +28,10 @@ exports.createMessage = async (req, res) => {
               { $inc: { "sharesCount": 1 } })
             .then(x => {
               if (x)
-              res.send(data);
+                res.send(data);
             })
-        }else
-        res.send(data)
+        } else
+          res.send(data)
       }
     })
     .catch(err => {
@@ -47,6 +47,7 @@ exports.createMessage = async (req, res) => {
 exports.createConversation = async (req, res) => {
   const receiver = req.body.receiver;
   const sender = req.body.sender;
+  const text = req.body.text;
 
   collection_conversations
     .insertOne({ "speaker": [sender, receiver] })
@@ -55,19 +56,18 @@ exports.createConversation = async (req, res) => {
       console.log(data.insertedId)
 
       if (data)
-        res.send(data);
-      /* collection_messages
-         .insertOne({ sender, conversationId: data.insertedId, text: "text" })
+      //  res.send(data);
+       collection_messages
+         .insertOne({ sender, conversationId: data.insertedId, text: text })
          .then(data1 => {
-           res.set('Access-Control-Allow-Origin', '*');
-           res.send(data1);
+           res.send(data);
          })
          .catch(err => {
            res.status(500).send({
              message:
                err.message || "Error while creating the message."
            });
-         });*/
+         });
 
     })
     .catch(err => {
@@ -134,11 +134,18 @@ exports.deleteMessage = (req, res) => {
     })
 }
 
+
 exports.deleteConversation = (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
-  collection_messages.deleteMany({ "_id": new ObjectId(req.body.conversationId) })
+  
+ const conversationId = req.body.conversationId  
+ // if(req.body.conversationId!=null && req.body.conversationId!=undefined)
+  collection_conversations.deleteOne({ "_id": new ObjectId(conversationId) })
     .then(data => {
-      res.send(data)
+      collection_messages.deleteMany({ "conversationId": conversationId })
+        .then(data1 => {
+          res.send(data1)
+        })
     })
 }
 

@@ -37,7 +37,7 @@ export class ChatPriveService {
       { sender, receiver, conversationId, text, postId })
   }
 
-    getPrivateMessagesWithSocket(): Observable<any> {
+  getPrivateMessagesWithSocket(): Observable<any> {
     return new Observable(observer => {
       this.socket.on('messages', (msg) => {
         observer.next(msg)
@@ -79,7 +79,6 @@ export class ChatPriveService {
   }
 
   getUsersWeHaveConversation(userId: string): Observable<Conversation[]> {
-   // this.getNumberOfNewMessagesByUserId(userId)
     return this.http.get<Conversation[]>(url + `/conversations/?userId=${userId}`);
   }
 
@@ -110,11 +109,11 @@ export class ChatPriveService {
   }
 
 */
-  createConversation(sender: string, receiver: string): Observable<Conversation> {
+  createConversationWithFistMessage(sender: string, receiver: string, text: string): Observable<Conversation> {
     return this.http
       .post<any>(
         url + `/conversation/create`,
-        { "sender": sender, "receiver": receiver })
+        { "sender": sender, "receiver": receiver, "text": text })
   }
 
   markAsSeen(conversationId: string): Observable<any> {

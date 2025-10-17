@@ -1,4 +1,4 @@
-  <div class="chat-box" *ngIf="conversation">
+  <div class="chat-box" *ngIf="conversation ">
     <app-user-presentation-on-top-of-chat-prive 
       [users]="conversation.speaker"></app-user-presentation-on-top-of-chat-prive>
 
@@ -11,12 +11,12 @@
         <p>Dites Bonjour👋</p>
       </div>
     </div>
-
     <!-- Envoyer un MESSAGE  -->
     <div class="d-flex" *ngIf="messageEdit.id==''">
       <input class="form-control" [(ngModel)]="message" placeholder="Tapez un message..."
         (keyup.enter)="create()" />
-      <button class="btn btn-light" (click)="create()">Envoyer</button>
+      <button class="btn btn-light"  (click)="create()">Envoyer</button>
+      
     </div>
 
     <!-- Modifier un MESSAGE  -->
@@ -30,6 +30,29 @@
       </div>
 
       <button class="btn btn-light" (click)="submitEdit()">Enregistrer les modifications</button>
+    </div>
+
+  </div>
+
+    <div class="chat-box" *ngIf="conversationId=='conversationId123' && firstMsjFor ">
+    <app-user-presentation-on-top-of-chat-prive 
+      [users]="[firstMsjFor]"></app-user-presentation-on-top-of-chat-prive>
+
+    <div class="messages d-flexx flex-column">
+
+      <app-message *ngFor="let msg of messages" [message]="msg" (editEvent)="getValueForEdittingMessage($event)"
+        (deleteEvent)="load()" [conversation]="conversation"></app-message>
+
+      <div *ngIf="messages.length==0">
+        <p>Dites Bonjour👋</p>
+      </div>
+    </div>
+    <!-- Envoyer un MESSAGE  -->
+    <div class="d-flex" *ngIf="messageEdit.id==''">
+      <input class="form-control" [(ngModel)]="message" placeholder="Tapez un first message..."
+        (keyup.enter)="createFisrt()" />
+      <button class="btn btn-light" (click)="createFisrt()">Envoyer</button>
+      
     </div>
 
   </div>

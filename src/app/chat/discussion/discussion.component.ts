@@ -1,18 +1,17 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { ChatPriveService } from '../../../services/chatprive.service';
 import { FormsModule } from '@angular/forms';
 import { NgFor, NgIf } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
 import { Conversation } from 'src/models/conversation';
 import { UserPresentationOnTopOfChatPriveComponent } from "../discussion/user-presentation-on-top-of-chat-prive/user-presentation-on-top-of-chat-prive.component";
 import { MessageComponent } from "../discussion/message/message.component";
 
 @Component({
-  standalone:true, 
+  standalone: true,
   selector: 'app-discussion',
   templateUrl: './discussion.component.html',
   styleUrls: ['./discussion.component.scss'],
-   imports: [FormsModule, NgFor, NgIf,
+  imports: [FormsModule, NgFor, NgIf,
     UserPresentationOnTopOfChatPriveComponent, MessageComponent]
 })
 
@@ -23,7 +22,8 @@ export class DiscussionComponent {
   sender: string = localStorage.getItem("userId")?.toString() as string;
   conversation !: Conversation;
   messageEdit = { 'id': "", "text": "" };
-  @Input() conversationId!: string ; 
+  @Input() conversationId!: string;
+  @Input() firstMsjFor : string | null | undefined ;
 
   constructor(private chatService: ChatPriveService,
   ) {
@@ -34,9 +34,7 @@ export class DiscussionComponent {
     this.sender = localStorage.getItem("userId")?.toString() as string;  // ChatPublicServiceRemplace par l'ID réel de l'utilisateur
 
     this.load()
-    this.chatService.getConversationById(this.conversationId).subscribe((data: any) => {
-      this.conversation = data;
-    });
+console.log(this.conversationId)
 
     this.chatService.getPrivateMessagesWithSocket().subscribe(msg => {
       this.messages.push(msg);
@@ -44,16 +42,33 @@ export class DiscussionComponent {
     });
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    this.conversationId = changes['conversationId'].currentValue as string
+    this.load()
+  }
+
 
   //SEND MESSAGE 
   create() {
-    if (this.messageEdit.text.trim() && this.conversationId.trim()) {
+    if (this.messageEdit.text.trim() && this.conversationId.trim() != "") {
       if (localStorage.getItem("userId") == this.conversation.speaker[0])
         this.chatService.create(this.sender, this.conversation.speaker[1], this.conversationId, this.message, "")
       else
         this.chatService.create(this.sender, this.conversation.speaker[0], this.conversationId, this.message, "")
       this.messageEdit.text = '';
     }
+  }
+
+  createFisrt() {
+
+    this.chatService.createConversationWithFistMessage(
+      localStorage.getItem('userId')?.toString() as string, this.firstMsjFor! , this.message)
+      .subscribe({
+        next: (data: any) => {
+          location.href = '/chat/' + data.insertedId;
+        },
+        error: (e) => console.error(e)
+      });
   }
 
 
@@ -81,19 +96,21 @@ export class DiscussionComponent {
 
 
   load() {
-    this.chatService.getConversationById(this.conversationId).subscribe((data: any) => {
-      this.conversation = data;
-    });
 
-    this.chatService.getMessageHistory(this.conversationId).subscribe((data: any) => {
-      this.messages = data;
-    });
+    if (this.conversationId != 'conversationId123') {
+      this.chatService.getConversationById(this.conversationId).subscribe((data: any) => {
+        this.conversation = data;
+      });
 
-    this.chatService.markAsSeen(this.conversationId).subscribe(
-      (data) => { if (data) data })
+      this.chatService.getMessageHistory(this.conversationId).subscribe((data: any) => {
+        this.messages = data;
+      });
 
+      this.chatService.markAsSeen(this.conversationId).subscribe(
+        (data) => { if (data) data })
+
+    }
   }
-
 
 }
 
