@@ -1,13 +1,13 @@
 .d-flex {
     margin-right: 10px;
-  //  border: 0.1px solid black;
+    //  border: 0.1px solid black;
     border-radius: 6px;
-        background-color: whitesmoke;
+    background-color: #f8f9fa;
 
     button {
-        background-color: whitesmoke;
+        background-color: #f8f9fa;
         border: none;
-        padding: 3px;
+        padding: 5px;
         color: black;
         margin: 0;
         display: flex;
@@ -19,6 +19,19 @@
 
             color: rgb(237, 17, 17);
         }
+    }
+
+    #btnaddlike {
+        padding-left: 10px;
+        padding-right: 3px;
+
+    }
+
+    #btn-followers {
+        padding-right: 10px;
+        padding-left: 3px;
+
+
     }
 }
 
