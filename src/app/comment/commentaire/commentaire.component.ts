@@ -32,9 +32,6 @@ export class CommentaireComponent //implements AfterViewInit
       localStorage.getItem("userId") !== null && this.commentaire != null && this.commentaire != undefined) {
       this.isMyComment = this.commentaire.userId == (localStorage.getItem("userId")!.toString() as string)
     }
-    this.commentaireService.getCommentsWithSocket().subscribe(data => {
-      console.log(data)
-    });
   }
 
   constructor(private commentaireService: CommentaireService) { }

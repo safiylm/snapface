@@ -163,7 +163,6 @@ exports.findAllPourMoi = async (req, res) => {
 exports.findAllPublicationByUserId = async (req, res) => {
 
   res.set('Access-Control-Allow-Origin', '*');
-
   const findResult = await collection_publications.find({ "userId": req.query.id }).sort({ date: -1 }).toArray();
   res.send(findResult);
 }
@@ -171,7 +170,6 @@ exports.findAllPublicationByUserId = async (req, res) => {
 
 exports.getListeLikedPostsByUserId = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
-
   const findResult = await collection_publications.find({ "userId": req.query.id }).sort({ date: -1 }).toArray();
   res.send(findResult);
 

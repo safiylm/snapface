@@ -42,7 +42,7 @@ export class AuthConnexionUserComponent {
           localStorage.setItem("user_name", data.user["firstName"] + " " + data.user["lastName"])
 
           this.result = "CONNEXION REUSSI.";
-        //  window.location.href = '/mon-compte'
+          window.location.href = '/mon-compte'
         }
 
         if (data.message != null)
