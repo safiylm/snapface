@@ -20,10 +20,10 @@ export class ItemUserWithLastMessageComponent {
   @Input() users !: string[];
   @Input() conversationId !: string;
   @Input() offcanvas !: string;
-  nbNewMessage !: number;
+  nbNewMessage: number = 0;
   nbConversationWithNewMessages = 0;
-  lastMessage="";
-  
+  lastMessage = "";
+
   constructor(private chatservice: ChatPriveService, private userService: UserService) { }
 
   @Output() newItemEvent = new EventEmitter<string>();
@@ -39,12 +39,17 @@ export class ItemUserWithLastMessageComponent {
       this.retrieveUser(this.users[1])
     else
       this.retrieveUser(this.users[0])
+
     this.getNumberOfNewMessage()
 
     this.chatservice.getLastMessage(this.conversationId).subscribe(
-      (data: Message ) => {
-        if(data)
-        this.lastMessage= data.text!
+      (data: Message) => {
+        if (data)
+          if (data.text)
+            this.lastMessage = data.text!
+
+        if (data.postId)
+          this.lastMessage = "image"
       }
     )
 
@@ -65,7 +70,7 @@ export class ItemUserWithLastMessageComponent {
   }
 
   get LastMessage() {
-    return (this.lastMessage ) ? this.lastMessage : ""
+    return (this.lastMessage) ? this.lastMessage : ""
   }
 
   get UserName() {
@@ -75,8 +80,15 @@ export class ItemUserWithLastMessageComponent {
   getNumberOfNewMessage() {
     this.chatservice.getNewMessagesByConversationId(this.conversationId)
       .subscribe((data) => {
-        this.nbNewMessage = data.newMessagesCount
+        if (data.length != 0) {
+          this.nbNewMessage = data.length
+        }
+        console.log("get Number of new messages : ", data)
       })
   }
 
+
+  delete() {
+    this.chatservice.deleteConversation(this.conversationId).subscribe((data) => { if (data) console.log(data) })
+  }
 }

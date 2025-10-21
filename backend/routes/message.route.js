@@ -12,6 +12,7 @@ router_message.post("/message/markasseen", message.markAsSeen);
 
 
 //GET
+router_message.get("/test", message.getAllConversations);
 router_message.get("/messages", message.getMessages);
 router_message.get("/last-message", message.getLastMessage);
 router_message.get("/conversations", message.getConversationsByUserId);

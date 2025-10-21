@@ -5,11 +5,11 @@ const cors = require("cors");
 const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
 
-//const url = "http://localhost:4100"
-const url = "https://snapface.onrender.com"
-//const url_ = "http://localhost:4200"
-const url_ =  "https://snapfaceangular.web.app"
-//const websocket = require("./chat")
+const url = "http://localhost:4100"
+// const url = "https://snapface.onrender.com"
+const url_ = "http://localhost:4200"
+//const url_ =  "https://snapfaceangular.web.app"
+const websocket = require("./chat")
 var corsOptions = {
   origin:// "*"
     url_,
@@ -66,7 +66,6 @@ const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
     origin:
-      // "*", 
       url_,
     credentials: true,
     methods: ["GET", "POST"]
@@ -131,7 +130,7 @@ io.on("connection", async (socket) => {
 
       if (response.data['acknowledged'] == true) {
         // Envoie le message uniquement aux utilisateurs concernés
-        io.to(data['receiver']).emit('messages', data);
+        io.to(data['conversationId']).emit('messages', data);
       }
 
     } catch (error) {
@@ -139,7 +138,6 @@ io.on("connection", async (socket) => {
     }
 
   });
-
 
   //EDIT MESSAGE 
   socket.on('editPrivateMessage', async (data) => {
@@ -152,17 +150,13 @@ io.on("connection", async (socket) => {
 
       if (response.data['acknowledged'] == true) {
         // Envoie le message uniquement aux utilisateurs concernés
-        io.to(data['receiver']).emit('messages', data);
+        io.to(data['conversationId']).emit('messages', data);
       }
 
     } catch (error) {
       console.error('Erreur lors de la modification du message', error);
     }
   });
-
-
-
-
 
   //DELETE MESSAGE 
   socket.on('deletePrivateMessage', async (data) => {
@@ -174,7 +168,7 @@ io.on("connection", async (socket) => {
 
       if (response.data['acknowledged'] == true) {
         // Envoie le message uniquement aux utilisateurs concernés
-        io.to(data['receiver']).emit('messages', data);
+        io.to(data['conversationId']).emit('messages', data);
       }
 
     } catch (error) {

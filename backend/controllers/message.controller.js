@@ -53,13 +53,15 @@ exports.createConversation = async (req, res) => {
     .insertOne({ "speaker": [sender, receiver] })
     .then((data) => {
       res.set('Access-Control-Allow-Origin', '*');
-      console.log(data.insertedId)
 
-      if (data)
-      //  res.send(data);
+      if (data.insertedId)
+
        collection_messages
-         .insertOne({ sender, conversationId: data.insertedId, text: text })
+         .insertOne({ "sender": sender, "conversationId": data.insertedId.toString(), "text": text, 
+           postId: "", "time_": new Date(Date.now()), "seen": false
+          })
          .then(data1 => {
+          if(data1)
            res.send(data);
          })
          .catch(err => {
@@ -78,6 +80,20 @@ exports.createConversation = async (req, res) => {
     });
 };
 
+//Get Messages
+exports.getAllConversations = async (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
+  const conversationId = req.query.conversationId;
+
+  try {
+    const messages = await collection_conversations.find({
+
+    }).sort({ 'time_': 1 }).toArray();
+    res.json(messages);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
 
 //Get Messages
 exports.getMessages = async (req, res) => {
@@ -86,9 +102,8 @@ exports.getMessages = async (req, res) => {
 
   try {
     const messages = await collection_messages.find({
-      "conversationId": conversationId
-
-    }).sort({ 'time_': 1 }).toArray();
+      "$or": [{ conversationId: conversationId }, { conversationId : new ObjectId(conversationId) }] 
+    }).toArray();
     res.json(messages);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -102,7 +117,7 @@ exports.getLastMessage = async (req, res) => {
 
   try {
     const messages = await collection_messages.find({
-      "conversationId": conversationId
+      "$or": [{ conversationId: conversationId }, { conversationId : new ObjectId(conversationId) }] 
     }).sort({ 'time_': -1 }).toArray()
     res.json(messages[0]);//.sort({'timestamp': -1}).limit(1)
 
@@ -129,6 +144,24 @@ exports.editMessage = async (req, res) => {
 exports.deleteMessage = (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
   collection_messages.deleteOne({ "_id": new ObjectId(req.body.id) })
+    .then(data => {
+      res.send(data)
+    })
+}
+
+
+exports.deleteAllMessages = (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
+  collection_messages.deleteMany({})
+    .then(data => {
+      res.send(data)
+    })
+}
+
+
+exports.deleteAllConversation = (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
+  collection_conversations.deleteMany({})
     .then(data => {
       res.send(data)
     })
@@ -190,9 +223,10 @@ exports.markAsSeen = async (req, res) => {
 
 exports.getNewMessagesByConversationId = async (req, res) => {
   const conversationId = req.query.id
+  const userId = req.query.userId
 
-  const updateResult = await collection_messages.find(
-    { "conversationId": conversationId, "seen": false }
+  const updateResult = await collection_messages.find( 
+    { "conversationId": conversationId, "seen": false,   sender: { $ne: userId }}
   ).toArray();
 
   res.set('Access-Control-Allow-Origin', '*');

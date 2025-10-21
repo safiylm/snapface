@@ -17,7 +17,7 @@ export class MessageComponent {
 
   @Input() message!: Message;
   @Input() conversation!: Conversation;
-  
+
   messageEdittingId = "";
   message_ = "";
   sender = "";
@@ -36,6 +36,7 @@ export class MessageComponent {
   ngOnInit() {
     this.sender = localStorage.getItem("userId")?.toString() as string;  // ChatPublicServiceRemplace par l'ID réel de l'utilisateur
 
+    this.chatService.joinRoom(this.conversation._id)
 
     this.chatService.getPrivateMessagesWithSocket().subscribe(msg => {
       if (this.message._id == msg.messageId)
@@ -66,12 +67,12 @@ export class MessageComponent {
 
   delete() {
     this.displayEditDeleteButton = false
-    if (localStorage.getItem("userId") == this.conversation.speaker[0])
-      this.chatService.delete(this.sender, this.conversation.speaker[1], this.message._id)
-    else
-      this.chatService.delete(this.sender, this.conversation.speaker[0], this.message._id)
+
+    const receiver = (this.sender === this.conversation.speaker[0])
+      ? this.conversation.speaker[1]
+      : this.conversation.speaker[0];
+    this.chatService.delete(this.sender, receiver, this.message._id, this.conversation._id)
     this.deleteEvent.emit('supp')
-
-
   }
+  
 }

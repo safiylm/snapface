@@ -2,10 +2,13 @@
     width: 100%;
     border-bottom: 0.2px solid rgb(177, 177, 177);
     padding: 15px 8px;
-    min-width: 270px;
+   //max-width: 255px;
+    font-family: "Quicksand", sans-serif;
+    font-size: 14.5px;
+
     img {
-        width: 60px;
-        height: 60px;
+        width: 50px;
+        height: 50px;
         border-radius: 50%;
         object-fit: cover;
         margin-right: 10px;
@@ -22,21 +25,24 @@
     }
 
     div {
-        color: #252525;
+        color: #212529;
         text-decoration: none;
-        font-size: 16px;
 
 
         #username {
             font-weight: 200;
+            background-color: transparent;
+
         }
 
         p {
-            font-size: 16px;
+            font-size: 14.5px;
             margin: 5px;
             text-align: initial;
-        color: white;
-
+            color: white;
+        }
+        .bc{
+            background-color: blueviolet;
         }
 
 

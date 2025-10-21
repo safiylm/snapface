@@ -1,39 +1,27 @@
 .chat-container {
-  width: auto;
+  width: 100%;
+  width: 100vw;
   height: 100vh !important;
-  margin-left: 260px;
-  min-height: 85vh;
 
-  app-header {
-    position: absolute;
-    height: 100%;
-    top: 0;
-    left: 0;
-    width: 260px;
+  app-conversation-list {
+    width: 270px;
+    max-width: 270px;
+    display: block;
+    height: 100vh;
   }
 
+  app-discussion {
+    width: 100%;
+    max-width: calc(100vw - 270px );
+    display: block;
+  }
 
-    @media (max-width:1020px) {
-    height: 100%;
-
-    #conversation-list {
-      display: none;
-    }
-
-    }
-
-    @media (max-width:767px) {
-    margin-left: 0px;
+  @media (max-width:767px) {
     height: 100dvh !important;
     overflow: hidden;
 
-    app-header {
-      min-height: 50px !important;
-      position: absolute;
-      height: 100px;
-      top: 0;
-      right: 0;
-      width: 100%;
+    app-conversation-list {
+      display: none;
     }
-    }
+  }
 }

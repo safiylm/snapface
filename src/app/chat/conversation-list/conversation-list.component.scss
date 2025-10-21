@@ -8,8 +8,8 @@ h2 {
   height: calc(100vh - 120px);
   overflow-y: scroll;
   width: auto;
-  background-color: //rgba(255, 255, 255, 0.91);
-#212529;
+ // max-width: 260px;
+  background-color: #212529;
   border-radius: 10px;
 
   div {
@@ -18,11 +18,13 @@ h2 {
 }
 
 .outOffcanvas {
-  width: 310px;
-  margin: 10px;
+  width: 270px !important;
+  max-width: 270px !important;
+  margin: 0px;
   // margin: 10px auto;
-  height: 95vh;
+  height: 100vh;
   color: white;
+  border-radius: 0;
 }
 
 @media(max-width:1100px) {

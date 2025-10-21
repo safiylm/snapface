@@ -23,7 +23,7 @@ export class DiscussionComponent {
   conversation !: Conversation;
   messageEdit = { 'id': "", "text": "" };
   @Input() conversationId!: string;
-  @Input() firstMsjFor : string | null | undefined ;
+  @Input() firstMsjFor: string | null | undefined;
 
   constructor(private chatService: ChatPriveService,
   ) {
@@ -33,36 +33,59 @@ export class DiscussionComponent {
   ngOnInit() {
     this.sender = localStorage.getItem("userId")?.toString() as string;  // ChatPublicServiceRemplace par l'ID réel de l'utilisateur
 
-    this.load()
-console.log(this.conversationId)
+    this.chatService.joinRoom(this.conversation._id)
 
-    this.chatService.getPrivateMessagesWithSocket().subscribe(msg => {
-      this.messages.push(msg);
-      console.log(msg)
+    this.load()
+
+    // Écoute en temps réel via socket
+    this.chatService.getPrivateMessagesWithSocket().subscribe((msg) => {
+      if (msg.conversationId === this.conversationId) {
+        this.messages.push(msg); // ajout instantané
+      }
     });
   }
 
   ngOnChanges(changes: SimpleChanges) {
     this.conversationId = changes['conversationId'].currentValue as string
-    this.load()
+    this.load();
+    this.chatService.joinRoom(this.conversationId);
   }
 
 
   //SEND MESSAGE 
   create() {
-    if (this.messageEdit.text.trim() && this.conversationId.trim() != "") {
-      if (localStorage.getItem("userId") == this.conversation.speaker[0])
-        this.chatService.create(this.sender, this.conversation.speaker[1], this.conversationId, this.message, "")
-      else
-        this.chatService.create(this.sender, this.conversation.speaker[0], this.conversationId, this.message, "")
+    const receiver = (this.sender === this.conversation.speaker[0])
+      ? this.conversation.speaker[1]
+      : this.conversation.speaker[0];
+
+    const msgObj = {
+      sender: this.sender,
+      receiver,
+      conversationId: this.conversationId,
+      text: this.message,
+      postId: ''
+    };
+
+    if (this.message.trim() != "" && this.conversationId.trim() != "") {
+      
+      this.chatService.create(this.sender, receiver, this.conversationId, this.message, "")
+      
+      this.messages.push({
+        ...msgObj,
+        time_: new Date().toISOString(),
+        seen: false
+      });
+
       this.messageEdit.text = '';
+      this.message = '';
     }
   }
+  
 
   createFisrt() {
 
     this.chatService.createConversationWithFistMessage(
-      localStorage.getItem('userId')?.toString() as string, this.firstMsjFor! , this.message)
+      localStorage.getItem('userId')?.toString() as string, this.firstMsjFor!, this.message)
       .subscribe({
         next: (data: any) => {
           location.href = '/chat/' + data.insertedId;
@@ -78,20 +101,18 @@ console.log(this.conversationId)
     this.messageEdit.text = value.text
   }
 
+
   submitEdit() {
 
     if (this.messageEdit.text.trim() && this.messageEdit.id != "" && this.messageEdit.id != undefined) {
       if (localStorage.getItem("userId") == this.conversation.speaker[0])
-        this.chatService.edit(this.sender, this.conversation.speaker[1], this.messageEdit.id, this.messageEdit.text)
+        this.chatService.edit(this.sender, this.conversation.speaker[1], this.messageEdit.id, this.messageEdit.text, this.conversationId)
       else
-        this.chatService.edit(this.sender, this.conversation.speaker[0], this.messageEdit.id, this.messageEdit.text)
+        this.chatService.edit(this.sender, this.conversation.speaker[0], this.messageEdit.id, this.messageEdit.text, this.conversationId)
     }
     this.message = '';
     this.messageEdit.id = "";
     this.messageEdit.text = "";
-    /*  this.chatService.getMessageHistory(this.conversationId).subscribe((data: any) => {
-        this.messages = data;
-     });*/
   }
 
 
@@ -106,9 +127,9 @@ console.log(this.conversationId)
         this.messages = data;
       });
 
-      this.chatService.markAsSeen(this.conversationId).subscribe(
-        (data) => { if (data) data })
-
+      // IF YOU RECEIVER  
+      // this.chatService.markAsSeen(this.conversationId).subscribe(
+      //   (data) => { if (data) data })
     }
   }
 
