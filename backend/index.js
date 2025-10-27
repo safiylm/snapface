@@ -5,9 +5,9 @@ const cors = require("cors");
 const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
 
-//const url = "http://localhost:4100"
- const url = "https://snapface.onrender.com"
-//const url_ = "http://localhost:4200"
+// const url = "http://localhost:4100"
+const url = "https://snapface.onrender.com"
+// const url_ = "http://localhost:4200"
 const url_ =  "https://snapfaceangular.web.app"
 const websocket = require("./chat")
 var corsOptions = {
@@ -127,7 +127,7 @@ io.on("connection", async (socket) => {
         postId: data['postId']
       })
       console.log(response.data)
-
+      data = { ...data, _id: response.data.insertedId }
       if (response.data['acknowledged'] == true) {
         // Envoie le message uniquement aux utilisateurs concernés
         io.to(data['conversationId']).emit('messages', data);
@@ -143,7 +143,7 @@ io.on("connection", async (socket) => {
   socket.on('editPrivateMessage', async (data) => {
     try {
       const response = await axios.post(url + '/message/edit', {
-        id: data['messageId'],
+        id: data['_id'],
         text: data['text'],
       })
       console.log(response.data)
@@ -162,7 +162,7 @@ io.on("connection", async (socket) => {
   socket.on('deletePrivateMessage', async (data) => {
     try {
       const response = await axios.post(url + '/message/delete', {
-        id: data['messageId'],
+        id: data['_id'],
       })
       console.log(response.data)
 
@@ -198,7 +198,7 @@ io.on("connection", async (socket) => {
     if (data["interaction"] == "save") {
       urlcomplement = '/api/interaction/enregistrementAdd'
       data_.interaction = "save"
-    
+
     }
 
     try {

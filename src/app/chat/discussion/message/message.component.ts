@@ -19,14 +19,12 @@ export class MessageComponent {
   @Input() conversation!: Conversation;
 
   messageEdittingId = "";
-  message_ = "";
+  message_ = "" ;
   sender = "";
   displayEditDeleteButton = false
   post: Publication | null | undefined;
 
   @Output() editEvent = new EventEmitter<any>();
-  @Output() deleteEvent = new EventEmitter<string>();
-
 
   constructor(private chatService: ChatPriveService,
     private postService: PublicationsService
@@ -37,12 +35,6 @@ export class MessageComponent {
     this.sender = localStorage.getItem("userId")?.toString() as string;  // ChatPublicServiceRemplace par l'ID réel de l'utilisateur
 
     this.chatService.joinRoom(this.conversation._id)
-
-    this.chatService.getPrivateMessagesWithSocket().subscribe(msg => {
-      if (this.message._id == msg.messageId)
-        this.message = msg;
-    });
-
 
     if (this.message.postId != "") { //important sinon backend failed 
 
@@ -59,6 +51,7 @@ export class MessageComponent {
     }
   }
 
+
   sendValueForEdittingMessage(text: string, id: string) {
     this.editEvent.emit({ 'id': id, "text": text });
     this.displayEditDeleteButton = false
@@ -71,8 +64,8 @@ export class MessageComponent {
     const receiver = (this.sender === this.conversation.speaker[0])
       ? this.conversation.speaker[1]
       : this.conversation.speaker[0];
+
     this.chatService.delete(this.sender, receiver, this.message._id, this.conversation._id)
-    this.deleteEvent.emit('supp')
   }
   
 }

@@ -31,28 +31,26 @@ export class ChatPriveService {
 
   create(sender: string, receiver: string, conversationId: string, text: string, postId: string) {
     this.socket.emit('createPrivateMessage',
-      { sender, receiver, conversationId, text, postId })
+      { sender, receiver, conversationId, text, postId , "action":"create"})
   }
 
   getPrivateMessagesWithSocket(): Observable<any> {
     return new Observable(observer => {
       this.socket.on('messages', (msg) => {
         observer.next(msg)
-        console.log(msg)
       });
     });
   }
 
-  edit(sender: string, receiver: string, messageId: string, text: string, conversationId: string) {
+  edit(sender: string, receiver: string, _id: string, text: string, conversationId: string) {
 
     this.socket.emit('editPrivateMessage',
-      { sender, receiver, messageId, text, conversationId })
-
+      { sender, receiver, _id, text, conversationId, "action":"edit" })
   }
 
-  delete(sender: string, receiver: string, messageId: string, conversationId: string) {
+  delete(sender: string, receiver: string, _id: string, conversationId: string) {
     this.socket.emit('deletePrivateMessage',
-      { receiver, messageId, conversationId })
+      { receiver, _id, conversationId, "action":"delete" })
   }
 
   getMessageHistory(conversationId: string) {

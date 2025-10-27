@@ -25,30 +25,43 @@ export class DiscussionComponent {
   @Input() conversationId!: string;
   @Input() firstMsjFor: string | null | undefined;
 
-  constructor(private chatService: ChatPriveService,
-  ) {
-  }
+  constructor(private chatService: ChatPriveService) { }
 
 
   ngOnInit() {
     this.sender = localStorage.getItem("userId")?.toString() as string;  // ChatPublicServiceRemplace par l'ID réel de l'utilisateur
 
-    this.chatService.joinRoom(this.conversation._id)
+    this.chatService.joinRoom(this.conversationId)
 
     this.load()
 
     // Écoute en temps réel via socket
     this.chatService.getPrivateMessagesWithSocket().subscribe((msg) => {
       if (msg.conversationId === this.conversationId) {
-        this.messages.push(msg); // ajout instantané
+
+        if (msg.action == "edit") {
+          var foundIndex = this.messages.findIndex(x => x._id == msg._id);
+          this.messages[foundIndex].text = msg.text;
+        }
+
+        if (msg.action == "create") {
+          this.messages.push(msg);
+        }
+
+        if (msg.action == "delete")
+          this.messages = this.messages.filter(item => item._id !== msg._id);
       }
+
     });
+
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.conversationId = changes['conversationId'].currentValue as string
-    this.load();
-    this.chatService.joinRoom(this.conversationId);
+    if (changes['conversationId']?.currentValue) {
+      this.conversationId = changes['conversationId'].currentValue as string
+      this.load();
+      this.chatService.joinRoom(this.conversationId);
+    }
   }
 
 
@@ -58,29 +71,13 @@ export class DiscussionComponent {
       ? this.conversation.speaker[1]
       : this.conversation.speaker[0];
 
-    const msgObj = {
-      sender: this.sender,
-      receiver,
-      conversationId: this.conversationId,
-      text: this.message,
-      postId: ''
-    };
-
     if (this.message.trim() != "" && this.conversationId.trim() != "") {
-      
-      this.chatService.create(this.sender, receiver, this.conversationId, this.message, "")
-      
-      this.messages.push({
-        ...msgObj,
-        time_: new Date().toISOString(),
-        seen: false
-      });
 
-      this.messageEdit.text = '';
+      this.chatService.create(this.sender, receiver, this.conversationId, this.message, "")
       this.message = '';
     }
   }
-  
+
 
   createFisrt() {
 
@@ -104,11 +101,12 @@ export class DiscussionComponent {
 
   submitEdit() {
 
+    const receiver = (this.sender === this.conversation.speaker[0])
+      ? this.conversation.speaker[1]
+      : this.conversation.speaker[0];
+
     if (this.messageEdit.text.trim() && this.messageEdit.id != "" && this.messageEdit.id != undefined) {
-      if (localStorage.getItem("userId") == this.conversation.speaker[0])
-        this.chatService.edit(this.sender, this.conversation.speaker[1], this.messageEdit.id, this.messageEdit.text, this.conversationId)
-      else
-        this.chatService.edit(this.sender, this.conversation.speaker[0], this.messageEdit.id, this.messageEdit.text, this.conversationId)
+      this.chatService.edit(this.sender, receiver, this.messageEdit.id, this.messageEdit.text, this.conversationId)
     }
     this.message = '';
     this.messageEdit.id = "";
@@ -122,7 +120,6 @@ export class DiscussionComponent {
       this.chatService.getConversationById(this.conversationId).subscribe((data: any) => {
         this.conversation = data;
       });
-
       this.chatService.getMessageHistory(this.conversationId).subscribe((data: any) => {
         this.messages = data;
       });
