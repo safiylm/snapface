@@ -2,13 +2,16 @@ h1 {
     text-align: center;
     font-weight: lighter;
     margin: 20px auto;
+    font-size: 20px;
 }
 
-.accordion{
-    width: 100%;
+.accordion {
+    width: 80%;
     margin: 50px auto;
 }
-form , .form-edit {
+
+form,
+.form-edit {
     margin: 35px auto;
 
     .col {
@@ -48,7 +51,8 @@ form , .form-edit {
         margin-top: 160px;
     }
 
-    form, .form-edit {
+    form,
+    .form-edit {
         padding: 30px;
         box-sizing: border-box;
         margin: 20px auto;
@@ -65,5 +69,8 @@ form , .form-edit {
         padding: 0 15px;
     }
 
+    .accordion {
+        width: 95%;
+    }
 
 }

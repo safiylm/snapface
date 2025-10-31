@@ -20,13 +20,12 @@
     height: 70vh;
     min-height: 500px;
     min-width: 250px;
-    width: 50vw;
+    width: 300px;
     max-width: 550px;
-
-    display: grid;
-    grid-template-columns: [first] 100% [end];
-    grid-template-rows: [row1-start] 9vh [row1-end] auto [third-line] 10vh [thrid-line-end] 9vh [last-line];
-    grid-template-areas: 'user' 'audio' 'assets' 'text' 'interactions';
+    // display: grid;
+    // grid-template-columns: [first] 100% [end];
+    // grid-template-rows: [row1-start] 9vh [row1-end] auto [third-line] 10vh [thrid-line-end] 9vh [last-line];
+    // grid-template-areas: 'user' 'audio' 'assets' 'text' 'interactions';
 
     app-images-video {
       height: 40vh;
@@ -43,11 +42,7 @@
       margin: 5px;
     }
 
-    a {
-      text-decoration: none;
-      color: black;
-      overflow: clip;
-    }
+
 
 
     h2 {
@@ -72,7 +67,14 @@
 
 }
 
+.example-card {
+  width: 400px;
+}
 
+a {
+  text-decoration: none;
+  overflow: clip;
+}
 
 
 
@@ -89,6 +91,16 @@
 }
 
 @media(max-width:600px) {
+  .example-card {
+    width: 90vw;
+  }
+
+  .mat-mdc-card-content {
+    display: block;
+    padding: 0 16px;
+    font-size: 14px;
+  }
+
   .face-snap-card {
     min-width: 90vw;
     margin: 2px;
@@ -96,6 +108,8 @@
     .post {
       width: 90vw;
     }
+
+
 
     .comment {
       width: 100vw;

@@ -14,7 +14,7 @@ import { Conversation } from 'src/models/conversation';
   imports: [
     NgIf, ConversationListComponent,
     AvatarUserComponent, AvatarUserComponent,
-    ListFollowRequestComponent
+    ListFollowRequestComponent,
   ]
 })
 

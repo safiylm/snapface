@@ -15,6 +15,8 @@ import { transition, style, animate, trigger } from '@angular/animations';
 import { SignalerUserComponent } from "../signaler-user/signaler-user.component";
 import { Conversation } from 'src/models/conversation';
 import { DiscussionComponent } from 'src/app/chat/discussion/discussion.component';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatButtonModule} from '@angular/material/button';
 
 const enterTransition = transition(':enter', [
   style({
@@ -49,7 +51,8 @@ const fadeOut = trigger('fadeOut', [
   templateUrl: './header-snap.component.html',
   styleUrls: ['./header-snap.component.scss'],
   imports: [StatistiqueUserComponent, NgIf, ButtonFollowComponent, TitleCasePipe,
-    FormsModule, EditPhotosComponent, SignalerUserComponent, NgClass, DiscussionComponent],
+    FormsModule, EditPhotosComponent, SignalerUserComponent, NgClass, DiscussionComponent
+  , MatButtonModule, MatMenuModule],
   animations: [
     fadeIn,
     fadeOut

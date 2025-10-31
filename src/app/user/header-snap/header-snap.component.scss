@@ -91,6 +91,7 @@
     object-fit: cover;
     margin: 10px;
     border-radius: 10px;
+ //   backdrop-filter: blur(8px);
 
     @media(max-width:479px) {
         height: 370px;
@@ -128,7 +129,7 @@
         text-align: center;
         //width: 100%;
         margin-right: 20px;
-            width: 170px;
+        width: 170px;
 
         :after {
             content: " ";
@@ -156,7 +157,7 @@
 }
 
 .div-nom-buttons-stats-user {
-    background-color: #ece7e7b0;
+    background-color: rgb(251, 251, 251);
     padding: 5px 10px;
     border-radius: 12px;
     // box-shadow: #878787 0px 6px 6px 0.2px;

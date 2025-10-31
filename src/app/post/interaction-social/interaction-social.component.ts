@@ -11,6 +11,8 @@ import { User } from 'src/models/user.model';
 import { CommentaireListComponent } from "../../comment/commentaire-list/commentaire-list.component";
 import { transition, style, animate, trigger } from '@angular/animations';
 import { SignalerPostComponent } from "../signaler-post/signaler-post.component";
+import {MatMenuModule} from '@angular/material/menu';
+import {MatButtonModule} from '@angular/material/button';
 
 const enterTransition = transition(':enter', [
   style({
@@ -45,7 +47,7 @@ const fadeOut = trigger('fadeOut', [
   styleUrls: ['./interaction-social.component.scss'],
   imports: [LikeButtonComponent,
     NgIf, FormsModule, EnregistrementButtonComponent,
-    NgFor, CommentaireListComponent, SignalerPostComponent],
+    NgFor, CommentaireListComponent, SignalerPostComponent, MatButtonModule, MatMenuModule],
   animations: [
     fadeIn,
     fadeOut

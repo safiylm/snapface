@@ -4,6 +4,7 @@ import { UsersListVerticalComponent } from "../../../user/users-list-vertical/us
 import { NgClass, NgIf } from '@angular/common';
 import { Publication } from 'src/models/publication.model';
 import { transition, style, animate, trigger } from '@angular/animations';
+import {MatButtonModule} from '@angular/material/button';
 
 const enterTransition = transition(':enter', [
   style({
@@ -42,7 +43,7 @@ const fadeOut = trigger('fadeOut', [
   selector: 'app-like-button',
   templateUrl: './like-button.component.html',
   styleUrls: ['./like-button.component.scss'],
-  imports: [NgIf, UsersListVerticalComponent],
+  imports: [NgIf, UsersListVerticalComponent, MatButtonModule],
   animations: [
     fadeIn,
     fadeOut
@@ -102,3 +103,11 @@ export class LikeButtonComponent {
   }
 
 }
+
+/**
+ * 
+ *   <!--   data-bs-toggle="offcanvas" *ngIf="post.likesCount"
+    [attr.data-bs-target]="'#offcanvasNumberofLike'+post._id" [attr.aria-controls]="'offcanvasNumberofLike'+post._id"--> 
+    
+    
+ */

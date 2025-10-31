@@ -1,9 +1,10 @@
 button {
-    background-color: #f8f9fa;
+    background-color: #b7b7b73b;
     border: none;
-    padding: 5px 10px ;
     color: black;
-  
-   // border:0.1px solid black;
     width: 100%;
+
+    :active {
+        transform: scale(0.92);
+    }
 }

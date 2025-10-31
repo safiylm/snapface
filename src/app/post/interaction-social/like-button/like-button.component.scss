@@ -1,11 +1,9 @@
 .d-flex {
     margin-right: 10px;
-    //  border: 0.1px solid black;
     border-radius: 6px;
-    background-color: #f8f9fa;
+    background-color: #b7b7b73b;
 
     button {
-        background-color: #f8f9fa;
         border: none;
         padding: 5px;
         color: black;
@@ -19,6 +17,8 @@
 
             color: rgb(237, 17, 17);
         }
+
+
     }
 
     #btnaddlike {
@@ -33,11 +33,16 @@
 
 
     }
+
+    :active {
+        transform: scale(0.92);
+          transition: transform 0.5s ease;
+    }
 }
 
 #div-liste-like {
     position: fixed;
-    background-color: rgb(255, 255, 255);
+    background-color: #b7b7b73b;
     margin: 10px auto;
     text-align: center;
     //  box-shadow: 5px 44px 77px 1px rgb(192, 192, 192);

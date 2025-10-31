@@ -6,7 +6,7 @@ import { CommentaireListComponent } from '../../comment/commentaire-list/comment
 import { NgClass, NgIf, TitleCasePipe } from '@angular/common';
 import { ImagesVideoComponent } from "./images-video/images-video.component";
 import { AudioComponent } from "./audio/audio.component";
-
+import {MatCardModule} from '@angular/material/card';
 @Component({
   standalone: true,
   selector: 'app-publication',
@@ -14,7 +14,7 @@ import { AudioComponent } from "./audio/audio.component";
   styleUrls: ['./publication.component.scss'],
   imports: [AuteurInPostOrCommentaireComponent, NgClass,
     InteractionSocialComponent, CommentaireListComponent, TitleCasePipe,
-    NgIf, ImagesVideoComponent]
+    NgIf, ImagesVideoComponent, MatCardModule]
 })
 
 export class PublicationComponent {

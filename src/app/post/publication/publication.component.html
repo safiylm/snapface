@@ -1,9 +1,7 @@
-<div class="d-flex align-items-center justify-content-center h-100"  >
+<!-- <div class="d-flex align-items-center justify-content-center h-100"  >
   <div class="face-snap-card d-flex align-items-center" *ngIf="publication" [ngClass]="{'boxshadow': shadow ===true}">
     <div class="post">
       <app-auteur-in-post-or-commentaire [id]="UserId!" [audio]="publication.audio"></app-auteur-in-post-or-commentaire>
-
-      
       <app-images-video [assets]="publication.assets"></app-images-video>
 
       <a data-bs-toggle="offcanvas" [href]="'#offcanvasComment'+ publication._id" role="button"
@@ -18,7 +16,28 @@
 
     </div>
   </div>
-</div>
+</div> -->
+
+<mat-card class="example-card post" appearance="outlined">
+  <mat-card-header>
+   <app-auteur-in-post-or-commentaire [id]="UserId!" [audio]="publication.audio"></app-auteur-in-post-or-commentaire>
+  </mat-card-header>
+      <app-images-video  mat-card-image [assets]="publication.assets"></app-images-video>
+
+  <mat-card-content>
+     <a data-bs-toggle="offcanvas" [href]="'#offcanvasComment'+ publication._id" role="button"
+        aria-controls="offcanvasExample">
+         <mat-card-subtitle id="body" *ngIf="Title?.length! < 50">{{ Title | titlecase }}</mat-card-subtitle>
+         <mat-card-subtitle id="body" *ngIf="Title?.length! >= 50">{{ Title?.slice(0, 50) | titlecase }} ... </mat-card-subtitle>
+         <mat-card-subtitle id="body" *ngIf="Body?.length! < 50">{{ Body }}</mat-card-subtitle>
+         <mat-card-subtitle id="body" *ngIf="Body?.length! >= 50">{{ Body?.slice(0, 50) | titlecase }} ... </mat-card-subtitle>
+      </a>
+  </mat-card-content>
+  <mat-card-actions>
+         <app-interaction-social [post]="publication" [isMyPost]="isMyPost"></app-interaction-social>
+  </mat-card-actions>
+</mat-card>
+
 
 
 <!-- AFFICHAGE DU TITRE, BODY & TOUS LES COMMENTAIRES D'UN POST -->
