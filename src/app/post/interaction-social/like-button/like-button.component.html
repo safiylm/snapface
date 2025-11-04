@@ -1,5 +1,5 @@
-<div class="d-flex ">
-  <button id="btnaddlike" (click)="like()"  class="btn" >
+<div class="d-flex align-items-center justify-content-center">
+  <button id="btnaddlike" (click)="like()" >
     <svg *ngIf="!isLiked" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor"
       class="bi bi-suit-heart" viewBox="0 0 16 16">
       <path
@@ -14,8 +14,7 @@
     </svg>
   </button>
 
-
-  <button id="btn-followers" class="btn" type="button"> 
+  <button id="btn-followers" type="button"> 
     {{post.likesCount}}
   </button>
 

@@ -21,12 +21,12 @@
     }
 }
 
-:host {
-  display: block;
-  height: 90vh;
-  overflow-y: scroll;
-  scroll-snap-type: y mandatory;
-}
+// :host {
+//   display: block;
+//   height: 90vh;
+//   overflow-y: scroll;
+//   scroll-snap-type: y mandatory;
+// }
 
 app-publication {
   display: block;

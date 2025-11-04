@@ -112,7 +112,6 @@
     @media(max-width:479px) {
         height: 340px;
         margin-top: -355px;
-
     }
 
     :after {
@@ -170,44 +169,7 @@
         display: inline;
     }
 
-    #btn-ecrire {
-        border-radius: 15px !important;
-        padding: 7px 14px !important;
-        font-size: small !important;
-        background-color: dodgerblue !important;
-        color: #fff !important;
-        margin-left: 15px !important;
-    }
-
-    .dropdown {
-        text-align: center;
-
-        button {
-            font-size: 17px;
-            color: #343536 !important;
-            font-weight: lighter;
-            border: none;
-            background-color: #f2f2f2;
-        }
-
-        a {
-            border: none;
-            padding: 10px 20px;
-            font-size: 17px;
-            color: #292b2b !important;
-            font-weight: lighter;
-        }
-
-        a:active {
-            background-color: #dfdfdf !important;
-        }
-
-        .dropdown-menu button {
-            background-color: white;
-        }
-    }
 }
-
 
 
 

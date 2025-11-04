@@ -65,25 +65,16 @@
                     (click)="showPhotoViewerProfil(); toggleMenu(); preventCloseOnClick()" />
             </div>
             <div class="div-nom-buttons-stats-user">
+
                 <div class="div-nom-buttons d-flex flex-wrap align-items-center justify-content-center">
 
                     <h3 class="name">{{ UserName }}</h3>
 
-                    <app-button-follow [isMe]="isMe" [isAbonnee]="isAbonnee" [user]="user"></app-button-follow>
-
-                    <button *ngIf="!isMe" class="btn" type="button" id="btn-ecrire" (click)="createConversation()">
-                        {{ "écrire" | titlecase }}</button>
-
-
-
-                    <app-signaler-user *ngIf="!isMe" [userName]="user.firstName+' '+user.lastName"
-                        [userID]="user._id"></app-signaler-user>
-
-
-                    <button matButton [matMenuTriggerFor]="menu" class="btn btn-dark" type="button">
+                    <button mat-menu-item [matMenuTriggerFor]="menu" type="button"
+                        style="display: inline-block; width: auto;" class="btn btn-dark">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="lucide lucide-text-align-justify-icon lucide-text-align-justify">
+                            class="lucide lucide-text-align-justify-icon lucide-text-align-justify" color="black">
                             <path d="M3 5h18" />
                             <path d="M3 12h18" />
                             <path d="M3 19h18" />
@@ -91,7 +82,7 @@
                     </button>
 
                     <mat-menu #menu="matMenu">
-                        <button mat-menu-item (click)="choix('')">
+                        <button mat-menu-item (click)="choix('')" *ngIf="isMe">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"
                                 stroke-linejoin="round" class="lucide lucide-image-icon lucide-image">
@@ -103,7 +94,7 @@
 
                         </button>
 
-                        <button mat-menu-item (click)="choix('like')">
+                        <button mat-menu-item (click)="choix('like')" *ngIf="isMe">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"
                                 stroke-linejoin="round" class="lucide lucide-book-heart-icon lucide-book-heart">
@@ -114,7 +105,7 @@
                             </svg>
                             Liste</button>
 
-                        <button mat-menu-item (click)="choix('save')">
+                        <button mat-menu-item (click)="choix('save')" *ngIf="isMe">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"
                                 stroke-linejoin="round" class="lucide lucide-book-marked-icon lucide-book-marked">
@@ -125,7 +116,7 @@
                             Enregistrement
                         </button>
 
-                        <button mat-menu-item (click)="choix('u-edit')">
+                        <button mat-menu-item (click)="choix('u-edit')" *ngIf="isMe">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"
                                 stroke-linejoin="round" class="lucide lucide-user-pen-icon lucide-user-pen">
@@ -136,7 +127,7 @@
                             </svg>
                             Données personnelles</button>
 
-                        <button mat-menu-item (click)="choix('p-create')">
+                        <button mat-menu-item (click)="choix('p-create')" *ngIf="isMe">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"
                                 stroke-linejoin="round" class="lucide lucide-image-plus-icon lucide-image-plus">
@@ -148,7 +139,32 @@
                             </svg>
                             Créer une publication</button>
 
-                        <button mat-menu-item (click)="logout()">
+                        <app-button-follow *ngIf="!isMe" [isAbonnee]="isAbonnee" [user]="user"></app-button-follow>
+
+                        <button mat-menu-item *ngIf="!isMe" class="btn" type="button" id="btn-ecrire"
+                            (click)="createConversation()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-send-icon lucide-send">
+                                <path
+                                    d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" />
+                                <path d="m21.854 2.147-10.94 10.939" />
+                            </svg> {{ "écrire" | titlecase }}</button>
+
+
+                        <button mat-menu-item type="button" *ngIf="!isMe" data-bs-toggle="offcanvas"
+                            data-bs-target="#offcanvaSignaler" aria-controls="offcanvaSignaler">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-circle-alert-icon lucide-circle-alert">
+                                <circle cx="12" cy="12" r="10" />
+                                <line x1="12" x2="12" y1="8" y2="12" />
+                                <line x1="12" x2="12.01" y1="16" y2="16" />
+                            </svg> Signaler
+                        </button>
+
+
+                        <button mat-menu-item (click)="logout()" *ngIf="isMe">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round"
                                 stroke-linejoin="round" class="lucide lucide-log-out-icon lucide-log-out">
@@ -158,7 +174,6 @@
                             </svg>
                             Deconnexion</button>
 
-
                     </mat-menu>
 
 
@@ -166,10 +181,22 @@
                 <app-statistique-user [id]="id"></app-statistique-user>
 
             </div>
+            <!-- <mat-grid-list cols="2" rowHeight="2:1">
+  <mat-grid-tile>1</mat-grid-tile>
+  <mat-grid-tile>2</mat-grid-tile>
+  <mat-grid-tile>3</mat-grid-tile>
+  <mat-grid-tile>4</mat-grid-tile>
+</mat-grid-list> -->
+
+
 
         </div>
     </div>
 </div>
+
+
+
+<app-signaler-user *ngIf="!isMe" [userName]="user.firstName+' '+user.lastName" [userID]="user._id"></app-signaler-user>
 
 
 

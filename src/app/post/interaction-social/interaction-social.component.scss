@@ -10,31 +10,33 @@
     height: 9vh;
 
     button {
-        background-color: #b7b7b73b;
+        background-color: transparent;
         border: none;
-        padding: 5px 10px;
-        color: black;
-        margin: 0 10px 0 0;
+        padding: 5px 15px;
+        margin: 10px;
         display: flex;
         align-items: center;
         flex-direction: row;
         justify-content: center;
+        width: 90px;
+
 
         //  border:0.1px solid black;
         svg {
-          //  margin: 0 5px 0 0;
-            color: black;
+            //  margin: 0 5px 0 0;
+            // color: black;
+            margin-right: 4px;
         }
     }
 
-    app-enregistrement-button{
+    app-enregistrement-button {
         margin: 0 10px 0 0;
     }
 
 }
 
 button:active {
-  transform: scale(0.92);
+    transform: scale(0.92);
 }
 
 .offcanvas {

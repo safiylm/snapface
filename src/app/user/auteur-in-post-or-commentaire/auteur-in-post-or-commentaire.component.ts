@@ -5,13 +5,14 @@ import { Subscription } from 'rxjs';
 import { ButtonFollowComponent } from "../button-follow/button-follow.component";
 import { NgIf } from '@angular/common';
 import { AudioComponent } from "src/app/post/publication/audio/audio.component";
+import {MatCardModule} from '@angular/material/card';
 
 @Component({
   standalone:true, 
   selector: 'app-auteur-in-post-or-commentaire',
   templateUrl: './auteur-in-post-or-commentaire.component.html',
   styleUrls: ['./auteur-in-post-or-commentaire.component.scss'],
-  imports: [ButtonFollowComponent, NgIf, AudioComponent]
+  imports: [ButtonFollowComponent, NgIf, AudioComponent, MatCardModule]
 })
 
 export class AuteurInPostOrCommentaireComponent  implements OnInit {

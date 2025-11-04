@@ -1,8 +1,9 @@
 button {
-    background-color: #b7b7b73b;
-    border: none;
-    color: black;
-    width: 100%;
+    background-color: transparent;
+        border: none;
+        padding: 5px 15px;
+        margin: 10px;
+          width: 90px;
 
     :active {
         transform: scale(0.92);

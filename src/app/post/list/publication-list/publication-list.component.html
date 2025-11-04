@@ -7,7 +7,7 @@
     </button>
 </div>
 
-<div class="listofposts" *ngIf="isMobile">
+<div class="listofposts flex-column" *ngIf="isMobile">
     <div *ngFor="let publication of publications; let i = index">
         <app-publication *ngIf="i >= index" [publication]="publication" [shadow]="true">
         </app-publication>

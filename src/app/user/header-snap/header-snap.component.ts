@@ -18,6 +18,15 @@ import { DiscussionComponent } from 'src/app/chat/discussion/discussion.componen
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 
+import {MatGridListModule} from '@angular/material/grid-list';
+
+export interface Tile {
+  color: string;
+  cols: number;
+  rows: number;
+  text: string;
+}
+
 const enterTransition = transition(':enter', [
   style({
     opacity: 0
@@ -74,6 +83,7 @@ export class HeaderSnapComponent implements OnInit {
   showEditPhotoBackground = false
   @Output() choixAffichageEvent = new EventEmitter<string>();
   sendNewMessage = false;
+
 
   choix(choix: string) {
     this.choixAffichageEvent.emit(choix)

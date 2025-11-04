@@ -1,16 +1,17 @@
-<div class="div-commentaire-user-data">
-   
-    <a href="user/{{id}}">
-        <img *ngIf="PhotoProfil" [src]="PhotoProfil" id="photos-profil-user-in-commentaire"
-            alt="photo de profil de {{UserName}}" />
-        <img *ngIf="!PhotoProfil" id="photos-profil-user-in-commentaire"
-            src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg" />
+    <div class="div-commentaire-user-data">
+        <div class="d-flex justify-content-center align-items-center">
+            <a matButton href="user/{{id}}">
+                <img *ngIf="PhotoProfil" [src]="PhotoProfil" id="photos-profil-user-in-commentaire"
+                    alt="photo de profil de {{UserName}}" />
+                <img *ngIf="!PhotoProfil" id="photos-profil-user-in-commentaire"
+                    src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg" />
 
-    </a>
-    <app-audio *ngIf="audio"></app-audio>
+            </a>
+            <!-- <app-audio *ngIf="audio"></app-audio> -->
 
-    <a href="user/{{id}}">
-        <p id="username"> {{ UserName }} </p>
-    </a>
-    <app-button-follow [isMe]="isMe" [user]="user"></app-button-follow>
-</div>
+            <a matButton href="user/{{id}}">
+                  <mat-card-subtitle>   {{ UserName }}</mat-card-subtitle>
+                </a>
+        </div>
+        <app-button-follow [isMe]="isMe" [user]="user"></app-button-follow>
+    </div>
