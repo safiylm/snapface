@@ -11,6 +11,8 @@ import { ItemUserWithLastMessageComponent } from "./item-user-with-last-message/
   styleUrls: ['./conversation-list.component.scss'],
   imports: [NgFor, NgIf, NgClass, ItemUserWithLastMessageComponent,]
 })
+
+
 export class ConversationListComponent implements OnInit {
 
   conversation !: Conversation[]
@@ -21,6 +23,7 @@ export class ConversationListComponent implements OnInit {
   @Input() offcanvas !: string;
   @Input() inOffCanvas !: string;
 
+
   ngOnInit() {
     this.me = localStorage.getItem('userId')?.toString() as string
     this.chatservice.getUsersWeHaveConversation(this.me)
@@ -30,14 +33,11 @@ export class ConversationListComponent implements OnInit {
           this.conversationId = data[0]._id
         }
       });
-
-
   }
+
 
   choisirConversation(newItem: string) {
     this.newItemEvent2.emit(newItem);
   }
-
-
 
 }

@@ -4,7 +4,7 @@
             [ngClass]="{'moi': message.sender === sender, 'lui': message.sender !== sender}">
 
             <div *ngIf="message.postId && post">
-                <img [src]="post.assets[0]" />
+                <img [src]="post.assets[0]" (click)="openPost( message.postId)"/>
             </div>
             {{ message.text }}
 

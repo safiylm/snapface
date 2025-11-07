@@ -57,7 +57,10 @@ export class MessageComponent {
     this.displayEditDeleteButton = false
   }
 
-
+  openPost(id: string)
+{
+  document.location.href='post/'+id
+}
   delete() {
     this.displayEditDeleteButton = false
 

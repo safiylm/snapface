@@ -125,8 +125,8 @@ export class DiscussionComponent {
       });
 
       // IF YOU RECEIVER  
-      // this.chatService.markAsSeen(this.conversationId).subscribe(
-      //   (data) => { if (data) data })
+      this.chatService.markAsSeen(this.conversationId).subscribe(
+        (data) => { if (data) data })
     }
   }
 
