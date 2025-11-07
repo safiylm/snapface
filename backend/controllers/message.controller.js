@@ -22,7 +22,7 @@ exports.createMessage = async (req, res) => {
     })
     .then(data => {
       if (data) {
-        if (postId != "") {
+        if (postId.trim() != "") {
           collection_publications.
             updateOne({ "_id": new ObjectId(postId) },
               { $inc: { "sharesCount": 1 } })
@@ -213,7 +213,9 @@ exports.getConversationById = async (req, res) => {
 
 exports.markAsSeen = async (req, res) => {
   const conversationId = req.body.conversationId
-  const updateResult = await collection_messages.updateMany({ "conversationId": conversationId },
+  const userId = req.body.userId
+  
+  const updateResult = await collection_messages.updateMany({ "conversationId": conversationId, sender: { $ne: userId }},
     { $set: { "seen": true } });
 
   res.set('Access-Control-Allow-Origin', '*');
