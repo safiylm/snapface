@@ -24,56 +24,26 @@ export class InteractionSocialeService {
     this.socket.emit('joinRoom', userId);
   }
 
-  /*************************************************************************** */
 
-
-  addLike(postId: string)//: Observable<any>
-  {
-    this.socket.emit('add',
-      {
-        'postId': postId,
-        'userId': localStorage.getItem('userId'),
-        "interaction": "like"
-
-      },)
-  }
-
-  removeLike(postId: string, interactionId: string) {
-
-    this.socket.emit('remove', {
-      'postId': postId,
-      'userId': localStorage.getItem('userId'),
-      'interactionId': interactionId,
-      "interaction": "like"
-
-    },
-    )
-  }
-
-
-
-  /*************************************************************************** */
-
-  addEnregistrement(postId: string) {
+  create(postId: string, interaction: string) {
 
     this.socket.emit('add',
       {
         'postId': postId,
         'userId': localStorage.getItem('userId'),
-        "interaction": "save"
+        "interaction": interaction
       },
     )
   }
 
-  removeEnregistrement(postId: string, interactionId: string) {
-    this.joinRoom(postId);
+  remove(postId: string, interactionId: string,interaction: string) {
 
     this.socket.emit("remove",
       {
         'postId': postId,
         'userId': localStorage.getItem('userId'),
         'interactionId': interactionId,
-        "interaction": "save"
+        "interaction": interaction
 
       }
     )
@@ -131,23 +101,11 @@ export class InteractionSocialeService {
   }
 
 
-  getIfUserAlreadyLikePost(postId: string, userId: string) {
+  interactionExist
+    (postId: string, userId: string, interaction: string) {
     return this.http.get<InteractionSociale>(
-      url + "/api/interaction/getIfUserAlreadyLikePost?postId=" + postId + "&userId=" + userId)
+      url + "/api/interaction/exist?postId=" + postId + "&userId=" + userId + "&interaction=" + interaction)
   }
-
-
-  getIfUserAlreadyPointPost(postId: string, userId: string) {
-    return this.http.get<InteractionSociale>(
-      url + "/api/interaction/getIfUserAlreadyPointPost?postId=" + postId + "&userId=" + userId)
-  }
-
-  getIfUserAlreadySavePost
-    (postId: string, userId: string) {
-    return this.http.get<InteractionSociale>(
-      url + "/api/interaction/getIfUserAlreadySavePost?postId=" + postId + "&userId=" + userId)
-  }
-
 
 }
 

@@ -5,7 +5,6 @@ export class StatistiqueUser {
         public userId : string,
         public followers: number,
         public totalPosts: number,
-        public totalPoints: number,       
         ) {
     }
 }

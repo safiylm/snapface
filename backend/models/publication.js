@@ -12,7 +12,7 @@ const Publication = new mongoose.Schema({
 
     commentsCount: { type: Number },
     likesCount: { type: Number },
-    pointsCount: { type: Number },
+    repostsCount: { type: Number },
     savesCount: { type: Number },
     sharesCount: { type: Number },
 

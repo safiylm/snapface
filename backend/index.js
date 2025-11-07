@@ -5,9 +5,9 @@ const cors = require("cors");
 const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
 
-// const url = "http://localhost:4100"
-const url = "https://snapface.onrender.com"
-// const url_ = "http://localhost:4200"
+//const url = "http://localhost:4100"
+ const url = "https://snapface.onrender.com"
+//const url_ = "http://localhost:4200"
 const url_ =  "https://snapfaceangular.web.app"
 const websocket = require("./chat")
 var corsOptions = {
@@ -181,31 +181,21 @@ io.on("connection", async (socket) => {
   /***************************************************************************** */
 
   socket.on('add', async (data) => {
-    let urlcomplement = "/api/interaction/likesAdd"
+    let urlcomplement = "/api/interaction/add"
     data_ = {
       'postId': data['postId'],
       'userId': data['userId'],
       'interactionId': data['interactionId'],
       'action': "add",
-      "interaction": ""
+      "interaction": data['interaction'],
     }
 
-    if (data["interaction"] == "like") {
-      urlcomplement = '/api/interaction/likesAdd'
-      data_.interaction = "like"
-
-    }
-    if (data["interaction"] == "save") {
-      urlcomplement = '/api/interaction/enregistrementAdd'
-      data_.interaction = "save"
-
-    }
-
+   
     try {
       const response = await axios.post(url + urlcomplement, {
         'postId': data['postId'],
         'userId': data['userId'],
-
+        "interaction":  data['interaction'],
       })
       if (response.data['acknowledged'] == true) {
         // Envoie notif à l'auteur du post 
@@ -223,26 +213,18 @@ io.on("connection", async (socket) => {
       'userId': data['userId'],
       'interactionId': data['interactionId'],
       'action': "remove",
-      "interaction": ""
+      "interaction": data['interaction'],
     }
 
-
-    let urlcomplement = "/api/interaction/likesRemove"
-    if (data["interaction"] == "like") {
-      urlcomplement = '/api/interaction/likesRemove'
-      data_.interaction = "like"
-    }
-    if (data["interaction"] == "save") {
-      urlcomplement = '/api/interaction/enregistrementRemove'
-      data_.interaction = "save"
-
-    }
+    let urlcomplement = "/api/interaction/remove"
 
     try {
       const response = await axios.post(url + urlcomplement, {
         'postId': data['postId'],
         'userId': data['userId'],
         'interactionId': data['interactionId'],
+        "interaction":  data['interaction'],
+
       })
       if (response.data['acknowledged'] == true) {
         // Envoie notif à l'auteur du post 

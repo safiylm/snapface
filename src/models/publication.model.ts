@@ -10,7 +10,7 @@ export class Publication {
 
         public commentsCount: number,
         public likesCount: number,
-        public pointsCount: number,
+        public repostsCount: number,
         public savesCount: number,
         public sharesCount: number,
         

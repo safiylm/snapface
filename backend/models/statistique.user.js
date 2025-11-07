@@ -7,7 +7,6 @@ const StatistiqueUser = new mongoose.Schema({
     userId: { type: String },
     followers: { type: Number },
     totalPosts: { type: Number },
-    totalPoints: { type: Number },
 
 }, { versionKey: false });
 StatistiqueUser.index({ userId : 1}, { unique: true });

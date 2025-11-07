@@ -60,8 +60,8 @@ export class LikeButtonComponent {
   ngOnInit(): void {
     this.interactionSocialeService.joinRoom(this.post._id);
 
-    this.interactionSocialeService.getIfUserAlreadyLikePost(this.post._id,
-      localStorage.getItem("userId")?.toString() as string).subscribe({
+    this.interactionSocialeService.interactionExist(this.post._id,
+      localStorage.getItem("userId")?.toString() as string, "like").subscribe({
         next: (data) => {
           if (data != null) {
             this.isLiked = true
@@ -78,7 +78,6 @@ export class LikeButtonComponent {
           this.post.likesCount--
 
         } if (data["action"] == "add") {
-
           this.isLiked = true
           this.post.likesCount++
           this.interactionId = data.interactionId
@@ -91,10 +90,10 @@ export class LikeButtonComponent {
 
   like(): void {
     if (!this.isLiked)
-      this.interactionSocialeService.addLike(this.post._id)
+      this.interactionSocialeService.create(this.post._id, "like")
     else
-      if (this.isLiked && this.interactionId != "")
-        this.interactionSocialeService.removeLike(this.post._id, this.interactionId)
+      if (this.isLiked && this.interactionId != ""){
+        this.interactionSocialeService.remove(this.post._id, this.interactionId, "like")}
   }
 
 

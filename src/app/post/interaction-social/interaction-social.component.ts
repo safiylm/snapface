@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter, inject, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, Renderer2 } from '@angular/core';
 import { LikeButtonComponent } from "./like-button/like-button.component";
-import { NgFor, NgIf } from '@angular/common';
+import { NgClass, NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Publication } from 'src/models/publication.model';
 import { EnregistrementButtonComponent } from "./enregistrement-button/enregistrement-button.component";
@@ -11,8 +11,9 @@ import { User } from 'src/models/user.model';
 import { CommentaireListComponent } from "../../comment/commentaire-list/commentaire-list.component";
 import { transition, style, animate, trigger } from '@angular/animations';
 import { SignalerPostComponent } from "../signaler-post/signaler-post.component";
-import {MatMenuModule} from '@angular/material/menu';
-import {MatButtonModule} from '@angular/material/button';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatButtonModule } from '@angular/material/button';
+import { InteractionSocialeService } from 'src/services/interaction-social-service';
 
 const enterTransition = transition(':enter', [
   style({
@@ -46,7 +47,7 @@ const fadeOut = trigger('fadeOut', [
   templateUrl: './interaction-social.component.html',
   styleUrls: ['./interaction-social.component.scss'],
   imports: [LikeButtonComponent,
-    NgIf, FormsModule, EnregistrementButtonComponent,
+    NgIf, FormsModule, EnregistrementButtonComponent, NgClass,
     NgFor, CommentaireListComponent, SignalerPostComponent, MatButtonModule, MatMenuModule],
   animations: [
     fadeIn,
@@ -60,13 +61,14 @@ export class InteractionSocialComponent {
   @Input() post !: Publication;
   @Input() isMyPost !: boolean;
 
-  displayListeConversations = false;
-
+  isReposted = false;
   isMobile !: boolean;
   users: any[] = []
+  repostId = ""
 
   constructor(
-    private chatService: ChatPriveService, private userService: UserService) { }
+    private chatService: ChatPriveService, private userService: UserService,
+    private interactionService: InteractionSocialeService, private renderer: Renderer2) { }
 
   ngOnInit() {
     if (window.innerWidth <= 1050) { // Si on est sur mobile
@@ -75,26 +77,35 @@ export class InteractionSocialComponent {
       this.isMobile = false; // Sur PC/tablette, le post reste affiché
     }
 
-    this.chatService.getUsersWeHaveConversation(localStorage.getItem('userId')?.toString() as string)
-      .subscribe((data: Conversation[]) => {
-        if (data) {
-          for (let c of data) {
-            if (this.users[0] == localStorage.getItem("userId")?.toString() as string)
-              this.userService.getUser(c.speaker[1]).subscribe(
-                (dataa: User) => {
-                  this.users.push([dataa, c._id])
-                }
-              )
-            else
-              this.userService.getUser(c.speaker[0]).subscribe(
-                (dataa: User) => {
-                  this.users.push([dataa, c._id])
-                }
-              )
+    this.interactionService.joinRoom(this.post._id);
+
+    this.interactionService.interactionExist(this.post._id,
+      localStorage.getItem("userId")?.toString() as string, "repost").subscribe({
+        next: (data) => {
+          if (data != null) {
+            this.isReposted = true
+            this.repostId = data._id
           }
+        }, error: e => console.error(e)
+      })
+    this.load()
+
+    this.interactionService.getInteractionsWithSocket().subscribe((data: any) => {
+      if (data['postId'] == this.post._id && data['interaction'] == "repost") {
+        if (data["action"] == "remove") {
+          this.isReposted = false
+          this.repostId = ""
         }
-      });
+        if (data["action"] == "add") {
+          this.isReposted = true
+          this.repostId = data.interactionId
+
+        }
+      }
+    });
+
   }
+
 
   goToEditPost() {
     document.location.href = 'publication/edit/' + this.post._id
@@ -110,5 +121,37 @@ export class InteractionSocialComponent {
       "", this.post._id)
   }
 
+  repost() {
+    if (this.isReposted && this.repostId != "")
+      this.interactionService.remove(this.post._id, this.repostId, "repost")
+    else
+      this.interactionService.create(this.post._id, "repost")
+  }
+
+
+
+
+  load() {
+
+    this.chatService.getUsersWeHaveConversation(localStorage.getItem('userId')?.toString() as string)
+      .subscribe((data: Conversation[]) => {
+        if (data) {
+          for (let c of data) {
+            if (c.speaker[0] == localStorage.getItem("userId")?.toString() as string)
+              this.userService.getUser(c.speaker[1]).subscribe(
+                (dataa: User) => {
+                  this.users.push([dataa, c._id])
+                }
+              )
+            else
+              this.userService.getUser(c.speaker[0]).subscribe(
+                (dataa: User) => {
+                  this.users.push([dataa, c._id])
+                }
+              )
+          }
+        }
+      });
+  }
 
 }

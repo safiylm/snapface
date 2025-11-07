@@ -6,7 +6,7 @@ const InteractionSociale = new mongoose.Schema({
 
     postId: { type: String },
     userId: { type: String },
-    type: 'like' | 'point' | 'enregistrement',
+    type: 'like' | 'repost' | 'enregistrement',
     createdAt: { type: Date, default: Date.now },
 
 }, { versionKey: false });

@@ -22,8 +22,8 @@ export class EnregistrementButtonComponent {
 
     this.interactionService.joinRoom(this.post._id);
 
-    this.interactionService.getIfUserAlreadySavePost(this.post._id,
-      localStorage.getItem("userId")?.toString() as string).subscribe({
+    this.interactionService.interactionExist(this.post._id,
+      localStorage.getItem("userId")?.toString() as string, "enregistrement").subscribe({
         next: (data) => {
           if (data != null) {
             this.isSaved = true
@@ -34,7 +34,7 @@ export class EnregistrementButtonComponent {
       })
 
     this.interactionService.getInteractionsWithSocket().subscribe((data: any) => {
-      if (data['postId'] == this.post._id && data['interaction']=="save") {
+      if (data['postId'] == this.post._id && data['interaction']=="enregistrement") {
         if (data["action"] == "remove" ) {
           this.isSaved = false
           this.interactionId = ""
@@ -46,16 +46,14 @@ export class EnregistrementButtonComponent {
         }             
       }
     });
-
-
-
   }
+
+
 
   save() {
     if (!this.isSaved)
-      this.interactionService.addEnregistrement(this.post._id)
+      this.interactionService.create(this.post._id, "enregistrement")
     else
-      this.interactionService.removeEnregistrement(this.post._id, this.interactionId)
-
+      this.interactionService.remove(this.post._id, this.interactionId, "enregistrement")
   }
 }

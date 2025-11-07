@@ -1,11 +1,19 @@
 button {
-    background-color: transparent;
-        border: none;
-        padding: 5px 15px;
-        margin: 10px;
-          width: 90px;
+  background-color: transparent;
+  border: none;
+  padding: 5px 10px;
+  margin: 10px;
+  width: 50px;
 
-    :active {
-        transform: scale(0.92);
-    }
+  :active {
+    transform: scale(0.92);
+  }
+}
+
+@media(max-width:600px) {
+  button {
+    margin: 3px;
+    width: 16vw;
+
+  }
 }

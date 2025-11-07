@@ -4,7 +4,7 @@ export class InteractionSociale {
         public _id: string,
         public postId: string,
         public userId: string,
-        public type: 'like' | 'point' | 'enregistrement',
+        public type: 'like' | 'repost' | 'enregistrement',
         public createdAt: Date,
     ) { }
 }
