@@ -6,7 +6,9 @@ import { CommentaireListComponent } from '../../comment/commentaire-list/comment
 import { NgClass, NgIf, TitleCasePipe } from '@angular/common';
 import { ImagesVideoComponent } from "./images-video/images-video.component";
 import { AudioComponent } from "./audio/audio.component";
-import {MatCardModule} from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
+import { PublicationsService } from 'src/services/publication-service';
+
 @Component({
   standalone: true,
   selector: 'app-publication',
@@ -19,12 +21,24 @@ import {MatCardModule} from '@angular/material/card';
 
 export class PublicationComponent {
 
-  @Input() publication!: Publication;
+  @Input() publication !: Publication | any;
   isDisplayComments: boolean = false;
   isMyPost: boolean = false;
-    @ViewChildren('autoVideo') videoElements!: QueryList<ElementRef<HTMLVideoElement>>;
+  @ViewChildren('autoVideo') videoElements!: QueryList<ElementRef<HTMLVideoElement>>;
 
   @Input() shadow !: boolean;
+  constructor(private publicationService: PublicationsService) { }
+
+  ngOnInit() {
+    if (document.URL.includes('post'))
+      console.log(document.URL.split("post/")[1].toString())
+    //
+    this.publicationService.getPublicationById(document.URL.split("post/")[1].toString())
+      .subscribe(data => {
+        this.publication = data;
+      })
+
+  }
 
   ngAfterContentChecked() {
     if (this.UserId == localStorage.getItem('userId')) {
@@ -34,7 +48,7 @@ export class PublicationComponent {
 
 
   ngAfterViewInit(): void {
-  
+
 
     const videoObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {

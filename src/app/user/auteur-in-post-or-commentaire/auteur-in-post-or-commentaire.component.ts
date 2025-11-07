@@ -19,7 +19,7 @@ export class AuteurInPostOrCommentaireComponent  implements OnInit {
  
   //Passing Data into this Component
   @Input() id !: string ;
-  @Input() audio !: string ;
+  // @Input() audio !: string ;
   subscription !: Subscription;
   user !: User;
   isMe = false;

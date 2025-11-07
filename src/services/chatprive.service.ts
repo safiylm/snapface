@@ -82,7 +82,7 @@ export class ChatPriveService {
         { "sender": sender, "receiver": receiver, "text": text })
   }
 
-  markAsSeen(conversationId: string): Observable<any> {
+  markAsSeen(conversationId: string ): Observable<any> {
     return this.http
       .post<any>(
         url + `/message/markasseen`,

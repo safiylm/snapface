@@ -1,10 +1,59 @@
 <div class="d-flex flex-wrap flex-row align-items-start justify-content-between">
     <app-header></app-header>
+
     <div class="my-account-page">
-        <app-header-snap  (choixAffichageEvent)="choixAffichageEvent($event)" [id]='id'></app-header-snap>
-       <!--  <app-publication-list-scroll [id]='id'></app-publication-list-scroll>-->
-        <app-publication-list *ngIf="display==''" [isDisplay]="true" [id]='id'></app-publication-list> 
-        <app-liked-list *ngIf="display=='like'" ></app-liked-list>
+        <app-header-snap (choixAffichageEvent)="choixAffichageEvent($event)" [id]='id'></app-header-snap>
+
+        <app-statistique-user [id]="id"></app-statistique-user>
+
+        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio0" autocomplete="off" checked
+                (click)="display=''">
+            <label class="btn btn-outline-dark" for="btnradio0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="#ff00ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-image-icon lucide-image">
+                    <rect width="18" height="18" x="3" y="3" rx="2" ry="2" />
+                    <circle cx="9" cy="9" r="2" />
+                    <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
+                </svg>Post </label>
+
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off"
+                (click)="display='like'">
+            <label class="btn btn-outline-dark" for="btnradio1"> <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                    height="24" viewBox="0 0 24 24" fill="none" stroke="#ff0080" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round" class="lucide lucide-heart-icon lucide-heart">
+                    <path
+                        d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" />
+                </svg> Like</label>
+
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off"
+                (click)="display='repost'">
+            <label class="btn btn-outline-dark" for="btnradio2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                    stroke="#ff0080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-repeat2-icon lucide-repeat-2">
+                    <path d="m2 9 3-3 3 3" />
+                    <path d="M13 18H7a2 2 0 0 1-2-2V6" />
+                    <path d="m22 15-3 3-3-3" />
+                    <path d="M11 6h6a2 2 0 0 1 2 2v10" />
+                </svg>
+                RePost</label>
+
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off"
+                (click)="display='save'">
+            <label class="btn btn-outline-dark" for="btnradio3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+                    stroke="#ff00ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-bookmark-check-icon lucide-bookmark-check">
+                    <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2Z" />
+                    <path d="m9 10 2 2 4-4" />
+                </svg>Save</label>
+        </div>
+
+        <!--  <app-publication-list-scroll [id]='id'></app-publication-list-scroll>-->
+        <app-publication-list *ngIf="display==''" [isDisplay]="true" [id]='id'></app-publication-list>
+        <app-liked-list *ngIf="display=='like'"></app-liked-list>
         <app-enregistrement-list *ngIf="display=='save'"></app-enregistrement-list>
         <app-user-data-update *ngIf="display=='u-edit'"></app-user-data-update>
         <app-publication-create *ngIf="display=='p-create'"></app-publication-create>

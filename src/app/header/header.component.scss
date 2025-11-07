@@ -29,6 +29,8 @@ nav {
     svg {
       margin: 0 10px;
     }
+
+
   }
 
   li:hover {
@@ -66,7 +68,10 @@ nav {
 
 }
 
-
+.accordion * {
+  background-color: transparent !important;
+  color: white;
+}
 
 /* Sur mobile, navbar classique en haut */
 @media (max-width: 767px) {

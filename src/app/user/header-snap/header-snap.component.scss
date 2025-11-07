@@ -1,6 +1,7 @@
 #editphotos {
     background-color: rgba(255, 255, 255, 0.951);
     padding: 30px 10px;
+    margin-left: 260px ;
 }
 
 .background-viewer {
@@ -39,14 +40,15 @@
         img {
             margin: 1px auto;
             width: auto;
-            height: 65vh;
-            max-height: 70vh;
+            height: 75vh;
+            max-height: 90vh;
             display: block;
-            max-width: 80vw;
+            max-width: calc(100vw - 280px);
             object-fit: cover;
             border-radius: 15px;
-        }
+            margin-left: 260px;
 
+        }
 
 
         #btn-open-edit {
@@ -56,12 +58,9 @@
             right: 23px;
         }
 
-        .btn-dark {
-            margin-bottom: 20px;
-        }
 
         @media (max-width:800px) {
-            width: 90vw;
+            width: 95vw;
             margin: 2px auto;
             padding: 10px;
 
@@ -75,8 +74,6 @@
 }
 
 .headersnap-container {
-    //height: auto; 
-    margin-bottom: 20px;
 
     :after {
         content: " ";
@@ -91,7 +88,7 @@
     object-fit: cover;
     margin: 10px;
     border-radius: 10px;
- //   backdrop-filter: blur(8px);
+    //   backdrop-filter: blur(8px);
 
     @media(max-width:479px) {
         height: 370px;
@@ -105,14 +102,9 @@
 }
 
 .container-photo-infos {
-    margin-top: -280px;
+    margin-top: -300px;
     height: 300px;
-    margin-left: 10px;
 
-    @media(max-width:479px) {
-        height: 340px;
-        margin-top: -355px;
-    }
 
     :after {
         content: " ";
@@ -120,55 +112,30 @@
         clear: both;
     }
 
-    // @media(max-width:700px) {
-    //     height: 450px;
-    // }
 
-    #div-photo-profil {
-        text-align: center;
-        //width: 100%;
-        margin-right: 20px;
+    #photo-profil {
+        margin-bottom: 10px;
+
+        height: 170px;
         width: 170px;
 
-        :after {
-            content: " ";
-            display: block;
-            clear: both;
-        }
-
-        #photo-profil {
-            margin-bottom: 10px;
-
-            height: 170px;
-            width: 170px;
-
-            object-fit: cover;
-            border-radius: 50%;
-        }
-
-        @media(max-width:490px) {
-            margin-right: 0px;
-
-        }
+        object-fit: cover;
+        border-radius: 50%;
     }
+
+    @media(max-width:490px) {
+        margin-right: 0px;
+
+    }
+
 
     z-index: 1;
 }
 
-.div-nom-buttons-stats-user {
-    background-color: rgb(251, 251, 251);
-    padding: 5px 10px;
-    border-radius: 12px;
-    // box-shadow: #878787 0px 6px 6px 0.2px;
-    max-width: 90vw;
-
-    .name {
-        text-align: center;
-        font-size: large;
-        margin: 20px;
-        display: inline;
-    }
-
+h3 {
+    text-align: center;
+    font-size: large;
+    margin-top: 10px;
 }
 
 

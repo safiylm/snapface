@@ -69,6 +69,14 @@ const routes: Routes = [
       .then(mod => mod.SearchComponent),
   },
 
+  
+  {
+    path: 'post/:id',
+    loadComponent: () => import('./post/publication/publication.component')
+      .then(mod => mod.PublicationComponent
+      ),
+  },
+
 
   {
     path: 'publication/edit/:id',

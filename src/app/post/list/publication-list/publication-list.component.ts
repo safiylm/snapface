@@ -1,6 +1,6 @@
 import { Component, ElementRef, Input, Renderer2 } from '@angular/core';
 import { Publication } from '../../../../models/publication.model';
-import { ActivatedRoute, ɵEmptyOutletComponent } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { PublicationComponent } from '../../publication/publication.component';
 import { NgIf, NgFor } from '@angular/common';
 import { UsersListComponent } from "../../../user/users-list/users-list.component";
@@ -40,39 +40,10 @@ export class PublicationListComponent {
     }
   }
 
-  // ngAfterViewInit() {
-  //   this.renderer.listen('window', 'click', (e: Event) => {
-  //     if (!this.menuBtnClick) {
-  //       this.post = undefined;
-  //       this.menuOpen = false;
 
-  //     }
-  //     this.menuBtnClick = false;
-  //   });
-  // }
 
   clickImage(i: number){
     this.isMobile=true; this.index= i; 
   }
-/*
-  voirPost(post: Publication) {
-    this.post = post;
-  }
-
-
-  hidePost() {
-    this.post = undefined;
-  }
-  preventCloseOnClick() {
-    this.menuBtnClick = true;
-  }
-
-  menuOpen: boolean = false;
-
-
-  toggleMenu() {
-    this.menuOpen = !this.menuOpen;
-  }*/
-
 
 }

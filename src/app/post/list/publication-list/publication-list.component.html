@@ -17,7 +17,7 @@
 <div class="listofposts" *ngIf="publications && !isMobile">
     <!-- && (!user.isPrivate || isDisplay; else compteprivee) -->
     <!-- Non prive  -->
-    <img *ngFor="let publication of publications; index as i " [src]="publication.assets[0]" (click)="clickImage(i)" />
+    <img *ngFor="let publication of publications; index as i" [src]="publication.assets[0]" (click)="clickImage(i)" />
     <!-- (click)="post=publication;index= i; toggleMenu(); preventCloseOnClick()" /> -->
 </div>
 <div class="listofposts">

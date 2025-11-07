@@ -145,18 +145,7 @@ export class HeaderSnapComponent implements OnInit {
     return (this.user && this.user.photos_background) ? this.user.photos_background : null
   }
 
-  logout() {
-    this.userService.logout().subscribe(
-      (data: any) => {
-        if (data == "ok") {
-          localStorage.setItem('isLoggedIn', 'false');
-          localStorage.setItem('userId', '');
-          localStorage.removeItem('userId')
-          localStorage.removeItem('token');
-          this.route.navigate(['/']);
-        }
-      })
-  }
+
 
   createConversation() {
     this.messageService.getUsersWeHaveConversation(localStorage.getItem('userId')?.toString() as string)

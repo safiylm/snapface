@@ -18,9 +18,9 @@
   </div>
 </div> -->
 
-<mat-card class="example-card post" appearance="outlined">
+<mat-card class="example-card post" appearance="outlined" *ngIf="publication">
   <mat-card-header>
-   <app-auteur-in-post-or-commentaire [id]="UserId!" [audio]="publication.audio"></app-auteur-in-post-or-commentaire>
+   <app-auteur-in-post-or-commentaire [id]="UserId!" ></app-auteur-in-post-or-commentaire>
   </mat-card-header>
       <app-images-video  mat-card-image [assets]="publication.assets"></app-images-video>
 
@@ -41,7 +41,7 @@
 
 
 <!-- AFFICHAGE DU TITRE, BODY & TOUS LES COMMENTAIRES D'UN POST -->
-<div class="offcanvas offcanvas-bottom" data-bs-scroll="true" tabindex="-1"
+<div class="offcanvas offcanvas-bottom" data-bs-scroll="true" tabindex="-1" *ngIf="publication"
   [attr.id]="'offcanvasComment'+publication._id" aria-labelledby="offcanvasWithBothOptionsLabel">
   <div class="offcanvas-header">
     <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel"> {{publication.title}} </h5>
