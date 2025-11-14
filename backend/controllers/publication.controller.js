@@ -46,7 +46,7 @@ exports.create = async (req, res) => {
     date: Date,
     commentsCount: 0,
     likesCount: 0,
-    pointsCount: 0,
+    repostsCount: 0,
     savesCount: 0
   };
 
@@ -107,26 +107,27 @@ exports.edit = async (req, res) => {
 exports.findAll = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
 
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 5;
+  const skip = (page - 1) * limit;
+
   const users = await collection_user
     .find({ "$or": [{ isPrivate: false }, { isPrivate: null }] })
     .toArray();
 
   const userIds = users.map(user => user._id.toString());
 
-  const findResult = await collection_publications.find(
-{    $or: [
-      // 1. Utilisateurs publics
-      {
-        userId: { $in: userIds }
-      },
-      // 2. Utilisateurs suivis
-      {
-        userId: { $in: [] }
-      }
-    ]
-  }).sort({ date: -1 }).toArray();
+  const findResult = await collection_publications.find({
+    userId: { $in: userIds }
+  })
+  .sort({ date: -1 })
+  .skip(skip)
+  .limit(limit)
+  .toArray();
+
   res.send(findResult);
 }
+
 
 
 // Retrieve all Posts from the database.
@@ -172,20 +173,20 @@ exports.getListeLikedPostsByUserId = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
   const findResult = await collection_publications.find({ "userId": req.query.id }).sort({ date: -1 }).toArray();
   res.send(findResult);
-
 }
 
 
 //Retrieve post by id 
 exports.findOneById = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
-  const id = req.query.id;
+  const id = //req.query.id
+   "66f9678d9189a0956c8cfb4c"
+  if (id != null && id != '' && id != undefined){
+  console.log(id)
 
-  if (id != null || id != '')
     res.send(await collection_publications.findOne({
-      "_id":
-        new ObjectId(id)
-    }))
+      "$or": [{ _id: new ObjectId(id) }, { _id : id }]
+    }))}
   else
     res.send("No Post!")
 };
@@ -227,19 +228,19 @@ exports.delete = (req, res) => {
   });
 }
 
-//A Supprimer 
-exports.nexupdate = async (req, res) => {
+exports.resetInteractions = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
 
   const updateResult = await collection_publications.updateMany({},
     {
       $set: {
-        "commentsCount": 1,
-        "likesCount": 1,
-        "pointsCount": 1,
-        "savesCount": 1,
-
+        "commentsCount": 0,
+        "likesCount": 0,
+        "repostsCount": 0,
+        "savesCount": 0,
       }
     });
-  res.send(updateResult);
+
+   const dele = await collection_interactionsociales.deleteMany({})
+  res.send( { updateResult, dele });
 }

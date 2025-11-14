@@ -30,9 +30,9 @@ export class PublicationsService {
   }
 
 
-  getAllPublications_(): Observable<Publication[]> {   
-      return this.http.get<Publication[]>(url + "/api/publication")  
-  }
+  getAllPublications_(page: number = 1, limit: number = 5): Observable<Publication[]> {
+  return this.http.get<Publication[]>(url +`/api/publication?page=${page}&limit=${limit}`);
+}
 
   
   getAllPublicationsPourMoi(): Observable<Publication[]> {   

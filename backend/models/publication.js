@@ -4,7 +4,6 @@ var mongoose = require('mongoose');
 
 const Publication = new mongoose.Schema({
 
-    title: { type: String },
     body: { type: String },
     userId: { type: String }, //User
     assets: [String],
