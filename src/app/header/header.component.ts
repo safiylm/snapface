@@ -4,7 +4,7 @@ import { ConversationListComponent } from '../chat/conversation-list/conversatio
 import { AvatarUserComponent } from "./avatar-user/avatar-user.component";
 import { ListFollowRequestComponent } from "../user/list-follow-request/list-follow-request.component";
 import { ChatPriveService } from 'src/services/chatprive.service';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { User } from 'src/models/user.model';
 import { UserService } from 'src/services/user-service';
 import { Router } from '@angular/router';
@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
     NgIf, ConversationListComponent,
     AvatarUserComponent, AvatarUserComponent,
     ListFollowRequestComponent,
-   // MatAccordion, 
+    // MatAccordion, 
     MatExpansionModule
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -30,7 +30,7 @@ export class HeaderComponent implements OnInit {
   nbConversationWithNewMessages: number = 0;
 
   constructor(private chatService: ChatPriveService, private userService: UserService,
-     private route: Router, 
+    private route: Router,
   ) {
   }
   ngOnInit() {
@@ -44,7 +44,7 @@ export class HeaderComponent implements OnInit {
       .subscribe(
         (data) => {
           for (let conv of data) {
-             this.chatService.getNewMessagesByConversationId(conv._id)
+            this.chatService.getNewMessagesByConversationId(conv._id)
               .subscribe(
                 (dataa) => {
                   if (dataa.length > 0) {
@@ -55,7 +55,7 @@ export class HeaderComponent implements OnInit {
           }
 
         })
-}
+  }
 
   logout() {
     this.userService.logout().subscribe(
@@ -70,11 +70,15 @@ export class HeaderComponent implements OnInit {
       })
   }
 
+  goTo(url_: string) {
+    document.location.href = url_
+  }
 
-@HostListener('window:scroll', [])
-onWindowScroll() {
-  const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-}
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+  }
 
 
 }

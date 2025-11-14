@@ -104,8 +104,33 @@
                     <a class="nav-link" *ngIf="isLoggedIn" href="/mon-compte">
                       <app-avatar-user></app-avatar-user> Compte </a>
                   </li>
+                  <li class="nav-item">
+                    <button class="nav-link" mat-menu-item (click)="goTo('user-edit')">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-user-pen-icon lucide-user-pen">
+                        <path d="M11.5 15H7a4 4 0 0 0-4 4v2" />
+                        <path
+                          d="M21.378 16.626a1 1 0 0 0-3.004-3.004l-4.01 4.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z" />
+                        <circle cx="10" cy="7" r="4" />
+                      </svg>
+                      Données personnelles</button>
+                  </li>
+                  <li class="nav-item">
+                    <button class="nav-link"  mat-menu-item (click)="goTo('post-create')">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-image-plus-icon lucide-image-plus">
+                        <path d="M16 5h6" />
+                        <path d="M19 2v6" />
+                        <path d="M21 11.5V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7.5" />
+                        <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
+                        <circle cx="9" cy="9" r="2" />
+                      </svg>
+                      Créer une publication</button>
+                  </li>
                   <li>
-                    <button (click)="logout()"  class="btn">
+                    <button class="nav-link" (click)="logout()" class="btn">
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                         stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
                         class="lucide lucide-log-out-icon lucide-log-out">

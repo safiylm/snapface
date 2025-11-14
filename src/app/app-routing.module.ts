@@ -79,7 +79,7 @@ const routes: Routes = [
 
 
   {
-    path: 'publication/edit/:id',
+    path: 'post/edit/:id',
     title: "Modifier sa publication",
     loadComponent: () => import('./post/publication-edit/publication-edit.component')
       .then(mod => mod.PublicationEditComponent),
@@ -87,6 +87,22 @@ const routes: Routes = [
     resolve: {
       user: MyUserDataResolverService
     },
+  },
+
+    {
+    path: 'post-create',
+    title: "Créer une publication",
+    loadComponent: () => import('./post/publication-create/publication-create.component')
+      .then(mod => mod.PublicationCreateComponent),
+    canDeactivate: [formulaireDesactiveGuard],
+  },
+
+    {
+    path: 'user-edit',
+    title: "Modifier ses données",
+    loadComponent: () => import('./user/edit/user-data-update/user-data-update.component')
+      .then(mod => mod.UserDataUpdateComponent),
+    canDeactivate: [formulaireDesactiveGuard],
   },
 
   {
@@ -114,7 +130,7 @@ const routes: Routes = [
   },
 
   {
-    path: 'doctech',
+    path: 'doc',
     title: "Doc",
     component: DocTechniqueComponent
   },
