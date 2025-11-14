@@ -93,7 +93,7 @@
 <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" tabindex="-1" [attr.id]="'offcanvasComment'+post._id"
   aria-labelledby="offcanvasWithBothOptionsLabel">
   <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel"> {{post.title}} </h5>
+    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel"> {{post.body}} </h5>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body">
@@ -111,7 +111,7 @@
 <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" [attr.id]="'offcanvasShare'+post._id"
   aria-labelledby="offcanvasWithBothOptionsLabel">
   <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel"> Envoyer {{ post.title }} à </h5>
+    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel"> Envoyer {{ post.body }} à </h5>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body">
@@ -141,7 +141,7 @@
 <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" [attr.id]="'offcanvasFormSignaler'+post._id"
   aria-labelledby="offcanvasWithBothOptionsLabel">
   <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel"> {{post.title}} </h5>
+    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel"> {{post.body}} </h5>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body">

@@ -11,41 +11,37 @@
 
 <form (ngSubmit)="onSubmit()" autocomplete="off">
 
-    <div class="div-input">
-        <label>Saisissez le titre:</label>
-        <input type="text" class="form-control" name="title" [(ngModel)]="post.title" />
-    </div>
 
     <div class="div-input">
-        <label>Saisissez le corps:</label>
+        <label>Saisissez le texte de votre publication:</label>
         <textarea type="text" class="form-control" name="body" [(ngModel)]="post.body"></textarea>
     </div>
 
-    <p>Choisissez les photos & les vidéos</p>
     <div class="div-images">
+        <label>Modifiez votre photo :</label>
 
-        <div class="imgg" *ngFor="let assets of array_assets ; let i = index">
+        <!-- <div class="imgg" *ngFor="let assets of array_assets ; let i = index"> -->
             <!-- <img width='300px' height='auto' [src]="assets" alt="Nouvelle image n°{{+ i}}" /> -->
 
-            <ng-container *ngIf="isImage(assets); else videoTemplate">
-                <img id="image" [src]="assets!" [alt]="post.title">
+            <ng-container *ngIf="isImage(array_assets[0]); else videoTemplate">
+                <img id="image" [src]="array_assets[0]!" [alt]="post.body">
             </ng-container>
 
             <ng-template #videoTemplate>
                 <video controls>
-                    <source [src]="assets!" type="video/mp4">
+                    <source [src]="array_assets[0]!" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
             </ng-template>
 
-            <button class='btn btn-light' type='button' (click)='deleteImage(i)'>Supprimer</button><br />
+            <!-- <button class='btn btn-light' type='button' (click)='deleteImage(i)'>Supprimer</button><br /> -->
 
-        </div>
+        <!-- </div> -->
     </div>
 
     <input type="file" class="btn btn-light" (change)="onFilesSelected($event)" multiple accept="image/*" />
 
-    <div class="audio-list">
+    <!-- <div class="audio-list">
 
         <div *ngFor="let audio of audioList"
             class="audio-item d-flex flex-wrap align-items-center justify-content-aroud">
@@ -58,7 +54,7 @@
         </div>
 
 
-    </div>
+    </div> -->
 
     <br /> <button class="btn btn-light" type="submit">Créer </button>
     <br />

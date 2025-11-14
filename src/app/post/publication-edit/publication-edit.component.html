@@ -1,27 +1,23 @@
-<div class="page d-flex flex-wrap flex-row align-items-start justify-content-between">
+<div class="page d-flex flex-wrap">
     <app-header></app-header>
 
     <form (ngSubmit)="onSubmit()" *ngIf="post" enctype="multipart/form-data" autocomplete="off">
 
         <h1>Modifier sa publication</h1>
 
-        <div class="form-floating w-100">
-            <label>Modifiez votre titre:</label>
-            <input class="form-control" type="text" name="title" [(ngModel)]="post.title" />
-        </div>
 
-        <div class="form-floating">
+        <div class="div-input">
             <label>Modifiez le texte de votre publication:</label>
             <textarea class="form-control" name="body" [(ngModel)]="post.body!">{{post.body}}</textarea>
         </div>
 
-        <h2>Les photos & les vidéos</h2>
+        <p>Choisissez les photos & les vidéos</p>
         <div class="div-images">
 
             <div class="imgg" *ngFor="let assets of array_assets ; let i = index">
 
                 <ng-container *ngIf="isImage(assets); else videoTemplate">
-                    <img id="image" [src]="assets!" [alt]="post.title">
+                    <img id="image" [src]="assets!" [alt]="post.body">
                 </ng-container>
 
                 <ng-template #videoTemplate>
@@ -41,7 +37,7 @@
             <input type="file" id="photo" (change)="onFilesSelected($event)" multiple accept="image/*" />
         </div>
 
-        <div class="audio-list">
+        <!-- <div class="audio-list">
 
             <div *ngFor="let audio of audioList"
                 class="audio-item d-flex flex-wrap align-items-center justify-content-aroud">
@@ -54,7 +50,7 @@
             </div>
 
 
-        </div>
+        </div> -->
         <br />
         <br />
 

@@ -18,12 +18,12 @@ import { AudioService } from 'src/services/audio.service';
 
 export class PublicationCreateComponent implements OnInit {
 
-  post = new Publication("", "", "", [''], "", "", 0,0,0,0,0, null, null, null, null);
+  post = new Publication("", "", [''], "", "", 0, 0, 0, 0, 0, null, null, null, null);
   array_assets !: string[];
   newasset !: string;
   result = ""
   selectedFiles: File[] = [];
-  audioList : any;
+  audioList: any;
   constructor(private publicationsService: PublicationsService, private audioService: AudioService) { }
 
   onFilesSelected(event: Event): void {
@@ -47,14 +47,12 @@ export class PublicationCreateComponent implements OnInit {
 
     this.post.userId = localStorage.getItem('userId')?.toString() as string;
 
-    if (this.post.title.trim() != ""&&
-    this.post.body.trim() != ""
-  ) {
+    if (this.post.body.trim() != ""
+    ) {
       const formData = new FormData();
       this.selectedFiles.forEach((file, index) => {
         formData.append('photos', file); // ou `photos[]` si ton backend attend un tableau
       });
-      formData.append('title', this.post.title)
       formData.append('audio', this.post.audio)
       formData.append('userId', this.post.userId)
       formData.append('body', this.post.body)
@@ -73,6 +71,9 @@ export class PublicationCreateComponent implements OnInit {
             else { this.result = "❌ Une erreur s'est introduite, veuillez réessayer!" }
           }
         })
+    }
+    else{
+       this.result = "❌ Veuillez ne pas laisser vide le text!" 
     }
   }
 

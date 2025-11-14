@@ -99,8 +99,6 @@ export class PublicationEditComponent {
       formData.append('photos', file); // ou `photos[]` si ton backend attend un tableau
     });
     formData.append('_id', this.post._id)
-    formData.append('title', this.post.title)
-    formData.append('audio', this.post.audio)
     formData.append('userId', this.post.userId)
     formData.append('body', this.post.body)
    
