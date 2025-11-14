@@ -36,7 +36,7 @@ export class InteractionSocialeService {
     )
   }
 
-  remove(postId: string, interactionId: string,interaction: string) {
+  remove(postId: string, interactionId: string, interaction: string) {
 
     this.socket.emit("remove",
       {
@@ -67,37 +67,16 @@ export class InteractionSocialeService {
       url + "/api/interaction/likesByPostId?postId=" + postId)
   }
 
-  getAllLikesByUserId(userId: string) {
-    return this.http.get<InteractionSociale[]>(
-      url + "/api/interaction/likesByUserId?userId=" + userId)
-  }
 
-  getAllPointsByPostId(postId: string) {
-    return this.http.get<InteractionSociale[]>(
-      url + "/api/interaction/pointsByPostId?postId=" + postId)
-  }
-
-
-
-  getAllEnregistrementsByUserId(userId: string) {
-    return this.http.get<InteractionSociale[]>(
-      url + "/api/interaction/enregistrementsByUserId?userId=" + userId)
-  }
-
-
-  getAllPointsByUserId(userId: string) {
-    return this.http.get<InteractionSociale[]>(
-      url + "/api/interaction/pointsByUserId?userId=" + userId)
-  }
+  getAllInteractionsByUserId(interactions: string, userid: string) {
+ return this.http.get<InteractionSociale[]>(
+      url + "/api-interaction-by-userId?userId=" + userid+ "&interactions="+interactions)
+ 
+  } 
 
   getLikesCountByPostId(postId: string) {
     return this.http.get<any>(
       url + "/api/interaction/likesCount?postId=" + postId)
-  }
-
-  getPointsCountByPostId(postId: string) {
-    return this.http.get<any>(
-      url + "/api/interaction/pointsCount?postId=" + postId)
   }
 
 

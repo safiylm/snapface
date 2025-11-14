@@ -4,7 +4,6 @@
     <div class="my-account-page">
         <app-header-snap (choixAffichageEvent)="choixAffichageEvent($event)" [id]='id'></app-header-snap>
 
-        <app-statistique-user [id]="id"></app-statistique-user>
 
         <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
             <input type="radio" class="btn-check" name="btnradio" id="btnradio0" autocomplete="off" checked
@@ -53,10 +52,9 @@
 
         <!--  <app-publication-list-scroll [id]='id'></app-publication-list-scroll>-->
         <app-publication-list *ngIf="display==''" [isDisplay]="true" [id]='id'></app-publication-list>
-        <app-liked-list *ngIf="display=='like'"></app-liked-list>
-        <app-enregistrement-list *ngIf="display=='save'"></app-enregistrement-list>
-        <app-user-data-update *ngIf="display=='u-edit'"></app-user-data-update>
-        <app-publication-create *ngIf="display=='p-create'"></app-publication-create>
-    </div>
+        <app-interactions-list interactions="enregistrement" *ngIf="display=='save'"></app-interactions-list>
+        <app-interactions-list interactions="like" *ngIf="display=='like'"></app-interactions-list>
+        <app-interactions-list interactions="repost" *ngIf="display=='repost'"></app-interactions-list>
+ </div>
 
 </div>

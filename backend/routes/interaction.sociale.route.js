@@ -8,22 +8,13 @@ router_interactionsociales.post("/api/interaction/add",
 router_interactionsociales.post("/api/interaction/remove",
      interactionsociales.interactionRemove);
 
-
 router_interactionsociales.get("/api/interaction/exist",
      interactionsociales.interactionsExist);
 
+router_interactionsociales.get("/api-interaction-by-userId",
+     interactionsociales.getAllInteractionsByUserId);
 
-
-router_interactionsociales.get("/api/interaction/likesByUserId",
-     interactionsociales.getAllLikesByUserId);
-
-router_interactionsociales.get("/api/interaction/enregistrementsByUserId",
-     interactionsociales.getAllEnregistrementsByUserId);
-
-router_interactionsociales.get("/api/interaction/repostsByUserId",
-     interactionsociales.getAllRepostsByUserId);
-
-
+     
 router_interactionsociales.get("/api/interaction/likesByPostId", interactionsociales.getAllLikesByPostId);
 
 router_interactionsociales.get("/api/interaction/likesCount",

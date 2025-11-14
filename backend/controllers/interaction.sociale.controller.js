@@ -96,25 +96,12 @@ exports.getAllLikesByPostId = async (req, res) => {
 
 
 
-//Voir tous les likes faits par un user	
-exports.getAllLikesByUserId = async (req, res) => {
+//Voir tous les interactions faits par un user	
+exports.getAllInteractionsByUserId = async (req, res) => {
   const userId = req.query.userId;
+  const interactions = req.query.interactions;
   res.set('Access-Control-Allow-Origin', '*');
-  res.send(await collection_interactionsociales.find({ userId, type: 'like' }).toArray())
-};
-
-exports.getAllRepostsByUserId = async (req, res) => {
-  const userId = req.query.userId;
-  res.set('Access-Control-Allow-Origin', '*');
-  res.send(await collection_interactionsociales.find({ userId, type: 'repost' }).toArray())
-};
-
-
-//Voir tous les points faits par un user	
-exports.getAllEnregistrementsByUserId = async (req, res) => {
-  const userId = req.query.userId;
-  res.set('Access-Control-Allow-Origin', '*');
-  res.send(await collection_interactionsociales.find({ userId, type: 'enregistrement' }).toArray())
+  res.send(await collection_interactionsociales.find({ userId, type: interactions }).toArray())
 };
 
 
