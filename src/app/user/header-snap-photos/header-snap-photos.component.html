@@ -1,0 +1,69 @@
+<div class="background-viewer" *ngIf="isDisplayPhotoViewerProfil">
+    <button type="button" class="btn-close" aria-label="Close" (click)="hidePhotoViewerProfil()"></button>
+    <div id="photo-viewer-photo-profil" @fadeIn @fadeOut *ngIf="isDisplayPhotoViewerProfil"
+        (click)="preventCloseOnClick()">
+        <br />
+        <div *ngIf="!showEditPhotoProfil">
+            <img *ngIf="!user.photos_profil"
+                src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg" />
+            <img id="imgpp" *ngIf="user.photos_profil" [src]="UserPhotoProfil"
+                alt="Photo de profil de {{ UserName }}" />
+            <button *ngIf="isMe" type="button" id="btn-open-edit" class="btn btn-light"
+                (click)="showEditPhotoProfil=true">
+                Modifier</button>
+        </div>
+        <div *ngIf="showEditPhotoProfil" id="editphotos">
+            <app-edit-photos *ngIf="showEditPhotoProfil" nom="photos_profil"
+                [photo]="user.photos_profil"></app-edit-photos>
+            <button type="button" class="btn btn-dark" (click)="showEditPhotoProfil=false">
+                Fermer </button>
+        </div>
+    </div>
+</div>
+
+<div class="background-viewer" *ngIf="isDisplayPhotoViewerBackground">
+    <button type="button" class="btn-close" aria-label="Close" (click)="hidePhotoViewerBackground()"></button>
+
+    <div id="photo-viewer-photo-background" @fadeIn @fadeOut *ngIf="isDisplayPhotoViewerBackground"
+        (click)="preventCloseOnClick()">
+        <br />
+        <div *ngIf="!showEditPhotoBackground">
+            <img *ngIf="user.photos_background" id="imgpb" [src]='UserPhotoBackground'
+                alt="Photo background de {{ UserName }}" />
+            <img *ngIf="!user.photos_background" src="../../../assets/violet.png" />
+
+            <button *ngIf="isMe" type="button" id="btn-open-edit" class="btn btn-light"
+                (click)="showEditPhotoBackground=true">
+                Modifier</button>
+        </div>
+        <div *ngIf="showEditPhotoBackground" id="editphotos">
+            <app-edit-photos nom="photos_background" [photo]="user.photos_background"></app-edit-photos>
+
+            <button type="button" class="btn btn-dark" (click)="showEditPhotoBackground=false">
+                Fermer </button>
+        </div>
+
+    </div>
+</div>
+
+
+<div class="headersnap-container">
+    <img id="photo-background" *ngIf="user.photos_background" [src]="UserPhotoBackground"
+        (click)="showPhotoViewerBackground(); toggleMenu(); preventCloseOnClick()" />
+    <img id="photo-background" *ngIf="!user.photos_background" src="../../assets/violet.png"
+        (click)="showPhotoViewerBackground(); toggleMenu(); preventCloseOnClick()" />
+
+    <div class="container-photo-infos d-flex align-items-center justify-content-center">
+
+        <!-- <div class="d-flex flex-wrap align-items-center justify-content-center"> -->
+        <div id="div-photo-profil">
+            <img id="photo-profil" *ngIf="user.photos_profil" [src]="UserPhotoProfil"
+                (click)="showPhotoViewerProfil(); toggleMenu(); preventCloseOnClick()" />
+
+            <img id="photo-profil" *ngIf="!user.photos_profil"
+                src="https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg"
+                (click)="showPhotoViewerProfil(); toggleMenu(); preventCloseOnClick()" />
+
+        </div>
+    </div>
+</div>

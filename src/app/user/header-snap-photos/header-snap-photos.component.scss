@@ -1,0 +1,134 @@
+.background-viewer {
+    position: fixed;
+    background-color: rgba(38, 38, 38, 0.351);
+    margin: 0 auto;
+    z-index: 2;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100vw;
+    height: 100vh;
+    text-align: center;
+
+    .btn-close {
+        float: right;
+        margin: 10px 10px 0 0;
+        display: block;
+    }
+
+    #photo-viewer-photo-profil,
+    #photo-viewer-photo-background {
+
+        position: fixed;
+        margin: 10px auto;
+        text-align: center;
+        z-index: 2;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: auto;
+        height: auto;
+        border-radius: 15px;
+        overflow: auto;
+
+        img {
+            margin: 1px auto;
+            width: auto;
+            height: 75vh;
+            max-height: 90vh;
+            display: block;
+            max-width: calc(100vw - 280px);
+            object-fit: cover;
+            border-radius: 15px;
+            margin-left: 260px;
+
+            @media(max-width:767px) {
+                width: 95vw;
+                object-fit: cover;
+                margin-left: 0px;
+
+            }
+        }
+
+
+        #btn-open-edit {
+            margin: 0;
+            position: absolute;
+            bottom: 28px;
+            right: 23px;
+        }
+
+
+        @media (max-width:800px) {
+            width: 95vw;
+            margin: 2px auto;
+            padding: 10px;
+
+            img {
+                height: auto;
+            }
+
+
+        }
+    }
+}
+
+
+#photo-background {
+    width: calc(100% - 20px) !important;
+    height: 300px;
+    object-fit: cover;
+    margin: 10px;
+    border-radius: 10px;
+    //   backdrop-filter: blur(8px);
+
+    @media(max-width:479px) {
+        height: 370px;
+    }
+
+    :after {
+        content: " ";
+        display: block;
+        clear: both;
+    }
+}
+
+
+.container-photo-infos {
+    margin-top: -300px;
+    height: 300px;
+
+
+    :after {
+        content: " ";
+        display: block;
+        clear: both;
+    }
+
+
+    #photo-profil {
+        margin-bottom: 10px;
+
+        height: 170px;
+        width: 170px;
+
+        object-fit: cover;
+        border-radius: 50%;
+    }
+
+    @media(max-width:490px) {
+        margin-right: 0px;
+
+    }
+
+
+    z-index: 1;
+}
+
+
+#editphotos {
+    background-color: rgba(255, 255, 255, 0.951);
+    padding: 30px 10px;
+    margin-left: 260px;
+}
+
