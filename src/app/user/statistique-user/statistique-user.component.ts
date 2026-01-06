@@ -46,4 +46,5 @@ export class StatistiqueUserComponent implements OnInit {
   ngOnDestroy() {
     this.subscription.unsubscribe();
   }
+
 }

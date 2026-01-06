@@ -4,14 +4,13 @@ import { HeaderComponent } from '../../header/header.component';
 import { HeaderSnapComponent } from '../header-snap/header-snap.component';
 import { PublicationListComponent } from '../../post/list/publication-list/publication-list.component';
 import { AbonneeService } from 'src/services/abonnee-service';
-import { PublicationListScrollComponent } from 'src/app/post/list/publication-list-scroll/publication-list-scroll.component';
 
 @Component({
   standalone:true, 
   selector: 'app-user-account',
   templateUrl: './user-account.component.html',
   styleUrls: ['./user-account.component.scss'], 
-  imports: [HeaderComponent, HeaderSnapComponent, PublicationListComponent, PublicationListScrollComponent]
+  imports: [HeaderComponent, HeaderSnapComponent, PublicationListComponent]
 })
 
 export class UserAccountComponent {
