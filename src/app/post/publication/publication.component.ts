@@ -1,13 +1,12 @@
 import { Component, ElementRef, Input, QueryList, ViewChildren } from '@angular/core';
 import { Publication } from '../../../models/publication.model';
 import { AuteurInPostOrCommentaireComponent } from '../../user/auteur-in-post-or-commentaire/auteur-in-post-or-commentaire.component';
-import { InteractionSocialComponent } from '../interaction-social/interaction-social.component';
 import { CommentaireListComponent } from '../../comment/commentaire-list/commentaire-list.component';
 import { NgClass, NgIf, TitleCasePipe } from '@angular/common';
 import { ImagesVideoComponent } from "./images-video/images-video.component";
-import { AudioComponent } from "./audio/audio.component";
 import { MatCardModule } from '@angular/material/card';
 import { PublicationsService } from 'src/services/publication-service';
+import { InteractionSocialComponent } from '../interaction-social/interaction-social.component';
 
 @Component({
   standalone: true,
@@ -15,7 +14,7 @@ import { PublicationsService } from 'src/services/publication-service';
   templateUrl: './publication.component.html',
   styleUrls: ['./publication.component.scss'],
   imports: [AuteurInPostOrCommentaireComponent, NgClass,
-    InteractionSocialComponent, CommentaireListComponent, TitleCasePipe,
+    CommentaireListComponent, TitleCasePipe, InteractionSocialComponent,
     NgIf, ImagesVideoComponent, MatCardModule]
 })
 
@@ -31,12 +30,10 @@ export class PublicationComponent {
 
   ngOnInit() {
     if (document.URL.includes('post'))
-      console.log(document.URL.split("post/")[1].toString())
-    //
-    this.publicationService.getPublicationById(document.URL.split("post/")[1].toString())
-      .subscribe(data => {
-        this.publication = data;
-      })
+      this.publicationService.getPublicationById(document.URL.split("post/")[1].toString())
+        .subscribe(data => {
+          this.publication = data;
+        })
 
   }
 

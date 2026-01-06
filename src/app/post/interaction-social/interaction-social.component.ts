@@ -65,7 +65,7 @@ export class InteractionSocialComponent {
   saveId = ""
   likeId = ""
   repostId = ""
-
+isShowListOfButton= false
 
   constructor(
     private userService: UserService,
@@ -76,8 +76,7 @@ export class InteractionSocialComponent {
     this.interactionService.joinRoom(this.post._id);
 
     this.interactionService.interactionExist(this.post._id,
-      "662eb397c2fd9ad3238d752c").subscribe({
-        //  localStorage.getItem("userId")?.toString() as string).subscribe({
+          localStorage.getItem("userId")?.toString() as string).subscribe({
         next: (data) => {
           if (data != null) {
           
@@ -99,7 +98,7 @@ export class InteractionSocialComponent {
     this.load()
 
     this.interactionService.getInteractionsWithSocket().subscribe((data: any) => {
-      console.log(data)
+    
       if (data['postId'] == this.post._id && data['interaction'] == "repost") {
         if (data["action"] == "remove") {
           this.isReposted = false

@@ -13,13 +13,12 @@
     width: var(--widthh);
     height: var(--heightt);
     max-height: var(--heightt);
-   background-color: rgba(218, 216, 216, 0.17);
+    background-color: rgba(218, 216, 216, 0.17);
 
     video,
     img {
-        width: var(--widthh);
         object-fit: cover;
-        max-width: 300px;
+        width: 100%;
         height: var(--heightt);
 
         :after {

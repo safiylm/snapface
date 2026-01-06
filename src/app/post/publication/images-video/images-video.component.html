@@ -1,36 +1,24 @@
-<div class="div-images d-flex align-items-center justify-content-center" *ngIf="Assets!.length >0">
+<div class="div-images d-flex flex-column align-items-center justify-content-center" *ngIf="Assets!.length >0">
 
-  <!-- <button *ngIf="assets.length! > 1 && index>0" (click)="displayImagePrecedent()">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-chevron-left"
-      viewBox="0 0 16 16">
-      <path fill-rule="evenodd"
-        d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0" />
-    </svg>
-  </button> -->
-
-  <ng-container *ngIf="isImage(assets[index]); else videoTemplate">
-    <div *ngIf="assets[index]" @fadeImage>
-      <img id="image" [src]="assets[index]!" alt='photos'>
-    </div>
-  </ng-container>
-
-
-  <ng-template #videoTemplate>
-    <div class="video-wrapper" *ngIf="isVideo( assets[index])">
-      <video #videoPlayer class="custom-video" [src]="assets[index]!" (click)="togglePlay()"></video>
-      <div class="controls d-flex align-items-center justify-content-center">
-        <input type="range" [value]="currentTime" [max]="duration" (input)="onSeek($event)" min="0" [max]="duration" />
-        <span>{{ formatTime(currentTime) }} / {{ formatTime(duration) }}</span>
-
+  <ng-container *ngFor="let asset of assets">
+    <ng-container *ngIf="isImage(asset); else videoTemplate">
+      <div *ngIf="asset" @fadeImage>
+        <img id="image" [src]="asset!" alt='photos'>
       </div>
-    </div>
-  </ng-template>
+    </ng-container>
 
-  <!-- <button *ngIf="assets.length! > 1  && index<assets.length" (click)="displayImageNext()">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-chevron-right"
-      viewBox="0 0 16 16">
-      <path fill-rule="evenodd"
-        d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708" />
-    </svg>
-  </button> -->
+
+    <ng-template #videoTemplate>
+      <div class="video-wrapper" *ngIf="isVideo(asset)">
+        <video #videoPlayer class="custom-video" [src]="asset!" (click)="togglePlay()"></video>
+        <div class="controls d-flex align-items-center justify-content-center">
+          <input type="range" [value]="currentTime" [max]="duration" (input)="onSeek($event)" min="0"
+            [max]="duration" />
+          <span>{{ formatTime(currentTime) }} / {{ formatTime(duration) }}</span>
+
+        </div>
+      </div>
+    </ng-template>
+
+  </ng-container>
 </div>

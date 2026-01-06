@@ -31,7 +31,7 @@ import {
 export class ImagesVideoComponent {
 
   @Input() assets !: string[];
-  index: number = 0;
+ // index: number = 0;
   show = true;
  // link = "https://videos.pexels.com/video-files/27500382/12154558_1080_1920_30fps.mp4"
   @ViewChild('videoPlayer') videoRef !: ElementRef<HTMLVideoElement>;
@@ -48,7 +48,7 @@ export class ImagesVideoComponent {
 
     if (this.assets != null
       && this.assets != undefined &&
-      this.isVideo(this.assets[this.index])) {
+      this.isVideo(this.assets[0])) {
     this.video = this.videoRef.nativeElement;
 
       this.video.addEventListener('loadedmetadata', () => {
@@ -66,19 +66,19 @@ export class ImagesVideoComponent {
     }
   }
 
-  displayImageNext() {
-    if (this.index < this.assets.length - 1) {
-      this.index++;
-    }
-    else {
-      this.index = 0;
-    }
-  }
+  // displayImageNext() {
+  //   if (this.index < this.assets.length - 1) {
+  //     this.index++;
+  //   }
+  //   else {
+  //     this.index = 0;
+  //   }
+  // }
 
-  displayImagePrecedent() {
-    if (this.index > 0)
-      this.index -= 1;
-  }
+  // displayImagePrecedent() {
+  //   if (this.index > 0)
+  //     this.index -= 1;
+  // }
 
   isImage(url: string): boolean {
     return url.match(/^(data:image)|.*\.(jpeg|jpg|gif|png|webp|svg)$/i) !== null;

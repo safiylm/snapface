@@ -20,19 +20,16 @@
 
 <mat-card class="example-card post" appearance="outlined" *ngIf="publication">
   <mat-card-header>
-   <app-auteur-in-post-or-commentaire [id]="UserId!" ></app-auteur-in-post-or-commentaire>
+    <app-auteur-in-post-or-commentaire [id]="UserId!"></app-auteur-in-post-or-commentaire>
   </mat-card-header>
-      <app-images-video  mat-card-image [assets]="publication.assets"></app-images-video>
+  <app-images-video mat-card-image [assets]="publication.assets"></app-images-video>
 
   <mat-card-content>
-     <a data-bs-toggle="offcanvas" [href]="'#offcanvasComment'+ publication._id" role="button"
-        aria-controls="offcanvasExample">
-       <mat-card-subtitle id="body" *ngIf="Body?.length! < 50">{{ Body }}</mat-card-subtitle>
-         <mat-card-subtitle id="body" *ngIf="Body?.length! >= 50">{{ Body?.slice(0, 50) | titlecase }} ... </mat-card-subtitle>
-      </a>
+    <mat-card-subtitle id="body">{{ Body?.slice(0, 250) | titlecase }}</mat-card-subtitle>
+    <!-- <div *ngIf="Body?.length! < 250"></div> -->
   </mat-card-content>
   <mat-card-actions>
-         <app-interaction-social [post]="publication" [isMyPost]="isMyPost"></app-interaction-social>
+    <app-interaction-social [post]="publication" [isMyPost]="isMyPost"></app-interaction-social>
   </mat-card-actions>
 </mat-card>
 
@@ -42,7 +39,7 @@
 <div class="offcanvas offcanvas-bottom" data-bs-scroll="true" tabindex="-1" *ngIf="publication"
   [attr.id]="'offcanvasComment'+publication._id" aria-labelledby="offcanvasWithBothOptionsLabel">
   <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel"> Publication  </h5>
+    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel"> Publication </h5>
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <div class="offcanvas-body">
