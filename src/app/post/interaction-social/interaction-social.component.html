@@ -1,88 +1,127 @@
 <div class="div-interactionSociale">
-  <app-like-button [post]="post"></app-like-button>
 
-  <button matButton type="button" data-bs-toggle="offcanvas" [attr.aria-controls]="'offcanvasComment'+post._id"
-    [attr.data-bs-target]="'#offcanvasComment'+ post._id">
-
-    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#737378"
-      stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-      class="lucide lucide-message-circle-icon lucide-message-circle">
-      <path
-        d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719" />
-    </svg>
-    <!-- {{post.commentsCount}} -->
-  </button>
-
-  <button matButton type="button" (click)="repost()">
-
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#737378"
-      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" *ngIf="!isReposted"
-      class="lucide lucide-repeat2-icon lucide-repeat-2">
-      <path d="m2 9 3-3 3 3" />
-      <path d="M13 18H7a2 2 0 0 1-2-2V6" />
-      <path d="m22 15-3 3-3-3" />
-      <path d="M11 6h6a2 2 0 0 1 2 2v10" />
-    </svg>
-
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0000ff"
-      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" *ngIf="isReposted"
-      class="lucide lucide-repeat2-icon lucide-repeat-2">
-      <path d="m2 9 3-3 3 3" />
-      <path d="M13 18H7a2 2 0 0 1-2-2V6" />
-      <path d="m22 15-3 3-3-3" />
-      <path d="M11 6h6a2 2 0 0 1 2 2v10" />
-    </svg>
-  </button>
-
-  <app-enregistrement-button [post]="post"></app-enregistrement-button>
-
-  <button matButton [matMenuTriggerFor]="menu" type="button">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#737378"
-      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-icon lucide-plus">
-      <path d="M5 12h14" />
-      <path d="M12 5v14" />
-    </svg>
-  </button>
-
-  <mat-menu #menu="matMenu">
+    <div class="d-flex align-items-center justify-content-center" (click)="interact('like')">
+        <button>
+            <svg *ngIf="isLiked" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                fill="none" stroke="#ff0080" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-heart-icon lucide-heart">
+                <path
+                    d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" />
+            </svg>
 
 
-    <button mat-menu-item type="button" data-bs-toggle="offcanvas" [attr.aria-controls]="'offcanvasShare'+post._id"
-      [attr.data-bs-target]="'#offcanvasShare'+ post._id">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-        class="lucide lucide-send-icon lucide-send">
-        <path
-          d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" />
-        <path d="m21.854 2.147-10.94 10.939" />
-      </svg>
-      Share
+            <svg *ngIf="!isLiked" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                fill="none" stroke="#737378" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-heart-icon lucide-heart">
+                <path
+                    d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" />
+            </svg>
+        </button>
+
+        <!-- <button id="btn-followers" type="button"> 
+    {{post.likesCount}}
+  </button> -->
+
+    </div>
+
+
+    <button matButton type="button" data-bs-toggle="offcanvas" [attr.aria-controls]="'offcanvasComment'+post._id"
+        [attr.data-bs-target]="'#offcanvasComment'+ post._id">
+
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#737378"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-message-circle-icon lucide-message-circle">
+            <path
+                d="M2.992 16.342a2 2 0 0 1 .094 1.167l-1.065 3.29a1 1 0 0 0 1.236 1.168l3.413-.998a2 2 0 0 1 1.099.092 10 10 0 1 0-4.777-4.719" />
+        </svg>
+        <!-- {{post.commentsCount}} -->
+    </button>
+
+    <button matButton type="button" (click)="interact('repost')">
+
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#737378"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" *ngIf="!isReposted"
+            class="lucide lucide-repeat2-icon lucide-repeat-2">
+            <path d="m2 9 3-3 3 3" />
+            <path d="M13 18H7a2 2 0 0 1-2-2V6" />
+            <path d="m22 15-3 3-3-3" />
+            <path d="M11 6h6a2 2 0 0 1 2 2v10" />
+        </svg>
+
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0000ff"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" *ngIf="isReposted"
+            class="lucide lucide-repeat2-icon lucide-repeat-2">
+            <path d="m2 9 3-3 3 3" />
+            <path d="M13 18H7a2 2 0 0 1-2-2V6" />
+            <path d="m22 15-3 3-3-3" />
+            <path d="M11 6h6a2 2 0 0 1 2 2v10" />
+        </svg>
+    </button>
+
+    <button (click)="interact('enregistrement')">
+
+        <svg *ngIf="!isSaved" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+            stroke="#737378" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-bookmark-icon lucide-bookmark">
+            <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" />
+        </svg>
+
+        <svg *ngIf="isSaved" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none"
+            stroke="#ff00ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+            class="lucide lucide-bookmark-check-icon lucide-bookmark-check">
+            <path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2Z" />
+            <path d="m9 10 2 2 4-4" />
+        </svg>
     </button>
 
 
-    <button mat-menu-item *ngIf="isMyPost" (click)="goToEditPost()">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-        class="lucide lucide-square-pen-icon lucide-square-pen">
-        <path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-        <path
-          d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z" />
-      </svg>
-      Edit
+    <button matButton [matMenuTriggerFor]="menu" type="button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#737378"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-icon lucide-plus">
+            <path d="M5 12h14" />
+            <path d="M12 5v14" />
+        </svg>
     </button>
-    <button mat-menu-item class="btn btn-light" data-bs-toggle="offcanvas"
-      [attr.aria-controls]="'offcanvasFormSignaler'+post._id"
-      [attr.data-bs-target]="'#offcanvasFormSignaler'+ post._id">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-        class="lucide lucide-circle-alert-icon lucide-circle-alert">
-        <circle cx="12" cy="12" r="10" />
-        <line x1="12" x2="12" y1="8" y2="12" />
-        <line x1="12" x2="12.01" y1="16" y2="16" />
-      </svg>
-      Signaler
-    </button>
-  </mat-menu>
+
+    <mat-menu #menu="matMenu">
+
+
+        <button mat-menu-item type="button" data-bs-toggle="offcanvas" [attr.aria-controls]="'offcanvasShare'+post._id"
+            [attr.data-bs-target]="'#offcanvasShare'+ post._id">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-send-icon lucide-send">
+                <path
+                    d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" />
+                <path d="m21.854 2.147-10.94 10.939" />
+            </svg>
+            Share
+        </button>
+
+
+        <button mat-menu-item *ngIf="isMyPost" (click)="goToEditPost()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-square-pen-icon lucide-square-pen">
+                <path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                <path
+                    d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z" />
+            </svg>
+            Edit
+        </button>
+        <button mat-menu-item class="btn btn-light" data-bs-toggle="offcanvas"
+            [attr.aria-controls]="'offcanvasFormSignaler'+post._id"
+            [attr.data-bs-target]="'#offcanvasFormSignaler'+ post._id">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="lucide lucide-circle-alert-icon lucide-circle-alert">
+                <circle cx="12" cy="12" r="10" />
+                <line x1="12" x2="12" y1="8" y2="12" />
+                <line x1="12" x2="12.01" y1="16" y2="16" />
+            </svg>
+            Signaler
+        </button>
+    </mat-menu>
 
 </div>
 
@@ -90,47 +129,47 @@
 
 
 <!-- AFFICHAGE DU TITRE, BODY & TOUS LES COMMENTAIRES D'UN POST -->
-<div class="offcanvas offcanvas-bottom" data-bs-scroll="true" tabindex="-1" [attr.id]="'offcanvasComment'+post._id"
-  aria-labelledby="offcanvasWithBothOptionsLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel"> {{post.body}} </h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body">
-    <div class="body">
-      {{post.body}}
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" [attr.id]="'offcanvasComment'+post._id"
+    aria-labelledby="offcanvasWithBothOptionsLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel"> {{post.body}} </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
-    <app-commentaire-list [id]="post._id"></app-commentaire-list>
+    <div class="offcanvas-body">
+        <div class="body">
+            {{post.body}}
+        </div>
+        <app-commentaire-list [id]="post._id"></app-commentaire-list>
 
-  </div>
+    </div>
 </div>
 
 
 
 <!-- LISTE CONVERSATION POUR ENVOYER UN POST A QQN -->
 <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" [attr.id]="'offcanvasShare'+post._id"
-  aria-labelledby="offcanvasWithBothOptionsLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel"> Envoyer {{ post.body }} à </h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body">
-    <div class="body">
-
-      <div class="item-user d-flex justify-content-between" *ngFor="let user of users">
-        <div style="margin:10px 0;"> <img width="50px" height="50px" [src]="user[0].photos_profil" />
-          {{user[0].firstName +" "+ user[0].lastName}}
-        </div>
-        <button (click)="sendPostByMesssagePrivee(user[0]._id, user[1])" class="btn btn-light"> Envoyer
-        </button>
-      </div>
-      <div *ngIf="users.length==0">
-        Aucune conversation pour le moment.
-      </div>
+    aria-labelledby="offcanvasWithBothOptionsLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel"> Envoyer {{ post.body }} à </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
+    <div class="offcanvas-body">
+        <div class="body">
+
+            <div class="item-user d-flex justify-content-between" *ngFor="let user of users">
+                <div style="margin:10px 0;"> <img width="50px" height="50px" [src]="user[0].photos_profil" />
+                    {{user[0].firstName +" "+ user[0].lastName}}
+                </div>
+                <button (click)="sendPostByMesssagePrivee(user[0]._id, user[1])" class="btn btn-light"> Envoyer
+                </button>
+            </div>
+            <div *ngIf="users.length==0">
+                Aucune conversation pour le moment.
+            </div>
+        </div>
 
 
-  </div>
+    </div>
 </div>
 
 
@@ -139,15 +178,15 @@
 
 <!-- AFFICHAGE D'UN FOMRULAIRE POUR SIGNALER  -->
 <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" [attr.id]="'offcanvasFormSignaler'+post._id"
-  aria-labelledby="offcanvasWithBothOptionsLabel">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel"> {{post.body}} </h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body">
-    <div class="body">
-      <app-signaler-post [post]="post"></app-signaler-post>
+    aria-labelledby="offcanvasWithBothOptionsLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel"> {{post.body}} </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
+    <div class="offcanvas-body">
+        <div class="body">
+            <app-signaler-post [post]="post"></app-signaler-post>
+        </div>
 
-  </div>
+    </div>
 </div>

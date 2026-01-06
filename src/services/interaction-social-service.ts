@@ -81,9 +81,9 @@ export class InteractionSocialeService {
 
 
   interactionExist
-    (postId: string, userId: string, interaction: string) {
+    (postId: string, userId: string) {
     return this.http.get<InteractionSociale>(
-      url + "/api/interaction/exist?postId=" + postId + "&userId=" + userId + "&interaction=" + interaction)
+      url + "/api/interaction/exist?postId=" + postId + "&userId=" + userId )
   }
 
 }
