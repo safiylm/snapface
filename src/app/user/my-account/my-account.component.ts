@@ -5,7 +5,7 @@ import { PublicationListComponent } from "../../post/list/publication-list/publi
 import { InteractionsListComponent } from "../../post/list/interactions-list/interactions-list.component"
 import { UserDataUpdateComponent } from "../edit/user-data-update/user-data-update.component";
 import { PublicationCreateComponent } from "../../post/publication-create/publication-create.component";
-import { NgIf } from '@angular/common';
+import { NgClass, NgIf, NgStyle } from '@angular/common';
 import { StatistiqueUserComponent } from '../statistique-user/statistique-user.component';
 import { User } from 'src/models/user.model';
 import { UserService } from 'src/services/user-service';
@@ -16,7 +16,7 @@ import { UserService } from 'src/services/user-service';
   templateUrl: './my-account.component.html',
   styleUrls: ['./my-account.component.scss'],
   imports: [HeaderComponent, HeaderSnapComponent, NgIf,
-    PublicationListComponent, InteractionsListComponent, StatistiqueUserComponent,
+    PublicationListComponent, InteractionsListComponent, StatistiqueUserComponent,NgClass,
     UserDataUpdateComponent, PublicationCreateComponent]
 })
 export class MyAccountComponent implements OnInit {

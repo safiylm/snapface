@@ -11,9 +11,13 @@
   box-shadow: #d3d3d3 4px 4px 20px;
 }
 
+.mat-mdc-card-header {
+  padding: 7px !important;
+}
 
 .post {
-  border: 3.3px solid #5c3b5c; 
+  // border: 3.3px solid #5c3b5c; 
+  border: none !important;
   margin: 20px;
   height: auto;
   min-width: 250px;
@@ -28,7 +32,7 @@
     height: calc(auto + 32px);
     min-height: calc(auto + 32px);
     max-height: calc(auto + 32px);
-    padding: 16px;
+    padding: 0;
   }
 
 
@@ -40,12 +44,6 @@
     margin: 15px 0;
     font-size: 17px;
     font-weight: 400;
-  }
-
-  p {
-   font-size: 17px;
-    font-weight: 600;
-    margin: 10px 0;
   }
 
   button {
@@ -74,8 +72,9 @@ a {
 
 #body {
   color: #313132;
-    font-size: 17px;
-    font-weight: 500;
+  font-size: 17px;
+  font-weight: 500;
+  margin: 10px 0;
 }
 
 

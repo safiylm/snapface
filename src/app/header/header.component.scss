@@ -13,24 +13,22 @@ nav {
   height: calc(100vh - 10px);
 
   li {
-    text-align: left;
-    font-size: 17px;
+    text-align: start;
+    font-size: 15px;
     margin: 0 !important;
     text-decoration: none;
     font-weight: 300;
-    padding: 15px 5px;
+    padding: 10px 5px;
 
     * {
       color: #fff;
       font-family: "Quicksand", sans-serif;
-
+      padding-left: 0;
     }
 
     svg {
       margin: 0 10px;
     }
-
-
   }
 
   li:hover {
@@ -68,9 +66,23 @@ nav {
 
 }
 
-.accordion * {
-  background-color: transparent !important;
-  color: white;
+.accordion {
+
+  .accordion-body, .accordion-button {
+    padding: 0;
+    margin: 0;
+  }
+
+  * {
+    background-color: transparent !important;
+    color: white;
+    text-align: start;
+  }
+
+  li {
+    padding: 10px 0;
+    margin: 3px 0;
+  }
 }
 
 /* Sur mobile, navbar classique en haut */
@@ -78,11 +90,13 @@ nav {
   nav {
     width: 97%;
     margin: 5px auto;
-    height: 90px;
-    min-height: 80px;
+    height: 65px;
+    min-height: 65px;
 
     .container-fluid {
       height: auto;
+      max-height: 80vh;
+      overflow-y: scroll;
       background-color: #212529;
       border-radius: 20px;
     }

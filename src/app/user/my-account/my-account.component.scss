@@ -2,21 +2,30 @@
     box-sizing: border-box !important;
 }
 
-.my-account-page{
+.my-account-page {
     width: 100%;
     margin-left: 260px;
 
+    .div-btns {
+        margin-top: 20px;
+        width: 100%;
+
+        button {
+            width: 20%;
+        }
+    }
+
+    .highlight{
+        background-color: rgba(231, 66, 204, 0.482) !important;
+    }
+
 }
 
 
-.btn-group{
-    margin: 10px auto;
-    display: block;
-    text-align: center;
-}
+
 @media(max-width:767px) {
-  
-    .my-account-page{
+
+    .my-account-page {
         width: 100vw;
         margin-top: 100px;
         margin-left: 0;

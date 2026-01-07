@@ -1,11 +1,15 @@
   .div-btns {
     margin-top: 20px;
     width: 100%;
-
+    
     button {
       width: 40%;
     }
   }
+
+    .highlight{
+        background-color: rgba(198, 199, 215, 0.482) !important;
+    }
 
   .listofposts {
     display: flex;
