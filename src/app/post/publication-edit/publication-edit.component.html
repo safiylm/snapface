@@ -6,11 +6,6 @@
         <h1>Modifier sa publication</h1>
 
 
-        <div class="div-input">
-            <label>Modifiez le texte de votre publication:</label>
-            <textarea class="form-control" name="body" [(ngModel)]="post.body!">{{post.body}}</textarea>
-        </div>
-
         <p>Choisissez les photos & les vidéos</p>
         <div class="div-images">
 
@@ -37,24 +32,19 @@
             <input type="file" id="photo" (change)="onFilesSelected($event)" multiple accept="image/*" />
         </div>
 
-        <!-- <div class="audio-list">
 
-            <div *ngFor="let audio of audioList"
-                class="audio-item d-flex flex-wrap align-items-center justify-content-aroud">
-                <input type="radio" id="html" name="audio" [(ngModel)]="post.audio!" [value]="audio.url">
-                <img [src]="audio.cover" width="75px" height="75px" />
-                <div>
-                    <p>{{audio.title}}</p>
-                    <audio controls [src]="audio.url"></audio>
-                </div>
-            </div>
+        <div class="div-input">
+            <label>Modifiez le texte de votre publication:</label>
+            <textarea class="form-control" name="body" [(ngModel)]="post.body!">{{post.body}}</textarea>
+        </div>
 
+      
+        <p *ngIf="result" class="resultat">
+            {{result}}
+        </p>
+        <p *ngIf="error" style="background-color: red; padding: 7px;"> {{error}} </p>
+        <app-loading-spinner *ngIf="loading"></app-loading-spinner>
 
-        </div> -->
-        <br />
-        <br />
-
-        {{resultatOfEdit}}
         <br />
         <button class="btn btn-light" type="submit">Enregistrer les modifications </button>
         <br />

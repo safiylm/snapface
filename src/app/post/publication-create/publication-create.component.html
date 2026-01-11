@@ -1,47 +1,59 @@
-<h1> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-        stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
-        class="lucide lucide-image-plus-icon lucide-image-plus">
-        <path d="M16 5h6" />
-        <path d="M19 2v6" />
-        <path d="M21 11.5V19a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7.5" />
-        <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21" />
-        <circle cx="9" cy="9" r="2" />
-    </svg>
-    Créer une publication </h1>
+<div class="page">
 
-<form (ngSubmit)="onSubmit()" autocomplete="off">
+    <app-header></app-header>
+
+    <form (ngSubmit)="onSubmit()" autocomplete="off">
+
+        <h1> Créer une publication </h1>
+        <div class="first-div">
+            <label> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                    class="bi bi-images" viewBox="0 0 16 16">
+                    <path d="M4.502 9a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3" />
+                    <path
+                        d="M14.002 13a2 2 0 0 1-2 2h-10a2 2 0 0 1-2-2V5A2 2 0 0 1 2 3a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v8a2 2 0 0 1-1.998 2M14 2H4a1 1 0 0 0-1 1h9.002a2 2 0 0 1 2 2v7A1 1 0 0 0 15 11V3a1 1 0 0 0-1-1M2.002 4a1 1 0 0 0-1 1v8l2.646-2.354a.5.5 0 0 1 .63-.062l2.66 1.773 3.71-3.71a.5.5 0 0 1 .577-.094l1.777 1.947V5a1 1 0 0 0-1-1z" />
+                </svg> Selectionner vos photos :</label>
+
+            <div class="div-images">
+                <div class="imgg" *ngFor="let assets of array_assets ; let i = index">
+
+                    <ng-container *ngIf="isImage(array_assets[i]); else videoTemplate">
+                        <img id="image" [src]="assets!" [alt]="post.body">
+                    </ng-container>
+
+                    <ng-template #videoTemplate>
+                        <video controls>
+                            <source [src]="array_assets[i]!" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </ng-template>
+
+                    <button class='btn btn-dark' type='button' (click)='deleteImage(i)'>Supprimer</button>
+
+                </div>
+            </div>
+
+            <input type="file" class="btn btn-light" (change)="onFilesSelected($event)" multiple accept="image/*" />
+        </div>
+
+        <div class="div-input">
+            <label>Saisissez le texte de votre publication:</label>
+            <textarea type="text" class="form-control" name="body" [(ngModel)]="post.body"></textarea>
+        </div>
+
+        <p *ngIf="result" class="resultat">
+            {{result}}
+        </p>
+        <p *ngIf="error" style="background-color: red; padding: 7px;"> {{error}} </p>
+        <app-loading-spinner *ngIf="loading"></app-loading-spinner>
 
 
-    <div class="div-input">
-        <label>Saisissez le texte de votre publication:</label>
-        <textarea type="text" class="form-control" name="body" [(ngModel)]="post.body"></textarea>
-    </div>
+        <button class="btn btn-light" type="submit">Créer </button>
 
-    <div class="div-images">
-        <label>Modifiez votre photo :</label>
+    </form>
+</div>
 
-        <!-- <div class="imgg" *ngFor="let assets of array_assets ; let i = index"> -->
-            <!-- <img width='300px' height='auto' [src]="assets" alt="Nouvelle image n°{{+ i}}" /> -->
 
-            <ng-container *ngIf="isImage(array_assets[0]); else videoTemplate">
-                <img id="image" [src]="array_assets[0]!" [alt]="post.body">
-            </ng-container>
-
-            <ng-template #videoTemplate>
-                <video controls>
-                    <source [src]="array_assets[0]!" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </ng-template>
-
-            <!-- <button class='btn btn-light' type='button' (click)='deleteImage(i)'>Supprimer</button><br /> -->
-
-        <!-- </div> -->
-    </div>
-
-    <input type="file" class="btn btn-light" (change)="onFilesSelected($event)" multiple accept="image/*" />
-
-    <!-- <div class="audio-list">
+<!-- <div class="audio-list">
 
         <div *ngFor="let audio of audioList"
             class="audio-item d-flex flex-wrap align-items-center justify-content-aroud">
@@ -55,9 +67,3 @@
 
 
     </div> -->
-
-    <br /> <button class="btn btn-light" type="submit">Créer </button>
-    <br />
-    {{result}}
-    <br />
-</form>

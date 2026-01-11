@@ -4,15 +4,15 @@ import { FormsModule } from "@angular/forms";
 import { PublicationsService } from '../../../services/publication-service';
 import { CommonModule, NgFor } from '@angular/common';
 import { HeaderComponent } from '../../header/header.component';
-import { HeaderSnapComponent } from '../../user/header-snap/header-snap.component';
 import { AudioService } from 'src/services/audio.service';
+import { LoadingSpinnerComponent } from 'src/app/loading-spinner/loading-spinner.component';
 
 @Component({
   standalone: true,
   selector: 'app-publication-create',
   templateUrl: './publication-create.component.html',
   styleUrls: ['./publication-create.component.scss'],
-  imports: [FormsModule, NgFor, CommonModule]
+  imports: [FormsModule, NgFor, CommonModule, LoadingSpinnerComponent, HeaderComponent]
 })
 
 
@@ -21,7 +21,11 @@ export class PublicationCreateComponent implements OnInit {
   post = new Publication("", "", [''], "", "", 0, 0, 0, 0, 0, null, null, null, null);
   array_assets !: string[];
   newasset !: string;
-  result = ""
+
+  result !: any;
+  loading = false;
+  error = '';
+
   selectedFiles: File[] = [];
   audioList: any;
   constructor(private publicationsService: PublicationsService, private audioService: AudioService) { }
@@ -44,6 +48,9 @@ export class PublicationCreateComponent implements OnInit {
   }
 
   onSubmit(): void {
+    this.loading = true;
+    this.error = '';
+    this.result = null;
 
     this.post.userId = localStorage.getItem('userId')?.toString() as string;
 
@@ -61,19 +68,21 @@ export class PublicationCreateComponent implements OnInit {
       this.publicationsService.createNewPublication(formData).subscribe
         ({
           next: (data) => {
-            console.log(data)
             if (data) {
-              this.result = "Votre publication a été crée avec succès ✅!"
+              this.result = data.message 
               setTimeout(() => {
                 document.location.href = '/mon-compte'
-              }, 1500)
+              }, 500)
             }
-            else { this.result = "❌ Une erreur s'est introduite, veuillez réessayer!" }
+          }
+          , error: (e) => {
+            this.error = e.error;
+            this.loading = false;
           }
         })
     }
-    else{
-       this.result = "❌ Veuillez ne pas laisser vide le text!" 
+    else {
+      this.result = "❌ Veuillez ne pas laisser vide le text!"
     }
   }
 

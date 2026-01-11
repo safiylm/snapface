@@ -8,13 +8,15 @@ import { NgFor, NgIf } from '@angular/common';
 import { HeaderSnapComponent } from '../../user/header-snap/header-snap.component';
 import { AudioService } from 'src/services/audio.service';
 import { HeaderComponent } from "../../header/header.component";
+import { LoadingSpinnerComponent } from 'src/app/loading-spinner/loading-spinner.component';
 
 @Component({
   standalone: true,
   selector: 'app-publication-edit',
   templateUrl: './publication-edit.component.html',
   styleUrls: ['./publication-edit.component.scss'],
-  imports: [NgFor, FormsModule, NgIf, HeaderSnapComponent, HeaderComponent],
+  imports: [NgFor, FormsModule, NgIf, HeaderSnapComponent, LoadingSpinnerComponent,
+     HeaderComponent],
 
 })
 
@@ -24,14 +26,17 @@ export class PublicationEditComponent {
   id: string = this.route.snapshot.paramMap.get('id')!; //postId
   post!: Publication;
   subscription !: Subscription;
-  resultatOfEdit = "";
   array_assets !: string[];
   selectedFiles: File[] = [];
-  audioList : any;
+  audioList: any;
+
+  result !: any;
+  loading = false;
+  error = '';
 
   constructor(private publicationService: PublicationsService,
-    private route: ActivatedRoute,  private audioService: AudioService) { }
-  
+    private route: ActivatedRoute, private audioService: AudioService) { }
+
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id')!;
     this.getDataPost();
@@ -66,7 +71,7 @@ export class PublicationEditComponent {
         },
         error: (e) => console.error(e)
       });
-      
+
   }
 
 
@@ -76,22 +81,29 @@ export class PublicationEditComponent {
 
 
   deletePost() {
+    this.loading = true
     if (confirm("Êtes-vous sur de vouloir supprimer la publication?")) {
       this.publicationService.deletePost(this.id).subscribe(
         data => {
           if (data) {
-            this.resultatOfEdit = "Votre publication a été supprimé avec succès.";
+            this.loading = false
+
+            this.result = "Votre publication a été supprimé avec succès.";
             setTimeout(() => {
               document.location.href = '/mon-compte'
             }, 1000)
           }
-          else
-            this.resultatOfEdit = "Erreur, Votre publication n'a pas été supprimé."
+          else {
+            this.loading = false
+            this.error = "Erreur, Votre publication n'a pas été supprimé."
+          }
         })
     }
   }
 
   onSubmit() {
+    this.loading = true
+
     this.post.userId = localStorage.getItem('userId')?.toString() as string;
 
     const formData = new FormData();
@@ -101,19 +113,21 @@ export class PublicationEditComponent {
     formData.append('_id', this.post._id)
     formData.append('userId', this.post.userId)
     formData.append('body', this.post.body)
-   
+
 
     this.publicationService.editPost(formData).subscribe(
       data => {
-        console.log(data)
         if (data) {
-          this.resultatOfEdit = " Votre publication a été modifié avec succès.";
+          this.loading = false
+          this.result = " Votre publication a été modifié avec succès.";
           setTimeout(() => {
             document.location.href = '/mon-compte'
-          }, 3000)
+          }, 1000)
         }
-        else
-          this.resultatOfEdit = "Erreur, Votre publication n'a pas été modifié."
+        else {
+          this.loading = false
+          this.error = "Erreur, Votre publication n'a pas été modifié."
+        }
       })
   }
 
