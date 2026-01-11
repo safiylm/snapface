@@ -1,6 +1,6 @@
-.background-viewer {
+.viewer {
     position: fixed;
-    background-color: rgba(38, 38, 38, 0.351);
+    background-color: rgba(38, 38, 38, 0.532);
     margin: 0 auto;
     z-index: 2;
     top: 50%;
@@ -31,6 +31,13 @@
         border-radius: 15px;
         overflow: auto;
 
+        #btn-open-edit {
+            margin: 0;
+            position: absolute;
+            bottom: 28px;
+            right: 23px;
+        }
+
         img {
             margin: 1px auto;
             width: auto;
@@ -41,60 +48,60 @@
             object-fit: cover;
             border-radius: 15px;
             margin-left: 260px;
-
-            @media(max-width:767px) {
-                width: 95vw;
-                object-fit: cover;
-                margin-left: 0px;
-
-            }
-        }
-
-
-        #btn-open-edit {
-            margin: 0;
-            position: absolute;
-            bottom: 28px;
-            right: 23px;
         }
 
 
         @media (max-width:800px) {
             width: 95vw;
-            margin: 2px auto;
-            padding: 10px;
+            margin: 1vw auto;
+            padding: 2vw ;
 
             img {
+                max-width: 90vw;
                 height: auto;
+                object-fit: cover;
+                margin-left: 0px !important;
             }
-
 
         }
     }
 }
 
 
-#photo-background {
-    width: calc(100% - 20px) !important;
-    height: 300px;
-    object-fit: cover;
-    margin: 10px;
-    border-radius: 10px;
-    //   backdrop-filter: blur(8px);
-
-    @media(max-width:479px) {
-        height: 370px;
-    }
+.container {
 
     :after {
         content: " ";
         display: block;
         clear: both;
     }
+
+    #photo-background {
+        width: calc(100% - 20px) !important;
+        height: 300px;
+        object-fit: cover;
+        margin: 10px;
+        border-radius: 10px;
+        //   backdrop-filter: blur(8px);
+
+        @media(max-width:479px) {
+            height: 370px;
+        }
+
+        :after {
+            content: " ";
+            display: block;
+            clear: both;
+        }
+    }
+
 }
 
 
-.container-photo-infos {
+
+
+
+.div-photo-profil {
     margin-top: -300px;
     height: 300px;
 
@@ -131,4 +138,3 @@
     padding: 30px 10px;
     margin-left: 260px;
 }
-

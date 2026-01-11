@@ -14,6 +14,8 @@ import { SignalerUserComponent } from "../signaler-user/signaler-user.component"
 import {MatMenuModule} from '@angular/material/menu';
 import {MatButtonModule} from '@angular/material/button';
 import { HeaderSnapPhotosComponent } from '../header-snap-photos/header-snap-photos.component';
+import { ChatPriveService } from 'src/services/chatprive.service';
+import { Conversation } from 'src/models/conversation';
 
 
 export interface Tile {
@@ -86,7 +88,7 @@ export class HeaderSnapComponent implements OnInit {
     document.location.href = url_
   }
   
-  constructor(private userService: UserService, private signalementService: SignalementService,
+  constructor(private userService: UserService, private signalementService: SignalementService, //private messageService: ChatPriveService,
 
     private router: ActivatedRoute, private route: Router, ) {
 
@@ -95,7 +97,7 @@ export class HeaderSnapComponent implements OnInit {
 
   ngOnInit() {
 
-    if (localStorage.getItem('userId') == this.id) {
+    if ( JSON.parse(localStorage.getItem('userconnected')?.toString() as string).userId == this.id) {
       this.isMe = true;
     }
   }
@@ -104,5 +106,25 @@ export class HeaderSnapComponent implements OnInit {
     return (this.user && this.user.firstName && this.user.lastName) ? this.user.firstName + " " + this.user.lastName : null
   }
 
+    createConversation() {
+     
+ /*   this.messageService.getUsersWeHaveConversation( JSON.parse(localStorage.getItem('userconnected')as string ).userId)
+      .subscribe((data: Conversation[]) => {
+        if (data) {
+          if (data.length == 0) {
+            this.sendNewMessage = true
+          } else
+            for (let conv of data) {
+              if (conv.speaker.includes(this.user._id) == true)
+                location.href = '/chat/' + conv._id;
+              else {
+                this.sendNewMessage = true
+              }
+            }
+        }
+      });
+      */
+
+  }
 
 }

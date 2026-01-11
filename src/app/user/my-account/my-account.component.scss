@@ -4,7 +4,24 @@
 
 .my-account-page {
     width: 100%;
-    margin-left: 260px;
+    background-color: currentColor;
+
+    // background-color: #463cac;
+    min-height: 100vh;
+    font-family: "Quicksand", sans-serif;
+
+    app-header {
+        width: 250px !important;
+        height: 100vh;
+    }
+
+    .my-account-container {
+        width: calc(100% - 250px);
+    }
+
+    * {
+        color: whitesmoke;
+    }
 
     .div-btns {
         margin-top: 20px;
@@ -12,11 +29,25 @@
 
         button {
             width: 20%;
+            border: none;
+            color: black;
+            border-radius: 0;
         }
+
+        button:first-child {
+            border-radius: 12px 0 0 12px;
+        }
+
+        button:last-child {
+            border-radius: 0 12px 12px 0;
+        }
+
     }
 
-    .highlight{
-        background-color: rgba(231, 66, 204, 0.482) !important;
+    .highlight {
+        font-weight: bolder;
+        color: #ff0080 !important;
+        background-color: #e4e5e7;
     }
 
 }
@@ -27,8 +58,15 @@
 
     .my-account-page {
         width: 100vw;
-        margin-top: 100px;
-        margin-left: 0;
+        flex-direction: column !important;
 
+        app-header {
+            width: 100vw !important;
+            height: 80px !important;
+        }
+
+        .my-account-container {
+            width: 100%;
+        }
     }
 }

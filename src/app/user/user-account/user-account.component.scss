@@ -1,14 +1,39 @@
 .user-account-page {
     width: 100%;
-    margin-left: 260px;
+    background-color: currentColor;
 
+    // background-color: #463cac;
+    min-height: 100vh;
+    font-family: "Quicksand", sans-serif;
+
+    app-header {
+        width: 250px !important;
+        height: 100vh;
+    }
+
+    .user-account-container {
+        width: calc(100% - 250px);
+    }
+
+    * {
+        color: whitesmoke;
+    }
 }
+
 
 @media(max-width:767px) {
 
     .user-account-page {
         width: 100vw;
-        margin-top: 80px;
-        margin-left: 0;
+        flex-direction: column !important;
+
+        app-header {
+            width: 100vw !important;
+            height: 80px !important;
+        }
+
+        .user-account-container {
+            width: 100%;
+        }
     }
 }
