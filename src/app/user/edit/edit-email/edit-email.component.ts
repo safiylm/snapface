@@ -4,30 +4,31 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  standalone : true,
+  standalone: true,
   selector: 'app-edit-email',
   templateUrl: './edit-email.component.html',
   styleUrls: ['./edit-email.component.scss'],
-    imports:[CommonModule, FormsModule ]
-  
+  imports: [CommonModule, FormsModule]
+
 })
 export class EditEmailComponent {
- @Input() email : string="";
-  resultat= "";
+  @Input() email: string = "";
+  resultat = "";
 
-  constructor(private userService: UserService){}
+  constructor(private userService: UserService) { }
 
-  editEmail(){
-    if(this.email.trim()!="")
-    this.userService.editEmail(localStorage.getItem('userId')?.toString() as string, this.email).subscribe({
-      next: (data)=>{
-        if(data)
-          this.resultat="Email modifier avec succes";
-        else
-        this.resultat ="Erreur, réessayser";
-      },
-      error: (e)=>
-      this.resultat ="Erreur, réessayser"+e
-    })
+  editEmail() {
+    if (this.email.trim() != "")
+      this.userService.editEmail(JSON.parse(localStorage.getItem('userconnected') as string).userId
+        , this.email).subscribe({
+          next: (data) => {
+            if (data)
+              this.resultat = "Email modifier avec succes";
+            else
+              this.resultat = "Erreur, réessayser";
+          },
+          error: (e) =>
+            this.resultat = "Erreur, réessayser" + e
+        })
   }
 }

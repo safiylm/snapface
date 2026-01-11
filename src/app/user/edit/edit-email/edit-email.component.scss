@@ -1,5 +1,6 @@
 form {
-    margin: 20px 0;
+    margin: 20px auto;
+    width: 700px;
 
     * {
         margin: 8px 0;
@@ -10,6 +11,7 @@ form {
     }
 
     label {
+        color: white;
         text-align: left;
         width: 100% !important;
 

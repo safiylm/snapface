@@ -1,18 +1,22 @@
-h1 {
+.user-update {
+    background-color: currentColor;
+    padding-top: 50px;
+}
+
+
+h2 {
     text-align: center;
-    font-weight: lighter;
-    margin: 20px auto;
-    font-size: 20px;
+    font-weight: bold;
+    margin: 25px auto;
+    margin-top: 50px;
+    font-size: 30px;
+    color: white;
 }
 
-.accordion {
-    width: 80%;
-    margin: 50px auto;
-}
 
-form,
-.form-edit {
-    margin: 35px auto;
+form {
+    margin: 0 auto;
+    width: 700px;
 
     .col {
         padding: 15px;
@@ -32,17 +36,24 @@ form,
             display: block;
             width: 100%;
             font-size: medium;
-
+            color: white;
         }
 
         input {
             padding: 7px 14px;
             margin: 10px 0;
             width: 100%;
+            color: black;
         }
     }
+
+
 }
 
+.btn-danger {
+    margin: 25px auto !important;
+    display: block !important;
+}
 
 
 @media(max-width:850px) {

@@ -7,13 +7,14 @@ import { CommonModule } from '@angular/common';
 import { EditEmailComponent } from '../../edit/edit-email/edit-email.component';
 import { EditPhonenumberComponent } from '../../edit/edit-phonenumber/edit-phonenumber.component';
 import { PasswordEditComponent } from "../../edit/password-edit/password-edit.component";
+import { HeaderSnapPhotosComponent } from '../../header-snap-photos/header-snap-photos.component';
 
 @Component({
   standalone: true,
   selector: 'app-user-data-update',
   templateUrl: './user-data-update.component.html',
   styleUrls: ['./user-data-update.component.scss'],
-  imports: [CommonModule, FormsModule,
+  imports: [CommonModule, FormsModule, HeaderSnapPhotosComponent,
     EditEmailComponent, EditPhonenumberComponent, PasswordEditComponent],
 })
 
@@ -25,12 +26,15 @@ export class UserDataUpdateComponent implements OnInit {
   subscription !: Subscription;
   resultatOfEdit = "";
   isSubmit = false;
-  id = localStorage.getItem("userId")?.toString() as string;
   onAffiche = "";
   isVisibleEditPassword =false;
   isVisibleEditNbPhone =false;
+  
+ 
   retrieveUser(): void {
-    this.subscription = this.userService.getUser( this.id )
+    this.subscription = this.userService.getUser( 
+      JSON.parse(localStorage.getItem('userconnected')as string ).userId
+     )
       .subscribe({
         next: (data) => {
           this.user = data;
@@ -64,6 +68,11 @@ export class UserDataUpdateComponent implements OnInit {
         ; 
         console.error(e)}
     })
+  }
+
+  del(){
+    if(confirm("Voulez vous vraiment supprimer votre compte?"))
+    this.userService.deleteUser("")
   }
 
 }

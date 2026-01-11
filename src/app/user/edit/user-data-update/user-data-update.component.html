@@ -1,80 +1,48 @@
-<h1> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-        stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
-        class="lucide lucide-user-pen-icon lucide-user-pen">
-        <path d="M11.5 15H7a4 4 0 0 0-4 4v2" />
-        <path
-            d="M21.378 16.626a1 1 0 0 0-3.004-3.004l-4.01 4.012a2 2 0 0 0-.506.854l-.837 2.87a.5.5 0 0 0 .62.62l2.87-.837a2 2 0 0 0 .854-.506z" />
-        <circle cx="10" cy="7" r="4" />
-    </svg> Modifiez ses données </h1>
-<div class="accordion" id="accordionExample">
-    <div class="accordion-item">
-        <h2 class="accordion-header">
-            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
-                aria-expanded="true" aria-controls="collapseOne">
-                Modifier votre nom
-            </button>
-        </h2>
-        <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-                <form *ngIf="onAffiche=='' && user " (ngSubmit)="onSubmit()" autocomplete="off">
-                    <div class="div-input">
-                        <label>Modifiez votre prénom:</label>
-                        <input type="text" class="form-control" name="firstName" [(ngModel)]="user.firstName" />
-                    </div>
+<div class="user-update">
+    <app-header-snap-photos [user]="user" [isMe]="true"></app-header-snap-photos>
 
-                    <div class="div-input">
-                        <label>Modifiez votre nom de famille:</label>
-                        <input type="text" class="form-control" name="lastName" [(ngModel)]="user.lastName" />
-                    </div>
 
-                    <button class="btn btn-primary" type="submit">Enregistrer les modifications </button>
-                    <br />
-                    <div>
-                        {{resultatOfEdit}}
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-    <div class="accordion-item">
-        <h2 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                Modifier votre email
-            </button>
-        </h2>
-        <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-                <app-edit-email></app-edit-email>
-            </div>
-        </div>
-    </div>
-    <div class="accordion-item">
-        <h2 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                Modifier votre numéro de téléphone
-            </button>
-        </h2>
-        <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-                <app-edit-phonenumber></app-edit-phonenumber>
-            </div>
-        </div>
-    </div>
+        <h2> Modifier votre nom</h2>
 
-    <div class="accordion-item">
-        <h2 class="accordion-header">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                data-bs-target="#collapseFor" aria-expanded="false" aria-controls="collapseFor">
-                Modifier votre mot de passe
-            </button>
-        </h2>
-        <div id="collapseFor" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-            <div class="accordion-body">
-                <app-password-edit></app-password-edit>
+        <form *ngIf="onAffiche=='' && user " (ngSubmit)="onSubmit()" autocomplete="off">
+            <div class="div-input">
+                <label>Modifiez votre prénom:</label>
+                <input type="text" class="form-control" name="firstName" [(ngModel)]="user.firstName" />
             </div>
-        </div>
-    </div>
+
+            <div class="div-input">
+                <label>Modifiez votre nom de famille:</label>
+                <input type="text" class="form-control" name="lastName" [(ngModel)]="user.lastName" />
+            </div>
+
+            <button class="btn btn-primary" type="submit">Enregistrer les modifications </button>
+            <br />
+            <div>
+                {{resultatOfEdit}}
+            </div>
+        </form>
+
+
+        <h2>
+            Modifier votre email
+        </h2>
+
+        <app-edit-email></app-edit-email>
+
+
+        <h2>
+            Modifier votre numéro de téléphone
+        </h2>
+        <app-edit-phonenumber></app-edit-phonenumber>
+
+
+        <h2>
+            Modifier votre mot de passe
+        </h2>
+        <app-password-edit></app-password-edit>
+
+
+        <button class="btn btn-danger" (click)="del()"> Supprimer votre compte </button>
+
 
 </div>

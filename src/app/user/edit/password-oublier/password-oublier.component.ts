@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FormsModule } from "@angular/forms";
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../../../services/user-service'
-import * as bcrypt from "bcryptjs";
 import { NgIf, NgStyle } from '@angular/common';
 
 @Component({
@@ -74,10 +73,8 @@ export class PasswordOublierComponent {
 
 
   onSubmit() {
-    const salt = bcrypt.genSaltSync(10);    
     if (this.newpassword === this.newpassword2) {
-      const p = bcrypt.hashSync(this.newpassword, salt)
-      this.userService.reinitialisePassword(  this.route.snapshot.paramMap.get('token') as string ,p )
+      this.userService.reinitialisePassword(  this.route.snapshot.paramMap.get('token') as string ,this.newpassword )
       .subscribe({
         next: data => {
         if (data) {

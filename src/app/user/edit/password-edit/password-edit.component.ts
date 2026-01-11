@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl, ReactiveFormsModule, FormsModule } from "@angular/forms";
-import { ActivatedRoute } from '@angular/router';
+import { FormsModule } from "@angular/forms";
 import { UserService } from '../../../../services/user-service'
-import * as bcrypt from "bcryptjs";
-import { NgClass, NgIf, NgStyle } from '@angular/common';
+import { NgIf, NgStyle } from '@angular/common';
 
 
 @Component({
@@ -17,7 +15,8 @@ import { NgClass, NgIf, NgStyle } from '@angular/common';
 
 export class PasswordEditComponent {
 
-  id: string = localStorage.getItem('userId')?.toString() as string;
+  id: string = JSON.parse(localStorage.getItem('userconnected')as string ).userId
+
 
   isDisplayPassword0 = false;
   isDisplayPassword = false;
@@ -83,15 +82,9 @@ export class PasswordEditComponent {
 
   onSubmit() {
 
-    const salt = bcrypt.genSaltSync(10);
     if (this.newpassword === this.newpassword2) {
-      bcrypt.compare(this.passwordActuel, this.passwordActuel0, (err, data1) => {
-        //if error than throw error
-        if (err) throw err
 
-        //if both match than you can do anything
-        if (data1) {
-          this.userService.editPassword(this.id, bcrypt.hashSync(this.newpassword, salt))
+          this.userService.editPassword(this.id,this.newpassword)
             .subscribe(data => {
               if (data) {
                 this.resultat = "Votre mot de passe a été modifié avec succès!"
@@ -103,14 +96,10 @@ export class PasswordEditComponent {
                 this.resultat = "Erreur veuillez réessayer!"
               }
             })
-        } else {
+       // } else {
           this.resultat = "Ancien mot de passe n'est pas bon!"
-
-        }
-      }
-      )
-
-    } else {
+    }
+    else {
       this.resultat = "Les mots de passe ne sont pas identique!"
     }
   }

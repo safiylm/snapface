@@ -4,35 +4,36 @@ import { FormsModule } from '@angular/forms';
 import { UserService } from 'src/services/user-service';
 
 @Component({
-  standalone : true,
+  standalone: true,
   selector: 'app-edit-phonenumber',
   templateUrl: './edit-phonenumber.component.html',
   styleUrls: ['./edit-phonenumber.component.scss'],
-  imports:[CommonModule, FormsModule ]
+  imports: [CommonModule, FormsModule]
 })
 export class EditPhonenumberComponent {
 
- @Input() phoneNumber !: number;
+  @Input() phoneNumber !: number;
   resultat = "";
 
-  ngOnInit(){
+  ngOnInit() {
   }
-  
+
   constructor(private userService: UserService) { }
 
   editPhoneNumber() {
-    if(this.phoneNumber!=null)
+    if (this.phoneNumber != null)
 
-    this.userService.editPhoneNumber( localStorage.getItem('userId')?.toString() as string, this.phoneNumber).subscribe({
-      next: (data) => {
-        if (data)
-          this.resultat = "Numero de telephone modifié avec succes";
-        else
-          this.resultat = "Erreur, réessayser";
-      },
-      error: (e) =>
-        this.resultat = "Erreur, réessayser" + e
-    })
+      this.userService.editPhoneNumber(JSON.parse(localStorage.getItem('userconnected') as string).userId
+        , this.phoneNumber).subscribe({
+          next: (data) => {
+            if (data)
+              this.resultat = "Numero de telephone modifié avec succes";
+            else
+              this.resultat = "Erreur, réessayser";
+          },
+          error: (e) =>
+            this.resultat = "Erreur, réessayser" + e
+        })
   }
 }
 
