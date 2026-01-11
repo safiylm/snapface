@@ -1,146 +1,160 @@
-  @font-face {
-      font-family: 'mango';
-      src: url('../../../assets/Mango.otf');
-  }
+@font-face {
+    font-family: 'mango';
+    src: url('../../../assets/Mango.otf');
+}
 
-  .page-inscription {
-      background-image: url('https://images.pexels.com/photos/7245258/pexels-photo-7245258.jpeg?auto=compress&amp;cs=tinysrgb&amp;fit=crop&amp;fp-y=0.699999988079071&amp;h=500&amp;w=1400&amp;dpr=1');
-      background-size: 100% 100%;
-      background-repeat: no-repeat;
-      background-position-x: center;
-      background: linear-gradient(-45deg,  #23a6d5, rgb(115, 8, 136));
-      background-size: 200% 200%;
-      animation: gradient 15s ease infinite;
+.page-inscription {
+    background-color: #463cac;
+    min-height: 100vh;
 
-      
-      height: 100vh;
+    app-header {
+        width: 250px !important;
+        height: 100vh;
+    }
 
+    form {
+        padding: 10px 30px;
+        background-color: currentColor;
+        // box-shadow: 2px -2px 33px -8px #616161;
+        width: 70VW;
+        min-height: calc(100vh - 50px);
+        border-radius: 15px;
+        margin: 20px;
+        max-width: 900px;
 
-      form {
-          padding: 10px 30px;
-          background-color: rgba(255, 255, 255, 0.589);
-          width: 70VW;
-          border-radius: 15px;
-          margin-top: 50px;
-          max-width: 900px;
-          margin-left: 200px;
-
-          h1 {
-              text-align: center;
-              color: black;
-              font-weight: 500;
-              margin-top: 30px;
-              font-family: mango, sans-serif;
-          }
+        h1 {
+            text-align: center;
+            color: #e0e0e1;
+            font-weight: 500;
+            margin-top: 30px;
+            font-family: mango, sans-serif;
+        }
 
 
-          .row {
-              padding: 15px;
-              width: 50%;
-          }
+        .row {
+            padding: 5px;
+            width: 50%;
+        }
 
-          .div-input {
-              margin: 16px 0;
-              width: 100%;
+        .div-input {
+            margin: 16px 0;
+            width: 100%;
+            font-family: "Quicksand", sans-serif;
 
-              label,
-              input {
-                  display: block;
-                  width: 100%;
-                  font-size: 14px;
-                  margin-bottom: 7px;
-              }
+            label {
+                color: #e0e0e1;
+            }
 
-
-          }
-
-          button[type="submit"] {
-              border: none;
-              margin: 14px 7px;
-              color: white;
-              background-color: #1e1731;
-              padding: 7px 14px;
-              border-radius: 5px;
-              font-size: 15px;
-
-          }
-
-          a,p, div {
-              font-size: 15px;
-              margin: 10px 0;
-              color: #1e1731;
-          }
-
-          button:disabled {
-              cursor: not-allowed;
-
-          }
-
-      }
-
-      .resultat {
-          margin: 10px 0;
-          color: hotpink;
-      }
-  }
-
-  button:disabled {
-      background-color: #6f6a76 !important;
-  }
+            label,
+            input {
+                display: block;
+                width: 100%;
+                font-size: 14px;
+                margin-bottom: 7px;
+            }
 
 
+        }
 
-  @media(max-width:950px) {
+        button[type="submit"] {
+            border: none;
+            margin: 14px 7px;
+            color: rgb(211, 211, 211);
+            background-color: 6531f2;
+            padding: 7px 14px;
+            border-radius: 5px;
+            font-size: 15px;
 
-      .page-inscription {
-          height: 100vh;
-          background-size: auto;
+        }
 
-          form {
+        a,
+        p,
+        div {
+            font-size: 15px;
+            margin: 10px 0;
+            font-family: "Quicksand", sans-serif;
+            color: #e0e0e1;
+        }
 
-              width: 60vw;
-              min-width: 500px;
-              padding: 30px;
-              box-sizing: border-box;
-              height: auto;
+        button:disabled {
+            cursor: not-allowed;
 
-              .form2row {
-                  flex-direction: column;
+        }
 
-                  .row {
-                      padding: 1px;
-                      width: 100%;
-                  }
-              }
-          }
-      }
-  }
+    }
 
-  @media(max-width:767px) {
-    .page-inscription  form {
-        padding: 10px;
-        margin: 100px auto !important;
-      }
-  }
 
-  @media(max-width:550px) {
+}
 
-      form {
+.resultat {
+    margin: 10px 0;
+    padding: 7px;
+    background-color: rgb(38, 132, 10);
+}
 
-          width: 90vw !important;
-          min-width: 200px !important;
-          padding: 30px;
-          box-sizing: border-box;
-          margin: 20px auto;
-          height: auto;
+button:disabled {
+    background-color: #6f6a76 !important;
+}
 
-          .form2row {
-              flex-direction: column;
 
-              .row {
-                  padding: 1px;
-              }
-          }
-      }
-  }
 
+@media(max-width:950px) {
+
+    .page-inscription {
+        background-size: auto;
+
+        form {
+
+            width: 60vw;
+            min-width: 500px;
+            padding: 30px;
+            box-sizing: border-box;
+
+            .form2row {
+                flex-direction: column;
+
+                .row {
+                    padding: 1px;
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+@media(max-width:767px) {
+    .page-inscription {
+        flex-direction: column !important;
+
+        form {
+            padding: 10px;
+            margin: 20px auto !important;
+        }
+
+        app-header {
+            width: 100vw !important;
+            height: 80px !important;
+        }
+    }
+
+}
+
+@media(max-width:550px) {
+
+    form {
+
+        width: 90vw !important;
+        min-width: 200px !important;
+        padding: 30px;
+        box-sizing: border-box;
+        margin: 20px auto;
+
+        .form2row {
+            flex-direction: column;
+
+            .row {
+                padding: 1px;
+            }
+        }
+    }
+}

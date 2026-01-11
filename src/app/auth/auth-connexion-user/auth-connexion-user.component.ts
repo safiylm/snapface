@@ -1,16 +1,16 @@
 import { Component, Injectable } from '@angular/core';
 import { UserService } from '../../../services/user-service'
 import { FormsModule } from "@angular/forms";
-import * as bcrypt from "bcryptjs";
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 import { HeaderComponent } from '../../header/header.component';
+import { LoadingSpinnerComponent } from 'src/app/loading-spinner/loading-spinner.component';
 
 @Component({
   standalone: true,
   selector: 'app-auth-connexion-user',
   templateUrl: './auth-connexion-user.component.html',
   styleUrls: ['./auth-connexion-user.component.scss'],
-  imports: [FormsModule, HeaderComponent, CommonModule],
+  imports: [FormsModule, HeaderComponent, CommonModule, LoadingSpinnerComponent, NgIf],
 
 })
 
@@ -19,9 +19,12 @@ import { HeaderComponent } from '../../header/header.component';
 export class AuthConnexionUserComponent {
 
   constructor(private userService: UserService,) { }
-  result = "";
+  result !: any;
+  loading = false;
+  error = '';
+
   password = "Snapface123*";
-  email = "travelblog@gmail.com"
+  email = "bahar.kaçar@gmail.com"
   isDisplayPassword = false;
 
 
@@ -31,25 +34,36 @@ export class AuthConnexionUserComponent {
 
 
   onSubmit() {
-    this.userService.connexion(this.email, this.password).subscribe(
-      (data: any) => {
+    this.loading = true;
+    this.error = '';
+    this.result = null;
 
-        if (data.user != null) {
+    setTimeout(() => {
+      this.userService.connexion(this.email, this.password).subscribe({
+        next: (data: any) => {
+          if (data.message) {
+            this.loading = false;
+            this.result = data.message
 
-          localStorage.setItem('isLoggedIn', "true");
-          localStorage.setItem('userId', data.user["_id"]);
-          localStorage.setItem("user_photo_de_profil", data.user["photos_profil"])
-          localStorage.setItem("user_name", data.user["firstName"] + " " + data.user["lastName"])
+            let userconnected = {
+              "isLoggedIn": "true", 'userId': data.user["_id"],
+              "user_photo_de_profil": data.user["photos_profil"],
+              "user_name": data.user["firstName"] + " " + data.user["lastName"]
+            }
+            localStorage.setItem('userconnected', JSON.stringify(userconnected));
+            console.log(JSON.stringify(userconnected))
 
-          this.result = "CONNEXION REUSSI.";
-          window.location.href = '/mon-compte'
-        }
-
-        if (data.message != null)
-          this.result = data.message
-
+             setTimeout(() => {
+               location.href = "/"
+             }, 500)
+          }
+        },
+        error: (err) => {
+          this.error = err.error;
+          this.loading = false;
+        },
       }
-    );
-
+      )
+    }, 500)
   }
 }

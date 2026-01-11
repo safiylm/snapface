@@ -9,30 +9,28 @@ h1 {
 
 
 .page-connexion {
-    background-image: url('https://images.pexels.com/photos/72161/pexels-photo-72161.jpeg');
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    background-position-x: center;
 
- 
-    background: linear-gradient(-45deg,  #23a6d5, rgb(115, 8, 136));
-    background-size: 150% 150%;
-    animation: gradient 15s ease infinite;
+    background-color: #463cac;
+    min-height: 100vh;
+    font-family: "Quicksand", sans-serif;
 
-    height: 100vh;
-    margin-left: 200px;
-
+    app-header {
+        width: 250px !important;
+        height: 100vh;
+    }
 
     form {
         padding: 10px 30px;
-        background-color: rgba(255, 255, 255, 0.589);
-        width: 400px;
+        background-color: currentColor;
+        //  box-shadow: 2px -2px 33px -8px #616161;
+        width: 550px;
+        height: auto;
         border-radius: 15px;
-        margin-top: 50px;
+
 
         h1 {
             text-align: center;
-            color: black;
+            color: #e0e0e1;
             font-weight: 500;
             margin: 30px 0;
         }
@@ -40,6 +38,12 @@ h1 {
         .div-input {
             margin: 19px auto;
             width: 100%;
+            max-width: 350px;
+
+            label {
+                color: #e0e0e1;
+
+            }
 
             label,
             input {
@@ -57,18 +61,20 @@ h1 {
         button[type="submit"] {
             border: none;
             margin: 14px 7px;
-            color: white;
-            background-color: #1e1731;
+            color: #e0e0e1;
+            background-color: #6531f2;
             padding: 7px 14px;
             border-radius: 5px;
             font-size: 15px;
 
         }
 
+        p,
         a {
             font-size: 15px;
             margin: 10px 0;
-            color: #1e1731;
+            color: #e0e0e1;
+
         }
 
         #connexion-info {
@@ -76,13 +82,23 @@ h1 {
             color: red;
         }
     }
+
+    .resultat {
+        margin: 10px 0;
+        padding: 7px;
+        background-color: rgb(38, 132, 10);
+    }
 }
 
 @media(max-width:767px) {
     .page-connexion {
-        margin-top: 80px;
         margin-left: 0;
+        flex-direction: column !important;
 
+        app-header {
+            width: 100vw !important;
+            height: 80px !important;
+        }
     }
 }
 

@@ -7,8 +7,11 @@ const nodemailer = require('nodemailer');
 const ObjectId = require('mongodb').ObjectId;
 const jwt_ = require('../jwt.js')
 const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt-nodejs')
+//const bcrypt = require('bcrypt-nodejs')
 const cloudinary = require('cloudinary').v2;
+const bcrypt = require('bcrypt');
+const saltRounds = 21082000; // Facteur de travail
+
 
 cloudinary.config({
   cloud_name: process.env.CLOUD_NAME,
@@ -24,6 +27,19 @@ const transporter = nodemailer.createTransport({
     pass: 'rdez jsdy ehbq zvkn', // Utilisez un mot de passe d'application si requis
   },
 });
+
+
+const hashPassword = async (plainPassword) => {
+  try {
+    const salt = await bcrypt.genSalt(saltRounds);
+    const hashedPassword = await bcrypt.hash(plainPassword, salt);
+    console.log('Mot de passe haché :', hashedPassword);
+    return hashedPassword;
+  } catch (error) {
+    console.error('Erreur lors du hachage du mot de passe :', error);
+    throw error;
+  }
+};
 
 
 //create new user
@@ -42,7 +58,11 @@ exports.create = (req, res) => {
 
   const emailRegexp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
   if (!emailRegexp.test(req.body.email))
-    res.send({ "message": "email invalide" });
+     return res.status(500).send(
+      'Votre email est invalide, veuillez réessayer.');
+
+  req.body.password = hashPassword(req.body.password)
+
 
   // Save Tutorial in the database
   collection_user
@@ -58,8 +78,14 @@ exports.create = (req, res) => {
           })
           .then(data1 => {
             if (data1)
-              res.send({ "user": data });
+              res.send({ "message": "Votre compte a été crée avec succès!", "userId": data.insertedId });
           })
+          .catch(err => {
+            res.status(500).send({
+              message:
+                err.message || "Some error occurred while creating the statistique user."
+            });
+          });
     })
     .catch(err => {
       res.status(500).send({
@@ -250,7 +276,6 @@ exports.delete = async (req, res) => {
 }
 
 
-
 // Retrieve all Users from the database.
 exports.findAll = async (req, res) => {
 
@@ -310,33 +335,48 @@ function cookies
   });
 }
 
+
+const verifyPassword = async (plainPassword, hashedPassword) => {
+  try {
+    const match = await bcrypt.compare(plainPassword, hashedPassword);
+    if (match) {
+      console.log('✅ Mot de passe valide');
+    } else {
+      console.log('❌ Mot de passe invalide');
+    }
+    return match;
+  } catch (error) {
+    console.error('Erreur lors de la vérification du mot de passe :', error);
+    throw error;
+  }
+};
+
 //connexion
 exports.connexion = async function (req, res, next) {
 
   const resultat = await collection_user.findOne(
     { email: req.body.email });
 
-  if (resultat != null) {
-
-    bcrypt.compare(req.body.password, resultat['password'], function (err, ress) {
-      if (ress == true) {
-        const id = resultat['_id'].toString();
-
-        cookies(id, res)
-
-        // Répondre une seule fois
-        return res.json({ message: 'Connexion réussie', user: resultat });
-      }
-      else {
-        res.json({ message: "Votre mot de passe est incorrecte." });
-      }
-    });
-  } else {
+  if (resultat == null) {
     // Sinon : utilisateur non trouvé
-    res.json({ message: 'Votre email est incorrecte.' });
+    return res.status(500).send(
+      'Votre email est incorrecte, veuillez réessayer.');
+
+  } else {
+
+    if (verifyPassword(req.body.password, resultat['password'])) {
+      const id = resultat['_id'].toString();
+
+      cookies(id, res)
+
+      // Répondre une seule fois
+      return res.json({ message: 'Connexion réussie!', user: resultat });
+    }
+    else {
+      return res.status(500).send(
+        'Votre mot de passe est incorrecte, veuillez réessayer.');
+    }
   }
-
-
 
 };
 

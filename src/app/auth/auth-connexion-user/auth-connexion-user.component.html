@@ -1,5 +1,5 @@
-<app-header></app-header>
-<div class="page-connexion d-flex flex-column align-items-center justify-content-center">
+<div class="page-connexion d-flex align-items-center justify-content-center">
+    <app-header></app-header>
 
     <form (ngSubmit)="onSubmit()" autocomplete="off">
 
@@ -13,8 +13,10 @@
         <div class="div-input">
             <label>Saisissez votre mot de passe: </label>
             <div class="d-flex align-items-center justify-content-center">
-                <input *ngIf="!isDisplayPassword" class="form-control" [(ngModel)]="password" type="password" name="password" autocomplete="new-password" />
-                <input *ngIf="!!isDisplayPassword" class="form-control" [(ngModel)]="password" type="text" name="password" autocomplete="new-password" />
+                <input *ngIf="!isDisplayPassword" class="form-control" [(ngModel)]="password" type="password"
+                    name="password" autocomplete="new-password" />
+                <input *ngIf="!!isDisplayPassword" class="form-control" [(ngModel)]="password" type="text"
+                    name="password" autocomplete="new-password" />
 
                 <button class="btn btn-light" type="button" (click)="toggleDisplayPassword()">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye"
@@ -28,7 +30,10 @@
             </div>
         </div>
 
-        <div> {{result}} </div>
+       <p *ngIf="result" class="resultat" >
+            {{result}}
+        </p>
+        <p *ngIf="error" style="background-color: red; padding: 7px;"> {{error}} </p>
 
         <div class="d-flex flex-column align-items-center justify-content-center">
 
@@ -38,4 +43,6 @@
         </div>
 
     </form>
+
+    <app-loading-spinner *ngIf="loading"></app-loading-spinner>
 </div>

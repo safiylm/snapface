@@ -3,7 +3,7 @@ import { UserService } from '../../../services/user-service'
 import { User } from '../../../models/user.model'
 import * as bcrypt from "bcryptjs";
 import { FormsModule } from "@angular/forms";
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule, DatePipe, JsonPipe } from '@angular/common';
 import { HeaderComponent } from '../../header/header.component';
 import { interval, scan, takeWhile } from 'rxjs';
 
@@ -21,12 +21,13 @@ import { interval, scan, takeWhile } from 'rxjs';
 export class AuthInscriptionUserComponent implements OnInit {
   constructor(private userService: UserService) { }
 
-  res !: string;
   isDisplayPassword !: boolean;
   isDisplayPassword2 !: boolean;
   timeForRedirection$?: any;
   reglePasswordRespected !: boolean;
-
+  result !: any;
+  loading = false;
+  error = '';
   user = new User("", "", "",
     "example@gmail.com", "Snapface123*",
     0, "", "", false, false, null);
@@ -63,36 +64,50 @@ export class AuthInscriptionUserComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.user && this.reglePasswordRespected && this.user.password === this.password2) {
-      const salt = bcrypt.genSaltSync(10);
-      this.user.password = bcrypt.hashSync(this.user.password, salt);
-      this.userService.inscription(this.user).subscribe(
-        {
-          next: (data) => {
-            if (data.user) {
-              this.res = "Inscription success. Il faut confirmer votre email. Redirection dans {{ timeForRedirection$ | async }} secondes pour vous connectez."
-              /* 
-              
-              ce code genere erreur dans le teste 
-              
-              
-               this.timeForRedirection$ = interval(1000).pipe(
-                   scan(acc => --acc, 10),
-                   takeWhile(x => x >= 0)
-                 );
-   
-                 setTimeout(() => {
-                   document.location.href = '/connexion'
-                 }, 10000)
-   */
-            }
-            if (data.message)
-              this.res = data.message
-          },
-          error: (e) => console.error("Erreur inscription")
 
-        })
-    }
+    this.loading = true;
+    this.error = '';
+    this.result = null;
+
+    if (this.user.firstName != "" &&
+      this.user.lastName != "" &&
+      this.user.email != "" &&
+      this.user.password != "" &&
+      this.user.phoneNo != 0
+    )
+
+      if (this.user && this.reglePasswordRespected && this.user.password === this.password2) {
+
+        setTimeout(() => {
+
+          this.userService.inscription(this.user).subscribe(
+            {
+              next: (data) => {
+                if (data.message) {
+                  this.loading = false;
+                  this.result = data.message
+                  console.log(data)
+                  let userconnected = {
+                    "isLoggedIn": "true", 'userId': data.userId,
+                    "user_photo_de_profil": '', "user_name": this.user.firstName + " " + this.user.lastName
+                  }
+
+                  localStorage.setItem('userconnected', userconnected.toString());
+                 
+                  setTimeout(() => {
+                    location.href = "/"
+                  }, 500)
+                }
+              },
+              error: (e) => {
+                this.error = e.error;
+                this.loading = false;
+              }
+
+            })
+        }, 500)
+
+      }
   }
 
 

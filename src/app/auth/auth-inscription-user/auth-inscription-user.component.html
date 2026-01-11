@@ -1,6 +1,5 @@
-<app-header></app-header>
-
-<div class="page-inscription d-flex flex-column align-items-center justify-content-center">
+<div class="page-inscription d-flex align-items-center justify-content-center">
+    <app-header></app-header>
 
     <form (ngSubmit)="onSubmit()" autocomplete="off">
         <h1>
@@ -10,12 +9,12 @@
             <div class="row">
                 <div class="div-input">
                     <label>Saisissez votre prénom:</label>
-                    <input type="text" name="firstName" class="form-control" [(ngModel)]="user.firstName" required/>
+                    <input type="text" name="firstName" class="form-control" [(ngModel)]="user.firstName" required />
                 </div>
 
                 <div class="div-input">
                     <label>Saisissez votre nom de famille:</label>
-                    <input type="text" name="lastName" class="form-control" [(ngModel)]="user.lastName" required/>
+                    <input type="text" name="lastName" class="form-control" [(ngModel)]="user.lastName" required />
                 </div>
 
                 <div class="div-input">
@@ -83,7 +82,8 @@
                     </div>
                 </div>
 
-                <div *ngIf="!(this.user.password === this.password2) && this.password2!=''" [ngStyle]="{'color': 'red'}">Les
+                <div *ngIf="!(this.user.password === this.password2) && this.password2!=''"
+                    [ngStyle]="{'color': 'red'}">Les
                     mots de passe ne sont pas identique </div>
                 <div *ngIf="this.user.password === this.password2 && user.password.length!=0"
                     [ngStyle]="{'color': 'green'}">Les mots de passe sont
@@ -97,20 +97,23 @@
             </div>
         </div>
 
+        <p *ngIf="result" class="resultat" >
+            {{result}}
+        </p>
+        <p *ngIf="error" style="background-color: red; padding: 7px;"> {{error}} </p>
+
+
         <div class="d-flex align-items-center justify-content-center">
             <button type="submit" disabled *ngIf="!(reglePasswordRespected && user.password === password2)">
                 S'inscrire
             </button>
 
-            <button type="submit" *ngIf="reglePasswordRespected && user.password === password2 && user.email!='' &&  user.lastName!='' &&  user.firstName">
+            <button type="submit"
+                *ngIf="reglePasswordRespected && user.password === password2 && user.email!='' &&  user.lastName!='' &&  user.firstName">
                 S'inscrire
             </button>
 
             <a href='/connexion'>Se connecter</a>
-        </div>
-        
-        <div class="resultat">
-            {{res}}
         </div>
 
     </form>
