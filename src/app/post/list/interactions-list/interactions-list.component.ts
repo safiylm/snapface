@@ -1,4 +1,4 @@
-import { NgFor, NgIf } from '@angular/common';
+import { NgIf } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { Publication } from 'src/models/publication.model';
 import { InteractionSociale } from 'src/models/interaction.sociale.model';
@@ -24,7 +24,9 @@ export class InteractionsListComponent {
 
   ngOnInit() {
     //getAllLikesByUserId
-    this.interactionSocialeService.getAllInteractionsByUserId(this.interactions, localStorage.getItem('userId')?.toString() as string).subscribe({
+    this.interactionSocialeService.getAllInteractionsByUserId(this.interactions, 
+      JSON.parse(localStorage.getItem('userconnected')?.toString() as string).userId
+    ).subscribe({
       next: (data: InteractionSociale[]) => {
         if (data) {
           for (let x of data) {

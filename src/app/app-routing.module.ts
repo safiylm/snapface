@@ -8,13 +8,21 @@ import { PublicationsByUserIdResolverService } from 'src/services/resolver/publi
 import { AllUsersResolverService } from 'src/services/resolver/all-users-resolver-service';
 import { UserDataResolverService } from 'src/services/resolver/user-data-resolver-service';
 import { formulaireDesactiveGuard } from './guards/formulaire-desactive.guard'
-import { AdminPageComponent } from './admin-page/admin-page.component';
 import { FormEmailComponent } from './user/edit/password-oublier/form-email/form-email.component';
 import { PasswordOublierComponent } from './user/edit/password-oublier/password-oublier.component';
 import { PourMoiComponent } from './pour-moi/pour-moi.component';
-import { DocTechniqueComponent } from './doc-technique/doc-technique.component';
 
 const routes: Routes = [
+  {
+    path: "",
+    loadComponent: () => import('./home/home.component')
+      .then(mod => mod.HomeComponent),
+    resolve: {
+      publications: AllPublicationsResolverService,
+      users: AllUsersResolverService
+    }
+  },
+
   {
     path: 'user/:id',
     loadComponent: () => import('./user/user-account/user-account.component')
@@ -25,26 +33,13 @@ const routes: Routes = [
       users: AllUsersResolverService
     }
   },
-  {
-    path: "",
-    loadComponent: () => import('./home/home.component')
-      .then(mod => mod.HomeComponent),
-    resolve: {
-      publications: AllPublicationsResolverService,
-      users: AllUsersResolverService
-    }
-  }, 
+
   {
     path: 'connexion',
     loadComponent: () => import('./auth/auth-connexion-user/auth-connexion-user.component')
       .then(mod => mod.AuthConnexionUserComponent)
   },
 
-  {
-    path: 'chat/:id',
-    loadComponent: () => import('./chat/chat-page/chat-page.component')
-      .then(mod => mod.ChatPageComponent)
-  },
   {
     path: 'inscription',
     loadComponent: () => import('./auth/auth-inscription-user/auth-inscription-user.component')
@@ -69,25 +64,6 @@ const routes: Routes = [
       .then(mod => mod.SearchComponent),
   },
 
-  
-  {
-    path: 'post/:id',
-    loadComponent: () => import('./post/publication/publication.component')
-      .then(mod => mod.PublicationComponent
-      ),
-  },
-
-
-  {
-    path: 'post/edit/:id',
-    title: "Modifier sa publication",
-    loadComponent: () => import('./post/publication-edit/publication-edit.component')
-      .then(mod => mod.PublicationEditComponent),
-    canDeactivate: [formulaireDesactiveGuard],
-    resolve: {
-      user: MyUserDataResolverService
-    },
-  },
 
     {
     path: 'post-create',
@@ -97,7 +73,7 @@ const routes: Routes = [
     canDeactivate: [formulaireDesactiveGuard],
   },
 
-    {
+  {
     path: 'user-edit',
     title: "Modifier ses données",
     loadComponent: () => import('./user/edit/user-data-update/user-data-update.component')
@@ -105,11 +81,29 @@ const routes: Routes = [
     canDeactivate: [formulaireDesactiveGuard],
   },
 
+
+
+//  ----------------------------------------------------------------
   {
-    path: 'admin',
-    title: "ADMIN",
-    component: AdminPageComponent
+    path: 'post/:id',
+    loadComponent: () => import('./post/publication/publication.component')
+      .then(mod => mod.PublicationComponent
+      ),
   },
+
+
+  {
+    path: 'post-edit/:id',
+    title: "Modifier sa publication",
+    loadComponent: () => import('./post/publication-edit/publication-edit.component')
+      .then(mod => mod.PublicationEditComponent),
+    canDeactivate: [formulaireDesactiveGuard],
+    resolve: {
+      user: MyUserDataResolverService
+    },
+  },
+
+
 
   {
     path: 'password-oublie/email',
@@ -129,11 +123,6 @@ const routes: Routes = [
     component: PourMoiComponent
   },
 
-  {
-    path: 'doc',
-    title: "Doc",
-    component: DocTechniqueComponent
-  },
 
 
 ];
@@ -141,7 +130,7 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [AuthGuard]
+  // providers: [AuthGuard]
 })
 
 export class AppRoutingModule { }

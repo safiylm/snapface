@@ -1,15 +1,26 @@
   .div-btns {
     margin-top: 20px;
     width: 100%;
-    
+
     button {
       width: 40%;
+      border: none;
+      border-radius: 0;
     }
+
+    button:first-child {
+      border-radius: 12px 0 0 12px;
+    }
+
+    button:last-child {
+      border-radius: 0 12px 12px 0;
+    }
+
   }
 
-    .highlight{
-        background-color: rgba(198, 199, 215, 0.482) !important;
-    }
+  .highlight {
+    background-color: rgba(231, 234, 240, 0.815) !important;
+  }
 
   .listofposts {
     display: flex;

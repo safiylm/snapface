@@ -30,7 +30,7 @@ export class InteractionSocialeService {
     this.socket.emit('add',
       {
         'postId': postId,
-        'userId': localStorage.getItem('userId'),
+        'userId': JSON.parse( localStorage.getItem("userconnected")?.toString() as string).userId,
         "interaction": interaction
       },
     )
@@ -41,7 +41,7 @@ export class InteractionSocialeService {
     this.socket.emit("remove",
       {
         'postId': postId,
-        'userId': localStorage.getItem('userId'),
+        'userId':  JSON.parse( localStorage.getItem("userconnected")?.toString() as string).userId,
         'interactionId': interactionId,
         "interaction": interaction
 

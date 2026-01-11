@@ -73,7 +73,8 @@ export class UserService {
   }
 
   getMyData(): Observable<User> {
-    return this.http.get<User>(url + "/api/userid?id=" + localStorage.getItem('userId')?.toString());
+    return this.http.get<User>(url + "/api/userid?id=" +
+       JSON.parse(localStorage.getItem('userconnected')?.toString() as string).userId     );
   }
 
   searchByName(fname: string, lname: string): Observable<User[]> {
@@ -114,9 +115,9 @@ export class UserService {
   deleteUser(userId: string): void {
 
     this.http
-      .post<User>(
+      .get<User>(
         url + `/api/user/delete`,
-        { "id": userId },
+        //{ "id": userId },
       ).subscribe(data => {
         console.log(" user delete post req body content :")
         console.log(data)

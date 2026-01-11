@@ -118,9 +118,8 @@ exports.getLikesCountByPostId = async (req, res) => {
 exports.interactionsExist = async (req, res) => {
   const postId = req.query.postId;
   const userId = req.query.userId;
-  const interaction = req.query.interaction;
   res.set('Access-Control-Allow-Origin', '*');
-  res.send(await collection_interactionsociales.findOne({ postId, userId, type: interaction }))
+  res.send(await collection_interactionsociales.findOne({ postId, userId }))
 };
 
 

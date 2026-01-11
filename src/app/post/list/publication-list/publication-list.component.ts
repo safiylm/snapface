@@ -18,7 +18,7 @@ import { User } from 'src/models/user.model';
 export class PublicationListComponent {
 
 
-  @Input() publications!: Publication[];
+  @Input() publications !: Publication[];
   user !: User;
   post: Publication | undefined;
   @Input() isDisplay !: boolean;
@@ -27,20 +27,16 @@ export class PublicationListComponent {
 
   index = 0
 
-  constructor(route: ActivatedRoute, private renderer: Renderer2) {
+  constructor( private route: ActivatedRoute, private renderer: Renderer2) {
     this.publications = route.snapshot.data['publications']
     this.user = route.snapshot.data['user'];
   }
 
-  ngOnInit() {
-    // if (window.innerWidth <= 1050) { // Si on est sur mobile
-    //   this.isMobile = true; // Si on veut afficher les commentaires, on cache le post
-    // } else {
-    //   this.isMobile = false; // Sur PC/tablette, le post reste affiché
-    // }
+  ngOnInit(){
+    if(this.route.snapshot.data['publications']== null)
+    this.publications =[]
+
   }
-
-
 
   clickImage(i: number){
     this.isMobile=true; this.index= i; 

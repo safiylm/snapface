@@ -8,17 +8,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./avatar-user.component.scss'],
   imports: [NgIf]
 })
+
 export class AvatarUserComponent {
   user_photo_de_profil: string | undefined;
   user_name: string | undefined;
   get PhotoProfil() {
-    this.user_photo_de_profil = localStorage.getItem("user_photo_de_profil")!.toString() as string
+    this.user_photo_de_profil =JSON.parse(localStorage.getItem('userconnected')?.toString() as string).user_photo_de_profil
     // return 
     return (this.user_photo_de_profil) ? this.user_photo_de_profil : null
   }
 
   get UserName() {
-    this.user_name = localStorage.getItem("user_name")!.toString() as string
+    this.user_name = JSON.parse(localStorage.getItem('userconnected')?.toString() as string).user_name
     return (this.user_name ) ? this.user_name : null
   }
 }

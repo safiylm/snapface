@@ -43,7 +43,7 @@ exports.create = async (req, res) => {
     userId: req.body.userId,
     assets: array_assets,
     audio: req.body.audio,
-    date: Date,
+    date: Date.now() ,
     commentsCount: 0,
     likesCount: 0,
     repostsCount: 0,
@@ -57,7 +57,9 @@ exports.create = async (req, res) => {
       if (data0)
         collection_statistiqueusers.updateOne({ "userId": req.body.userId },
           { $inc: { "totalPosts": 1 } }).then(data => {
-            res.send(data);
+            if(data)
+              res.send({ "message": "Votre compte a été crée avec succès!"});
+            
           })
           .catch(err => {
             res.status(500).send({
@@ -156,7 +158,7 @@ exports.findAllPourMoi = async (req, res) => {
         userId: { $in: followsIds }
       }
     ]
-  }).sort({ date: -1 }).toArray();
+  }).sort({ date: 1 }).toArray();
   res.send(findResult);
 }
 
@@ -179,8 +181,7 @@ exports.getListeLikedPostsByUserId = async (req, res) => {
 //Retrieve post by id 
 exports.findOneById = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
-  const id = //req.query.id
-   "66f9678d9189a0956c8cfb4c"
+  const id = req.query.id
   if (id != null && id != '' && id != undefined){
   console.log(id)
 
@@ -220,8 +221,6 @@ exports.delete = (req, res) => {
                   err.message || "Some error occurred while add like."
               })
             });
-
-
 
         })
     })

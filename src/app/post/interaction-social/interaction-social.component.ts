@@ -76,7 +76,8 @@ isShowListOfButton= false
     this.interactionService.joinRoom(this.post._id);
 
     this.interactionService.interactionExist(this.post._id,
-          localStorage.getItem("userId")?.toString() as string).subscribe({
+        JSON.parse( localStorage.getItem("userconnected")?.toString() as string).userId
+        ).subscribe({
         next: (data) => {
           if (data != null) {
           
@@ -138,7 +139,7 @@ isShowListOfButton= false
 
 
   goToEditPost() {
-    document.location.href = 'publication/edit/' + this.post._id
+    document.location.href = 'post-edit/' + this.post._id
   }
 
 

@@ -38,7 +38,7 @@ export class PublicationComponent {
   }
 
   ngAfterContentChecked() {
-    if (this.UserId == localStorage.getItem('userId')) {
+    if (this.UserId == JSON.parse(localStorage.getItem('userconnected')?.toString() as string ).userId) {
       this.isMyPost = true;
     }
   }
