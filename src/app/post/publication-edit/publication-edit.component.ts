@@ -4,19 +4,19 @@ import { PublicationsService } from '../../../services/publication-service';
 import { Publication } from 'src/models/publication.model';
 import { FormsModule } from "@angular/forms";
 import { Subscription } from 'rxjs';
-import { NgFor, NgIf } from '@angular/common';
+import { JsonPipe, NgFor, NgIf } from '@angular/common';
 import { HeaderSnapComponent } from '../../user/header-snap/header-snap.component';
-import { AudioService } from 'src/services/audio.service';
 import { HeaderComponent } from "../../header/header.component";
-import { LoadingSpinnerComponent } from 'src/app/loading-spinner/loading-spinner.component';
+import { LoadingSpinnerResponseComponent } from 'src/app/loading-spinner-response/loading-spinner-response.component';
 
 @Component({
   standalone: true,
   selector: 'app-publication-edit',
   templateUrl: './publication-edit.component.html',
   styleUrls: ['./publication-edit.component.scss'],
-  imports: [NgFor, FormsModule, NgIf, HeaderSnapComponent, LoadingSpinnerComponent,
-     HeaderComponent],
+  imports: [NgFor, FormsModule, NgIf, JsonPipe,
+    HeaderSnapComponent, LoadingSpinnerResponseComponent,
+    HeaderComponent],
 
 })
 
@@ -28,20 +28,17 @@ export class PublicationEditComponent {
   subscription !: Subscription;
   array_assets !: string[];
   selectedFiles: File[] = [];
-  audioList: any;
 
   result !: any;
   loading = false;
   error = '';
 
   constructor(private publicationService: PublicationsService,
-    private route: ActivatedRoute, private audioService: AudioService) { }
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.id = this.route.snapshot.paramMap.get('id')!;
     this.getDataPost();
-    this.audioList = this.audioService.getAudioList()
-
   }
 
   onFilesSelected(event: Event): void {
@@ -87,11 +84,10 @@ export class PublicationEditComponent {
         data => {
           if (data) {
             this.loading = false
-
-            this.result = "Votre publication a été supprimé avec succès.";
-            setTimeout(() => {
-              document.location.href = '/mon-compte'
-            }, 1000)
+            this.result = data.message //"Votre publication a été supprimé avec succès.";
+            // setTimeout(() => {
+            //   document.location.href = '/mon-compte'
+            // }, 1000)
           }
           else {
             this.loading = false
@@ -104,31 +100,34 @@ export class PublicationEditComponent {
   onSubmit() {
     this.loading = true
 
-    this.post.userId = localStorage.getItem('userId')?.toString() as string;
-
+    this.post.userId = JSON.parse(localStorage.getItem('userconnected')?.toString() as string).userId;
     const formData = new FormData();
-    this.selectedFiles.forEach((file, index) => {
-      formData.append('photos', file); // ou `photos[]` si ton backend attend un tableau
-    });
+
+    let existingAssets = this.array_assets.filter(item => !item.startsWith("data:"));
+   
+    formData.append('existingAssets', JSON.stringify(existingAssets));
+    this.selectedFiles.forEach(file => formData.append('newAssets', file));
+
     formData.append('_id', this.post._id)
     formData.append('userId', this.post.userId)
     formData.append('body', this.post.body)
 
-
-    this.publicationService.editPost(formData).subscribe(
-      data => {
+    this.publicationService.editPost(formData).subscribe({
+      next: data => {
         if (data) {
           this.loading = false
-          this.result = " Votre publication a été modifié avec succès.";
-          setTimeout(() => {
-            document.location.href = '/mon-compte'
-          }, 1000)
+          this.result = data.message //" Votre publication a été modifié avec succès.";
+
+          // setTimeout(() => {
+          //   document.location.href = '/mon-compte'
+          // }, 1000)
         }
-        else {
-          this.loading = false
-          this.error = "Erreur, Votre publication n'a pas été modifié."
-        }
-      })
+
+      }, error: e => {
+        this.loading = false
+        this.error = e.error + "Erreur, la modification a échoué."
+      }
+    })
   }
 
   ngOnDestroy() {

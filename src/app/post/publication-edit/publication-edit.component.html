@@ -27,6 +27,7 @@
             </div>
         </div>
 
+        
         <div>
             <label for="photo">Choisir une photo :</label>
             <input type="file" id="photo" (change)="onFilesSelected($event)" multiple accept="image/*" />
@@ -39,12 +40,13 @@
         </div>
 
       
-        <p *ngIf="result" class="resultat">
-            {{result}}
-        </p>
+        <div *ngIf="result" class="resultat">
+        {{result }}  
+        </div>
         <p *ngIf="error" style="background-color: red; padding: 7px;"> {{error}} </p>
-        <app-loading-spinner *ngIf="loading"></app-loading-spinner>
+        <app-loading-spinner-response *ngIf="loading"></app-loading-spinner-response>
 
+        
         <br />
         <button class="btn btn-light" type="submit">Enregistrer les modifications </button>
         <br />

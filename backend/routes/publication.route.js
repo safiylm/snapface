@@ -9,7 +9,7 @@ const upload = multer({ dest: 'uploads/' });
 
 // Create a new User
 router_publication.post("/api/publication/create",upload.array('photos'), publication.create);
-router_publication.post("/api/publication/edit", upload.array('photos'), publication.edit );
+router_publication.post("/api/publication/edit", upload.array('newAssets'),  publication.edit );
 router_publication.post("/api/publication/delete",  publication.delete );
 
 

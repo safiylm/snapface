@@ -18,10 +18,12 @@ cloudinary.config({
 //create new post 
 exports.create = async (req, res) => {
   // Validate request
-  //   if (!req.body.firstName) {
-  //     res.status(400).send({ message: "Content can not be empty!" });
-  //     return;
-  //   }
+  if (!req.body.body && ! !req.body.userId) {
+    return res.status(500).send({
+      message:
+        err.message || "User and body of post is empty."
+    })
+  }
 
   res.set('Access-Control-Allow-Origin', '*');
   let array_assets = []
@@ -38,12 +40,10 @@ exports.create = async (req, res) => {
   }
 
   const post = {
-    title: req.body.title,
     body: req.body.body,
     userId: req.body.userId,
     assets: array_assets,
-    audio: req.body.audio,
-    date: Date.now() ,
+    date: Date.now(),
     commentsCount: 0,
     likesCount: 0,
     repostsCount: 0,
@@ -57,9 +57,8 @@ exports.create = async (req, res) => {
       if (data0)
         collection_statistiqueusers.updateOne({ "userId": req.body.userId },
           { $inc: { "totalPosts": 1 } }).then(data => {
-            if(data)
-              res.send({ "message": "Votre compte a été crée avec succès!"});
-            
+            if (data)
+              res.send({ "message": "Votre publication a été crée avec succès!" });
           })
           .catch(err => {
             res.status(500).send({
@@ -80,28 +79,27 @@ exports.create = async (req, res) => {
 //Edit post 
 exports.edit = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
-  let array_assets = []
 
-  for (const file of req.files) {
+  let existingAssets = JSON.parse(req.body.existingAssets || "[]");
+  let newFiles = req.files; // tes nouveaux uploads
+
+  for (const file of newFiles) {
     await cloudinary.uploader.upload(file.path, {
       folder: 'uploads_secure',
     }, async (error, result) => {
       if (error) return res.status(500).json({ error });
-      array_assets.push(result.secure_url)
+      existingAssets.push(result.secure_url)
     })
   }
-
   const updateResult = await collection_publications.updateOne({ "_id": new ObjectId(req.body._id) },
     {
       $set: {
-        "title": req.body.title,
         "body": req.body.body,
-        "assets": array_assets,
-        "audio": req.body.audio,
-
+        "assets": existingAssets,
       }
     });
-  res.send(updateResult);
+  if (updateResult.acknowledged == true)
+    res.send({ "message": "Votre publication a été modifié." });
 }
 
 
@@ -122,10 +120,10 @@ exports.findAll = async (req, res) => {
   const findResult = await collection_publications.find({
     userId: { $in: userIds }
   })
-  .sort({ date: -1 })
-  .skip(skip)
-  .limit(limit)
-  .toArray();
+    .sort({ date: -1 })
+    .skip(skip)
+    .limit(limit)
+    .toArray();
 
   res.send(findResult);
 }
@@ -182,12 +180,13 @@ exports.getListeLikedPostsByUserId = async (req, res) => {
 exports.findOneById = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
   const id = req.query.id
-  if (id != null && id != '' && id != undefined){
-  console.log(id)
-
-    res.send(await collection_publications.findOne({
-      "$or": [{ _id: new ObjectId(id) }, { _id : id }]
-    }))}
+  if (id != null && id != '' && id != undefined) {
+    console.log(id)
+    const result = await collection_publications.findOne({
+      "$or": [{ _id: new ObjectId(id) }, { _id: id }]
+    })
+    res.send(result)
+  }
   else
     res.send("No Post!")
 };
@@ -206,25 +205,47 @@ exports.delete = (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
 
   collection_publications.deleteOne({ "_id": new ObjectId(req.body.id) }).then(data => {
-    collection_interactionsociales.deleteOne({ "postId": req.body.id }).then(data1 => {
-      collection_commentaires.
-        deleteMany({ "postId": req.body.id }).then(k => {
+    if (data) {
+      collection_interactionsociales.deleteMany({ "postId": req.body.id }).then(data1 => {
+        if (data1) {
+          collection_commentaires.
+            deleteMany({ "postId": req.body.id }).then(data2 => {
+              if (data2) {
 
-          collection_statistiqueusers.updateOne({ "userId": data.userId },
-            { $inc: { "totalPosts": -1 } })
-            .then(data2 => {
-              res.send(data2);
-            })
-            .catch(err => {
+                collection_statistiqueusers.updateOne({ "userId": data.userId },
+                  { $inc: { "totalPosts": -1 } })
+                  .then(data2 => {
+                    res.send(data2);
+                  })
+                  .catch(err => {
+                    res.status(500).send({
+                      message:
+                        err.message || "Some error occurred while delete statistique user of post deleted."
+                    })
+                  });
+              }
+
+
+            }).catch(err => {
               res.status(500).send({
                 message:
-                  err.message || "Some error occurred while add like."
+                  err.message || "Some error occurred while delete commentaires of post deleted."
               })
-            });
-
+            })
+        }
+      }).catch(err => {
+        res.status(500).send({
+          message:
+            err.message || "Some error occurred while delete interactions of post deleted."
         })
+      })
+    }
+  }).catch(err => {
+    res.status(500).send({
+      message:
+        err.message || "Some error occurred while delete post."
     })
-  });
+  })
 }
 
 exports.resetInteractions = async (req, res) => {
@@ -240,6 +261,6 @@ exports.resetInteractions = async (req, res) => {
       }
     });
 
-   const dele = await collection_interactionsociales.deleteMany({})
-  res.send( { updateResult, dele });
+  const dele = await collection_interactionsociales.deleteMany({})
+  res.send({ updateResult, dele });
 }
