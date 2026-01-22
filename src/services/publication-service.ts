@@ -41,11 +41,15 @@ export class PublicationsService {
   
 
   getAllPublicationsByUserId(id: string): Observable<Publication[]> {
-    return this.http.get<Publication[]>(url + "/api/publicationByUserId?id=" + id);
+    return this.http.get<Publication[]>(url + "/api/publicationByUserId?id=" + 
+       JSON.parse(localStorage.getItem('userconnected')?.toString() as string).userId
+    );
   }
 
   getMyPublications(): Observable<Publication[]> {
-    return this.http.get<Publication[]>(url + "/api/publicationByUserId?id=" + localStorage.getItem('userId')?.toString());
+    return this.http.get<Publication[]>(url + "/api/publicationByUserId?id=" +
+       JSON.parse(localStorage.getItem('userconnected')?.toString() as string).userId
+    );
   }
 
   public createNewPublication(formData: any): Observable<any> {

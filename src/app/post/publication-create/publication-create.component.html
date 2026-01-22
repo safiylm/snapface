@@ -44,26 +44,9 @@
             {{result}}
         </p>
         <p *ngIf="error" style="background-color: red; padding: 7px;"> {{error}} </p>
-        <app-loading-spinner *ngIf="loading"></app-loading-spinner>
-
+        <app-loading-spinner-response *ngIf="loading" text="Création en cours"></app-loading-spinner-response>
 
         <button class="btn btn-light" type="submit">Créer </button>
 
     </form>
 </div>
-
-
-<!-- <div class="audio-list">
-
-        <div *ngFor="let audio of audioList"
-            class="audio-item d-flex flex-wrap align-items-center justify-content-aroud">
-            <input type="radio" id="html" name="audio" [(ngModel)]="post.audio!" [value]="audio.url">
-            <img [src]="audio.cover" width="75px" height="75px" />
-            <div>
-                <p>{{audio.title}}</p>
-                <audio controls [src]="audio.url"></audio>
-            </div>
-        </div>
-
-
-    </div> -->

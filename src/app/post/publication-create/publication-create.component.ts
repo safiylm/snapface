@@ -5,14 +5,14 @@ import { PublicationsService } from '../../../services/publication-service';
 import { CommonModule, NgFor } from '@angular/common';
 import { HeaderComponent } from '../../header/header.component';
 import { AudioService } from 'src/services/audio.service';
-import { LoadingSpinnerComponent } from 'src/app/loading-spinner/loading-spinner.component';
+import { LoadingSpinnerResponseComponent } from 'src/app/loading-spinner-response/loading-spinner-response.component';
 
 @Component({
   standalone: true,
   selector: 'app-publication-create',
   templateUrl: './publication-create.component.html',
   styleUrls: ['./publication-create.component.scss'],
-  imports: [FormsModule, NgFor, CommonModule, LoadingSpinnerComponent, HeaderComponent]
+  imports: [FormsModule, NgFor, CommonModule, LoadingSpinnerResponseComponent, HeaderComponent]
 })
 
 
