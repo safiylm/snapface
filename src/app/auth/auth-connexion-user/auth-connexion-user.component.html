@@ -34,6 +34,7 @@
             {{result}}
         </p>
         <p *ngIf="error" style="background-color: red; padding: 7px;"> {{error}} </p>
+        <app-loading-spinner-response *ngIf="loading" text="Connexion en cours"></app-loading-spinner-response>
 
         <div class="d-flex flex-column align-items-center justify-content-center">
 
@@ -44,5 +45,4 @@
 
     </form>
 
-    <app-loading-spinner *ngIf="loading"></app-loading-spinner>
 </div>

@@ -3,14 +3,14 @@ import { UserService } from '../../../services/user-service'
 import { FormsModule } from "@angular/forms";
 import { CommonModule, NgIf } from '@angular/common';
 import { HeaderComponent } from '../../header/header.component';
-import { LoadingSpinnerComponent } from 'src/app/loading-spinner/loading-spinner.component';
+import { LoadingSpinnerResponseComponent } from 'src/app/loading-spinner-response/loading-spinner-response.component';
 
 @Component({
   standalone: true,
   selector: 'app-auth-connexion-user',
   templateUrl: './auth-connexion-user.component.html',
   styleUrls: ['./auth-connexion-user.component.scss'],
-  imports: [FormsModule, HeaderComponent, CommonModule, LoadingSpinnerComponent, NgIf],
+  imports: [FormsModule, HeaderComponent, CommonModule, LoadingSpinnerResponseComponent, NgIf],
 
 })
 

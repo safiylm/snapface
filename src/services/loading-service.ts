@@ -10,7 +10,7 @@ export class LoadingService {
   
   private loadingSubject = new BehaviorSubject<boolean>(false);
   loading$ = this.loadingSubject.asObservable();
-
+  
   private requestCount = 0;
 
   show() {

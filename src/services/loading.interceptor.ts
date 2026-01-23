@@ -17,13 +17,8 @@ export class LoadingInterceptor implements HttpInterceptor {
 
   constructor(private loadingService: LoadingService) { }
   private excludedUrls = [
-    url + '/api/interaction/enregistrementAdd',
-    url + '/api/interaction/enregistrementRemove',
-    url + '/api/interaction/pointsAdd',
-    url + '/api/interaction/pointsRemove',
-    url + '/api/interaction/likesAdd',
-    url + '/api/interaction/likesRemove',
-    url + '/api/publication',
+    url + '/api/interaction/add',
+    url + '/api/interaction/remove',
   ];
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {

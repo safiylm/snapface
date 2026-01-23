@@ -10,12 +10,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import { LoadingInterceptor } from 'src/services/loading.interceptor';
+import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.component';
 // autres imports...
 
 registerLocaleData(localeFr);
 
 @NgModule({
-  declarations: [AppComponent, ],
+  declarations: [AppComponent, LoadingSpinnerComponent, ],
   imports: [
     BrowserModule,
     AppRoutingModule,

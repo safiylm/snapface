@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../services/user-service'
 import { User } from '../../../models/user.model'
-import * as bcrypt from "bcryptjs";
 import { FormsModule } from "@angular/forms";
-import { CommonModule, DatePipe, JsonPipe } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../header/header.component';
-import { interval, scan, takeWhile } from 'rxjs';
+import { LoadingSpinnerResponseComponent } from 'src/app/loading-spinner-response/loading-spinner-response.component';
 
 
 @Component({
@@ -13,7 +12,8 @@ import { interval, scan, takeWhile } from 'rxjs';
   selector: 'app-auth-inscription-user',
   templateUrl: './auth-inscription-user.component.html',
   styleUrls: ['./auth-inscription-user.component.scss'],
-  imports: [CommonModule, FormsModule, HeaderComponent],
+  imports: [CommonModule, FormsModule,
+    LoadingSpinnerResponseComponent, HeaderComponent],
 
 })
 
