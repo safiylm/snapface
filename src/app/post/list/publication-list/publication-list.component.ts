@@ -2,7 +2,7 @@ import { Component, Input, Renderer2 } from '@angular/core';
 import { Publication } from '../../../../models/publication.model';
 import { ActivatedRoute } from '@angular/router';
 import { PublicationComponent } from '../../publication/publication.component';
-import { NgIf, NgFor, NgClass } from '@angular/common';
+import { NgIf, NgFor, NgClass, JsonPipe } from '@angular/common';
 import { UsersListComponent } from "../../../user/users-list/users-list.component";
 import { User } from 'src/models/user.model';
 
@@ -11,7 +11,9 @@ import { User } from 'src/models/user.model';
   selector: 'app-publication-list',
   templateUrl: './publication-list.component.html',
   styleUrls: ['./publication-list.component.scss'],
-  imports: [PublicationComponent, NgFor, NgIf, UsersListComponent, NgClass]
+  imports: [PublicationComponent, NgFor, NgIf,
+    JsonPipe,
+     UsersListComponent, NgClass]
 
 })
 
@@ -40,6 +42,14 @@ export class PublicationListComponent {
 
   clickImage(i: number){
     this.isMobile=true; this.index= i; 
+  }
+
+    isVideo(url: string): boolean {
+    return url.match(/\.(mp4|webm|ogg|mov|avi|mkv)$/i) !== null;
+  }
+
+    isImage(url: string): boolean {
+    return url.match(/\.(jpeg|jpg|gif|png|webp|svg)$/i) !== null;
   }
 
 }

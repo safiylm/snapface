@@ -1,5 +1,5 @@
 :root {
-    --widthh: 300px;
+    --widthh: 350px;
     --heightt: auto;
 }
 
@@ -9,8 +9,8 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    box-shadow: 0 5px 20px rgba(100, 102, 96, 0.65);
-    width: var(--widthh);
+  //  box-shadow: 0 5px 20px rgba(100, 102, 96, 0.65);
+    width: 350px;
     height: var(--heightt);
     max-height: var(--heightt);
     background-color: rgba(218, 216, 216, 0.17);
@@ -18,9 +18,10 @@
     video,
     img {
         object-fit: cover;
-        width: 100%;
+        width: 350px;
         height: var(--heightt);
-
+        max-height: 80vh;
+        object-fit: cover;
         :after {
             content: " ";
             display: block;
@@ -29,23 +30,13 @@
     }
 
     video {
-        width: var(--widthh);
+        width: 350px;
         height: var(--heightt);
+        max-height: 80vh;
+        max-width: 350px;
+
     }
 
-    button {
-        height: var(--heightt);
-        background-color: transparent;
-        border: none;
-
-        :first-child {
-            left: 0;
-        }
-
-        :last-child {
-            right: 0;
-        }
-    }
 
 }
 
@@ -72,8 +63,8 @@
 
 .video-wrapper {
     position: relative;
-    width: 640px;
-    max-width: 100%;
+    width: 350px;
+    max-width: 350px;
     margin: auto;
     background: #000;
     border-radius: 12px;

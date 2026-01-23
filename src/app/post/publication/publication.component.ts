@@ -34,19 +34,15 @@ export class PublicationComponent {
         .subscribe(data => {
           this.publication = data;
         })
-
   }
 
-  ngAfterContentChecked() {
-    if (this.UserId == JSON.parse(localStorage.getItem('userconnected')?.toString() as string ).userId) {
-      this.isMyPost = true;
-    }
-  }
 
 
   ngAfterViewInit(): void {
 
-
+    if (this.UserId == JSON.parse(localStorage.getItem('userconnected')?.toString() as string).userId) {
+      this.isMyPost = true;
+    }
     const videoObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         const video = entry.target as HTMLVideoElement;

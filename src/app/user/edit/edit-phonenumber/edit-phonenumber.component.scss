@@ -1,26 +1,25 @@
 form {
-    margin: 20px auto;
+    margin: 0 auto;
     width: 700px;
-
-    * {
-        margin: 8px 0;
-    }
-
-    input {
-        width: 100%;
-    }
-
-    label {
+    max-width: 90vw;
     color: white;
+    .div-input {
+        margin: 35px 0;
 
-        text-align: left;
-        width: 100% !important;
+        label,
+        input {
+            display: block;
+            width: 100%;
+            font-size: medium;
+            color: white;
+        }
 
-    }
-
-    button {
-        margin: 20px auto !important;
-        display: block !important;
+        input {
+            padding: 7px 14px;
+            margin: 10px 0;
+            width: 100%;
+            color: black;
+        }
     }
 
 }

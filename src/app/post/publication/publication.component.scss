@@ -21,7 +21,7 @@
   margin: 20px;
   height: auto;
   min-width: 250px;
-  width: 300px;
+  width: 350px;
   max-width: 550px;
 
   app-auteur-in-post-or-commentaire {
@@ -54,14 +54,16 @@
   }
 
   app-interaction-social {
-    width: 100%;
+    width: 350px !important;
+    padding: 0 8px ;
   }
 }
 
 
 
 .example-card {
-  width: 400px;
+  width: 350px;
+  box-shadow: -4px 5px 44px -2px #090909;
 }
 
 a {
@@ -75,6 +77,7 @@ a {
   font-size: 17px;
   font-weight: 500;
   margin: 10px 0;
+  width: 320px !important;
 }
 
 

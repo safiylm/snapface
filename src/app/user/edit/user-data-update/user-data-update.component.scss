@@ -1,6 +1,5 @@
 .user-update {
     background-color: currentColor;
-    padding-top: 50px;
 }
 
 
@@ -17,17 +16,7 @@ h2 {
 form {
     margin: 0 auto;
     width: 700px;
-
-    .col {
-        padding: 15px;
-
-        img {
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
-        }
-    }
-
+    max-width: 90vw;
     .div-input {
         margin: 35px 0;
 
@@ -47,7 +36,6 @@ form {
         }
     }
 
-
 }
 
 .btn-danger {
@@ -58,30 +46,11 @@ form {
 
 @media(max-width:850px) {
 
-    app-header-snap {
-        margin-top: 160px;
-    }
-
-    form,
-    .form-edit {
-        padding: 30px;
+    form {
         box-sizing: border-box;
         margin: 20px auto;
         padding: 10px;
         width: 100%;
-    }
-
-    .d-flex {
-        flex-direction: column;
-    }
-
-    .col {
-        width: 100%;
-        padding: 0 15px;
-    }
-
-    .accordion {
-        width: 95%;
     }
 
 }
