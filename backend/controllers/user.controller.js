@@ -1,13 +1,9 @@
-const User = require("../models/user");
 const db = require('../config/db.config.js')
 const collection_user = db.collection('users');
 const collection_statistiqueusers = db.collection('statistiqueusers');
-const collection_abonnees = db.collection('abonnees');
 const nodemailer = require('nodemailer');
 const ObjectId = require('mongodb').ObjectId;
 const jwt_ = require('../jwt.js')
-const jwt = require('jsonwebtoken');
-//const bcrypt = require('bcrypt-nodejs')
 const cloudinary = require('cloudinary').v2;
 const bcrypt = require('bcrypt');
 const saltRounds = 21082000; // Facteur de travail
@@ -58,7 +54,7 @@ exports.create = (req, res) => {
 
   const emailRegexp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
   if (!emailRegexp.test(req.body.email))
-     return res.status(500).send(
+    return res.status(500).send(
       'Votre email est invalide, veuillez réessayer.');
 
   req.body.password = hashPassword(req.body.password)
@@ -77,7 +73,7 @@ exports.create = (req, res) => {
             totalPoints: 0,
           })
           .then(data1 => {
-            if (data1)
+            if (data1 && data)
               res.send({ "message": "Votre compte a été crée avec succès!", "userId": data.insertedId });
           })
           .catch(err => {
@@ -102,13 +98,29 @@ exports.create = (req, res) => {
 exports.update = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
 
+  if (req.body._id == '' || req.body._id == null || req.body._id == undefined)
+    return res.status(500).send(
+      'User Id is null.');
+
+  if ((req.body.firstName == '' || req.body.firstName == null || req.body.firstName == undefined)
+    && (req.body.lastName == '' || req.body.lastName == null || req.body.lastName == undefined))
+    return res.status(500).send(
+      'User name is null.');
+
   const updateResult = await collection_user.updateOne({ "_id": new ObjectId(req.body._id) },
     {
       $set: {
         "firstName": req.body.firstName,
         "lastName": req.body.lastName,
       }
+    }).catch(err => {
+      res.status(500).send({
+        message_:
+          "Some error occurred while edit name of user.",
+        erreur: err.message
+      });
     });
+
   res.send(updateResult);
 }
 
@@ -117,39 +129,64 @@ exports.update = async (req, res) => {
 //edit Online
 exports.updateIsOnline = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
+
   if (req.body._id == '' || req.body._id == null || req.body._id == undefined)
-    res.send("User Id is null");
+    return res.status(500).send(
+      'User Id is null.');
+
+
   const updateResult = await collection_user.updateOne({ "_id": new ObjectId(req.body._id) },
-    {
-      $set: {
-        "isOnline": true,
-      }
+    { $set: { "isOnline": true, } })
+    .catch(err => {
+      res.status(500).send({
+        message_:
+          "Some error occurred while update online of user.",
+        erreur: err.message
+      });
     });
+
   res.send(updateResult);
 }
-
-
 
 
 //edit not Online
 exports.updateIsNotOnline = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
+
   if (req.body._id == '' || req.body._id == null || req.body._id == undefined)
-    res.send("User Id is null");
+    return res.status(500).send(
+      'User Id is null.');
+
 
   const updateResult = await collection_user.updateOne({ "_id": new ObjectId(req.body._id) },
     {
       $set: {
         "isOnline": false,
       }
+    }).catch(err => {
+      res.status(500).send({
+        message_:
+          "Some error occurred while update online of user.",
+        erreur: err.message
+      });
     });
 
   res.send(updateResult);
 }
 
+
 exports.editPhotoDeProfil = async (req, res) => {
   const filePath = req.file.path;
   res.set('Access-Control-Allow-Origin', '*');
+
+  if (req.body.userId == '' || req.body.userId == null || req.body.userId == undefined)
+    return res.status(500).send(
+      'User Id is null.');
+
+  if (filePath == '' || filePath == null || filePath == undefined)
+    return res.status(500).send(
+      'File is null.');
+
 
   cloudinary.uploader.upload(filePath, {
     folder: 'uploads_secure',
@@ -162,10 +199,18 @@ exports.editPhotoDeProfil = async (req, res) => {
         }
       }).then(data => {
         if (data) {
-          res.json({ url: result.secure_url, data: "Modification de photo de profil reussi" });
-
+          res.json({
+            url: result.secure_url,
+            message: "Modification de photo de profil reussi"
+          });
         }
-      })
+      }).catch(err => {
+        res.status(500).send({
+          message_:
+            "Some error occurred while edit profil picture of user.",
+          erreur: err.message
+        });
+      });
   });
 }
 
@@ -173,6 +218,15 @@ exports.editPhotoDeProfil = async (req, res) => {
 exports.editPhotoBackground = async (req, res) => {
   const filePath = req.file.path;
   res.set('Access-Control-Allow-Origin', '*');
+
+  if (req.body.userId == '' || req.body.userId == null || req.body.userId == undefined)
+    return res.status(500).send(
+      'User Id is null.');
+
+  if (filePath == '' || filePath == null || filePath == undefined)
+    return res.status(500).send(
+      'File is null.');
+
 
   cloudinary.uploader.upload(filePath, {
     folder: 'uploads_secure',
@@ -185,9 +239,19 @@ exports.editPhotoBackground = async (req, res) => {
         }
       }).then(data => {
         if (data) {
-          res.json({ url: result.secure_url, data: "Modification de photo background reussi" });
+          res.json({
+            url: result.secure_url,
+            message: "Modification de photo background reussi"
+          });
         }
       })
+      .catch(err => {
+        res.status(500).send({
+          message_:
+            "Some error occurred while edit background picture of user.",
+          erreur: err.message
+        });
+      });
   });
 }
 
@@ -195,6 +259,21 @@ exports.editPhotoBackground = async (req, res) => {
 
 exports.editEmail = async function (req, res) {
   res.set('Access-Control-Allow-Origin', '*');
+
+  const mailOptions = {
+    from: 'snapface2023@gmail.com',
+    to: "safinazyilmaz54@gmail.com",
+    subject: "Votre email est mis à jour ",
+    text: "La modification de votre email a été réalisé avec succès.",
+  };
+
+  if (req.body._id == '' || req.body._id == null || req.body._id == undefined)
+    return res.status(500).send(
+      'User Id is null.');
+
+  if (req.body.email == '' || req.body.email == null || req.body.email == undefined)
+    return res.status(500).send(
+      'Email is null.');
 
   await collection_user.updateOne({ "_id": new ObjectId(req.body._id) },
     {
@@ -204,25 +283,24 @@ exports.editEmail = async function (req, res) {
     }).then(data => {
       if (data) {
 
-        const mailOptions = {
-          from: 'snapface2023@gmail.com',
-          to: "safinazyilmaz54@gmail.com",
-          subject: "Email Modifier",
-          text: "Email Modifier",
-        };
-
-        transporter.sendMail(mailOptions, (error, info) => {
-          if (error) {
-            return res.status(500).send({ success: false, error });
-          }
-
-          res.status(200).send(data);
-          // res.status(200).send({ success: true, message: 'Email envoyé avec succès !' });
-        });
-
+        /*  transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+              return res.status(500).send({ error });
+            }
+  -----------------------------------
+            DONT WORK
+  -----------------------------------------     
+  */
+        res.status(200).send({ message: 'Email de verification est envoyé avec succès !' });
+        // });
       }
-
-    })
+    }).catch(err => {
+      res.status(500).send({
+        message_:
+          "Some error occurred while edit email of user.",
+        erreur: err.message
+      });
+    });
 
 }
 
@@ -230,11 +308,22 @@ exports.editEmail = async function (req, res) {
 exports.editPhoneNumber = async function (req, res) {
   res.set('Access-Control-Allow-Origin', '*');
 
+  if (req.body._id == '' || req.body._id == null || req.body._id == undefined)
+    return res.status(500).send(
+      'User id is null.');
+
   const updateResult = await collection_user.updateOne({ "_id": new ObjectId(req.body._id) },
     {
       $set: {
         "phoneNo": req.body.phoneNo,
       }
+    })
+    .catch(err => {
+      res.status(500).send({
+        message_:
+          "Some error occurred while edit number of phone of user.",
+        erreur: err.message
+      });
     });
   res.send(updateResult);
 }
@@ -243,11 +332,28 @@ exports.editPhoneNumber = async function (req, res) {
 exports.editPassword = async function (req, res) {
   res.set('Access-Control-Allow-Origin', '*');
 
+  if (req.body._id == '' || req.body._id == null || req.body._id == undefined)
+    return res.status(500).send(
+      'User id is null.');
+
+  if (req.body.newpassword == '' || req.body.newpassword == null || req.body.newpassword == undefined)
+    return res.status(500).send(
+      'Password is null.');
+
+  const newpassword = hashPassword(req.body.newpassword)
+
   const updateResult = await collection_user.updateOne({ "_id": new ObjectId(req.body._id) },
-    {
-      $set: {
-        "password": req.body.newpassword,
-      }
+    { $set: { "password": newpassword, }
+    }).then(data=>{
+      if(data)
+        res.send({message: "Votre modification a été enregistré avec succès."})
+    })
+    .catch(err => {
+      res.status(500).send({
+        message_:
+          "Some error occurred while edit password of user.",
+        erreur: err.message
+      });
     });
   res.send(updateResult);
 }
@@ -256,6 +362,10 @@ exports.editPassword = async function (req, res) {
 //dete user 
 exports.delete = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
+
+  if (req.body._id == '' || req.body._id == null || req.body._id == undefined)
+    return res.status(500).send(
+      'User id is null.');
 
   collection_user.updateOne({ "_id": new ObjectId(req.body._id) },
     {
@@ -271,7 +381,13 @@ exports.delete = async (req, res) => {
               res.send(data);
           }
         );
-    })
+    }).catch(err => {
+      res.status(500).send({
+        message_:
+          "Some error occurred while delete user.",
+        erreur: err.message
+      });
+    });
 
 }
 
@@ -281,7 +397,14 @@ exports.findAll = async (req, res) => {
 
   res.set('Access-Control-Allow-Origin', '*');
 
-  const findResult = await collection_user.find({}).toArray();
+  const findResult = await collection_user.find({}).toArray()
+    .catch(err => {
+      res.status(500).send({
+        message_:
+          "Some error occurred while get list of users.",
+        erreur: err.message
+      });
+    });
   res.send(findResult);
 
 }
@@ -290,14 +413,23 @@ exports.findAll = async (req, res) => {
 // Retrieve one User by id from the database.
 exports.findOneById = async (req, res) => {
   const id = req.query.id;
-  if (!id || !ObjectId.isValid(id)) {
-    return res.status(400).json({ error: 'Invalid ID format' });
-  }
+
+  if (id == '' || id == null || id == undefined || !id || !ObjectId.isValid(id))
+    return res.status(500).send(
+      'User id is null.');
+
   res.set('Access-Control-Allow-Origin', '*');
   const resultat = await collection_user.findOne({ "_id": new ObjectId(id) })
+    .catch(err => {
+      res.status(500).send({
+        message_:
+          "Some error occurred while find user by id.",
+        erreur: err.message
+      });
+    });
 
   if (!resultat) {
-    return res.status(404).json({ error: 'User not found' });
+    return res.status(500).json({ error: 'User not found' });
   }
 
   res.json(resultat)
@@ -305,21 +437,24 @@ exports.findOneById = async (req, res) => {
 
 
 exports.findByName = async (req, res) => {
-  const lname = req.query.lname;
-  const fname = req.query.fname;
+  const lname = req.query.lname.trim();
+  const fname = req.query.fname.trim();
+
   let resultat = "error find user"
   res.set('Access-Control-Allow-Origin', '*');
-  //if (lname.trim() != "" && lname != undefined && lname != null) {
-  resultat = await collection_user.find({
 
-    //$or: [
+  resultat = await collection_user.find({
     "lastName": { $options: 'i', "$regex": lname },
     "firstName": { $options: 'i', "$regex": fname }
-    // ],
   },
-
   ).toArray()
-  //}
+    .catch(err => {
+      res.status(500).send({
+        message_:
+          "Some error occurred while search user by name.",
+        erreur: err.message
+      });
+    });
   res.json(resultat)
 
 }
@@ -339,11 +474,6 @@ function cookies
 const verifyPassword = async (plainPassword, hashedPassword) => {
   try {
     const match = await bcrypt.compare(plainPassword, hashedPassword);
-    if (match) {
-      console.log('✅ Mot de passe valide');
-    } else {
-      console.log('❌ Mot de passe invalide');
-    }
     return match;
   } catch (error) {
     console.error('Erreur lors de la vérification du mot de passe :', error);
@@ -354,11 +484,24 @@ const verifyPassword = async (plainPassword, hashedPassword) => {
 //connexion
 exports.connexion = async function (req, res, next) {
 
+  if (req.body.email == '' || req.body.email == null || req.body.email == undefined
+    || !req.body.email || req.body.password == '' || req.body.password == null
+    || req.body.password == undefined || !req.body.password)
+    return res.status(500).send(
+      'EMAIL & PASSWORD is null.');
+
+
   const resultat = await collection_user.findOne(
-    { email: req.body.email });
+    { email: req.body.email })
+    .catch(err => {
+      res.status(500).send({
+        message_:
+          "Some error occurred while get user by email.",
+        erreur: err.message
+      });
+    });
 
   if (resultat == null) {
-    // Sinon : utilisateur non trouvé
     return res.status(500).send(
       'Votre email est incorrecte, veuillez réessayer.');
 
@@ -374,7 +517,9 @@ exports.connexion = async function (req, res, next) {
     }
     else {
       return res.status(500).send(
-        'Votre mot de passe est incorrecte, veuillez réessayer.');
+        {
+          message_: 'Votre mot de passe est incorrecte, veuillez réessayer.'
+        });
     }
   }
 
@@ -382,16 +527,47 @@ exports.connexion = async function (req, res, next) {
 
 exports.logout = async function (req, res) {
   res.set('Access-Control-Allow-Origin', '*');
-
   res.clearCookie("token");
-
   res.json("ok")
 };
+
+
+
+exports.getIfEmailExist = async function (req, res) {
+  res.set('Access-Control-Allow-Origin', '*');
+
+  if (req.body.email == '' || req.body.email == null || req.body.email == undefined || !req.body.email)
+    return res.status(500).send(
+      'Email is null.');
+
+
+  collection_user.findOne({ "email": req.body.email }).then(data => {
+    res.send(data)
+  })
+    .catch(err => {
+      res.status(500).send({
+        message_:
+          "Some error occurred while get user by email.",
+        erreur: err.message
+      });
+    });
+}
+
+
+//--------------------------------------------------------------
+// MOT DE PASSE OUBLIE 
+//--------------------------------------------------------------
+
 
 exports.sendLinkForPasswordOublie = async function (req, res) {
 
   const userEmail = req.body.email;
   const resetLink = jwt_.generateResetLink(userEmail);
+
+  if (req.body.email == '' || req.body.email == null || req.body.email == undefined || !req.body.email)
+    return res.status(500).send(
+      'Email is null.');
+
 
 
   const mailOptions = {
@@ -406,25 +582,26 @@ exports.sendLinkForPasswordOublie = async function (req, res) {
 
   transporter.sendMail(mailOptions, (err, info) => {
     if (err) {
-      console.error('Erreur lors de l\'envoi de l\'e-mail :', err);
+      return res.status(500).send({
+        erreur: err,
+        message_: 'Erreur lors de l\'envoi de l\'e-mail'
+      });
     } else {
       res.set('Access-Control-Allow-Origin', '*');
-      res.send('E-mail envoyé :', info.response)
+      res.send({ message: "Le lien pour reinitialiser votre mot de passe a été envoyé par email" })
     }
   });
 }
 
 
-exports.getIfEmailExist = async function (req, res) {
-  res.set('Access-Control-Allow-Origin', '*');
-  collection_user.findOne({ "email": req.body.email }).then(data => {
-    res.send(data)
-  })
-}
 
-//edit password
+//reinit password
 exports.reinitialisePassword = async function (req, res) {
   res.set('Access-Control-Allow-Origin', '*');
+
+  if (req.body.password == '' || req.body.password == null || req.body.password == undefined || !req.body.password)
+    return res.status(500).send(
+      'Password is null.');
 
   const token = jwt_.verifyResetLink(req.body.token);
 
@@ -434,6 +611,13 @@ exports.reinitialisePassword = async function (req, res) {
         "password": req.body.password,
       }
     }).then(data => {
-      res.send(data);
+      res.send({ message: "Votre mot de passe a été réinitaliser" });
     })
+    .catch(err => {
+      res.status(500).send({
+        message_:
+          "Some error occurred while reinit user password.",
+        erreur: err.message
+      });
+    });
 }
