@@ -48,7 +48,7 @@
         </div>
 
         <!--  <app-publication-list-scroll [id]='id'></app-publication-list-scroll>-->
-        <app-publication-list *ngIf="display==''" [isDisplay]="true" [id]='id'></app-publication-list>
+        <app-publication-list *ngIf="display==''" [id]='id'></app-publication-list>
         <app-interactions-list interactions="enregistrement" *ngIf="display=='save'"></app-interactions-list>
         <app-interactions-list interactions="like" *ngIf="display=='like'"></app-interactions-list>
         <app-interactions-list interactions="repost" *ngIf="display=='repost'"></app-interactions-list>

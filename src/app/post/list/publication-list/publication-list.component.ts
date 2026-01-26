@@ -13,42 +13,36 @@ import { User } from 'src/models/user.model';
   styleUrls: ['./publication-list.component.scss'],
   imports: [PublicationComponent, NgFor, NgIf,
     JsonPipe,
-     UsersListComponent, NgClass]
+    UsersListComponent, NgClass]
 
 })
 
 export class PublicationListComponent {
 
-
   @Input() publications !: Publication[];
   user !: User;
-  post: Publication | undefined;
-  @Input() isDisplay !: boolean;
-  menuBtnClick: boolean = false;
-  isMobile : boolean= false;
-
+  isMobile: boolean = false;
   index = 0
 
-  constructor( private route: ActivatedRoute, private renderer: Renderer2) {
+  constructor(private route: ActivatedRoute) {
     this.publications = route.snapshot.data['publications']
     this.user = route.snapshot.data['user'];
   }
 
-  ngOnInit(){
-    if(this.route.snapshot.data['publications']== null)
-    this.publications =[]
-
+  ngOnInit() {
+    if (this.route.snapshot.data['publications'] == null)
+      this.publications = []
   }
 
-  clickImage(i: number){
-    this.isMobile=true; this.index= i; 
+  clickImage(i: number) {
+    this.isMobile = true; this.index = i;
   }
 
-    isVideo(url: string): boolean {
+  isVideo(url: string): boolean {
     return url.match(/\.(mp4|webm|ogg|mov|avi|mkv)$/i) !== null;
   }
 
-    isImage(url: string): boolean {
+  isImage(url: string): boolean {
     return url.match(/\.(jpeg|jpg|gif|png|webp|svg)$/i) !== null;
   }
 
