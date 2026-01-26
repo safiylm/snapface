@@ -27,6 +27,8 @@ export class PublicationsService {
           );
       }, 1000);
     })
+
+    
   }
 
 
@@ -41,8 +43,7 @@ export class PublicationsService {
   
 
   getAllPublicationsByUserId(id: string): Observable<Publication[]> {
-    return this.http.get<Publication[]>(url + "/api/publicationByUserId?id=" + 
-       JSON.parse(localStorage.getItem('userconnected')?.toString() as string).userId
+    return this.http.get<Publication[]>(url + "/api/publicationByUserId?id=" + id
     );
   }
 

@@ -3,7 +3,7 @@ export class Publication {
     constructor(
         public _id: string,
         public body: string,
-        public assets: [string],
+        public assets: string[],
         public userId: string,
         public audio: string,
 
