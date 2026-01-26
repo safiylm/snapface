@@ -17,10 +17,49 @@
         flex-direction: row;
         justify-content: center;
         width: 20%;
-        border: 2.2px solid #fff;
+        border: 2.5px solid #fff;
         border-radius: 10px;
         padding: 5px;
+        color: #fff;
+        font-size: 13px;
+        transition: all .4s ease;
+        -webkit-transition: all .4s ease;
+    }
 
+    button:hover {
+        background-color: rgba(76, 74, 74, 0.639);
+        border: 2.5px solid #fe89ec;
+
+    }
+
+    #btnlike:hover,
+    .btnisLiked {
+        border: 2.5px solid #ff0080;
+        transition: all .4s ease;
+        -webkit-transition: all .4s ease;
+    }
+
+
+    #btnRepost:hover,
+    .btnisRepost {
+        border: 2.5px solid #76ff44;
+        transition: all .4s ease;
+        -webkit-transition: all .4s ease;
+    }
+
+    
+    #btnisSaved:hover,
+    .btnisSaved {
+        border: 2.5px solid #ff00ff;
+        transition: all .4s ease;
+        -webkit-transition: all .4s ease;
+    }
+
+    
+    .btnisNotXXX {
+        border: 2.5px solid #fff;
+        transition: all .4s ease;
+        -webkit-transition: all .4s ease;
     }
 
 

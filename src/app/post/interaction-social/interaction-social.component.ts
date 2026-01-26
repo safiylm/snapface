@@ -1,5 +1,5 @@
 import { Component, Input, Renderer2 } from '@angular/core';
-import { NgClass, NgFor, NgIf } from '@angular/common';
+import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Publication } from 'src/models/publication.model';
 import { UserService } from 'src/services/user-service';
@@ -10,31 +10,6 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { InteractionSocialeService } from 'src/services/interaction-social-service';
 
-const enterTransition = transition(':enter', [
-  style({
-    opacity: 0
-  }),
-  animate('0.5s ease-in', style({
-    opacity: 1
-  }))
-]);
-
-const leaveTrans = transition(':leave', [
-  style({
-    opacity: 1
-  }),
-  animate('0.5s ease-out', style({
-    opacity: 0
-  }))
-])
-
-const fadeIn = trigger('fadeIn', [
-  enterTransition
-]);
-
-const fadeOut = trigger('fadeOut', [
-  leaveTrans
-]);
 
 @Component({
   standalone: true,
@@ -42,12 +17,9 @@ const fadeOut = trigger('fadeOut', [
   templateUrl: './interaction-social.component.html',
   styleUrls: ['./interaction-social.component.scss'],
   imports: [
-    NgIf, FormsModule,  NgClass,
+    NgIf, FormsModule,  NgClass, NgStyle,
     NgFor, CommentaireListComponent, SignalerPostComponent, MatButtonModule, MatMenuModule],
-  animations: [
-    fadeIn,
-    fadeOut
-  ]
+
 })
 
 

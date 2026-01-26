@@ -1,6 +1,6 @@
 <div class="div-interactionSociale">
 
-    <button (click)="interact('like')">
+    <button id="btnlike" (click)="interact('like')" [ngClass]="{'btnisLiked': isLiked, 'btnisNotXXX' : !isLiked }" >
         <svg *ngIf="isLiked" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none"
             stroke="#ff0080" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
             class="lucide lucide-heart-icon lucide-heart">
@@ -32,7 +32,7 @@
     </button>
 
 
-    <button type="button" (click)="interact('repost')">
+    <button id="btnRepost" type="button" (click)="interact('repost')" [ngClass]="{'btnisRepost': isReposted, 'btnisNotXXX' : !isReposted }">
 
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff"
             stroke-width="2.15" stroke-linecap="round" stroke-linejoin="round" *ngIf="!isReposted"
@@ -43,7 +43,7 @@
             <path d="M11 6h6a2 2 0 0 1 2 2v10" />
         </svg>
 
-        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#0000ff"
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="#76ff44"
             stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" *ngIf="isReposted"
             class="lucide lucide-repeat2-icon lucide-repeat-2">
             <path d="m2 9 3-3 3 3" />
@@ -67,7 +67,7 @@
 
 <div class="div-interactionSociale" *ngIf="isShowListOfButton">
 
-    <button (click)="interact('enregistrement')">
+    <button id="btnisSaved" (click)="interact('enregistrement')" [ngClass]="{'btnisSaved': isSaved, 'btnisNotXXX' : !isSaved }">
 
         <svg *ngIf="!isSaved" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
             stroke="#fff" stroke-width="2.15" stroke-linecap="round" stroke-linejoin="round"
@@ -93,29 +93,16 @@
                 d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" />
             <path d="m21.854 2.147-10.94 10.939" />
         </svg>
-        Share
+       
     </button>
 
 
-    <button (click)="goToEditPost()">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2.15" stroke-linecap="round" stroke-linejoin="round"
-            class="lucide lucide-square-pen-icon lucide-square-pen">
-            <path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
-            <path
-                d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z" />
-        </svg>
+    <button *ngIf="isMyPost" (click)="goToEditPost()">
         Edit
     </button>
+    
     <button class="btn btn-light" data-bs-toggle="offcanvas" [attr.aria-controls]="'offcanvasFormSignaler'+post._id"
         [attr.data-bs-target]="'#offcanvasFormSignaler'+ post._id">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff"
-            stroke-width="2.15" stroke-linecap="round" stroke-linejoin="round"
-            class="lucide lucide-circle-alert-icon lucide-circle-alert">
-            <circle cx="12" cy="12" r="10" />
-            <line x1="12" x2="12" y1="8" y2="12" />
-            <line x1="12" x2="12.01" y1="16" y2="16" />
-        </svg>
         Signaler
     </button>
 </div>
