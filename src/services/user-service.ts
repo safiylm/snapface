@@ -49,13 +49,11 @@ export class UserService {
   }
 
   public inscription(formData: User): Observable<any> {
-
     return this.http
       .post<any>(
         url + `/api/user/create`,
         formData,
       )
-
   }
 
 
@@ -118,10 +116,7 @@ export class UserService {
       .get<User>(
         url + `/api/user/delete`,
         //{ "id": userId },
-      ).subscribe(data => {
-        console.log(" user delete post req body content :")
-        console.log(data)
-      })
+      )
 
   }
 
@@ -141,25 +136,5 @@ export class UserService {
       { 'password': pwd, 'token': token, })
   }
 
-  /*
-  
-    editPhotoDeProfilViaLink(id: string, photo: string): Observable<any> {
-      return this.http
-        .post(
-          url +
-          `/api/user/edit/photodeprofilwithLink`,
-          { "_id": id, "photo": photo },
-        );
-    }
-  
-    editPhotoDeBackgroundViaLink(id: string, photo: string): Observable<any> {
-      return this.http
-        .post(
-          url +
-          `/api/user/edit/photobackgroundwithLink`,
-          { "_id": id, "photo": photo },
-        );
-    }
-  
-  */
+ 
 }
