@@ -3,6 +3,7 @@ form {
     width: 700px;
     max-width: 90vw;
     color: white;
+
     .div-input {
         margin: 35px 0;
 
@@ -20,6 +21,13 @@ form {
             width: 100%;
             color: black;
         }
+    }
+
+
+    .resultat {
+        margin: 10px 0;
+        padding: 7px;
+        background-color: rgb(38, 132, 10);
     }
 
 }

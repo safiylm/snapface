@@ -2,8 +2,14 @@
     <label>
         Saisissez votre nouvelle adresse email:
     </label>
-    <input class="form-control" name="email" type="email" [(ngModel)]="email" required/>
+    <input class="form-control" name="email" type="email" [(ngModel)]="email" required />
 
     <button type="submit" [disabled]="email==''" class="btn btn-primary">Modifier </button>
-    {{resultat}}
+   
+    <p *ngIf="result" class="resultat">
+        {{result}}
+    </p>
+    <p *ngIf="error" style="background-color: red; padding: 7px;"> {{error}} </p>
+    <app-loading-spinner-response *ngIf="loading" text="Envoie d'un email de verification en cours"></app-loading-spinner-response>
+
 </form>

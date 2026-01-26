@@ -3,5 +3,11 @@
     <label>Saisissez votre email pour recevoir un lien pour modifier votre mot de passe: </label>
     <input name="email" [(ngModel)]="email" class="form-control" placeholder="email@gmail.com">
     <button class="btn btn-light">Envoyer</button>
-    <p>{{resultat}}</p>
+
+    <p *ngIf="result" class="resultat">
+        {{result}}
+    </p>
+    <p *ngIf="error" style="background-color: red; padding: 7px;"> {{error}} </p>
+    <app-loading-spinner-response *ngIf="loading" text="Envoie du mail en cours"></app-loading-spinner-response>
+
 </form>

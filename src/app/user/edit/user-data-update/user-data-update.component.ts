@@ -8,6 +8,7 @@ import { EditEmailComponent } from '../../edit/edit-email/edit-email.component';
 import { EditPhonenumberComponent } from '../../edit/edit-phonenumber/edit-phonenumber.component';
 import { PasswordEditComponent } from "../../edit/password-edit/password-edit.component";
 import { HeaderSnapPhotosComponent } from '../../header-snap-photos/header-snap-photos.component';
+import { LoadingSpinnerResponseComponent } from 'src/app/loading-spinner-response/loading-spinner-response.component';
 
 @Component({
   standalone: true,
@@ -15,26 +16,25 @@ import { HeaderSnapPhotosComponent } from '../../header-snap-photos/header-snap-
   templateUrl: './user-data-update.component.html',
   styleUrls: ['./user-data-update.component.scss'],
   imports: [CommonModule, FormsModule, HeaderSnapPhotosComponent,
-    EditEmailComponent, EditPhonenumberComponent, PasswordEditComponent],
+    EditEmailComponent, LoadingSpinnerResponseComponent, EditPhonenumberComponent, PasswordEditComponent],
 })
 
 export class UserDataUpdateComponent implements OnInit {
 
   constructor(private userService: UserService) { }
 
+  result !: any;
+  loading = false;
+  error = '';
+
   user !: User;
   subscription !: Subscription;
-  resultatOfEdit = "";
-  isSubmit = false;
-  onAffiche = "";
-  isVisibleEditPassword =false;
-  isVisibleEditNbPhone =false;
-  
- 
+
+
   retrieveUser(): void {
-    this.subscription = this.userService.getUser( 
-      JSON.parse(localStorage.getItem('userconnected')as string ).userId
-     )
+    this.subscription = this.userService.getUser(
+      JSON.parse(localStorage.getItem('userconnected') as string).userId
+    )
       .subscribe({
         next: (data) => {
           this.user = data;
@@ -52,27 +52,35 @@ export class UserDataUpdateComponent implements OnInit {
   }
 
   onSubmit() {
-    this.isSubmit = true;
+    this.loading = true;
+    this.error = '';
+    this.result = null;
+
+    setTimeout(() => {
+
     this.userService.updateUser(this.user!).subscribe({
       next: data => {
         if (data) {
-          this.resultatOfEdit = " Vos données ont été modifié avec succès.";
-         setTimeout(() => {
-             document.location.href = '/mon-compte'
-           }, 1000)
+            this.loading = false;
+            this.result =  " Vos modifications ont été enregistrées avec succès.";
+          setTimeout(() => {
+            document.location.href = '/mon-compte'
+          }, 1000)
         }
-        else
-        this.resultatOfEdit="Erreur, vos données n'ont pas été modifié."
-      },
-      error: e =>{ this.resultatOfEdit = "Erreur, vos données n'ont pas été modifié."
-        ; 
-        console.error(e)}
+     },
+      error: e => {
+        this.error = e.message_ 
+        console.error(e)
+         this.loading = false;
+      }
     })
+    }, 500)
+
   }
 
-  del(){
-    if(confirm("Voulez vous vraiment supprimer votre compte?"))
-    this.userService.deleteUser("")
+  del() {
+    if (confirm("Voulez vous vraiment supprimer votre compte?"))
+      this.userService.deleteUser("")
   }
 
 }

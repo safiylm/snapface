@@ -2,47 +2,50 @@
     <app-header-snap-photos [user]="user" [isMe]="true"></app-header-snap-photos>
 
 
-        <h2> Modifier votre nom</h2>
+    <h2> Modifier votre nom</h2>
 
-        <form *ngIf="onAffiche=='' && user " (ngSubmit)="onSubmit()" autocomplete="off">
-            <div class="div-input">
-                <label>Modifiez votre prénom:</label>
-                <input type="text" class="form-control" name="firstName" [(ngModel)]="user.firstName" />
-            </div>
+    <form *ngIf="user " (ngSubmit)="onSubmit()" autocomplete="off">
+        <div class="div-input">
+            <label>Modifiez votre prénom:</label>
+            <input type="text" class="form-control" name="firstName" [(ngModel)]="user.firstName" />
+        </div>
 
-            <div class="div-input">
-                <label>Modifiez votre nom de famille:</label>
-                <input type="text" class="form-control" name="lastName" [(ngModel)]="user.lastName" />
-            </div>
+        <div class="div-input">
+            <label>Modifiez votre nom de famille:</label>
+            <input type="text" class="form-control" name="lastName" [(ngModel)]="user.lastName" />
+        </div>
 
-            <button class="btn btn-primary" type="submit">Enregistrer les modifications </button>
-            <br />
-            <div>
-                {{resultatOfEdit}}
-            </div>
-        </form>
+        <button class="btn btn-primary" type="submit">Enregistrer les modifications </button>
+        <br />
+        <p *ngIf="result" class="resultat">
+            {{result}}
+        </p>
+        <p *ngIf="error" style="background-color: red; padding: 7px;"> {{error}} </p>
+        <app-loading-spinner-response *ngIf="loading" text="Modification en cours"></app-loading-spinner-response>
 
-
-        <h2>
-            Modifier votre email
-        </h2>
-
-        <app-edit-email></app-edit-email>
+    </form>
 
 
-        <h2>
-            Modifier votre numéro de téléphone
-        </h2>
-        <app-edit-phonenumber></app-edit-phonenumber>
+    <h2>
+        Modifier votre email
+    </h2>
+
+    <app-edit-email *ngIf="user.email" [email]="user.email"></app-edit-email>
 
 
-        <h2>
-            Modifier votre mot de passe
-        </h2>
-        <app-password-edit></app-password-edit>
+    <h2>
+        Modifier votre numéro de téléphone
+    </h2>
+    <app-edit-phonenumber *ngIf="user.phoneNo" [phoneNumber]="user.phoneNo"></app-edit-phonenumber>
 
 
-        <button class="btn btn-danger" (click)="del()"> Supprimer votre compte </button>
+    <h2>
+        Modifier votre mot de passe
+    </h2>
+    <app-password-edit *ngIf="user.email" [email]="user.email"></app-password-edit>
+
+
+    <button class="btn btn-danger" disabled (click)="del()"> Supprimer votre compte </button>
 
 
 </div>

@@ -4,5 +4,11 @@
     </label>
     <br/>
     <button type="submit" [disabled]="phoneNumber==null" class="btn btn-primary">Modifier </button>
-    {{resultat}}
+    
+    <p *ngIf="result" class="resultat">
+        {{result}}
+    </p>
+    <p *ngIf="error" style="background-color: red; padding: 7px;"> {{error}} </p>
+    <app-loading-spinner-response *ngIf="loading" text="Envoie d'un code de verification par message en cours"></app-loading-spinner-response>
+
 </form>
