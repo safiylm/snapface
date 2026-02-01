@@ -28,30 +28,17 @@ export class FormEmailComponent {
     this.error = '';
     this.result = null;
 
-    this.userService.getIfEmailExist(this.email).subscribe({
+    this.userService.sendReInitMail(this.email).subscribe({
       next: (data) => {
-        if (data != null || data != undefined) {
-          this.result = "Votre email existe!"
-          this.userService.getMailForChangePasswordOublie(this.email).subscribe({
-            next: (data1) => {
-              if (data1) {
-                this.loading = false
-                this.result = "Veuillez controler votre boîte mail pour réinitialiser votre mot de passe."
-              }
-            },
-            error: e => {
-              this.loading = false
-              console.error(e)
-            }
-          })
-
-
-        } else {
-          this.error = "Votre email n'existe pas!"
+        if (data) {
+          this.loading = false
+          this.result = "Veuillez controler votre boîte mail pour réinitialiser votre mot de passe."
         }
       },
-      error: e => console.error(e)
-
+      error: e => {
+        this.loading = false
+        this.error = e.error
+      }
     })
 
   }

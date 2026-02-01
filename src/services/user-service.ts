@@ -120,16 +120,12 @@ export class UserService {
 
   }
 
-  getMailForChangePasswordOublie(email: string) {
-    return this.http.post(url + "/password-oublie/email",
+
+  sendReInitMail(email: string) {
+    return this.http.post(url + "/password-oublie/send-reinit-link-by-email",
       { 'email': email, })
   }
 
-  public getIfEmailExist(email: string) {
-
-    return this.http.post(url + `/api/user/email`,
-      { 'email': email, })
-  }
 
   public reinitialisePassword(token: string, pwd: string) {
     return this.http.post(url + `/api/user/reinitialise/password`,

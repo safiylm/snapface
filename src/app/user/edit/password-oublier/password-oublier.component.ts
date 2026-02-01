@@ -16,7 +16,6 @@ export class PasswordOublierComponent {
 
 
   isDisplayPassword !: boolean;
-  isDisplayPassword2 !: boolean;
   newpassword !: string;
   newpassword2 !: string;
   reglePasswordRespected !: boolean;
@@ -27,14 +26,6 @@ export class PasswordOublierComponent {
   error = '';
   constructor(private route: ActivatedRoute, private userService: UserService) { }
 
-
-  toggleDisplayPassword(nb: number) {
-    if (nb == 1)
-      this.isDisplayPassword = !this.isDisplayPassword;
-    if (nb == 2)
-      this.isDisplayPassword2 = !this.isDisplayPassword2;
-
-  }
 
   getFirstPassword() {
     // this.newpassword = event.target.value;
@@ -67,7 +58,6 @@ export class PasswordOublierComponent {
       location.href = "/"
     }
     this.isDisplayPassword = false;
-    this.isDisplayPassword2 = false;
     this.newpassword = "";
     this.newpassword2 = "";
     this.reglePasswordRespected = false;

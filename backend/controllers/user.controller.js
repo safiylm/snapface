@@ -19,8 +19,8 @@ cloudinary.config({
 const transporter = nodemailer.createTransport({
   service: 'gmail', // ou autre fournisseur
   auth: {
-    user: 'snapface2023@gmail.com',
-    pass: 'rdez jsdy ehbq zvkn', // Utilisez un mot de passe d'application si requis
+    user: 'snapfaceangular@gmail.com',
+    pass: 'rvcj ykvx hxeb yunm ', // Utilisez un mot de passe d'application si requis
   },
 });
 
@@ -343,10 +343,11 @@ exports.editPassword = async function (req, res) {
   const newpassword = hashPassword(req.body.newpassword)
 
   const updateResult = await collection_user.updateOne({ "_id": new ObjectId(req.body._id) },
-    { $set: { "password": newpassword, }
-    }).then(data=>{
-      if(data)
-        res.send({message: "Votre modification a été enregistré avec succès."})
+    {
+      $set: { "password": newpassword, }
+    }).then(data => {
+      if (data)
+        res.send({ message: "Votre modification a été enregistré avec succès." })
     })
     .catch(err => {
       res.status(500).send({
@@ -533,24 +534,9 @@ exports.logout = async function (req, res) {
 
 
 
-exports.getIfEmailExist = async function (req, res) {
-  res.set('Access-Control-Allow-Origin', '*');
-
-  if (req.body.email == '' || req.body.email == null || req.body.email == undefined || !req.body.email)
-    return res.status(500).send(
-      'Email is null.');
+const getIfEmailExist = async (email) => {
 
 
-  collection_user.findOne({ "email": req.body.email }).then(data => {
-    res.send(data)
-  })
-    .catch(err => {
-      res.status(500).send({
-        message_:
-          "Some error occurred while get user by email.",
-        erreur: err.message
-      });
-    });
 }
 
 
@@ -559,38 +545,47 @@ exports.getIfEmailExist = async function (req, res) {
 //--------------------------------------------------------------
 
 
-exports.sendLinkForPasswordOublie = async function (req, res) {
+exports.sendLinkForReInitPasswordOublie = async function (req, res) {
 
   const userEmail = req.body.email;
   const resetLink = jwt_.generateResetLink(userEmail);
 
-  if (req.body.email == '' || req.body.email == null || req.body.email == undefined || !req.body.email)
+  if (userEmail == '' || userEmail == null || userEmail == undefined || !userEmail )
     return res.status(500).send(
       'Email is null.');
 
 
-
   const mailOptions = {
-    from: 'snapface2023@gmail.com',
+    from: 'snapfaceangular@gmail.com',
     to: "safinazylm@gmail.com",
     subject: 'Réinitialisation de votre mot de passe',
     html: `<p>Cliquez sur le lien ci-dessous pour réinitialiser votre mot de passe :</p>
            <a href="${resetLink}">Réinitialiser le mot de passe</a>
            <p>Ce lien expirera dans 1 heure.</p>`,
   };
+  res.set('Access-Control-Allow-Origin', '*');
 
-
-  transporter.sendMail(mailOptions, (err, info) => {
-    if (err) {
-      return res.status(500).send({
-        erreur: err,
-        message_: 'Erreur lors de l\'envoi de l\'e-mail'
-      });
+  await collection_user.findOne({ "email": userEmail }).then(data => {
+    if (data != null) {
+   
+      transporter.sendMail(mailOptions, (err, info) => {
+      if (err) {
+        return res.status(500).send({
+          erreur: err,
+          message_: 'Erreur lors de l\'envoi de l\'e-mail'
+        });
+      } else {
+        res.send({ message: "Le lien pour reinitialiser votre mot de passe a été envoyé à votre adresse email." })
+      }
+    });
     } else {
-      res.set('Access-Control-Allow-Origin', '*');
-      res.send({ message: "Le lien pour reinitialiser votre mot de passe a été envoyé par email" })
+      res.status(500).send("Votre mail n'est pas coorecte.")
     }
-  });
+  })
+
+
+
+
 }
 
 
@@ -605,12 +600,13 @@ exports.reinitialisePassword = async function (req, res) {
 
   const token = jwt_.verifyResetLink(req.body.token);
 
-  await collection_user.updateOne({ "email": token },
+  collection_user.updateOne({ "email": token },
     {
       $set: {
         "password": req.body.password,
       }
     }).then(data => {
+      if(data )
       res.send({ message: "Votre mot de passe a été réinitaliser" });
     })
     .catch(err => {
