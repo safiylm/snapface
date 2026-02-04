@@ -1,13 +1,15 @@
-<app-header></app-header>
-<form (ngSubmit)="onSubmit()" autocomplete="off">
-    <label>Saisissez votre email pour recevoir un lien pour modifier votre mot de passe: </label>
-    <input name="email" [(ngModel)]="email" class="form-control" placeholder="email@gmail.com">
-    <button class="btn btn-light">Envoyer</button>
+<div class="d-flex flex-row align-items-start">
+    <app-header></app-header>
+    <form (ngSubmit)="onSubmit()" autocomplete="off">
+        <label>Saisissez votre email pour recevoir un lien pour modifier votre mot de passe: </label>
+        <input name="email" [(ngModel)]="email" class="form-control" placeholder="email@gmail.com">
+        <button class="btn btn-light">Envoyer</button>
 
-    <p *ngIf="result" class="resultat">
-        {{result}}
-    </p>
-    <p *ngIf="error" style="background-color: red; color: white; padding: 7px;"> {{error}} </p>
-    <app-loading-spinner-response *ngIf="loading" text="Envoie du mail en cours"></app-loading-spinner-response>
+        <p *ngIf="result" class="resultat">
+            {{result}}
+        </p>
+        <p *ngIf="error" style="background-color: red; color: white; padding: 7px;"> {{error}} </p>
+        <app-loading-spinner-response *ngIf="loading" text="Envoie du mail en cours"></app-loading-spinner-response>
 
-</form>
+    </form>
+</div>

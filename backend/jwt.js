@@ -10,6 +10,13 @@ const RESET_URL_BASE = 'http://localhost:4200/reinistialisation-password';
   return `${RESET_URL_BASE}/${token}`;
 }
 
+
+// Générer un lien unique
+  function generateEmailConfirmationLink(userId, email ) {
+  const token = jwt.sign({ userId }, SECRET_KEY); 
+  return `http://localhost:4100/api/user/edit/email?token=${token}&email=${email}`;
+}
+
 // Vérifier le lien
  function verifyResetLink(token) {
   try {
@@ -21,4 +28,4 @@ const RESET_URL_BASE = 'http://localhost:4200/reinistialisation-password';
 }
 
 
-module.exports = {verifyResetLink, generateResetLink};
+module.exports = {verifyResetLink, generateResetLink, generateEmailConfirmationLink};

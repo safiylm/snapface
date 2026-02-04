@@ -25,7 +25,10 @@ router_user.post("/api/user/create", user.create);
 router_user.post("/api/user/connexion", user.connexion);
 router_user.post("/api/user/update", user.update);
 router_user.post("/api/user/edit/password", user.editPassword);
-router_user.post("/api/user/edit/email", user.editEmail);
+
+router_user.get("/api/user/edit/email", user.editEmail);
+router_user.post("/api/user/edit/email/confirmation", user.sendConfiramtionEmailForNewEmail);
+
 router_user.post("/api/user/edit/phonenumber", user.editPhoneNumber);
 router_user.post("/api/user/delete", user.delete);
 router_user.post("/password-oublie/send-reinit-link-by-email", user.sendLinkForReInitPasswordOublie);
@@ -35,7 +38,6 @@ router_user.post("/api/user/edit/photodeprofil",upload.single('image'),  user.ed
 router_user.post("/api/user/edit/photobackground",upload.single('image'),  user.editPhotoBackground);
 
 router_user.post("/api/user/edit/online", user.updateIsOnline);
-router_user.post("/api/user/edit/notonline", user.updateIsNotOnline);
 
 // /:id
 module.exports = router_user;

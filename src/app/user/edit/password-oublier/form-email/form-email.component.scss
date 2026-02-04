@@ -1,24 +1,46 @@
-form{
-    width: 700px;
-    margin: 150px auto;  
-    text-align: center; 
+app-header {
+    width: 250px !important;
+    height: 100vh !important;
+}
 
-    label{
+form {
+    width: auto;
+    margin: 150px auto;
+    text-align: center;
+    
+    label {
         font-size: large;
         font-weight: 600;
     }
-    *{
+
+    * {
         margin-bottom: 25px;
     }
 }
-@media  (max-width: 600px) {
-    form{
+
+@media(max-width:767px) {
+    form {
         width: 90vw;
-        *{
+
+        * {
             margin-bottom: 35px;
         }
     }
+
+    app-header {
+        width: 100vw !important;
+        height: 80px !important;
+    }
+
+    .d-flex{
+        display: block !important;
+    }
+
+    .my-account-container {
+        width: 100%;
+    }
 }
+
 
 .resultat {
     margin: 10px 0;

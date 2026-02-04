@@ -5,8 +5,8 @@ const cors = require("cors");
 const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
 
- //const url = "http://localhost:4100"
-const url = "https://snapface.onrender.com"
+//const url = "http://localhost:4100"
+ const url = "https://snapface.onrender.com"
 //const url_ = "http://localhost:4200"
 const url_ =  "https://snapfaceangular.web.app"
 const websocket = require("./chat")
@@ -90,6 +90,7 @@ io.on("connection", async (socket) => {
       const response = await axios.post(url, +'/api/user/edit/online', {
         //     const response = await axios.post('https://snapface.onrender.com/api/user/edit/online', {
         _id: token,
+        isOnline: true
       })
 
       if (response.data['acknowledged'] == true)
@@ -164,7 +165,6 @@ io.on("connection", async (socket) => {
       const response = await axios.post(url + '/message/delete', {
         id: data['_id'],
       })
-      console.log(response.data)
 
       if (response.data['acknowledged'] == true) {
         // Envoie le message uniquement aux utilisateurs concernés
@@ -291,11 +291,10 @@ io.on("connection", async (socket) => {
   });
 
 
-
-
   socket.on('joinRoom', (userId) => {
     socket.join(userId);
   });
+
 
   socket.on('disconnect', async (reason) => {
     if (reason === 'io server disconnect') {
@@ -303,7 +302,8 @@ io.on("connection", async (socket) => {
       this.socket.connect();
     }
     if (token) {
-      const response = await axios.post(url + '/api/user/edit/notonline', {
+      const response = await axios.post(url + '/api/user/edit/online', {
+        isOnline: false,
         _id: token,
       })
       if (response.data['acknowledged'] == true)
@@ -319,7 +319,6 @@ app.get('*', (req, res) => {
 
 
 server.listen
-  //app.listen
   (4100, function () {
     console.log('Example app listening on port 4100!')
   })
