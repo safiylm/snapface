@@ -24,7 +24,7 @@ export class AuthConnexionUserComponent {
   error = '';
 
   password = "Snapface123*";
-  email = "bahar.kaçar@gmail.com"
+  email = "motivation@gmail.com"
   isDisplayPassword = false;
 
 
@@ -48,10 +48,9 @@ export class AuthConnexionUserComponent {
             let userconnected = {
               "isLoggedIn": "true", 'userId': data.user["_id"],
               "user_photo_de_profil": data.user["photos_profil"],
-              "user_name": data.user["firstName"] + " " + data.user["lastName"]
+              "user_name": data.user.name
             }
             localStorage.setItem('userconnected', JSON.stringify(userconnected));
-            console.log(JSON.stringify(userconnected))
 
              setTimeout(() => {
                location.href = "/"

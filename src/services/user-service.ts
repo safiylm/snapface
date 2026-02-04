@@ -75,8 +75,8 @@ export class UserService {
        JSON.parse(localStorage.getItem('userconnected')?.toString() as string).userId     );
   }
 
-  searchByName(fname: string, lname: string): Observable<User[]> {
-    return this.http.get<User[]>(url + "/api/username?fname=" + fname + "&lname=" + lname);
+  searchByName(name: string): Observable<User[]> {
+    return this.http.get<User[]>(url + "/api/username?name=" + name );
   }
 
 
@@ -96,7 +96,7 @@ export class UserService {
   editEmail(id: string, email: string): Observable<User> {
     return this.http
       .post<User>(
-        url + `/api/user/edit/email`,
+        url + `/api/user/edit/email/confirmation`,
         { "_id": id, "email": email },
       );
   }

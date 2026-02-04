@@ -4,7 +4,7 @@
     
     <div>
        <a href="user/{{user._id}}" >
-            {{user.firstName }} {{user.lastName}}
+            {{user.name }}
        </a>
         <div *ngIf="resultat==''">
             <button class="btn btn-light" (click)="accepted(user._id)">Accepter</button>

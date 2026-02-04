@@ -28,8 +28,8 @@ export class AuthInscriptionUserComponent implements OnInit {
   result !: any;
   loading = false;
   error = '';
-  user = new User("", "", "",
-    "example@gmail.com", "Snapface123*",
+  user = new User("", "",
+    "", "",
     0, "", "", false, false, null);
 
   password2 = "";
@@ -69,8 +69,7 @@ export class AuthInscriptionUserComponent implements OnInit {
     this.error = '';
     this.result = null;
 
-    if (this.user.firstName != "" &&
-      this.user.lastName != "" &&
+    if (this.user.name != "" &&
       this.user.email != "" &&
       this.user.password != "" &&
       this.user.phoneNo != 0
@@ -86,10 +85,9 @@ export class AuthInscriptionUserComponent implements OnInit {
                 if (data.message) {
                   this.loading = false;
                   this.result = data.message
-                  console.log(data)
                   let userconnected = {
                     "isLoggedIn": "true", 'userId': data.userId,
-                    "user_photo_de_profil": '', "user_name": this.user.firstName + " " + this.user.lastName
+                    "user_photo_de_profil": '', "user_name": this.user.name
                   }
 
                   localStorage.setItem('userconnected', userconnected.toString());

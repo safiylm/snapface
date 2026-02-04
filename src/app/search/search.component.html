@@ -11,10 +11,9 @@
             </div>
             
             <div *ngIf="filtre=='user'" class="div-user-search d-flex flex-wrap align-items-center justify-content-center">
-                <input name="fname" [(ngModel)]="fname" (keyup.enter)="researchUser()" class="form-control"
+                <input name="fname" [(ngModel)]="name" (keyup.enter)="researchUser()" class="form-control"
                     placeholder="Enter First name">
-                <input name="lname" [(ngModel)]="lname" (keyup.enter)="researchUser()" class="form-control"
-                    placeholder="Enter Last name">
+              
                 <button class="btn btn-light" (click)="researchUser()">Chercher</button>
             </div>
 

@@ -52,7 +52,8 @@ export class PublicationCreateComponent implements OnInit {
     this.error = '';
     this.result = null;
 
-    this.post.userId = localStorage.getItem('userId')?.toString() as string;
+    this.post.userId = JSON.parse(localStorage.getItem('userconnected')
+    ?.toString() as string).userId;
 
     if (this.post.body.trim() != ""
     ) {

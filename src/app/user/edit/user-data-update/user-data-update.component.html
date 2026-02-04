@@ -4,15 +4,11 @@
 
     <h2> Modifier votre nom</h2>
 
-    <form *ngIf="user " (ngSubmit)="onSubmit()" autocomplete="off">
+    <form *ngIf="user" (ngSubmit)="onSubmit()" autocomplete="off">
+   
         <div class="div-input">
-            <label>Modifiez votre prénom:</label>
-            <input type="text" class="form-control" name="firstName" [(ngModel)]="user.firstName" />
-        </div>
-
-        <div class="div-input">
-            <label>Modifiez votre nom de famille:</label>
-            <input type="text" class="form-control" name="lastName" [(ngModel)]="user.lastName" />
+            <label>Modifiez votre nom :</label>
+            <input type="text" class="form-control" name="name" [(ngModel)]="user.name" />
         </div>
 
         <button class="btn btn-primary" type="submit">Enregistrer les modifications </button>

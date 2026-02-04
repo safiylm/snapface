@@ -7,14 +7,10 @@
         </h1>
         <div class="form2row d-flex align-items-center justify-content-center">
             <div class="row">
+           
                 <div class="div-input">
-                    <label>Saisissez votre prénom:</label>
-                    <input type="text" name="firstName" class="form-control" [(ngModel)]="user.firstName" required />
-                </div>
-
-                <div class="div-input">
-                    <label>Saisissez votre nom de famille:</label>
-                    <input type="text" name="lastName" class="form-control" [(ngModel)]="user.lastName" required />
+                    <label>Saisissez votre nom :</label>
+                    <input type="text" name="name" class="form-control" [(ngModel)]="user.name" required />
                 </div>
 
                 <div class="div-input">
@@ -112,7 +108,7 @@
             </button>
 
             <button type="submit"
-                *ngIf="reglePasswordRespected && user.password === password2 && user.email!='' &&  user.lastName!='' &&  user.firstName">
+                *ngIf="reglePasswordRespected && user.password === password2 && user.email!='' &&  user.name!='' &&  user.name">
                 S'inscrire
             </button>
 

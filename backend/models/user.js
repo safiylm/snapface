@@ -4,8 +4,7 @@ var mongoose = require('mongoose');
 
 const User = new mongoose.Schema({
 
-  firstName: { type: String },
-  lastName: { type: String },
+  name: { type: String },
   photos_profil: { type: String },
   photos_background: { type: String },
   email: { type: String },

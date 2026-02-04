@@ -34,6 +34,6 @@ export class UserComponent {
   }
 
   get UserName() {
-    return (this.user && this.user.firstName && this.user.lastName) ? this.user.firstName + " " + this.user.lastName : null
+    return (this.user && this.user.name) ? this.user.name : null
   }
 }

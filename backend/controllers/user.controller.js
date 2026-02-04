@@ -42,8 +42,7 @@ const hashPassword = async (plainPassword) => {
 exports.create = (req, res) => {
 
   const user = {
-    firstName: req.body.firstName,
-    lastName: req.body.lastName,
+    name: req.body.name,
     photos_profil: "",
     photos_background: "",
     password: req.body.password,
@@ -59,8 +58,6 @@ exports.create = (req, res) => {
 
   req.body.password = hashPassword(req.body.password)
 
-
-  // Save Tutorial in the database
   collection_user
     .insertOne(user)
     .then(data => {
@@ -102,16 +99,14 @@ exports.update = async (req, res) => {
     return res.status(500).send(
       'User Id is null.');
 
-  if ((req.body.firstName == '' || req.body.firstName == null || req.body.firstName == undefined)
-    && (req.body.lastName == '' || req.body.lastName == null || req.body.lastName == undefined))
+  if (req.body.name == '' || req.body.name == null || req.body.name == undefined)
     return res.status(500).send(
       'User name is null.');
 
   const updateResult = await collection_user.updateOne({ "_id": new ObjectId(req.body._id) },
     {
       $set: {
-        "firstName": req.body.firstName,
-        "lastName": req.body.lastName,
+        "name": req.body.name,
       }
     }).catch(err => {
       res.status(500).send({
@@ -129,41 +124,15 @@ exports.update = async (req, res) => {
 //edit Online
 exports.updateIsOnline = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
-
+ let online = req.body.isOnline;
   if (req.body._id == '' || req.body._id == null || req.body._id == undefined)
     return res.status(500).send(
       'User Id is null.');
 
 
   const updateResult = await collection_user.updateOne({ "_id": new ObjectId(req.body._id) },
-    { $set: { "isOnline": true, } })
+    { $set: { "isOnline": online, } })
     .catch(err => {
-      res.status(500).send({
-        message_:
-          "Some error occurred while update online of user.",
-        erreur: err.message
-      });
-    });
-
-  res.send(updateResult);
-}
-
-
-//edit not Online
-exports.updateIsNotOnline = async (req, res) => {
-  res.set('Access-Control-Allow-Origin', '*');
-
-  if (req.body._id == '' || req.body._id == null || req.body._id == undefined)
-    return res.status(500).send(
-      'User Id is null.');
-
-
-  const updateResult = await collection_user.updateOne({ "_id": new ObjectId(req.body._id) },
-    {
-      $set: {
-        "isOnline": false,
-      }
-    }).catch(err => {
       res.status(500).send({
         message_:
           "Some error occurred while update online of user.",
@@ -255,44 +224,50 @@ exports.editPhotoBackground = async (req, res) => {
   });
 }
 
-
-
-exports.editEmail = async function (req, res) {
+exports.sendConfiramtionEmailForNewEmail = async function (req, res) {
   res.set('Access-Control-Allow-Origin', '*');
 
-  const mailOptions = {
-    from: 'snapface2023@gmail.com',
-    to: "safinazyilmaz54@gmail.com",
-    subject: "Votre email est mis à jour ",
-    text: "La modification de votre email a été réalisé avec succès.",
-  };
+  let resetLink = jwt_.generateEmailConfirmationLink(req.body._id, req.body.email )
 
-  if (req.body._id == '' || req.body._id == null || req.body._id == undefined)
-    return res.status(500).send(
-      'User Id is null.');
+    if (req.body._id == '' || req.body._id == null || req.body._id == undefined)
+    return res.status(500).send( 'User Id is null.');
 
   if (req.body.email == '' || req.body.email == null || req.body.email == undefined)
-    return res.status(500).send(
-      'Email is null.');
+    return res.status(500).send( 'Email is null.');
 
-  await collection_user.updateOne({ "_id": new ObjectId(req.body._id) },
-    {
-      $set: {
-        "email": req.body.email,
-      }
+
+  const mailOptions = {
+    from: 'snapfaceangular@gmail.com',
+    to: "safinazylm@gmail.com",
+    subject: "Demande de confirmation email",
+    html: `<p>Cliquez sur le lien ci-dessous pour confirmer votre email :</p>
+           <a href="${resetLink}">Confirmer votre email</a>`
+  };
+
+  transporter.sendMail(mailOptions, (err, info) => {
+    if (err) {
+      return res.status(500).send({
+        erreur: err,
+        message_: 'Erreur lors de l\'envoi de l\'e-mail'
+      });
+    } else {
+      res.send({ message: "Le lien pour confirmer votre email a été envoyé." })
+    }
+  })
+
+}
+
+exports.editEmail = async function (req, res) {
+
+  res.set('Access-Control-Allow-Origin', '*');
+  const token = jwt_.verifyResetLink(req.query.token);
+
+  
+  await collection_user.updateOne({ "_id": new ObjectId(token) },
+    { $set: { "email": req.query.email, }
     }).then(data => {
       if (data) {
-
-        /*  transporter.sendMail(mailOptions, (error, info) => {
-            if (error) {
-              return res.status(500).send({ error });
-            }
-  -----------------------------------
-            DONT WORK
-  -----------------------------------------     
-  */
-        res.status(200).send({ message: 'Email de verification est envoyé avec succès !' });
-        // });
+        res.status(200).send({ message: 'Votre mail est enregistré avec succès !' });
       }
     }).catch(err => {
       res.status(500).send({
@@ -371,8 +346,7 @@ exports.delete = async (req, res) => {
   collection_user.updateOne({ "_id": new ObjectId(req.body._id) },
     {
       $set: {
-        "firstName": "Utilisateur",
-        "lastName": "Introuvable",
+        "name": "Utilisateur Introuvable",
       }
     }).then((data) => {
       if (data)
@@ -438,15 +412,13 @@ exports.findOneById = async (req, res) => {
 
 
 exports.findByName = async (req, res) => {
-  const lname = req.query.lname.trim();
-  const fname = req.query.fname.trim();
+  const lname = req.query.name.trim();
 
   let resultat = "error find user"
   res.set('Access-Control-Allow-Origin', '*');
 
   resultat = await collection_user.find({
-    "lastName": { $options: 'i', "$regex": lname },
-    "firstName": { $options: 'i', "$regex": fname }
+    "name": { $options: 'i', "$regex": name }
   },
   ).toArray()
     .catch(err => {
@@ -534,11 +506,6 @@ exports.logout = async function (req, res) {
 
 
 
-const getIfEmailExist = async (email) => {
-
-
-}
-
 
 //--------------------------------------------------------------
 // MOT DE PASSE OUBLIE 
@@ -550,7 +517,7 @@ exports.sendLinkForReInitPasswordOublie = async function (req, res) {
   const userEmail = req.body.email;
   const resetLink = jwt_.generateResetLink(userEmail);
 
-  if (userEmail == '' || userEmail == null || userEmail == undefined || !userEmail )
+  if (userEmail == '' || userEmail == null || userEmail == undefined || !userEmail)
     return res.status(500).send(
       'Email is null.');
 
@@ -567,25 +534,21 @@ exports.sendLinkForReInitPasswordOublie = async function (req, res) {
 
   await collection_user.findOne({ "email": userEmail }).then(data => {
     if (data != null) {
-   
+
       transporter.sendMail(mailOptions, (err, info) => {
-      if (err) {
-        return res.status(500).send({
-          erreur: err,
-          message_: 'Erreur lors de l\'envoi de l\'e-mail'
-        });
-      } else {
-        res.send({ message: "Le lien pour reinitialiser votre mot de passe a été envoyé à votre adresse email." })
-      }
-    });
+        if (err) {
+          return res.status(500).send({
+            erreur: err,
+            message_: 'Erreur lors de l\'envoi de l\'e-mail'
+          });
+        } else {
+          res.send({ message: "Le lien pour reinitialiser votre mot de passe a été envoyé à votre adresse email." })
+        }
+      });
     } else {
       res.status(500).send("Votre mail n'est pas coorecte.")
     }
   })
-
-
-
-
 }
 
 
@@ -606,8 +569,8 @@ exports.reinitialisePassword = async function (req, res) {
         "password": req.body.password,
       }
     }).then(data => {
-      if(data )
-      res.send({ message: "Votre mot de passe a été réinitaliser" });
+      if (data)
+        res.send({ message: "Votre mot de passe a été réinitaliser" });
     })
     .catch(err => {
       res.status(500).send({

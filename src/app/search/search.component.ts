@@ -20,8 +20,7 @@ import { HeaderComponent } from "../header/header.component";
 export class SearchComponent {
 
   search: string = "";
-  lname: string = "";
-  fname: string = "";
+  name: string = "";
   
   filtre: string = "user";
   listeUser !: User[];
@@ -39,8 +38,8 @@ export class SearchComponent {
   
   researchUser() {
     this.listePost=[]
-    if (this.lname.trim() != "" || this.fname.trim() !="")
-      this.userService.searchByName(this.fname, this.lname ).subscribe({
+    if (this.name.trim() != "" )
+      this.userService.searchByName(this.name ).subscribe({
         next: (data) => {
           this.listeUser=data
         },
@@ -53,7 +52,6 @@ export class SearchComponent {
     this.publicationService.searchByTitle(this.search ).subscribe({
       next: (data) => {
         this.listePost=data
-        console.log(this.listePost)
       },
       error: (e) => console.error(e)
     })
