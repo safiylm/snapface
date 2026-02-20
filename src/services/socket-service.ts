@@ -11,7 +11,7 @@ export class SocketService {
   private socket: Socket;
 
   constructor() {
-    const userId = localStorage.getItem('userId')?.toString() as string ; // remplace par l'ID réel
+    const userId = JSON.parse(localStorage.getItem('userconnected')?.toString() as string).userId ; // remplace par l'ID réel
     this.socket = io(
        url, {
     //  query: { userId }, 
@@ -36,11 +36,11 @@ export class SocketService {
     });
   }
 
-  onUserOffline(): Observable<string> {
-    return new Observable(observer => {
-      this.socket.on('user-offline', (userId: string) => {
-        observer.next(userId);
-      });
-    });
-  }
+   onUserOffline(): Observable<string> {
+     return new Observable(observer => {
+       this.socket.on('user-offline', (userId: string) => {
+         observer.next(userId);
+       });
+     });
+   }
 }

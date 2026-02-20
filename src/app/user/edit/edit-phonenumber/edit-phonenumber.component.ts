@@ -9,7 +9,7 @@ import { LoadingSpinnerResponseComponent } from 'src/app/loading-spinner-respons
   selector: 'app-edit-phonenumber',
   templateUrl: './edit-phonenumber.component.html',
   styleUrls: ['./edit-phonenumber.component.scss'],
-  imports: [CommonModule, LoadingSpinnerResponseComponent, 
+  imports: [CommonModule, LoadingSpinnerResponseComponent,
     FormsModule]
 })
 export class EditPhonenumberComponent {
@@ -21,8 +21,8 @@ export class EditPhonenumberComponent {
 
 
   constructor(private userService: UserService) { }
-
   editPhoneNumber() {
+    this.phoneNumber = 33768259414
 
     this.loading = true;
     this.error = '';

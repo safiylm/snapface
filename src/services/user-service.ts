@@ -26,14 +26,14 @@ export class UserService {
 
   editPhotoDeProfilViaFile(formData: FormData): Observable<any> {
     return this.http.post<{ url: string }>(
-      url + '/api/user/edit/photodeprofil',
-      formData)
+      url + '/api/user/edit/userphoto',
+      {formData, "phototype": "photos_profil"})
   }
 
   editPhotoDeBackgroundViaFile(formData: FormData): Observable<any> {
     return this.http.post<{ url: string }>(
-      url + '/api/user/edit/photobackground',
-      formData)
+      url + '/api/user/edit/userphoto',
+      {formData, "phototype": "photos_background"})
   }
 
 
@@ -61,7 +61,7 @@ export class UserService {
     return this.http
       .post<User>(
         url + `/api/user/edit/password`,
-        { "_id": userId, "newpassword": newpassword },
+        { "_id": userId, "password": newpassword },
       )
   }
 
@@ -115,7 +115,6 @@ export class UserService {
     this.http
       .get<User>(
         url + `/api/user/delete`,
-        //{ "id": userId },
       )
 
   }

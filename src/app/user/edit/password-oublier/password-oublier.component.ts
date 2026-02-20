@@ -24,6 +24,7 @@ export class PasswordOublierComponent {
   result !: any;
   loading = false;
   error = '';
+  
   constructor(private route: ActivatedRoute, private userService: UserService) { }
 
 
@@ -72,21 +73,23 @@ export class PasswordOublierComponent {
 
     if (this.newpassword !== this.newpassword2) {
       this.result = "Les mots de passe ne sont pas identique!"
+      this.loading = false;
+
     } else {
       setTimeout(() => {
 
-       this.userService.reinitialisePassword(this.route.snapshot.paramMap.get('token') as string, this.newpassword)
-        .subscribe({
-          next: data => {
-            if (data) {
-              this.loading = false
-              this.result = "Votre mot de passe a été initialisée avec succès!"
-            } else {
-              this.error = "erreur"
-              this.loading = false
-            }
-          }, error: e => this.error = e
-        })
+        this.userService.reinitialisePassword(this.route.snapshot.paramMap.get('token') as string, this.newpassword)
+          .subscribe({
+            next: data => {
+              if (data) {
+                this.loading = false
+                this.result = "Votre mot de passe a été initialisée avec succès!"
+              } else {
+                this.error = "erreur"
+                this.loading = false
+              }
+            }, error: e => this.error = e
+          })
       }, 500)
 
     }

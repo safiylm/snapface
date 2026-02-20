@@ -24,9 +24,7 @@ export class PasswordEditComponent {
 
   @Input() email !: string;
 
-  isDisplayPassword0 = false;
   isDisplayPassword = false;
-  isDisplayPassword2 = false;
 
   oldPasswordChecked = false
 
@@ -87,31 +85,29 @@ export class PasswordEditComponent {
     this.error = '';
     this.result = null;
 
-    this.passwordActuel = "";
-    this.newpassword = "";
-    this.newpassword2 = "";
-
     if (this.newpassword !== this.newpassword2) {
       this.result = "Les mots de passe ne sont pas identique!"
     } else {
 
       setTimeout(() => {
-
-        this.userService.editPassword(this.id, this.newpassword)
-          .subscribe({
-            next: (data) => {
-              if (data) {
-                this.result = "Votre mot de passe a été modifié avec succès!"
+        if (this.newpassword != null)
+          this.userService.editPassword(this.id, this.newpassword)
+            .subscribe({
+              next: (data) => {
+                if (data) {
+                  this.result = "Votre mot de passe a été modifié avec succès!"
+                  this.loading = false
+                }
+              },
+              error: (er) => {
                 this.loading = false
+                this.error = er.message_
+                console.error(er)
               }
-            },
-            error: (er) => {
-              this.loading = false
-              this.error = er.message_
-              console.error(er)
-            }
-          })
+            })
       }, 500)
+
+
     }
 
   }
