@@ -21,13 +21,9 @@ export class ChatPriveService {
     });
   }
 
-
-
-
   joinRoom(userId: string) {
     this.socket.emit('joinRoom', userId);
   }
-
 
   create(sender: string, receiver: string, conversationId: string, text: string, postId: string) {
     this.socket.emit('createPrivateMessage',
@@ -43,7 +39,6 @@ export class ChatPriveService {
   }
 
   edit(sender: string, receiver: string, _id: string, text: string, conversationId: string) {
-
     this.socket.emit('editPrivateMessage',
       { sender, receiver, _id, text, conversationId, "action":"edit" })
   }

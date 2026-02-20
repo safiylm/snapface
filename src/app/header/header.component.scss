@@ -32,10 +32,29 @@ nav {
     }
   }
 
-  li:hover {
-    text-decoration: underline;
-    background-color: rgba(255, 255, 255, 0.1);
-    transition: background-color 0.3s ease;
+  li {
+  display: inline-block;
+  cursor: pointer;
+  position:relative;
+  overflow:hidden;
+  }
+
+  a:before ,
+  button:before {
+    content: "";
+  position: absolute;
+  height: 100%;
+  width: 0;
+  background : #474648;
+  left: 0;
+  bottom: 0;
+  transition: all .3s;
+  opacity: 0.3;
+  }
+
+  a:hover:before ,
+  button:hover:before {
+   width: 100%;
   }
 
   /* Define what each icon button should look like */
@@ -54,10 +73,8 @@ nav {
     background-color: #fa3e3e;
     border-radius: 2px;
     color: white;
-
     padding: 1px 3px;
     font-size: 10px;
-
     position: absolute;
     /* Position the badge within the relatively positioned button */
     top: 0;
@@ -67,24 +84,6 @@ nav {
 
 }
 
-.accordion {
-
-  .accordion-body, .accordion-button {
-    padding: 0;
-    margin: 0;
-  }
-
-  * {
-    background-color: transparent !important;
-    color: white;
-    text-align: start;
-  }
-
-  li {
-    padding: 10px 0;
-    margin: 3px 0;
-  }
-}
 
 /* Sur mobile, navbar classique en haut */
 @media (max-width: 767px) {

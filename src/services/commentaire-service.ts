@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
-import {
-  HttpClient,
-} from '@angular/common/http';
+import { HttpClient,} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Commentaire } from '../models/commentaire.model';
-import { User } from '../models/user.model';
 import { url } from './url'
 import { io, Socket } from 'socket.io-client';
 
@@ -31,10 +28,6 @@ export class CommentaireService {
     return this.http.get<Commentaire[]>(url + "/api/commentairesByPostId?id=" + id);
   }
 
-  getUserByUserId(id: string): Observable<User> {
-    return this.http.get<User>(url + "/api/userid?id=" + id);
-  }
-
 
   create(formData: Commentaire) {
     this.socket.emit("create_comment", formData)
@@ -55,8 +48,6 @@ export class CommentaireService {
       });
     });
   }
-
-  checkTotalComments(id: string) { }
 
 
 }

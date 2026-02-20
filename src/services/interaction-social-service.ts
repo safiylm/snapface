@@ -30,7 +30,7 @@ export class InteractionSocialeService {
     this.socket.emit('add',
       {
         'postId': postId,
-        'userId': JSON.parse( localStorage.getItem("userconnected")?.toString() as string).userId,
+        'userId': JSON.parse(localStorage.getItem("userconnected")?.toString() as string).userId,
         "interaction": interaction
       },
     )
@@ -41,7 +41,7 @@ export class InteractionSocialeService {
     this.socket.emit("remove",
       {
         'postId': postId,
-        'userId':  JSON.parse( localStorage.getItem("userconnected")?.toString() as string).userId,
+        'userId': JSON.parse(localStorage.getItem("userconnected")?.toString() as string).userId,
         'interactionId': interactionId,
         "interaction": interaction
 
@@ -69,21 +69,21 @@ export class InteractionSocialeService {
 
 
   getAllInteractionsByUserId(interactions: string, userid: string) {
- return this.http.get<InteractionSociale[]>(
-      url + "/api-interaction-by-userId?userId=" + userid+ "&interactions="+interactions)
- 
-  } 
+    return this.http.get<InteractionSociale[]>(
+      url + "/api-interaction-by-userId?userId=" + userid + "&interactions=" + interactions)
+  }
 
   getLikesCountByPostId(postId: string) {
+    let interaction = "like"
     return this.http.get<any>(
-      url + "/api/interaction/likesCount?postId=" + postId)
+      url + "/api/interaction/count?postId=" + postId+"&interaction="+interaction)
   }
 
 
   interactionExist
     (postId: string, userId: string) {
     return this.http.get<InteractionSociale>(
-      url + "/api/interaction/exist?postId=" + postId + "&userId=" + userId )
+      url + "/api/interaction/exist?postId=" + postId + "&userId=" + userId)
   }
 
 }
