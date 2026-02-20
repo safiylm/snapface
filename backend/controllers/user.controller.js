@@ -287,7 +287,7 @@ exports.editPassword = async function (req, res) {
 
 
 exports.findByName = async (req, res) => {
-  const lname = req.query.name.trim();
+  const name = req.query.name.trim();
 
   let resultat = "error find user"
   res.set('Access-Control-Allow-Origin', '*');

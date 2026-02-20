@@ -190,7 +190,7 @@ exports.searchPostByTitle = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
 
   const name = req.query.name;
-  res.send(await collection_publications.find({ "title": { $options: 'i', "$regex": name } }).toArray())
+  res.send(await collection_publications.find({ "body": { $options: 'i', "$regex": name } }).toArray())
 };
 
 

@@ -1,27 +1,25 @@
 .search-container{
     width: 100%;
     margin-left: 260px;
+    background-color: currentColor;
+    height: 100vh;
 }
-
 
 .div-search-input-btn {
     text-align: center;
     padding-top: 100px;
+    background-color: currentColor;
 
     h2 {
         font-family: mango;
+        color: white;
     }
 
     input {
         width: 500px;
         margin: 20px 5px;
         max-width: 90vw !important;
-
-    }
-
-    input[name="lname"],
-    input[name="fname"] {
-        width: 300px;
+        color: white;
     }
 
     button {
@@ -29,7 +27,7 @@
         background-color: transparent;
         border: none;
         padding: 7px 15px;
-        color: black !important ;
+        color: white;
 
         :hover {
             background-color: rgb(243, 248, 248);
@@ -48,7 +46,7 @@
 
     }
    .btn-activee {
-            border-bottom: 1px solid black;
+            border-bottom: 1px solid rgb(255, 255, 255);
             border-radius: 0 !important;
         }
 
