@@ -81,41 +81,13 @@ exports.findFollowersByUserId = async (req, res) => {
   res.send(findResult);
 };
 
-//get followers of user with id 
+  //get if user follows "follows"
 exports.checkAbonnement = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
 
-  //get les gens qui suivent user
   const userId = req.query.userId;
   const follows = req.query.follows;
   const findResult = await collection_abonnees.findOne({"userId": userId, "follows": follows });
   res.send(findResult);
 };
 
-//get post of user dont nous suivons 
-exports.findPostOfMyAbonnement = async (req, res) => {
-
-  res.set('Access-Control-Allow-Origin', '*');
-
-  const id = req.query.id;
-  /* await collection_abonnees.findOne({ "userId": id }).then(
-     (data) => {
-       if (data) {
-         collection_publications.find({ "userId": data.abonnement }).toArray()
-           .then(
-             (data1) => {
-               if (data1) {
-                 res.send(data1)
-               }
-             }
-           )
-       }
-       else {
-         res.send('aucun followers')
-         return
-       }
-     }
- 
- */
-
-};

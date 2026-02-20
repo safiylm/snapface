@@ -1,6 +1,5 @@
 const db = require('../config/db.config.js');
 const collection_commentaires = db.collection('commentaires');
-const collection_interactionsociales = db.collection('interactionsociales');
 const ObjectId = require('mongodb').ObjectId;
 const collection_publications = db.collection('publications');
 
@@ -77,7 +76,7 @@ exports.update = async (req, res) => {
 }
 
 
-exports.findByPublicationId = async (req, res) => {
+exports.findByPostId = async (req, res) => {
 
   const id = req.query.id;
   const findResult = await collection_commentaires.find({ "postId": id }).toArray();
@@ -85,7 +84,3 @@ exports.findByPublicationId = async (req, res) => {
   res.send(findResult);
 };
 
-
-exports.checkTotalComments = async (req, res) => {
-  res.json('a coder ')
-}

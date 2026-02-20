@@ -107,10 +107,11 @@ exports.getAllInteractionsByUserId = async (req, res) => {
 
 
 //Voir le nombre de likes d’un post	Interaction.countDocuments({ postId, type: 'like' })
-exports.getLikesCountByPostId = async (req, res) => {
+exports.getInteractionsCountByPostId = async (req, res) => {
   const postId = req.query.postId;
+  const interaction = req.query.interaction;
   res.set('Access-Control-Allow-Origin', '*');
-  res.send(await collection_interactionsociales.countDocuments({ postId, type: 'like' }))
+  res.send(await collection_interactionsociales.countDocuments({ postId, type: interaction }))
 };
 
 

@@ -23,6 +23,7 @@
     "@tailwindcss/postcss": "^4.1.16",
     "bootstrap": "^5.3.5",
     "cloudinary": "^2.6.0",
+    "cotter": "^0.3.35",
     "file-saver": "^2.0.5",
     "firebase": "^11.6.0",
     "jquery": "^3.7.1",

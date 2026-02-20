@@ -169,12 +169,6 @@ exports.findAllPublicationByUserId = async (req, res) => {
 }
 
 
-exports.getListeLikedPostsByUserId = async (req, res) => {
-  res.set('Access-Control-Allow-Origin', '*');
-  const findResult = await collection_publications.find({ "userId": req.query.id }).sort({ date: -1 }).toArray();
-  res.send(findResult);
-}
-
 
 //Retrieve post by id 
 exports.findOneById = async (req, res) => {
@@ -246,21 +240,4 @@ exports.delete = (req, res) => {
         err.message || "Some error occurred while delete post."
     })
   })
-}
-
-exports.resetInteractions = async (req, res) => {
-  res.set('Access-Control-Allow-Origin', '*');
-
-  const updateResult = await collection_publications.updateMany({},
-    {
-      $set: {
-        "commentsCount": 0,
-        "likesCount": 0,
-        "repostsCount": 0,
-        "savesCount": 0,
-      }
-    });
-
-  const dele = await collection_interactionsociales.deleteMany({})
-  res.send({ updateResult, dele });
 }

@@ -34,8 +34,7 @@ router_user.post("/api/user/delete", user.delete);
 router_user.post("/password-oublie/send-reinit-link-by-email", user.sendLinkForReInitPasswordOublie);
 //router_user.post("/api/user/email", user.getIfEmailExist);
 router_user.post("/api/user/reinitialise/password", user.reinitialisePassword);
-router_user.post("/api/user/edit/photodeprofil",upload.single('image'),  user.editPhotoDeProfil);
-router_user.post("/api/user/edit/photobackground",upload.single('image'),  user.editPhotoBackground);
+router_user.post("/api/user/edit/userphoto",upload.single('image'),  user.editUserPhoto);
 
 router_user.post("/api/user/edit/online", user.updateIsOnline);
 

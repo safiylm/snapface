@@ -18,7 +18,6 @@ router_publication.get("/api/pour-moi/publication", publication.findAllPourMoi);
 router_publication.get("/api/publicationByUserId", publication.findAllPublicationByUserId);
 router_publication.get("/api/publicationid", publication.findOneById);
 router_publication.get("/api/publication/search", publication.searchPostByTitle);
-router_publication.get("/api/publication/reset", publication.resetInteractions);
 
 // /:id
 module.exports = router_publication;

@@ -17,8 +17,8 @@ router_interactionsociales.get("/api-interaction-by-userId",
      
 router_interactionsociales.get("/api/interaction/likesByPostId", interactionsociales.getAllLikesByPostId);
 
-router_interactionsociales.get("/api/interaction/likesCount",
-     interactionsociales.getLikesCountByPostId);
+router_interactionsociales.get("/api/interaction/count",
+     interactionsociales.getInteractionsCountByPostId);
 
 
 module.exports = router_interactionsociales;
