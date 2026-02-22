@@ -47,15 +47,13 @@ Inscription / connexion (email + mot de passe / OAuth optionnel)
 
 Profil utilisateur (bio, avatar, nombre d’abonnés/abonnements)
 
-Publier un post (image/vidéo + légende + emplacement optionnel + hashtags)
+Publier un post (image + légende + emplacement optionnel + hashtags)
 
 Fil d’actualité (posts des utilisateurs suivis, tri par date / algorithme simple)
 
 Like / Commentaire / Partage (URL)
 
 Suivre / Se désabonner
-
-Stories (image/vidéo, visibles 24h)
 
 Rechercher utilisateurs / hashtags
 
@@ -120,21 +118,20 @@ node index.js
 ## Architecture du projet
 Fournis un aperçu de l’organisation des fichiers et répertoires.
 
-/frontend
-  /src
-    /app
-      /components
-    /assets
-    /services
-    /models
-    index.html
+        /frontend
+           /src
+                /app/components
+                /assets
+                /services
+                /models
+                index.html
 
-/backend
-  /config 
-  /controllers
-  /routes
-  /models
-  index.js
+        /backend
+          /config 
+          /controllers
+          /routes
+          /models
+          index.js
 
 
 ## API 
