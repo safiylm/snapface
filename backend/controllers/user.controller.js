@@ -25,7 +25,7 @@ const transporter = nodemailer.createTransport({
 
 const isnull = (variable, res) => {
   if (variable == '' || variable == null || variable == undefined)
-    return res.status(500).send(
+    return res.status(404).send(
       variable + ' is null.');
 }
 
@@ -286,27 +286,6 @@ exports.editPassword = async function (req, res) {
 
 
 
-exports.findByName = async (req, res) => {
-  const name = req.query.name.trim();
-
-  let resultat = "error find user"
-  res.set('Access-Control-Allow-Origin', '*');
-
-  resultat = await collection_user.find({
-    "name": { $options: 'i', "$regex": name }
-  },
-  ).toArray()
-    .catch(err => {
-      res.status(500).send({
-        message_:
-          "Some error occurred while search user by name.",
-        erreur: err.message
-      });
-    });
-  res.json(resultat)
-
-}
-
 function cookies
   (id, res) {
   // Créer le cookie
@@ -506,36 +485,60 @@ exports.findAll = async (req, res) => {
 
   const findResult = await collection_user.find({}).toArray()
     .catch(err => {
-      res.status(500).send({
-        message_:
-          "Some error occurred while get list of users.",
-        erreur: err.message
+      res.status(404).send({
+        error:
+          "Users not found",
       });
     });
-  res.send(findResult);
+
+  if (findResult == null) {
+    res.status(404).json({ error: 'Users not found' });
+  } else {
+    res.send(findResult);
+  }
 
 }
 
 
+exports.findByName = async (req, res) => {
+  const name = req.query.name.trim();
+
+  let resultat = "error find user"
+  res.set('Access-Control-Allow-Origin', '*');
+
+  resultat = await collection_user.find({
+    "name": { $options: 'i', "$regex": name }
+  },
+  ).toArray()
+    .catch(err => {
+      res.status(404).json({ error: 'User not found ' + err });
+    });
+  if (resultat == null || resultat ==[]) {
+    res.status(404).json({ error: 'User not found' });
+  }
+  else {
+    res.json(resultat)
+  }
+
+}
+
 // Retrieve one User by id from the database.
 exports.findOneById = async (req, res) => {
-  const id = req.query.id;
 
-  isnull(id, res)      
+  const id = req.query.id;
+  isnull(id, res)
 
   res.set('Access-Control-Allow-Origin', '*');
   const resultat = await collection_user.findOne({ "_id": new ObjectId(id) })
     .catch(err => {
-      res.status(500).send({
-        message_:
-          "Some error occurred while find user by id.",
-        erreur: err.message
-      });
+      res.status(404).json({ error: 'User not found ' + err });
     });
-
-  if (!resultat) {
-    return res.status(500).json({ error: 'User not found' });
+  if (resultat == null) {
+    res.status(404).json({ error: 'User not found' });
+  }
+  else {
+    res.json(resultat)
   }
 
-  res.json(resultat)
+
 };
