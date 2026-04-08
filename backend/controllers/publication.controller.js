@@ -15,6 +15,13 @@ cloudinary.config({
 });
 
 
+
+const isnull = (variable, res) => {
+  if (variable == '' || variable == null || variable == undefined)
+    return res.status(404).send(
+      variable + ' is null.');
+}
+
 //create new post 
 exports.create = async (req, res) => {
   // Validate request
@@ -133,6 +140,8 @@ exports.findAll = async (req, res) => {
 // Retrieve all Posts from the database.
 exports.findAllPourMoi = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
+  isnull( req.query.userId, res)
+
   const abonnes = await collection_abonnees.find({ "userId": req.query.userId }).toArray()
   const followsIds = abonnes.map(ab => ab.follows);
 
@@ -162,10 +171,17 @@ exports.findAllPourMoi = async (req, res) => {
 
 // Retrieve all Posts by userID from the database.
 exports.findAllPublicationByUserId = async (req, res) => {
+  isnull( req.query.id, res)
 
   res.set('Access-Control-Allow-Origin', '*');
-  const findResult = await collection_publications.find({ "userId": req.query.id }).sort({ date: -1 }).toArray();
-  res.send(findResult);
+  const resultat = await collection_publications.find({ "userId": req.query.id }).sort({ date: -1 }).toArray();
+
+  if (resultat == null) {
+    res.status(404).json({ error: 'Posts not found' });
+  }
+  else {
+    res.json(resultat)
+  }
 }
 
 
@@ -174,24 +190,35 @@ exports.findAllPublicationByUserId = async (req, res) => {
 exports.findOneById = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
   const id = req.query.id
-  if (id != null && id != '' && id != undefined) {
-    console.log(id)
+  isnull(id,  res)
+
     const result = await collection_publications.findOne({
       "$or": [{ _id: new ObjectId(id) }, { _id: id }]
     })
-    res.send(result)
+    if (result == null)
+      res.status(404).json({ error: 'Posts not found' });
+    else
+      res.send(result)
   }
-  else
-    res.send("No Post!")
-};
+
+
 
 
 exports.searchPostByTitle = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
 
   const name = req.query.name;
-  res.send(await collection_publications.find({ "body": { $options: 'i', "$regex": name } }).toArray())
+  isnull(name,  res)
+
+  const result = await collection_publications.find({ "body": { $options: 'i', "$regex": name } }).toArray()
+
+  if (result == null || result ==[] || result=="")
+      res.status(404).json({ error: 'Posts not found' });
+  else
+      res.send(result)
+
 };
+
 
 
 //Delete post 
