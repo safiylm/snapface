@@ -1,19 +1,17 @@
-import { NgClass, NgIf, TitleCasePipe } from '@angular/common';
+import { NgIf,  } from '@angular/common';
 import { Component, Input, Renderer2 } from '@angular/core';
-import { MatMenuModule } from '@angular/material/menu';
 import { User } from 'src/models/user.model';
 import { EditPhotosComponent } from '../edit/user-data-update/edit-photos/edit-photos.component';
 import { FormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   standalone:true,
   selector: 'app-header-snap-photos',
   templateUrl: './header-snap-photos.component.html',
   styleUrls: ['./header-snap-photos.component.scss'],
-   imports: [ NgIf, TitleCasePipe,
-      FormsModule, EditPhotosComponent, NgClass
-    , MatButtonModule, MatMenuModule,],
+   imports: [ NgIf,
+      FormsModule, EditPhotosComponent
+    ],
 })
 export class HeaderSnapPhotosComponent {
 

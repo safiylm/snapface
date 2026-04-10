@@ -1,3 +1,4 @@
+
 * {
   box-sizing: border-box;
 }
@@ -10,7 +11,7 @@ div {
     transform: translate(-50%, -50%);
     width: 100vw;
     height: 100vh;
-    background-color: #793bd750;
+    background-color: #46454850;
 }
 
 button {
@@ -23,9 +24,8 @@ button {
   padding: 0 32px;
   border: 0;
   border-radius: 10px;
-  font-family: Poppins;
-  font-size: 18px;
-  color: #ffffff;
+  font-size: 17px;
+  color: #edebeb;
   cursor: wait;
     top: 50%;
     left: 50%;
@@ -56,14 +56,14 @@ button::before {
   left: -100%;
   width: 300%;
   height: 100%;
-  background: #8f44fd
+  background: #2c3339
     repeating-linear-gradient(
     60deg,
       transparent,
       transparent 10px,
-      #7a3bd7 10px,
-      #7a3bd7 20px
+      #3c434b 10px,
+      #3c434b 20px
     );
-  
-  animation: loading 1s infinite linear;
+
+  animation: loading 2s infinite linear;
 }

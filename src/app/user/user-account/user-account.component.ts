@@ -28,7 +28,8 @@ export class UserAccountComponent {
 
   checkAbonnement() {
     if(this.id)
-    this.abonneeService.checkabonnement(localStorage.getItem("userId")?.toString() as string,
+
+    this.abonneeService.checkabonnement( JSON.parse(localStorage.getItem('userconnected')?.toString() as string).userId,
       this.id)
       .subscribe({
         next: (data) => {

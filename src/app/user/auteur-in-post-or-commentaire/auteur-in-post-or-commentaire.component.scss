@@ -11,9 +11,10 @@
         text-decoration: none;
         font-size: 17px;
         font-weight: 600;
-        color: ffffff;
+        color: var(--bs-body-bg);
     }
-         :after {
+
+    :after {
         content: " ";
         display: block;
         clear: both;

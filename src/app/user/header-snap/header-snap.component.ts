@@ -3,20 +3,13 @@ import { UserService } from '../../../services/user-service'
 import { User } from '../../../models/user.model'
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { StatistiqueUserComponent } from '../statistique-user/statistique-user.component';
-import { NgClass, NgIf, TitleCasePipe } from '@angular/common';
+import { NgIf, TitleCasePipe } from '@angular/common';
 import { ButtonFollowComponent } from '../button-follow/button-follow.component';
-import { EditPhotosComponent } from "../edit/user-data-update/edit-photos/edit-photos.component";
 import { SignalementService } from 'src/services/signalement-service';
 import { FormsModule } from '@angular/forms';
 import { transition, style, animate, trigger } from '@angular/animations';
 import { SignalerUserComponent } from "../signaler-user/signaler-user.component";
-import {MatMenuModule} from '@angular/material/menu';
-import {MatButtonModule} from '@angular/material/button';
 import { HeaderSnapPhotosComponent } from '../header-snap-photos/header-snap-photos.component';
-import { ChatPriveService } from 'src/services/chatprive.service';
-import { Conversation } from 'src/models/conversation';
-
 
 export interface Tile {
   color: string;
@@ -57,9 +50,9 @@ const fadeOut = trigger('fadeOut', [
   selector: 'app-header-snap',
   templateUrl: './header-snap.component.html',
   styleUrls: ['./header-snap.component.scss'],
-  imports: [StatistiqueUserComponent, NgIf, ButtonFollowComponent, TitleCasePipe,
-    FormsModule, EditPhotosComponent, SignalerUserComponent, NgClass
-  , MatButtonModule, MatMenuModule, HeaderSnapPhotosComponent],
+  imports: [ NgIf, ButtonFollowComponent, TitleCasePipe,
+    FormsModule,  SignalerUserComponent, 
+     HeaderSnapPhotosComponent],
   animations: [
     fadeIn,
     fadeOut

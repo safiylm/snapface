@@ -1,17 +1,25 @@
 #sedesabonner,
 #sabonner {
-     background-color: whitesmoke;
     border: none;
     border-radius: 15px;
-    padding: 7px 14px;
-    font-size: 15px;
+    padding: 6px 12px;
+    font-size: 14px;
     background-color: #f2f2f2;
     color: black;
     margin: 0 5px;
 }
 
+#sedesabonner:hover {
+    background-color: #cac9c9;
+}
+
+
 #sabonner {
     background-color: dodgerblue;
     color: #fff;
 
+}
+
+#sabonner:hover {
+    background-color: rgb(20, 112, 204);
 }

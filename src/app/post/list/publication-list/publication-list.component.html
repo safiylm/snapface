@@ -34,7 +34,7 @@
     <ng-container *ngFor="let publication of publications; index as i">
 
         <ng-container *ngIf="publication.assets[0]">
-           <ng-container *ngIf="isImage(publication.assets[0]) ; else videoTemplate_ ">
+            <ng-container *ngIf="isImage(publication.assets[0]) ; else videoTemplate_ ">
                 <img [src]="publication.assets[0]" (click)="clickImage(i)" />
             </ng-container>
             <ng-template #videoTemplate_>
@@ -52,9 +52,9 @@
 </div>
 
 
-<div class="listofposts">
 
-    <ng-template #compteprivee>
+<ng-template #compteprivee>
+    <div class="listofposts">
 
         <div class="compte-private d-flex align-items-center justify-content-start">
 
@@ -70,11 +70,11 @@
                 <p>Suivre ce compte pour voir ses photos et vidéos.</p>
             </div>
         </div>
-    </ng-template>
-
-    <div *ngIf="publications.length == 0">
-        <p id="textWidthBorder">Aucune publication pour le moment </p>
-        <br />
-        <app-users-list></app-users-list>
     </div>
+</ng-template>
+
+<div *ngIf="publications.length == 0">
+    <p id="textWidthBorder">Aucune publication pour le moment </p>
+    <br />
+    <app-users-list></app-users-list>
 </div>

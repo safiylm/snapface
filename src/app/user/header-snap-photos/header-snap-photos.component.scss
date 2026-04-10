@@ -54,7 +54,7 @@
         @media (max-width:800px) {
             width: 95vw;
             margin: 1vw auto;
-            padding: 2vw ;
+            padding: 2vw;
 
             img {
                 max-width: 90vw;
@@ -69,7 +69,8 @@
 
 
 .container {
-
+    max-width: 95vw;
+    
     :after {
         content: " ";
         display: block;
@@ -77,16 +78,15 @@
     }
 
     #photo-background {
+        position: relative;
         width: calc(100% - 20px) !important;
         height: 300px;
         object-fit: cover;
         margin: 10px;
         border-radius: 10px;
         //   backdrop-filter: blur(8px);
-
-        @media(max-width:479px) {
-            height: 370px;
-        }
+        border: none;
+        background-color: #30353a;
 
         :after {
             content: " ";
@@ -95,42 +95,44 @@
         }
     }
 
+    @media(max-width:479px) {
+
+
+        #photo-background {
+            height: 220px;
+            width: calc(100% - 4px) !important;
+            margin: 0 !important;
+
+            #photo-background {
+                height: 220px;
+            }
+        }
+    }
+
 }
 
 
 
 
+#photo-profil {
+    position: absolute;
+    height: 170px;
+    width: 170px;
+    top: 150px;
+    left: 60% !important;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    border-radius: 50%;
 
-.div-photo-profil {
-    margin-top: -300px;
-    height: 300px;
-
-
-    :after {
-        content: " ";
-        display: block;
-        clear: both;
-    }
-
-
-    #photo-profil {
-        margin-bottom: 10px;
-
-        height: 170px;
-        width: 170px;
-
-        object-fit: cover;
-        border-radius: 50%;
-    }
-
-    @media(max-width:490px) {
-        margin-right: 0px;
+    @media(max-width:767px) {
+        margin: 0;
+        left: 50% !important;
+        top: 200px;
 
     }
 
-
-    z-index: 1;
 }
+
 
 
 #editphotos {

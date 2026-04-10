@@ -3,10 +3,7 @@ import { HeaderComponent } from '../../header/header.component';
 import { HeaderSnapComponent } from '../header-snap/header-snap.component';
 import { PublicationListComponent } from "../../post/list/publication-list/publication-list.component";
 import { InteractionsListComponent } from "../../post/list/interactions-list/interactions-list.component"
-import { UserDataUpdateComponent } from "../edit/user-data-update/user-data-update.component";
-import { PublicationCreateComponent } from "../../post/publication-create/publication-create.component";
 import { NgClass, NgIf } from '@angular/common';
-import { StatistiqueUserComponent } from '../statistique-user/statistique-user.component';
 import { User } from 'src/models/user.model';
 import { UserService } from 'src/services/user-service';
 
@@ -15,9 +12,8 @@ import { UserService } from 'src/services/user-service';
   selector: 'app-my-account',
   templateUrl: './my-account.component.html',
   styleUrls: ['./my-account.component.scss'],
-  imports: [HeaderComponent, HeaderSnapComponent, NgIf,
-    PublicationListComponent, InteractionsListComponent, StatistiqueUserComponent,NgClass,
-    UserDataUpdateComponent, PublicationCreateComponent]
+  imports: [HeaderComponent, HeaderSnapComponent, NgIf,NgClass,
+    PublicationListComponent, InteractionsListComponent]
 })
 export class MyAccountComponent implements OnInit {
   
@@ -30,7 +26,6 @@ export class MyAccountComponent implements OnInit {
 
   ngOnInit() {
    this.id = JSON.parse(localStorage.getItem('userconnected')?.toString() as string).userId;
-     console.log(  this.id)
 
   //   this.display = "";
    if(this.id!= "" || this.id != undefined)

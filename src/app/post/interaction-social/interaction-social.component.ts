@@ -1,13 +1,10 @@
 import { Component, Input, Renderer2 } from '@angular/core';
-import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
+import { NgClass, NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Publication } from 'src/models/publication.model';
 import { UserService } from 'src/services/user-service';
 import { CommentaireListComponent } from "../../comment/commentaire-list/commentaire-list.component";
-import { transition, style, animate, trigger } from '@angular/animations';
 import { SignalerPostComponent } from "../signaler-post/signaler-post.component";
-import { MatMenuModule } from '@angular/material/menu';
-import { MatButtonModule } from '@angular/material/button';
 import { InteractionSocialeService } from 'src/services/interaction-social-service';
 
 
@@ -17,8 +14,8 @@ import { InteractionSocialeService } from 'src/services/interaction-social-servi
   templateUrl: './interaction-social.component.html',
   styleUrls: ['./interaction-social.component.scss'],
   imports: [
-    NgIf, FormsModule,  NgClass, NgStyle,
-    NgFor, CommentaireListComponent, SignalerPostComponent, MatButtonModule, MatMenuModule],
+    NgIf, FormsModule,  NgClass,
+    NgFor, CommentaireListComponent, SignalerPostComponent, ],
 
 })
 
@@ -28,7 +25,6 @@ export class InteractionSocialComponent {
   @Input() post !: Publication;
   @Input() isMyPost !: boolean;
 
-  //isMobile !: boolean;
   users: any[] = []
 
   isReposted = false;
