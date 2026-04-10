@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
 import { LoadingInterceptor } from 'src/services/loading.interceptor';
@@ -23,7 +22,7 @@ registerLocaleData(localeFr);
     HttpClientModule,
     FormsModule,
     RouterModule,
-    BrowserAnimationsModule,
+   
   ],
    providers: [AuthGuard,
     { provide: LOCALE_ID, useValue: 'fr-FR' },

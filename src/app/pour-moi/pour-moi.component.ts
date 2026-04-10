@@ -1,6 +1,5 @@
 import { NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { PublicationsListComponent } from './publications-list/publications-list.component';
 import { HeaderComponent } from "../header/header.component";
 import { PublicationsService } from 'src/services/publication-service';
 import { Publication } from 'src/models/publication.model';

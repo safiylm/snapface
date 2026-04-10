@@ -4,8 +4,7 @@ import { PublicationsService } from '../../../services/publication-service';
 import { Publication } from 'src/models/publication.model';
 import { FormsModule } from "@angular/forms";
 import { Subscription } from 'rxjs';
-import { JsonPipe, NgFor, NgIf } from '@angular/common';
-import { HeaderSnapComponent } from '../../user/header-snap/header-snap.component';
+import { NgFor, NgIf } from '@angular/common';
 import { HeaderComponent } from "../../header/header.component";
 import { LoadingSpinnerResponseComponent } from 'src/app/loading-spinner-response/loading-spinner-response.component';
 
@@ -14,8 +13,8 @@ import { LoadingSpinnerResponseComponent } from 'src/app/loading-spinner-respons
   selector: 'app-publication-edit',
   templateUrl: './publication-edit.component.html',
   styleUrls: ['./publication-edit.component.scss'],
-  imports: [NgFor, FormsModule, NgIf, JsonPipe,
-    HeaderSnapComponent, LoadingSpinnerResponseComponent,
+  imports: [NgFor, FormsModule, NgIf,
+   LoadingSpinnerResponseComponent,
     HeaderComponent],
 
 })

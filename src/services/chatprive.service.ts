@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import {  HttpClient } from '@angular/common/http';
 import { Message } from '../models/message.model';
 import { Conversation } from '../models/conversation';
 import { url } from './url'

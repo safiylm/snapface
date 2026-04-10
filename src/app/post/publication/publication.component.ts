@@ -2,20 +2,20 @@ import { Component, ElementRef, Input, QueryList, ViewChildren } from '@angular/
 import { Publication } from '../../../models/publication.model';
 import { AuteurInPostOrCommentaireComponent } from '../../user/auteur-in-post-or-commentaire/auteur-in-post-or-commentaire.component';
 import { CommentaireListComponent } from '../../comment/commentaire-list/commentaire-list.component';
-import { NgClass, NgIf, TitleCasePipe } from '@angular/common';
+import {  NgIf, TitleCasePipe } from '@angular/common';
 import { ImagesVideoComponent } from "./images-video/images-video.component";
-import { MatCardModule } from '@angular/material/card';
 import { PublicationsService } from 'src/services/publication-service';
 import { InteractionSocialComponent } from '../interaction-social/interaction-social.component';
+import {MatCardModule,} from '@angular/material/card';
 
 @Component({
   standalone: true,
   selector: 'app-publication',
   templateUrl: './publication.component.html',
   styleUrls: ['./publication.component.scss'],
-  imports: [AuteurInPostOrCommentaireComponent, NgClass,
+  imports: [AuteurInPostOrCommentaireComponent,
     CommentaireListComponent, TitleCasePipe, InteractionSocialComponent,
-    NgIf, ImagesVideoComponent, MatCardModule]
+    NgIf, ImagesVideoComponent, MatCardModule ]
 })
 
 export class PublicationComponent {

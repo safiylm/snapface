@@ -5,7 +5,6 @@ import { FormsModule } from "@angular/forms";
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { EditEmailComponent } from '../../edit/edit-email/edit-email.component';
-import { EditPhonenumberComponent } from '../../edit/edit-phonenumber/edit-phonenumber.component';
 import { PasswordEditComponent } from "../../edit/password-edit/password-edit.component";
 import { HeaderSnapPhotosComponent } from '../../header-snap-photos/header-snap-photos.component';
 import { LoadingSpinnerResponseComponent } from 'src/app/loading-spinner-response/loading-spinner-response.component';
@@ -16,7 +15,7 @@ import { LoadingSpinnerResponseComponent } from 'src/app/loading-spinner-respons
   templateUrl: './user-data-update.component.html',
   styleUrls: ['./user-data-update.component.scss'],
   imports: [CommonModule, FormsModule, HeaderSnapPhotosComponent,
-    EditEmailComponent, LoadingSpinnerResponseComponent, EditPhonenumberComponent, PasswordEditComponent],
+    EditEmailComponent, LoadingSpinnerResponseComponent, PasswordEditComponent],
 })
 
 export class UserDataUpdateComponent implements OnInit {

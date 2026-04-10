@@ -4,6 +4,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { LoadingService } from 'src/services/loading-service';
 
 @Component({
+  standalone: false, 
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'], 

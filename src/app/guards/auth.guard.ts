@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot, CanActivate, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+
 @Injectable({
    providedIn: 'root'
 })
@@ -18,21 +18,7 @@ export class AuthGuard implements CanActivate {
    }
 
    public isLoggedIn(): boolean {
-      let status = false;
-       status  = JSON.parse(localStorage.getItem('userconnected')?.toString() as string).isLoggedIn
-      if ( true) {
-         status = true;
-      }
-      else {
-         status = false;
-      }
+      let status  = JSON.parse(localStorage.getItem('userconnected')?.toString() as string).isLoggedIn as boolean
       return status;
    }
 }
-
-
-// import { CanActivateFn } from '@angular/router';
-
-// export const authGuard: CanActivateFn = (route, state) => {
-//   return true;
-// };
