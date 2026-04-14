@@ -9,19 +9,19 @@
     align-items: center;
     justify-content: center;
     position: relative;
-  //  box-shadow: 0 5px 20px rgba(100, 102, 96, 0.65);
-    width: 350px;
     height: var(--heightt);
     max-height: var(--heightt);
-    background-color: rgba(218, 216, 216, 0.17);
+    background-color: #1f2225;
 
     video,
     img {
         object-fit: cover;
-        width: 350px;
+        max-width: 350px;
         height: var(--heightt);
         max-height: 80vh;
         object-fit: cover;
+    width: -moz-available;
+
         :after {
             content: " ";
             display: block;

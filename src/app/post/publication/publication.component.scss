@@ -90,12 +90,14 @@ a {
 
 @media(max-width:600px) {
   .example-card {
-    width: 90vw;
+    width: 95vw;
   }
 
   .mat-mdc-card-content {
     display: block;
-    padding: 0 16px;
+    padding: 0;
+    width: 350px;
+    margin: 1px auto;
     font-size: 14px;
   }
 

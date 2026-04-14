@@ -2,9 +2,7 @@
 
   <ng-container *ngFor="let asset of assets">
     <ng-container *ngIf="isImage(asset); else videoTemplate">
-      <div *ngIf="asset" @fadeImage>
-        <img id="image" [src]="asset!" alt='photos'>
-      </div>
+        <img *ngIf="asset" @fadeImage id="image" [src]="asset!" alt='photos'>
     </ng-container>
 
 
