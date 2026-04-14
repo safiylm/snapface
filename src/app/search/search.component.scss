@@ -1,8 +1,8 @@
-.search-container{
+.search-container {
     width: 100%;
     margin-left: 260px;
     background-color: currentColor;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .div-search-input-btn {
@@ -20,6 +20,8 @@
         margin: 20px 5px;
         max-width: 90vw !important;
         color: white;
+        border: none;
+        background-color: #373e44;
     }
 
     button {
@@ -42,28 +44,32 @@
             /* Pour enlever la bordure bleu */
         }
 
-     
-
-    }
-   .btn-activee {
-            border-bottom: 1px solid rgb(255, 255, 255);
-            border-radius: 0 !important;
-        }
-
     }
 
-    @media(max-width:767px) {
-  
-    .search-container{
+    #btn-search {
+        background-color: blueviolet;
+        color: rgb(219, 217, 217);
+        max-width: 90vw !important;
+    }
+
+    .btn-activee {
+        border-bottom: 1px solid rgb(255, 255, 255);
+        border-radius: 0 !important;
+    }
+
+}
+
+@media(max-width:767px) {
+
+    .search-container {
         width: 100vw;
-        margin-top: 130px;
         margin-left: 0;
-        .div-user-search{
-            button{
-                width: 100%;
-            }
+        height: auto;
+
+        #btn-search {
+            width: 100%;
         }
 
-       
+
     }
 }

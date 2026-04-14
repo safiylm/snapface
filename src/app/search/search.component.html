@@ -10,17 +10,17 @@
                 <button [ngClass]="{'btn-activee': filtre=='post'}" (click)="filtre='post'">Post</button>
             </div>
             
-            <div *ngIf="filtre=='user'" class="div-user-search d-flex flex-wrap align-items-center justify-content-center">
+            <div *ngIf="filtre=='user'" class="d-flex flex-wrap align-items-center justify-content-center">
                 <input name="name" [(ngModel)]="name" (keyup.enter)="researchUser()" class="form-control"
                     placeholder="Enter name">
               
-                <button class="btn btn-light" (click)="researchUser()">Chercher</button>
+                <button id="btn-search" class="btn btn-light" (click)="researchUser()">Chercher</button>
             </div>
 
             <div *ngIf="filtre=='post'" class="d-flex flex-wrap align-items-center justify-content-center">
                 <input name="search" [(ngModel)]="search" (keyup.enter)="research()" placeholder="Search posts"
                     class="form-control">
-                <button class="btn btn-light" (click)="research()">Chercher</button>
+                <button id="btn-search" class="btn btn-light" (click)="research()">Chercher</button>
             </div>
         
         </div>
