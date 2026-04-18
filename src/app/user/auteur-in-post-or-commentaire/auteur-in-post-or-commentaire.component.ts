@@ -15,9 +15,7 @@ import { NgIf } from '@angular/common';
 
 export class AuteurInPostOrCommentaireComponent  implements OnInit {
  
-  //Passing Data into this Component
   @Input() id !: string ;
-  // @Input() audio !: string ;
   subscription !: Subscription;
   user !: User;
   isMe = false;
@@ -37,7 +35,7 @@ export class AuteurInPostOrCommentaireComponent  implements OnInit {
 
   ngOnInit() {
    this.retrieveUser()
-   if(localStorage.getItem("userId")==this.id)
+   if(JSON.parse(localStorage.getItem("userconnected") as string ).userId==this.id)
     this.isMe=true;
   }
 
