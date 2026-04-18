@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { NavigationCancel, NavigationEnd, NavigationError, NavigationStart, Router, RouterEvent } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { LoadingService } from 'src/services/loading-service';
@@ -12,38 +12,38 @@ import { LoadingService } from 'src/services/loading-service';
 
 export class AppComponent implements OnDestroy {
   unsubscribe = new Subject<void>();
-  loadingPosts = false;
-  loadingg = false;
+  // loadingPosts = false;
+  // loadingg = false;
   loading$ = this.loadingService.loading$;
 
-  constructor(private loadingService: LoadingService, private router: Router) {
-    this.router.events.pipe(takeUntil(this.unsubscribe))
-      .subscribe((routerEvent) => {
-        this.checkRouterEvent(routerEvent as RouterEvent);
-      });
-  }
+  constructor(private loadingService: LoadingService, private router: Router,
+    private cd: ChangeDetectorRef) {}
+
+ngAfterViewInit() {
+  this.cd.detectChanges();
+}
 
 
-  checkRouterEvent(routerEvent: RouterEvent): void {
-    if (routerEvent instanceof NavigationStart) {
-      if (routerEvent.url == "/" || routerEvent.url == "/pour-moi") {
-        this.loadingPosts = true;
-      }else{
-        this.loadingg =true
-      }
+  // checkRouterEvent(routerEvent: RouterEvent): void {
+  //   if (routerEvent instanceof NavigationStart) {
+  //     if (routerEvent.url == "/" || routerEvent.url == "/pour-moi") {
+  //       this.loadingPosts = true;
+  //     }else{
+  //       this.loadingg =true
+  //     }
      
-    }
-     this.loadingPosts = false;
-      this.loadingg =false
-    if (routerEvent instanceof NavigationEnd ||
-      routerEvent instanceof NavigationCancel ||
-      routerEvent instanceof NavigationError) {
-      this.loadingPosts = false;
-      this.loadingg =false
+  //   }
+  //    this.loadingPosts = false;
+  //     this.loadingg =false
+  //   if (routerEvent instanceof NavigationEnd ||
+  //     routerEvent instanceof NavigationCancel ||
+  //     routerEvent instanceof NavigationError) {
+  //     this.loadingPosts = false;
+  //     this.loadingg =false
 
-      //  console.log('done.');
-    }
-  }
+  //     //  console.log('done.');
+  //   }
+  // }
 
   ngOnDestroy(): void {
     this.unsubscribe.next();

@@ -1,3 +1,4 @@
-<app-loading-spinner [isVisible]="(loading$ | async)!"></app-loading-spinner>
+<app-loading-spinner  *ngIf="loading$ | async as loading"
+  [isVisible]="loading">></app-loading-spinner>
 <router-outlet></router-outlet>
-<div class="" *ngIf="loadingPosts"></div>
+<!-- <div class="" *ngIf="loadingPosts"></div> -->
