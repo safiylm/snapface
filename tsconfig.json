@@ -13,10 +13,14 @@
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "importHelpers": true,
     "target": "ES2022",
-    "module": "ES2022",
+    "types": [
+      "jest",
+      "node"
+    ],
+     "module": "ES2022",
     "useDefineForClassFields": false,
     "resolveJsonModule": true,
     "esModuleInterop": true,
@@ -31,5 +35,4 @@
     "strictInputAccessModifiers": true,
     "strictTemplates": true
   },
-
 }
