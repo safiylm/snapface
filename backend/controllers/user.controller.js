@@ -72,7 +72,7 @@ exports.create = (req, res) => {
     if (data)
       collection_statistiqueusers.insertOne({
         userId: data.insertedId.toString(),
-        followers: 0, totalPosts: 0, totalPoints: 0,
+        followers: 0, totalPosts: 0, 
       })
         .then(data1 => {
           if (data1)
