@@ -4,17 +4,22 @@ const collection_publications = db.collection('publications');
 const collection_user = db.collection('users');
 const ObjectId = require('mongodb').ObjectId;
 
+const isnull = (variable) => {
+    if (variable == '' || variable == null || variable == undefined || !variable)
+        return true;
+}
+
 //signaler une publication 
 exports.signalerUnePublication = (req, res) => {
     res.set('Access-Control-Allow-Origin', '*');
 
-    // Validate request
-     if (!req.body.auteur && !req.body.raison ) {
-         res.status(400).send({ message: "Content can not be empty!" });
-         return;
-     }
+    if (isnull(req.body.auteur) ||
+        isnull(req.body.raison) ||
+        isnull(req.body.postId)) {
+        res.status(400).send({ error: 'param is null.' });
+        return
+    }
 
-console.log(req.body )
     // Save Signalement in the database
     collection_signalement
         .insertOne({
@@ -26,13 +31,11 @@ console.log(req.body )
         }
         )
         .then(data => {
-            res.send(data);
+            if (data)
+                res.status(201).send(data);
         })
         .catch(err => {
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred while signaler a post."
-            });
+            res.status(500).send({ error: err.message });
         });
 };
 
@@ -40,12 +43,12 @@ console.log(req.body )
 exports.signalerUnUser = (req, res) => {
     res.set('Access-Control-Allow-Origin', '*');
 
-     // Validate request
-     if (!req.body.auteur && !req.body.raison ) {
-        res.status(400).send({ message: "Content can not be empty!" });
-        return;
+    if (isnull(req.body.auteur) ||
+        isnull(req.body.raison) ||
+        isnull(req.body.userId)) {
+        res.status(400).send({ error: 'param is null.' });
+        return
     }
-
 
     // Save Signalement in the database
     collection_signalement
@@ -55,17 +58,14 @@ exports.signalerUnUser = (req, res) => {
             raison: req.body.raison,
             postId: null, //Signale un post 
             userId: req.body.userId,  //Signale un user 
-
-        }
-        )
+        })
         .then(data => {
-            res.send(data);
+            if (data)
+                res.status(201).send(data);
+
         })
         .catch(err => {
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred while signaler a User."
-            });
+            res.status(500).send({ error: err.message });
         });
 };
 
@@ -80,7 +80,7 @@ exports.getAllUsersSignale = async (req, res) => {
         }
         tab_users.push(a)
     }
-    res.json(tab_users)
+    res.status(200).json(tab_users)
 }
 
 exports.getAllPostsSignale = async (req, res) => {
@@ -94,12 +94,16 @@ exports.getAllPostsSignale = async (req, res) => {
         }
         tab_posts.push(a)
     }
-    res.json(tab_posts)
+    res.status(200).json(tab_posts)
 }
 
 exports.getAllPostsSignaleByAuteur = async (req, res) => {
     res.set('Access-Control-Allow-Origin', '*')
-    let tab = await collection_signalement.find({ "userId": null, "auteur": req.query.auteur  }).toArray()
+    if (isnull(req.query.auteur)) {
+        res.status(400).send({ error: 'param is null.' });
+        return
+    }
+    let tab = await collection_signalement.find({ "userId": null, "auteur": req.query.auteur }).toArray()
     let tab_posts = []
     for (let x of tab) {
         let a = {
@@ -108,11 +112,22 @@ exports.getAllPostsSignaleByAuteur = async (req, res) => {
         }
         tab_posts.push(a)
     }
-    res.json(tab_posts)
-}
+    if (tab_posts == null || tab_posts == [])
+        res.status(404).send("List of posts signaled not founded.")
+    else
+        res.status(200).json(tab_posts)
+};
+
 
 exports.getAllUsersSignaleByAuteur = async (req, res) => {
     res.set('Access-Control-Allow-Origin', '*');
+
+    if (isnull(req.query.auteur)) {
+        res.status(400).send(
+            'auteur is null.');
+        return
+    }
+
     let tab = await collection_signalement.find({ "postId": null, "auteur": req.query.auteur }).toArray()
     let tab_users = []
     for (let x of tab) {
@@ -122,5 +137,28 @@ exports.getAllUsersSignaleByAuteur = async (req, res) => {
         }
         tab_users.push(a)
     }
-    res.json(tab_users)
+    if (tab_users == null || tab_users == [])
+        res.status(404).send("List of users signaled not founded.")
+    else
+        res.status(200).json(tab_users)
+}
+
+
+
+//delete user 
+exports.delete = async (req, res) => {
+    res.set('Access-Control-Allow-Origin', '*');
+
+    if (isnull(req.body._id)) {
+        res.status(400).send({ error: 'user id is null.' });
+        return
+    }
+
+    collection_user.deleteOne({ "_id": new ObjectId(req.body._id) }).then((data) => {
+        if (data)
+            res.status(200).json({ "message": "Suppression réussie" });
+    }).catch(err => {
+        res.status(500).send({ error: err.message });
+    });
+
 }

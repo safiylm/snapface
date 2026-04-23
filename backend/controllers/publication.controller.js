@@ -16,25 +16,24 @@ cloudinary.config({
 
 
 
-const isnull = (variable, res) => {
+const isnull = (variable) => {
   if (variable == '' || variable == null || variable == undefined)
-    return res.status(404).send(
-      variable + ' is null.');
+    return true;
 }
 
 //create new post 
 exports.create = async (req, res) => {
   // Validate request
-  if (!req.body.body && ! !req.body.userId) {
-    return res.status(500).send({
-      message:
-        err.message || "User and body of post is empty."
+  if (isnull(req.body.body) || isnull(req.body.userId)) {
+    return res.status(400).send({
+      error: "Post is empty."
     })
   }
 
   res.set('Access-Control-Allow-Origin', '*');
   let array_assets = []
 
+  if(req.files != null)
   //const filePath = req.file.path;
   for (const file of req.files) {
     await cloudinary.uploader.upload(file.path, {
@@ -57,28 +56,21 @@ exports.create = async (req, res) => {
     savesCount: 0
   };
 
-  // Save Tutorial in the database
-  await collection_publications
-    .insertOne(post)
+  await collection_publications.insertOne(post)
     .then(data0 => {
       if (data0)
         collection_statistiqueusers.updateOne({ "userId": req.body.userId },
           { $inc: { "totalPosts": 1 } }).then(data => {
             if (data)
-              res.send({ "message": "Votre publication a été crée avec succès!" });
+              res.status(201).send({ "message": "Création publication réussie", "postId": data0.insertedId });
           })
           .catch(err => {
-            res.status(500).send({
-              message:
-                err.message || "Some error occurred while incremente totale post in SU."
-            })
-          })
+            res.status(500).send({ error: err.message });
+          });
+
     })
     .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while creating a post."
-      });
+      res.status(500).send({ error: err.message });
     });
 };
 
@@ -86,6 +78,16 @@ exports.create = async (req, res) => {
 //Edit post 
 exports.edit = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
+  
+  if (isnull(req.body._id)) {
+    res.status(400).send({ error: 'user id is null.' });
+    return
+  }
+  if (isnull(req.body.existingAssets) && isnull(req.body.body)) {
+    res.status(400).send({ error: 'user id is null.' });
+    return
+  }
+
 
   let existingAssets = JSON.parse(req.body.existingAssets || "[]");
   let newFiles = req.files; // tes nouveaux uploads
@@ -106,7 +108,10 @@ exports.edit = async (req, res) => {
       }
     });
   if (updateResult.acknowledged == true)
-    res.send({ "message": "Votre publication a été modifié." });
+    res.status(200).send({ "message": "Modification réussie" });
+  else
+    res.status(500).send({ "error": "Erreur." });
+
 }
 
 
@@ -140,9 +145,14 @@ exports.findAll = async (req, res) => {
 // Retrieve all Posts from the database.
 exports.findAllPourMoi = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
-  isnull( req.query.userId, res)
 
-  const abonnes = await collection_abonnees.find({ "userId": req.query.userId }).toArray()
+  let objet = { "userId": req.query.userId }
+  if (isnull(req.query.userId)) {
+   objet={}
+  }
+
+
+  const abonnes = await collection_abonnees.find( objet ).toArray()
   const followsIds = abonnes.map(ab => ab.follows);
 
 
@@ -171,7 +181,11 @@ exports.findAllPourMoi = async (req, res) => {
 
 // Retrieve all Posts by userID from the database.
 exports.findAllPublicationByUserId = async (req, res) => {
-  isnull( req.query.id, res)
+
+  if (isnull(req.query.id)) {
+    res.status(400).send({ error: 'user id is null.' });
+    return
+  }
 
   res.set('Access-Control-Allow-Origin', '*');
   const resultat = await collection_publications.find({ "userId": req.query.id }).sort({ date: -1 }).toArray();
@@ -190,16 +204,20 @@ exports.findAllPublicationByUserId = async (req, res) => {
 exports.findOneById = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
   const id = req.query.id
-  isnull(id,  res)
 
-    const result = await collection_publications.findOne({
-      "$or": [{ _id: new ObjectId(id) }, { _id: id }]
-    })
-    if (result == null)
-      res.status(404).json({ error: 'Posts not found' });
-    else
-      res.send(result)
+  if (isnull(id)) {
+    res.status(400).send({ error: 'post id is null.' });
+    return
   }
+
+  const result = await collection_publications.findOne({
+    "$or": [{ _id: new ObjectId(id) }, { _id: id }]
+  })
+  if (result == null)
+    res.status(404).json({ error: 'Posts not found' });
+  else
+    res.send(result)
+}
 
 
 
@@ -208,14 +226,18 @@ exports.searchPostByTitle = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
 
   const name = req.query.name;
-  isnull(name,  res)
+
+  if (isnull(name)) {
+    res.status(400).send({ error: 'user id is null.' });
+    return
+  }
 
   const result = await collection_publications.find({ "body": { $options: 'i', "$regex": name } }).toArray()
 
-  if (result == null || result ==[] || result=="")
-      res.status(404).json({ error: 'Posts not found' });
+  if (result == null || result == [] || result == "")
+    res.status(404).json({ error: 'Posts not found' });
   else
-      res.send(result)
+    res.send(result)
 
 };
 
@@ -224,6 +246,11 @@ exports.searchPostByTitle = async (req, res) => {
 //Delete post 
 exports.delete = (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
+
+    if (isnull(req.body.id)) {
+    res.status(400).send({ error: 'post id is null.' });
+    return
+  }
 
   collection_publications.deleteOne({ "_id": new ObjectId(req.body.id) }).then(data => {
     if (data) {
@@ -239,32 +266,20 @@ exports.delete = (req, res) => {
                     res.send(data2);
                   })
                   .catch(err => {
-                    res.status(500).send({
-                      message:
-                        err.message || "Some error occurred while delete statistique user of post deleted."
-                    })
+                    res.status(500).send({ error: err.message });
                   });
               }
 
 
             }).catch(err => {
-              res.status(500).send({
-                message:
-                  err.message || "Some error occurred while delete commentaires of post deleted."
-              })
-            })
+              res.status(500).send({ error: err.message });
+            });
         }
       }).catch(err => {
-        res.status(500).send({
-          message:
-            err.message || "Some error occurred while delete interactions of post deleted."
-        })
-      })
+        res.status(500).send({ error: err.message });
+      });
     }
   }).catch(err => {
-    res.status(500).send({
-      message:
-        err.message || "Some error occurred while delete post."
-    })
-  })
+    res.status(500).send({ error: err.message });
+  });
 }
