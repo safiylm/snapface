@@ -1,4 +1,4 @@
-const followrequest = require("../controllers/followrequest.controller.js");
+const followrequest = require("../controllers/_followrequest.controller.js");
 
 var router_followrequest = require("express").Router();
 

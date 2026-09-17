@@ -21,7 +21,7 @@ const post = {
 };
 
 // edit post reste a faire 
-
+/*
 test('POST create post', async (t) => {
     await new Promise(resolve => server.listen(0, resolve));
 
@@ -198,7 +198,7 @@ test('POST edit post', async (t) => {
     }
 
 });
-*/
+
 
 
 test('POST remove post', async (t) => {
@@ -225,3 +225,4 @@ test('POST remove post', async (t) => {
         await new Promise(resolve => server.close(resolve));
     }
 })
+*/

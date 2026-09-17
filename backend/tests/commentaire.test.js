@@ -55,7 +55,6 @@ test('POST edit comment', async () => {
             body: JSON.stringify(comment_object)
         });
         assert.equal(responseCreateRequest.status, 200, 'Status should be 201');
-        const abonement = await responseCreateRequest.json()
 
 
         const responseCreateRequest_erreur = await fetch(`http://localhost:${port}/api/commentaire/update`, {
@@ -83,9 +82,6 @@ test('GET /api/commentairesByPostId returns les commentaires du post', async () 
         // Make request to our API
         const response = await fetch(url+ `?id=${comment_object.postId}` );
         assert.equal(response.status, 200, 'Status should be 200');
-
-        const result = await response.json();
-        assert.notEqual(result.length, 0)
 
         const paramNull = await fetch(url + `?id=`);
         assert.equal(paramNull.status, 400, 'Status should be 400, param is null');

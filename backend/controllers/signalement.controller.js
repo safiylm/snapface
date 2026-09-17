@@ -154,7 +154,7 @@ exports.delete = async (req, res) => {
         return
     }
 
-    collection_user.deleteOne({ "_id": new ObjectId(req.body._id) }).then((data) => {
+    collection_signalement.deleteOne({ "_id": new ObjectId(req.body._id) }).then((data) => {
         if (data)
             res.status(200).json({ "message": "Suppression réussie" });
     }).catch(err => {

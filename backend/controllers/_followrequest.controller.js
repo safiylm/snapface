@@ -1,13 +1,23 @@
 const db = require('../config/db.config.js');
-const collection_followrequests = db.collection('followrequest');
+const collection_followrequests = db.collection('Notifications');
 const ObjectId = require('mongodb').ObjectId;
 const axios = require('axios');
 
+const isnull = (variable) => {
+    if (variable == '' || variable == null || variable == undefined)
+        return true;
+}
 
 //create new follow request 
 exports.create = (req, res) => {
     res.set('Access-Control-Allow-Origin', '*');
-    
+
+    if (isnull(req.body.from) || isnull(req.body.to)) {
+        res.status(400).send(
+            { error: 'param is null.' });
+        return
+    }
+
     collection_followrequests
         .insertOne({
             from: req.body.from,
@@ -16,13 +26,10 @@ exports.create = (req, res) => {
         })
         .then(data => {
             if (data)
-                res.send(data)
+                res.status(201).send(data)
         })
         .catch(err => {
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred while creating the follow request."
-            });
+            res.status(500).send(err.message);
         });
 
 };
@@ -31,12 +38,18 @@ exports.create = (req, res) => {
 // accept a follow request 
 exports.accept = async (req, res) => {
     res.set('Access-Control-Allow-Origin', '*');
+
+    if (isnull(req.body.from) || isnull(req.body.to)) {
+        res.status(400).send(
+            { error: 'param is null.' });
+        return
+    }
+
     collection_followrequests
-        .updateOne({
+        .deleteOne({
             from: req.body.from,
             to: req.body.to,
-            status: "pending"
-        }, { $set: { "status": "accepted" } })
+         })
         .then(async (data) => {
             if (data)
 
@@ -46,17 +59,17 @@ exports.accept = async (req, res) => {
                         follows: req.body.to,
                     })
                     const savedMessage = response.data;
-                    res.send(savedMessage)
+                    if (savedMessage)
+                        res.status(200).send(savedMessage)
+                    else
+                        res.status(500).send("erreur")
 
-                }catch (error) {
-                    console.error('Erreur lors de l acceptation du follow request', error);
-                  }
-            })
+                } catch (error) {
+                    res.status(500).send("erreur")
+                }
+        })
         .catch(err => {
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred while accepting the follow request."
-            });
+            res.status(500).send(err.message );
         });
 
 };
@@ -67,26 +80,22 @@ exports.accept = async (req, res) => {
 exports.reject = async (req, res) => {
     res.set('Access-Control-Allow-Origin', '*');
 
+    if (isnull(req.body.from) || isnull(req.body.to)) {
+        res.status(400).send(
+            { error: 'param is null.' });
+        return
+    }
+
     collection_followrequests
-        .updateOne({
+        .deleteOne({
             from: req.body.from,
             to: req.body.to,
-             status: "pending"
-        }, {
-            $set: {
-                "status": "rejected"
-            }
         })
         .then(data => {
-              if (data)
-           
-            res.send(data)
+            if (data)
+                res.status(200).send(data)
         })
-        .catch(err => {
-            res.status(500).send({
-                message:
-                    err.message || "Some error occurred while rejecting the follow request."
-            });
+        .catch(err => { res.status(500).send(err.message);
         });
 
 };
@@ -95,6 +104,12 @@ exports.reject = async (req, res) => {
 //get list of follow request by userId
 exports.getListOfFollowRequestByUserId = async (req, res) => {
     res.set('Access-Control-Allow-Origin', '*');
+
+    if (isnull(req.query.userId) ) {
+        res.status(400).send(
+            { error: 'param is null.' });
+        return
+    }
 
     let result = await collection_followrequests
         .find({
@@ -105,12 +120,21 @@ exports.getListOfFollowRequestByUserId = async (req, res) => {
     res.send(result)
 };
 
-exports.dejaEnAttente = async (req, res)=>{
+exports.dejaEnAttente = async (req, res) => {
+
+    
+    if (isnull(req.query.to) || isnull(req.query.from) ) {
+        res.status(400).send(
+            { error: 'param is null.' });
+        return
+    }
+
+
     res.set('Access-Control-Allow-Origin', '*');
     let result = await collection_followrequests
         .find({
             "to": req.query.to,
-            "from" : req.query.from ,
+            "from": req.query.from,
             "status": "pending"
         }).toArray()
 

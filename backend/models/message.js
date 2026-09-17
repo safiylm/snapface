@@ -7,6 +7,7 @@ const MessageSchema = new mongoose.Schema({
   postId: String,
   createdAt: { type: Date, default: Date.now },
   seen: { type: Boolean, default: false },
+  
   isEdited: { type: Boolean, default: false },
   isDeleted: { type: Boolean, default: false },
   updatedAt: Date

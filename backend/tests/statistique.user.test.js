@@ -40,15 +40,14 @@ test('GET /api/statistiqueUserByUserId returns  stat of user ', async (t) => {
         assert.ok(createdUser.userId, 'User should have an id');
 
 
-        // Make request to our API
         const url = `http://localhost:${port}/api/statistiqueUserByUserId?id=` + userid
         const response = await fetch(url)
         assert.equal(response.status, 200, 'Status should be 200');
-
         const stat = await response.json();
         assert(stat.userId, userid)
         assert.notEqual(stat._id, null, "user stat id not null")
         assert.equal(stat.totalPosts, 0, "total post od user is 0")
+
 
         const paramNull = await fetch(`http://localhost:${port}/api/statistiqueUserByUserId?id=`);
         assert.equal(paramNull.status, 400, 'Status should be 400, param is null');
@@ -71,3 +70,4 @@ test('GET /api/statistiqueUserByUserId returns  stat of user ', async (t) => {
         await new Promise(resolve => server.close(resolve));
     }
 })
+  

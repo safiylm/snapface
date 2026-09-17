@@ -5,10 +5,10 @@ const cors = require("cors");
 const cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
 
-//const url = "http://localhost:4100"
- const url = "https://snapface.onrender.com"
-//const url_ = "http://localhost:4200"
-const url_ =  "https://snapfaceangular.web.app"
+const url = "http://localhost:4100"
+ //const url = "https://snapface.onrender.com"
+const url_ = "http://localhost:4200"
+//const url_ =  "https://snapfaceangular.web.app"
 const websocket = require("./chat")
 var corsOptions = {
   origin:// "*"

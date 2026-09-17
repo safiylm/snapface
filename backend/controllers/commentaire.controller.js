@@ -50,7 +50,7 @@ exports.create = (req, res) => {
 //delete comment with id
 exports.delete = async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
-  
+
   if (isnull(req.body._id)) {
     res.status(400).send(
       { error: 'params is null.' });
@@ -64,7 +64,8 @@ exports.delete = async (req, res) => {
           {
             $inc: { "commentsCount": -1, }
           }).then(data1 => {
-            res.json(data);
+            if (data1)
+              res.json(data);
           })
 
     })
@@ -74,7 +75,7 @@ exports.delete = async (req, res) => {
 
 //update comment with id 
 exports.update = async (req, res) => {
-  if ( isnull(req.body._id) || isnull(req.body.text)) {
+  if (isnull(req.body._id) || isnull(req.body.text)) {
     res.status(400).send(
       { error: 'params is null.' });
     return
@@ -82,10 +83,10 @@ exports.update = async (req, res) => {
   const updateResult = await collection_commentaires.updateOne({ "_id": new ObjectId(req.body._id) },
     { $set: { "text": req.body.text } });
   res.set('Access-Control-Allow-Origin', '*');
-  if(updateResult)
-  res.status(200).json(updateResult);
-else
-  res.status(500).send({"error": "Une erreur est survenue"})
+  if (updateResult)
+    res.status(200).json(updateResult);
+  else
+    res.status(500).send({ "error": "Une erreur est survenue" })
 
 }
 
@@ -93,7 +94,7 @@ else
 exports.findByPostId = async (req, res) => {
 
   const id = req.query.id;
-    if ( isnull(id) ) {
+  if (isnull(id)) {
     res.status(400).send(
       { error: 'params is null.' });
     return

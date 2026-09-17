@@ -222,7 +222,6 @@ exports.findByName = async (req, res) => {
 
   res.status(200).json(resultat)
 
-
 }
 
 // Retrieve one User by id from the database.
